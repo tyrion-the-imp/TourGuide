@@ -5,5 +5,6 @@ import "relay/TourGuide/Main.ash"
 
 void main()
 {
-    runMain(__FILE__);
+    //this is an ash file change!
+	runMain(__FILE__);
 }
