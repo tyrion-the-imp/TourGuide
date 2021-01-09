@@ -91,7 +91,9 @@ void QLevel8GenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int
             if (!in_bad_moon())
                 potential_ore_sources.listAppend("Clovering itznotyerzitzmine (one of each ore, consider if zap available?)");
 			
-			
+			if	( available_amount($item[Cargo Cultist Shorts]) > 0 && is_unrestricted($item[Cargo Cultist Shorts]) && !get_property_boolean("_cargoPocketEmptied") ) {
+				potential_ore_sources.listAppend("Fight mountain man via Cargo Shorts (yellow ray?)");
+			}
 			
 			boolean need_outfit = true;
 			if (have_outfit_components("Mining Gear"))
