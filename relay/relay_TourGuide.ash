@@ -11470,7 +11470,9 @@ void QLevel8GenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int
             if (!in_bad_moon())
                 potential_ore_sources.listAppend("Clovering itznotyerzitzmine (one of each ore, consider if zap available?)");
 			
-			
+			if	( available_amount($item[Cargo Cultist Shorts]) > 0 && is_unrestricted($item[Cargo Cultist Shorts]) && !get_property_boolean("_cargoPocketEmptied") ) {
+				potential_ore_sources.listAppend("Fight mountain man via Cargo Shorts (yellow ray?)");
+			}
 			
 			boolean need_outfit = true;
 			if (have_outfit_components("Mining Gear"))
@@ -50065,27 +50067,39 @@ void IOTMCartographyMapsGenerateResource(ChecklistEntry [int] resource_entries)
 			description.listAppend("This IotM also gives you a special noncom in the following zones:");
 			if (!__quest_state["cc_spookyravennecklace"].finished)
 				{
-					options.listAppend("The Haunted Billiards Room");
+					options.listAppend("<span style='color:coral; font-size:100%; font-weight:bold;'>The Haunted Billiards Room</span> - That's your cue, Welcome To Our ool Table or fight a chalkdust wraith");
+				}
+			if (get_property("questL04Bat") != "finished")
+				{
+					options.listAppend("<span style='color:coral; font-size:100%; font-weight:bold;'>Guano Junction</span> - 350 meat or fight screambat.");
 				}
 			if (!__quest_state["cc_friars"].finished)
 				{
-					options.listAppend("The Dark Neck of the Woods");
+					options.listAppend("<span style='color:coral; font-size:100%; font-weight:bold;'>The Dark Neck of the Woods</span> - Skip to the second quest noncombat (and gain 1,000 Meat) or skip to the third quest noncombat");
 				}
 			if (get_property_int("cyrptNookEvilness") > 25)
 				{
-					options.listAppend("The Defiled Nook");
+					options.listAppend("<span style='color:coral; font-size:100%; font-weight:bold;'>The Defiled Nook</span> - 2 evil eyes or fight a party skelteon");
 				}
 			if (get_property_int("twinPeakProgress") != 15)
 				{
-					options.listAppend(HTMLGenerateSpanOfClass("First adv", "r_bold") + " A-Boo Peak: gives Twin Peak noncom");
+					options.listAppend(HTMLGenerateSpanOfClass("First adv", "r_bold") + " <span style='color:coral; font-size:100%; font-weight:bold;'>A-Boo Peak</span> - The Horror..., Lost in the Great Overlook Lodge or fight an oil baron");
 				}
 			if (!__quest_state["cc_castletop"].finished)
 					{
-						options.listAppend("Castle Top Floor");
+						options.listAppend("<span style='color:coral; font-size:100%; font-weight:bold;'>Castle Top Floor</span> - Copper Feel, Melon Collie and the Infinite Lameness, Yeah, You're for Me, Punk Rock Giant, or Flavor of a Raver");
 					}
+			if (get_property_int("zeppelinProtestors") < 80)
+				{
+					options.listAppend("<span style='color:coral; font-size:100%; font-weight:bold;'>A Mob of Zeppelin Protesters</span> - Bench Warrant, Fire Up Above or This Looks Like a Good Bush for an Ambush");
+				}
 			if (!__quest_state["warProgress"].started)
 					{
-						options.listAppend("The Hippy Camp (Verge of War)");
+						options.listAppend("<span style='color:coral; font-size:100%; font-weight:bold;'>The Hippy Camp (Verge of War)</span> - Bait and Switch, The Thin Tie-Dyed Line or Blockin' Out the Scenery (start war)");
+					}			
+			if (!__quest_state["warProgress"].started)
+					{
+						options.listAppend("<span style='color:coral; font-size:100%; font-weight:bold;'>Orcish Frat House (Verge of War)</span> - Catching Some Zetas (war pledge), Fratacombs (start war) or One Less Room Than In That Movie (Frat Warrior drill sergeant)");
 					}			
 		string [int] monsterMaps;
 			if (!__quest_state["Level 11 Ron"].finished)
