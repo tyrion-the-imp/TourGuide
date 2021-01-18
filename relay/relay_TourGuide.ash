@@ -2899,6 +2899,9 @@ boolean skill_is_usable(skill s)
         return false;
     if (my_path_id() == PATH_G_LOVER && (!s.passive || s == $skill[meteor lore]) && !s.contains_text("g") && !s.contains_text("G"))
     	return false;
+	if	( s == $skill[Lock Picking] && get_property_boolean("lockPicked") ) {
+		return false;
+	}
     if ($skills[rapid prototyping] contains s)
         return $item[hand turkey outline].is_unrestricted();
     return true;
