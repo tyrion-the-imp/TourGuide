@@ -217,7 +217,7 @@ void QLevel11HiddenCityGenerateTasks(ChecklistEntry [int] task_entries, Checklis
                         line += turns_remaining.int_to_wordy() + " more turns";
                     line += " here for antique machete to clear dense lianas.";
                     if (canadia_available())
-                        line += "|Or potentially use muculent machete by acquiring forest tears. (kodama, Outskirts of Camp Logging Camp, 30% drop or clover)";
+                        line += "|Or potentially use muculent machete by acquiring forest tears. (forest spirit (kodama), Outskirts of Camp Logging Camp, 30% drop or clover)";
                     subentry.entries.listAppend(line);
                 }
                 if (!janitors_relocated_to_park)
