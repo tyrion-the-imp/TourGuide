@@ -84,7 +84,7 @@ void SAreaUnlocksGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry
         }
         
         string url;
-        boolean suggest_hippy_alternative = false;
+        boolean suggest_hippy_alternative = true;
         if (my_path_id() == PATH_NUCLEAR_AUTUMN)
         {
             suggest_hippy_alternative = true;
@@ -128,7 +128,7 @@ void SAreaUnlocksGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry
                     trip_adventure_cost = 5;
                     trip_meat_cost = 5;
                 }
-                string line_string = "Shore, " + (trip_adventure_cost * trips_needed) + " adventures";
+                string line_string = "Shore, " + (trip_adventure_cost * trips_needed) + " adventures -- "+trips_needed+" trips @ 500 meat each";
                 if (!__misc_state["desert beach available"])
                     line_string += ", once the desert beach is unlocked";
                 line_string += ".";
