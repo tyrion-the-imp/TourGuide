@@ -229,6 +229,9 @@ void SDailyDungeonGenerateMissingItems(ChecklistEntry [int] items_needed_entries
         url = "shop.php?whichshop=exploathing";
     
     string from_daily_dungeon_string = "From daily dungeon";
+	if	( $skill[Lock Picking].skill_is_usable() ) {
+		from_daily_dungeon_string += " or cast Lock Picking.";
+	}
     if ($item[fat loot token].available_amount() > 0)
         from_daily_dungeon_string += "|" + pluralise($item[fat loot token]) + " available";
     

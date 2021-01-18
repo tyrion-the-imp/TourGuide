@@ -55,12 +55,14 @@ void computeFatLootTokens()
     
     keys_missing = tokens_needed;
     tokens_needed -= $item[fat loot token].available_amount();
+    tokens_needed -= $skill[Lock Picking].skill_is_usable().to_int();
     tokens_needed = MAX(0, tokens_needed);
     
     dd_tokens_and_keys_available += $item[fat loot token].available_amount();
     dd_tokens_and_keys_available += $item[boris\'s key].available_amount();
     dd_tokens_and_keys_available += $item[jarlsberg\'s key].available_amount();
     dd_tokens_and_keys_available += $item[sneaky pete\'s key].available_amount();
+    dd_tokens_and_keys_available += $skill[Lock Picking].skill_is_usable().to_int();
 
     __misc_state_int["fat loot tokens needed"] = MAX(0, tokens_needed);
     __misc_state_int["hero keys missing"] = keys_missing;
