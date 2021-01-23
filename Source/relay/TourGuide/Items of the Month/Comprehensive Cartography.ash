@@ -4,48 +4,62 @@ void IOTMCartographyMapsGenerateResource(ChecklistEntry [int] resource_entries)
 {
 		int maps_left = clampi(3 - get_property_int("_monstersMapped"), 0, 3);
     	string [int] description;
-        description.listAppend("Map the monsters you want to fight!");
+        description.listAppend("<a href='https://kol.coldfront.net/thekolwiki/index.php/Comprehensive_Cartography#Notes' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Comprehensive Cartography</span></a><br /><a href='https://kol.coldfront.net/thekolwiki/index.php/Map_the_Monsters' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Map the Monsters</span></a><br />Map the monsters you want to fight!");
 		string [int] options;
 		if (__misc_state["in run"] && my_path_id() != PATH_COMMUNITY_SERVICE)
 		{
-			description.listAppend("This IotM also gives you a special noncom in the following zones:");
-			if (!__quest_state["cc_spookyravennecklace"].finished)
+			//description.listAppend("This IotM also gives you a special noncom in the following zones:");
+			
+			//START SHOWING 1 LEVEL EARLY? (instead of until they expire)
+			
+			if (get_property("questM20Necklace") != "finished")
 				{
 					options.listAppend("<span style='color:coral; font-size:100%; font-weight:bold;'>The Haunted Billiards Room</span> - That's your cue, Welcome To Our ool Table or fight a chalkdust wraith");
 				}
-			if (get_property("questL04Bat") != "finished")
+			if (my_level() > 2 && get_property("questL04Bat") != "finished")
 				{
 					options.listAppend("<span style='color:coral; font-size:100%; font-weight:bold;'>Guano Junction</span> - 350 meat or fight screambat.");
 				}
-			if (!__quest_state["cc_friars"].finished)
+			if (my_level() > 4 && get_property("questL06Friar") != "finished")
 				{
 					options.listAppend("<span style='color:coral; font-size:100%; font-weight:bold;'>The Dark Neck of the Woods</span> - Skip to the second quest noncombat (and gain 1,000 Meat) or skip to the third quest noncombat");
 				}
-			if (get_property_int("cyrptNookEvilness") > 25)
+			if (my_level() > 5 && get_property_int("cyrptNookEvilness") > 25)
 				{
 					options.listAppend("<span style='color:coral; font-size:100%; font-weight:bold;'>The Defiled Nook</span> - 2 evil eyes or fight a party skelteon");
 				}
-			if (get_property_int("twinPeakProgress") != 15)
+			if (my_level() > 7 && get_property_int("twinPeakProgress") != 15)
 				{
 					options.listAppend(HTMLGenerateSpanOfClass("First adv", "r_bold") + " <span style='color:coral; font-size:100%; font-weight:bold;'>A-Boo Peak</span> - The Horror..., Lost in the Great Overlook Lodge or fight an oil baron");
 				}
-			if (!__quest_state["cc_castletop"].finished)
+			//InternalStepNumber is +1 to mafia step value (want below step10 so 11) see QuestState.ash
+			if (my_level() > 8 && !questPropertyPastInternalStepNumber("questL10Garbage",10))
 					{
 						options.listAppend("<span style='color:coral; font-size:100%; font-weight:bold;'>Castle Top Floor</span> - Copper Feel, Melon Collie and the Infinite Lameness, Yeah, You're for Me, Punk Rock Giant, or Flavor of a Raver");
 					}
-			if (get_property_int("zeppelinProtestors") < 80)
+			if (my_level() > 9 && get_property_int("zeppelinProtestors") < 80)
 				{
 					options.listAppend("<span style='color:coral; font-size:100%; font-weight:bold;'>A Mob of Zeppelin Protesters</span> - Bench Warrant, Fire Up Above or This Looks Like a Good Bush for an Ambush");
 				}
-			if (!__quest_state["warProgress"].started)
+			//if (!__quest_state["warProgress"].started)
+			if ( my_level() > 10 && get_property("questL12War") == "unstarted" )
 					{
 						options.listAppend("<span style='color:coral; font-size:100%; font-weight:bold;'>The Hippy Camp (Verge of War)</span> - Bait and Switch, The Thin Tie-Dyed Line or Blockin' Out the Scenery (start war)");
 					}			
-			if (!__quest_state["warProgress"].started)
+			//if (!__quest_state["warProgress"].started)
+			if ( my_level() > 10 && get_property("questL12War") == "unstarted" )
 					{
 						options.listAppend("<span style='color:coral; font-size:100%; font-weight:bold;'>Orcish Frat House (Verge of War)</span> - Catching Some Zetas (war pledge), Fratacombs (start war) or One Less Room Than In That Movie (Frat Warrior drill sergeant)");
 					}			
 		string [int] monsterMaps;
+		if	( maps_left > 0 ) {
+			if (get_property("questM20Necklace") != "finished") {
+				monsterMaps.listAppend("banshee, YR for killing jar?");
+			}
+			if (get_property("questM21Dance") != "finished")
+			{
+				monsterMaps.listAppend("ornate / elegant nightstands");
+            }
 			if (!__quest_state["Level 11 Ron"].finished)
 			{
 				monsterMaps.listAppend("Red Butler, 30% free kill item and 15% fun drop item. Combine with Olfaction/Use the Force?");
@@ -70,11 +84,12 @@ void IOTMCartographyMapsGenerateResource(ChecklistEntry [int] resource_entries)
             {
                 monsterMaps.listAppend("Green Ops Soldier. Combine with Olfaction/Use the Force and Spit and Explodinal pills.");
             }
+		}
 		
 		if (options.count() > 0)
             description.listAppend("Noncoms of interest:|*-" + options.listJoinComponents("|*-"));
 		if (monsterMaps.count() > 0)
-            description.listAppend("Monsters to map:|*-" + monsterMaps.listJoinComponents("|*-"));
+            description.listAppend("Monsters to map (<b>"+maps_left+"</b> left):|*-" + monsterMaps.listJoinComponents("|*-"));
         }
         resource_entries.listAppend(ChecklistEntryMake("__item Comprehensive Cartographic Compendium", "", ChecklistSubentryMake(pluralise(maps_left, "Cartography skill use", "Cartography skill uses"), "", description), 5).ChecklistEntrySetIDTag("Cartography skills resource"));
 }

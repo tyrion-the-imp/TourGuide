@@ -77,6 +77,51 @@ void SAftercoreThingsToDoGenerateTasks(ChecklistEntry [int] task_entries, Checkl
         options.listAppend(AftercoreOptionMake("Repair the Elves' Shield Generator", url, listMake(first_task, "rewards 200 lunar isotopes, and space store access")));
     }
     
+    if (get_property_boolean("neverendingPartyAlways"))
+    {
+        string url;
+        string first_task;
+		url = "place.php?whichplace=town_wrong";
+		first_task = "• _questPartyFair = <b>"+get_property("_questPartyFair")+"</b>";
+		if	( get_property("_questPartyFair") == "unstarted" ) {
+			first_task += "<br />• adv once at NEP and accept quest";
+		}
+		
+		first_task += "<br />•  food or booze quest can make van key (food) & unremarkable duffel bag (booze) very valuable";
+		
+		/*
+		_questPartyFair = started / finished etc.
+		_questPartyFairQuest = which quest received today
+		_questPartyFairProgress
+			for item quests:
+				2 space-separated ints
+				1st = number of the item needed
+				2nd = item id of item
+		*/
+		
+		string pq = get_property("_questPartyFairQuest");
+		string pq_prog = get_property("_questPartyFairProgress");
+		
+		if	( pq != "" ) {
+			first_task += "<br />• today's quest = <span style='color:green; font-size:100%; font-weight:bold;'>"+pq+"</span>";
+		}
+		
+		if	( pq == "booze" || pq == "food" ) {
+			matcher pqb = create_matcher("(\\d+) (\\d+)",pq_prog);
+			if	( find(pqb) ) {
+				int pqamt = pqb.group(1).to_int();
+				item pqi = pqb.group(2).to_int().to_item();
+				first_task += "<br />• today's item = <span style='color:blue; font-size:100%; font-weight:bold;'>"+pqi.to_string()+"</span> (need "+pqamt+")";
+			}
+		}
+		else if ( pq_prog != "" ) {
+			first_task += "<br />• today's progress = <span style='color:blue; font-size:100%; font-weight:bold;'>"+pq_prog+"</span>";
+		}
+		
+		
+		
+        options.listAppend(AftercoreOptionMake("<span style='color:fuchsia; font-size:90%; font-weight:bold;'>Neverending Party Quest</span>", url, listMake(first_task)));
+    }
     
     if (false) //FIXME disabled for now - we don't have suggestions for every path, and this may be too much information to list? need to decide
     {
