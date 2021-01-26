@@ -50151,12 +50151,12 @@ void IOTMCartographyMapsGenerateResource(ChecklistEntry [int] resource_entries)
 					options.listAppend("<span style='color:coral; font-size:100%; font-weight:bold;'>A Mob of Zeppelin Protesters</span> - Bench Warrant, Fire Up Above or This Looks Like a Good Bush for an Ambush");
 				}
 			//if (!__quest_state["warProgress"].started)
-			if ( my_level() > 10 && get_property("questL12War") == "unstarted" )
+			if ( my_level() > 10 && get_property("questL12War").index_of("started") > -1 )
 					{
 						options.listAppend("<span style='color:coral; font-size:100%; font-weight:bold;'>The Hippy Camp (Verge of War)</span> - Bait and Switch, The Thin Tie-Dyed Line or Blockin' Out the Scenery (start war)");
 					}			
 			//if (!__quest_state["warProgress"].started)
-			if ( my_level() > 10 && get_property("questL12War") == "unstarted" )
+			if ( my_level() > 10 && get_property("questL12War").index_of("started") > -1 )
 					{
 						options.listAppend("<span style='color:coral; font-size:100%; font-weight:bold;'>Orcish Frat House (Verge of War)</span> - Catching Some Zetas (war pledge), Fratacombs (start war) or One Less Room Than In That Movie (Frat Warrior drill sergeant)");
 					}			
@@ -50181,13 +50181,17 @@ void IOTMCartographyMapsGenerateResource(ChecklistEntry [int] resource_entries)
 			{
 			    monsterMaps.listAppend("Whatsian Commander Ghost, 15% free runaway item. Possibly Spit.");
             }
-			if ($item[star chart].available_amount() < 1 || $item[richard's star key].available_amount() < 1)
+			if ($item[star chart].available_amount() < 1 && $item[richard's star key].available_amount() < 1)
             {
                 monsterMaps.listAppend("Astronomer");
             }
+			if (!get_property_boolean("pyramidBombUsed") && ($item[crumbling wooden wheel].available_amount() + $item[tomb ratchet].available_amount() < 10))
+            {
+                monsterMaps.listAppend("tomb rat. Tangles = "+$item[tangle of rat tails].available_amount());
+            }
 			if (!__quest_state["Level 12"].state_boolean["Lighthouse Finished"] && $item[barrel of gunpowder].available_amount() < 5)
             {
-                monsterMaps.listAppend("Lobsterfrogman, probably a weak option. Combine with Use the Force?");
+                monsterMaps.listAppend("Lobsterfrogman. Combine with Use the Force?");
             }
 			if ($location[The Battlefield (Frat Uniform)].turns_spent > 20)
             {
