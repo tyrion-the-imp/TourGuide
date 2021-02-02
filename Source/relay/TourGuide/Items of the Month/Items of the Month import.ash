@@ -78,3 +78,6 @@ import "relay/TourGuide/Items of the Month/Melodramedary.ash";
 // Missing: Cargo cultist shorts
 import "relay/TourGuide/Items of the Month/Comprehensive Cartography.ash";
 import "relay/TourGuide/Items of the Month/Superhero Cape.ash";
+
+//2021
+import "relay/TourGuide/Items of the Month/Miniature Crystal Ball.ash";
