@@ -2,6 +2,8 @@
 RegisterResourceGenerationFunction("IOTMCartographyMapsGenerateResource");
 void IOTMCartographyMapsGenerateResource(ChecklistEntry [int] resource_entries)
 {
+		if	( !is_unrestricted($skill[Comprehensive Cartography]) || !have_skill($skill[Comprehensive Cartography]) ) { return; }
+		
 		int maps_left = clampi(3 - get_property_int("_monstersMapped"), 0, 3);
     	string [int] description;
         description.listAppend("<a href='https://kol.coldfront.net/thekolwiki/index.php/Comprehensive_Cartography#Notes' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Comprehensive Cartography</span></a><br /><a href='https://kol.coldfront.net/thekolwiki/index.php/Map_the_Monsters' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Map the Monsters</span></a><br />Map the monsters you want to fight!");
