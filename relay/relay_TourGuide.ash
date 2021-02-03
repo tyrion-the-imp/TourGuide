@@ -50129,7 +50129,7 @@ void IOTMCartographyMapsGenerateResource(ChecklistEntry [int] resource_entries)
 				}
 			if (my_level() > 2 && get_property("questL04Bat") != "finished")
 				{
-					options.listAppend("<span style='color:coral; font-size:100%; font-weight:bold;'>Guano Junction</span> - 350 meat or fight screambat.");
+					options.listAppend(HTMLGenerateSpanOfClass("First adv", "r_bold") + " <span style='color:coral; font-size:100%; font-weight:bold;'>Guano Junction</span> - 350 meat or fight screambat.");
 				}
 			if (my_level() > 4 && get_property("questL06Friar") != "finished")
 				{
