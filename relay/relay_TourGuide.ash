@@ -50363,7 +50363,9 @@ void IOTMSuperheroCapeGenerateResource(ChecklistEntry [int] resource_entries)
 RegisterTaskGenerationFunction("IOTMCrystalBallGenerateTasks");
 void IOTMCrystalBallGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
-        string title;
+        if	( $item[miniature crystal ball].usable_amount() == 0 ) { return; }
+		
+		string title;
 		string url = "inventory.php?ftext=miniature crystal";
 		if	( lookupItem("miniature crystal ball").equipped() ) {
 			url = "inventory.php?which=2";
