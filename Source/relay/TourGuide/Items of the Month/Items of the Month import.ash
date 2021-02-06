@@ -81,3 +81,4 @@ import "relay/TourGuide/Items of the Month/Superhero Cape.ash";
 
 //2021
 import "relay/TourGuide/Items of the Month/Miniature Crystal Ball.ash";
+import "relay/TourGuide/Items of the Month/Emotion Chip.ash";
