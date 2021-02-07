@@ -27699,9 +27699,10 @@ void SAftercoreThingsToDoGenerateTasks(ChecklistEntry [int] task_entries, Checkl
 		
 		string pq = get_property("_questPartyFairQuest");
 		string pq_prog = get_property("_questPartyFairProgress");
+		string pq_type = ( get_property_boolean("_partyHard") ) ? "hard":"soft";
 		
 		if	( pq != "" ) {
-			first_task += "<br />• today's quest = <span style='color:green; font-size:100%; font-weight:bold;'>"+pq+"</span>";
+			first_task += "<br />• today's quest = <span style='color:green; font-size:100%; font-weight:bold;'>"+pq+"</span> ("+pq_type+")";
 		}
 		
 		if	( pq == "booze" || pq == "food" ) {
