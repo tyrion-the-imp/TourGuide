@@ -2,6 +2,7 @@ RegisterTaskGenerationFunction("IOTMCrystalBallGenerateTasks");
 void IOTMCrystalBallGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
         if	( $item[miniature crystal ball].usable_amount() == 0 ) { return; }
+        if	( !have_equipped($item[miniature crystal ball]) ) { return; }
 		
 		string title;
 		string url = "inventory.php?ftext=miniature crystal";
