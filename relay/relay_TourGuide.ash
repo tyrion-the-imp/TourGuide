@@ -4115,7 +4115,7 @@ item [int] generateEquipmentForExtraExperienceOnStat(stat desired_stat, boolean 
     foreach it in equipmentWithNumericModifier(numeric_modifier_string)
     {
     	slot s = it.to_slot();
-        if (s == $slot[shirt] && !($skill[Torso Awaregness].have_skill() || $skill[Best Dressed].have_skill()))
+        if (s == $slot[shirt] && !($skill[Torso Awareness].have_skill() || $skill[Best Dressed].have_skill()))
         	continue;
         if (it.available_amount() > 0 && (!require_can_equip_currently || it.can_equip()) && item_slots[it.to_slot()].numeric_modifier(numeric_modifier_string) < it.numeric_modifier(numeric_modifier_string))
         {
@@ -34515,7 +34515,7 @@ void setUpState()
 	__misc_state_string["ballroom song"] = ballroom_song;
 	
 	__misc_state["Torso aware"] = false;
-    if ($skill[Torso Awaregness].skill_is_usable() || $skill[Best Dressed].skill_is_usable())
+    if ($skill[Torso Awareness].skill_is_usable() || $skill[Best Dressed].skill_is_usable())
         __misc_state["Torso aware"] = true;
 	
 	int hipster_fights_used = get_property_int("_hipsterAdv");
@@ -38916,7 +38916,7 @@ BadMoonAdventure [int] AllBadMoonAdventures()
     adventures.listAppend(BadMoonAdventureMake(42, $location[whitey's grove], "meat", "5000 meat, -20% stats debuff", "finish white citadel quest? (this needs spading)", !(!white_citadel_quest.started || white_citadel_quest.finished)));
     //adventures.listAppend(BadMoonAdventureMake(45, $location[The Arid, Extra-Dry Desert], "ITEMS", "anticheese", "need to not have ultrahydrated", $effect[ultrahydrated].have_effect() == 0)); //is this still here? //retired
     
-    adventures.listAppend(BadMoonAdventureMake(44, $location[the spooky forest], "SKILLS", "torso awaregness, -50% muscle debuff", "unlock hidden temple", !get_property_ascension("lastTempleUnlock")));
+    adventures.listAppend(BadMoonAdventureMake(44, $location[the spooky forest], "SKILLS", "torso awareness, -50% muscle debuff", "unlock hidden temple", !get_property_ascension("lastTempleUnlock")));
     
     __all_bad_moon_adventures_cache = adventures;
     __all_bad_moon_adventures_cache_on_turn = my_turncount();
@@ -39269,7 +39269,7 @@ void PathBadMoonGenerateChecklists(ChecklistCollection checklist_collection)
     √+resistance all elements, all attributes -%
     √+20 mainstat, -5 other stats
     √+40 mainstat, -50% familiar weight (black cat!)
-    √items, -something (√black kitten and terrarium, √torso awaregness, anticheese (irrelevant), √leprechaun, loaded dice (irrelevant), √potato sprout (irrelevant?)
+    √items, -something (√black kitten and terrarium, √torso awareness, anticheese (irrelevant), √leprechaun, loaded dice (irrelevant), √potato sprout (irrelevant?)
     
     Maybe:
     √+50% stat, -50% other stat
@@ -39295,7 +39295,7 @@ void PathBadMoonGenerateChecklists(ChecklistCollection checklist_collection)
     PathBadMoonGenerateCategoryChecklistEntry(adventures_by_category, bad_moon_adventures_entries, listMake("STAT2", "STAT1", "STAT3"), "__effect Phorcefullness", "Stat buffs");
     PathBadMoonGenerateCategoryChecklistEntry(adventures_by_category, bad_moon_adventures_entries, elemental_damage_ordering, "__item oversized snowflake", "Elemental damage buffs", listMake("For defeating ghosts."));
     
-    if (!$skill[torso awaregness].have_skill() && !haveSeenBadMoonEncounter(44) && $location[the hidden temple].locationAvailable())
+    if (!$skill[torso awareness].have_skill() && !haveSeenBadMoonEncounter(44) && $location[the hidden temple].locationAvailable())
     {
         string [int] description;
         description.listAppend("Spooky forest.");
@@ -39307,7 +39307,7 @@ void PathBadMoonGenerateChecklists(ChecklistCollection checklist_collection)
         else
             description.listAppend("Farm spices (for spicy burritos) while you're there: " + listMake("Brave the dark thicket", "Follow the even darker path", "Take the scorched path", "Investigate the moist crater").listJoinComponents(__html_right_arrow_character));
         
-        bad_moon_adventures_entries.listAppend(ChecklistEntryMake("__item &quot;Humorous&quot; T-shirt", $location[the spooky forest].getClickableURLForLocation(), ChecklistSubentryMake("Torso Awaregness", "", description), $locations[the spooky forest]).ChecklistEntrySetIDTag("Bad moon path torso awaregness"));
+        bad_moon_adventures_entries.listAppend(ChecklistEntryMake("__item &quot;Humorous&quot; T-shirt", $location[the spooky forest].getClickableURLForLocation(), ChecklistSubentryMake("Torso Awareness", "", description), $locations[the spooky forest]).ChecklistEntrySetIDTag("Bad moon path torso awareness"));
     }
     
     /*
@@ -50107,7 +50107,60 @@ void IOTMMelodramedaryResource(ChecklistEntry [int] resource_entries)
 }
 
 // Missing: SpinMaster lathe
-// Missing: Cargo cultist shorts
+RegisterResourceGenerationFunction("IOTMCargoCultistShortsGenerateResource");
+void IOTMCargoCultistShortsGenerateResource(ChecklistEntry [int] resource_entries)
+{
+    if (lookupItem("cargo cultist shorts").available_amount() == 0 || get_property_boolean("_cargoPocketEmptied")) return;
+ 
+	//Generate some possibly useful pockets
+	string [int] description;
+	string [int] useful_pocket;
+	string [int][int] table;
+ 
+	//Stat pockets
+	if (my_primestat() == $stat[muscle])
+		useful_pocket[161] = "   +250 mainstat";
+	else if (my_primestat() == $stat[mysticality])
+		useful_pocket[37] = "   +250 mainstat";
+	else if (my_primestat() == $stat[moxie])
+		useful_pocket[277] = "   +250 mainstat";
+ 
+    table.listAppend(listMake(HTMLGenerateSpanOfClass("Pocket", "r_bold"), HTMLGenerateSpanOfClass("For", "r_bold")));
+	foreach digit, reason in useful_pocket {
+		table.listAppend(listMake(digit, reason));
+	}
+	description.listAppend("Stat Pockets" + "|*" + HTMLGenerateSimpleTableLines(table));
+ 
+ 
+	//Fight pockets
+	useful_pocket = {};
+	table = {};
+	useful_pocket[565] = "Mountain Man (ore)";
+	useful_pocket[568] = "War Pledge (war outfit)";
+	useful_pocket[666] = "Smut Orc Pervert (bridge building materials)";
+	useful_pocket[220] = "Lobsterfrogman (gunpowder)";
+ 
+    table.listAppend(listMake(HTMLGenerateSpanOfClass("Pocket", "r_bold"), HTMLGenerateSpanOfClass("For", "r_bold")));
+	foreach digit, reason in useful_pocket {
+		table.listAppend(listMake(digit, reason));
+	}
+	description.listAppend("Fight Pockets" + "|*" + HTMLGenerateSimpleTableLines(table));
+ 
+ 
+	//Effects pockets
+	useful_pocket = {};
+	table = {};
+	useful_pocket[343] = "Filthworm Drone Stench (filthworms)";
+ 
+    table.listAppend(listMake(HTMLGenerateSpanOfClass("Pocket", "r_bold"), HTMLGenerateSpanOfClass("For", "r_bold")));
+	foreach digit, reason in useful_pocket {
+		table.listAppend(listMake(digit, reason));
+	}
+	description.listAppend("Effect Pockets" + "|*" + HTMLGenerateSimpleTableLines(table));
+ 
+	string url = "inventory.php?action=pocket";
+	resource_entries.listAppend(ChecklistEntryMake("__item Cargo Cultist Shorts", url, ChecklistSubentryMake("Explore a pocket", "", description), 0));
+}
 //experimental cartography code
 RegisterResourceGenerationFunction("IOTMCartographyMapsGenerateResource");
 void IOTMCartographyMapsGenerateResource(ChecklistEntry [int] resource_entries)
@@ -50365,6 +50418,7 @@ RegisterTaskGenerationFunction("IOTMCrystalBallGenerateTasks");
 void IOTMCrystalBallGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
         if	( $item[miniature crystal ball].usable_amount() == 0 ) { return; }
+        if	( !have_equipped($item[miniature crystal ball]) ) { return; }
 		
 		string title;
 		string url = "inventory.php?ftext=miniature crystal";
@@ -50398,63 +50452,61 @@ void IOTMEmotionChipGenerateResource(ChecklistEntry [int] resource_entries)
         int emotionDisappointed = clampi(3 - get_property_int("_feelDisappointedUsed"), 0, 3);
         if (emotionDisappointed > 0)
 			{
-            emotions.listAppend(emotionDisappointed + "/3 Disappointments left.");
+            emotions.listAppend(emotionDisappointed + " Disappointments left. This must be the 'your parents' emotion chip.");
 			}
         int emotionExcitement = clampi(3 - get_property_int("_feelExcitementUsed"), 0, 3);
         if (emotionExcitement > 0)
 			{
-            emotions.listAppend(emotionExcitement + "/3 Excitement left. 20 advs of +25 Mus/Mys/Mox.");
+            emotions.listAppend(emotionExcitement + " Excitement left. 20 advs of +25 Mus/Mys/Mox.");
 			}
         int emotionLonely = clampi(3 - get_property_int("_feelLonelyUsed"), 0, 3);
         if (emotionLonely > 0)
 			{
-            emotions.listAppend(emotionLonely + "/3 Lonelys left. 20 advs of -5% Combat.");
+            emotions.listAppend(emotionLonely + " Lonelys left. 20 advs of -5% Combat.");
 			}
         int emotionLost = clampi(3 - get_property_int("_feelLostUsed"), 0, 3);
         if (emotionLost > 0)
 			{
-            emotions.listAppend(emotionLost + "/3 Losts left. Weird Teleportitis buff.");
+            emotions.listAppend(emotionLost + " Losts left. 20 advs of weird Teleportitis buff.");
 			}
         int emotionNervous = clampi(3 - get_property_int("_feelNervousUsed"), 0, 3);
         if (emotionNervous > 0)
 			{
-            emotions.listAppend(emotionNervous + "/3 Nervouses left. Passive damage.");
+            emotions.listAppend(emotionNervous + " Nervouses left. 20 advs of passive dmg.");
 			}
         int emotionPeaceful = clampi(3 - get_property_int("_feelPeacefulUsed"), 0, 3);
         if (emotionPeaceful > 0)
 			{
-            emotions.listAppend(emotionPeaceful + "/3 Peacefuls left. 20 advs of +2 elemental resist.");
+            emotions.listAppend(emotionPeaceful + " Peacefuls left. 20 advs of +2 elemental resist.");
 			}
         int emotionPride = clampi(3 - get_property_int("_feelPrideUsed"), 0, 3);
         if (emotionPride > 0)
 			{
-            emotions.listAppend(emotionPride + "/3 Prides left. Increase stat gain.");
+            emotions.listAppend(emotionPride + " Prides left. Triple stat gain from current fight.");
 			}
         int emotionHatred = clampi(3 - get_property_int("_feelHatredUsed"), 0, 3);
         if (emotionHatred > 0)
 			{
-            emotions.listAppend(emotionHatred + "/3 Hatreds left. 50-turn banish.");
+            emotions.listAppend(emotionHatred + " Hatreds left. 50-turn banish.");
+ 
+			resource_entries.listAppend(ChecklistEntryMake("__skill feel hatred", "", ChecklistSubentryMake(pluralise(emotionHatred, "Feel Hatred", "Feels Hatreds"), "", "Cast Feel Hatred. Free run/banish.")).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Emotion chip feel hatred banish"));
 			}
-			resource_entries.listAppend(ChecklistEntryMake("__skill feel hatred", "", ChecklistSubentryMake(pluralise(get_property_int("_feelHatredUsed"), "Feel Hatred", "Feels Hatreds"), "", "Cast Feel Hatred. Free run/banish.")).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Emotion chip feel hatred banish"));
         int emotionEnvy = clampi(3 - get_property_int("_feelEnvyUsed"), 0, 3);
         if (emotionEnvy > 0)
 			{
-            emotions.listAppend(emotionEnvy + "/3 Envys left. Black Ray.");
+            emotions.listAppend(emotionEnvy + " Envys left. Black Ray.");
 			}
         int emotionNostalgic = clampi(3 - get_property_int("_feelNostalgicUsed"), 0, 3);
-		int nostalgicMonster = (get_property_int("feelNostalgicMonster"));
+		monster nostalgicMonster = (get_property_monster("feelNostalgicMonster"));
         if (emotionNostalgic > 0)
 			{
-            emotions.listAppend(emotionNostalgic + "/3 Nostalgias left. Item copying. Can currently feel nostalgic for: " + nostalgicMonster);
+            emotions.listAppend(emotionNostalgic + " Nostalgias left. Item copying. Can currently feel nostalgic for: " + HTMLGenerateSpanFont(nostalgicMonster, "blue"));
 			}
         int emotionSuperior = clampi(3 - get_property_int("_feelSuperiorUsed"), 0, 3);
         if (emotionSuperior > 0)
 			{
-            emotions.listAppend(emotionSuperior + "/3 Superiors left. +1 PvP Fight if used as killshot.");
-			}
- 
- 
- 
+            emotions.listAppend(emotionSuperior + " Superiors left. +1 PvP Fight if used as killshot.");
+			}   		
         return ChecklistSubentryMake(main_title, description, emotions);
     }
  
