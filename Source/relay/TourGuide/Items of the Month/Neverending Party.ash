@@ -29,6 +29,7 @@ void IOTMNeverendingPartyGenerateTasks(ChecklistEntry [int] task_entries, Checkl
             description.listAppend(HTMLGenerateSpanFont("Equip the PARTY HARD T-shirt.", "red"));
             url = "inventory.php?ftext=party+hard+t-shirt";
         }
+		description.listAppend(HTMLGenerateSpanFont("["+$item[van key].to_int()+"] van key ("+available_amount($item[van key])+")<br />---&gt; food, burnout | ["+$item[unremarkable duffel bag].to_int()+"] unremarkable duffel bag ("+available_amount($item[unremarkable duffel bag])+")<br />---&gt;  booze, jock", "gray"));
         //partiers - progress starts at 50 in not-hard
         if (quest_name == "partiers") {
             if (progress > 0) {
