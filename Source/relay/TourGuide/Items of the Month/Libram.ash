@@ -68,10 +68,15 @@ void IOTMLibramGenerateResource(ChecklistEntry [int] resource_entries)
             subentry.header = pluralise(bricko_potential_fights_available, "BRICKO&trade; fight", "BRICKO&trade; fights") + " ready";
             
             
+			boolean created_header_added = false;
             foreach fight in all_possible_bricko_fights {
                 int number_available = fight.available_amount();
                 if (number_available > 0) {
-                    string line = pluralise(number_available, fight);
+                    if	( !created_header_added ) {
+						created_header_added = true;
+						subentry.entries.listAppend("<span style='color:blue; font-weight:bold;'>On hand:</span>");
+					}
+					string line = pluralise(number_available, fight);
                     
                     if ($items[rock band flyers,jam band flyers].available_amount() > 0 && !__quest_state["Level 12"].state_boolean["Arena Finished"] && __quest_state["Level 12"].in_progress && get_property_int("flyeredML") < 10000) {
                         monster m = fight.to_string().to_monster(); //is there a better way to look this up?
@@ -95,7 +100,7 @@ void IOTMLibramGenerateResource(ChecklistEntry [int] resource_entries)
             }
             
             if (creatable.count() > 0)
-                subentry.entries.listAppend("Creatable: (" + $item[bricko brick].available_amount() + " bricks available)" + HTMLGenerateIndentedText(creatable));
+                subentry.entries.listAppend("<span style='color:blue; font-weight:bold;'>Creatable:</span> (<span style='color:black; font-weight:bold;'>" + $item[bricko brick].available_amount() + " bricks available</span>)" + HTMLGenerateIndentedText(creatable));
                 
             resource_entries.listAppend(ChecklistEntryMake("__item bricko brick", "inventory.php?ftext=bricko", subentry, tags, 7));
         }
