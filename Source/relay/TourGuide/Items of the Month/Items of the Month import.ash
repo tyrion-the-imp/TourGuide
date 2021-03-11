@@ -78,6 +78,7 @@ import "relay/TourGuide/Items of the Month/Melodramedary.ash";
 import "relay/TourGuide/Items of the Month/Cargo Shorts.ash";
 import "relay/TourGuide/Items of the Month/Comprehensive Cartography.ash";
 import "relay/TourGuide/Items of the Month/Superhero Cape.ash";
+import "relay/TourGuide/Items of the Month/Ghost of Crimbo Commerce.ash";
 
 //2021
 import "relay/TourGuide/Items of the Month/Miniature Crystal Ball.ash";
