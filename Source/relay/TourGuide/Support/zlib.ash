@@ -10,7 +10,7 @@
    or type "ashwiki zlib" in the CLI
 
 ******************************************************************************/
-since r20653;   // Torso Awaregness => Awareness
+//since r20653;   // Torso Awaregness => Awareness
 
 // stuff that has to be at the top
 float abs(float n) { return n < 0 ? -n : n; }
