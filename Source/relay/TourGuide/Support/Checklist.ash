@@ -606,6 +606,8 @@ buffer ChecklistGenerate(Checklist cl, boolean output_borders) {
         if (entry.container_div_attributes.count() > 0) continue;
         
         entry.importance_level -= 1; //combined entries gain a hack; a level above everything else
+		if ( entry.tags.combination == "banish" ) { entry.importance_level = -11; }
+		if ( entry.tags.combination == "daily free fight" ) { entry.importance_level = -11; }
 
         if (!(combination_tag_entries contains entry.tags.combination)) {
             entry.tags.id = cl.title + "_" + entry.tags.combination;
