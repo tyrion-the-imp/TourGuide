@@ -26,6 +26,7 @@ import "relay/TourGuide/Sections/CSS.ash"
 import "relay/TourGuide/Sections/Contextual Menu.ash"
 import "relay/TourGuide/Items of the Month/Items of the Month import.ash"
 import "relay/TourGuide/Paths/Paths import.ash"
+import "zlib.ash"
 
 
 void runMain(string relay_filename)
