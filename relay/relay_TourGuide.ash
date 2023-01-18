@@ -51066,6 +51066,15 @@ buffer boldIfValuable(string beardName) {
 		to_buffer(beardName);
 }
 
+string strip_tags(string pg) {
+	matcher tagg = create_matcher("<.+?>", pg);
+	while (find(tagg)) {
+		pg = pg.replace_string(tagg.group(0), "");
+	}
+	return pg;
+}
+
+
 RegisterTaskGenerationFunction("IOTMDaylightShavingsHelmetGenerateTasks");
 void IOTMDaylightShavingsHelmetGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
@@ -51088,7 +51097,7 @@ void IOTMDaylightShavingsHelmetGenerateTasks(ChecklistEntry [int] task_entries, 
 		nextBeardBuffEffect = boldIfValuable(nextBeardBuffName) + ", " + to_buffer(nextBeardBuffDescription);
 	}
 	description.listAppend("Next shavings effect: <br>" + nextBeardBuffEffect);
-	string nbbName = nextBeardBuffEffect.substring(0,nextBeardBuffEffect.index_of(","));
+	string nbbName = strip_tags(nextBeardBuffEffect.substring(0,nextBeardBuffEffect.index_of(",")));
 	int nbbNum = nbbName.to_effect().to_int();
 	set_property("nextBeardBuffText",nbbName);
 	set_property("nextBeardBuff",nbbNum);
