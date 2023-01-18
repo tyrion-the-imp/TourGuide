@@ -81,6 +81,7 @@ void IOTMDaylightShavingsHelmetGenerateTasks(ChecklistEntry [int] task_entries, 
 	description.listAppend("Next shavings effect: <br>" + nextBeardBuffEffect);
 	string nbbName = nextBeardBuffEffect.substring(0,nextBeardBuffEffect.index_of(","));
 	int nbbNum = nbbName.to_effect().to_int();
+	set_property("nextBeardBuffText",nbbName);
 	set_property("nextBeardBuff",nbbNum);
 
 	string [int][int] tooltip_table;
