@@ -50805,7 +50805,7 @@ void IOTMUndergroundFireworksShopGenerateTasks(ChecklistEntry [int] task_entries
 			string [int] description;
 			description.listAppend(HTMLGenerateSpanFont("5x food statgain on the next thing you eat!", "red"));
 			description.listAppend(HTMLGenerateSpanFont("Don't waste it on fire crackers!", "red"));
-			task_entries.listAppend(ChecklistEntryMake("__effect Ready to Eat", "", ChecklistSubentryMake("Ready to Eat!", "", description), -11));
+			task_entries.listAppend(ChecklistEntryMake("__effect Ready to Eat", "", ChecklistSubentryMake("Ready to Eat!", "", description), -10));
 		}
 		if ($effect[Everything Looks Red].have_effect() == 0)
 		{
@@ -51112,7 +51112,7 @@ void IOTMDaylightShavingsHelmetGenerateTasks(ChecklistEntry [int] task_entries, 
 	description.listAppend(beardCycleList);
 
 	if ($effect[Toiletbrush Moustache].have_effect() < 2 && $effect[Barbell Moustache].have_effect() < 2 && $effect[Grizzly Beard].have_effect() < 2 && $effect[Surrealist's Moustache].have_effect() < 2 && $effect[Musician's Musician's Moustache].have_effect() < 2 && $effect[Gull-Wing Moustache].have_effect() < 2 && $effect[Space Warlord's Beard].have_effect() < 2 && $effect[Pointy Wizard Beard].have_effect() < 2 && $effect[Cowboy Stache].have_effect() < 2 && $effect[Friendly Chops].have_effect() < 2 && $effect[Spectacle Moustache].have_effect() < 2) {
-		task_entries.listAppend(ChecklistEntryMake("__item daylight shavings helmet", url, ChecklistSubentryMake("Daylight Shavings Helmet buff available", "", description), -11));
+		task_entries.listAppend(ChecklistEntryMake("__item daylight shavings helmet", url, ChecklistSubentryMake("Daylight Shavings Helmet buff available", "", description), -10));
 	}
 	else {
 		optional_task_entries.listAppend(ChecklistEntryMake("__item daylight shavings helmet", url, ChecklistSubentryMake("Daylight Shavings Helmet buff charging", "", description), 8));
@@ -52124,7 +52124,7 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 	{
 		string main_title = "Use your autumn-aton";
 		description.listAppend("Next use will take " + HTMLGenerateSpanOfClass(autobotsReturnTime, "r_bold") + " adventures.");
-		task_entries.listAppend(ChecklistEntryMake("__item autumn-aton", "inv_use.php?pwd=" + my_hash() + "&whichitem=10954", ChecklistSubentryMake(main_title, "", description), -11));
+		task_entries.listAppend(ChecklistEntryMake("__item autumn-aton", "inv_use.php?pwd=" + my_hash() + "&whichitem=10954", ChecklistSubentryMake(main_title, "", description), -10));
 	}
 	else if (turncountWhereAutobotReturns > total_turns_played()) 
 	{
@@ -52140,7 +52140,7 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 		string autobotZone = get_property("autumnatonQuestLocation");
 		description.listAppend("Next mission takes " + HTMLGenerateSpanOfClass(autobotsReturnTime, "r_bold") + " adventures.");
 		description.listAppend(HTMLGenerateSpanOfClass("Currently exploring: ", "r_bold") + autobotZone);
-		task_entries.listAppend(ChecklistEntryMake("__item autumn-aton", url, ChecklistSubentryMake(main_title, description), -11));
+		task_entries.listAppend(ChecklistEntryMake("__item autumn-aton", url, ChecklistSubentryMake(main_title, description), -10));
 	}
 
 	if (!get_property("autumnatonUpgrades").contains_text("cowcatcher")) {
