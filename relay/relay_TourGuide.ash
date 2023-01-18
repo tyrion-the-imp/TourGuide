@@ -9506,7 +9506,7 @@ buffer ChecklistEntryGenerateContentHTML(ChecklistEntry entry, ChecklistSubentry
         
         if (first)
         {
-            string subheader = HTMLGenerateSpanOfClass(subentry.header, "r_cl_subheader");
+            string subheader = HTMLGenerateSpanOfClass(subentry.header+" <span style='color:blue; font-size:75%;'>"+entry.importance_level+"</span>", "r_cl_subheader");
             subheader += HTMLGenerateSpanOfClass(entry_id, "r_cl_entry_id");
             
             buffer first_subheader;
