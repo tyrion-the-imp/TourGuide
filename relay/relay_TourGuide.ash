@@ -5983,6 +5983,8 @@ void initialiseIOTMsUsable()
         __iotms_usable[lookupItem("cosmic bowling ball")] = true;
     if (lookupItem("unbreakable umbrella").available_amount() > 0) //Mar 2021
         __iotms_usable[lookupItem("unbreakable umbrella")] = true;
+    if (lookupItem("miniature crystal ball").available_amount() > 0)
+        __iotms_usable[lookupItem("miniature crystal ball")] = true;
     if ($item[Clan VIP Lounge key].item_amount() > 0)
     {
     	//FIXME all
@@ -10555,6 +10557,9 @@ buffer ChecklistGenerate(Checklist cl, boolean output_borders) {
         if (entry.container_div_attributes.count() > 0) continue;
         
         entry.importance_level -= 1; //combined entries gain a hack; a level above everything else
+		if ( entry.tags.combination == "banish" ) { entry.importance_level = -11; }
+		if ( entry.tags.combination == "daily free fight" ) { entry.importance_level = -11; }
+		if ( entry.tags.combination == "copy sources" ) { entry.importance_level = -11; }
 
         if (!(combination_tag_entries contains entry.tags.combination)) {
             entry.tags.id = cl.title + "_" + entry.tags.combination;
@@ -51212,7 +51217,7 @@ void IOTMCargoCultistShortsGenerateResource(ChecklistEntry [int] resource_entrie
     }
 }
 //comprehensive cartography
-RegisterTaskGenerationFunction("IOTMComprehensiveCartographyGenerateTasks");
+/* RegisterTaskGenerationFunction("IOTMComprehensiveCartographyGenerateTasks");
 void IOTMComprehensiveCartographyGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
     if (!lookupSkill("Comprehensive Cartography").have_skill()) return;
@@ -51310,6 +51315,86 @@ void IOTMComprehensiveCartographyGenerateResource(ChecklistEntry [int] resource_
 		}
 		resource_entries.listAppend(ChecklistEntryMake("__item Comprehensive Cartographic Compendium", "", ChecklistSubentryMake(pluralise(maps_left, "Cartography skill use", "Cartography skill uses"), "", description), 5).ChecklistEntrySetIDTag("Cartography skills resource"));
 	}
+} */
+
+RegisterTaskGenerationFunction("IOTMComprehensiveCartographyGenerateTasks");
+void IOTMComprehensiveCartographyGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
+{
+    if (!lookupSkill("Map the Monsters").have_skill()) return;
+    if (get_property_boolean("mappingMonsters")) {
+        task_entries.listAppend(ChecklistEntryMake("__skill Map the Monsters", "", ChecklistSubentryMake("Mapping the Monsters now! |<span style='color:red; font-size:100%; font-weight:bold;'>Excluded: </span> smut orc pervert, elegant nightstand.", "", "Fight a chosen monster in the next zone."), -11).ChecklistEntrySetIDTag("Cartography skill map now"));
+    }
+	
+	if ($locations[The Haunted Billiards Room, Guano Junction, The Dark Neck of the Woods, The Defiled Nook, A-boo Peak, The Castle in the Clouds in the Sky (Top Floor), A Mob of Zeppelin Protesters, Frat House, Wartime Frat House (Hippy Disguise), Wartime Hippy Camp (Frat Disguise)] contains my_location() || my_location().zone == "BatHole" || my_location().zone == "Manor1" || my_location().zone == "Highlands" )
+	{
+	    string[int] special_adv_locations;
+		special_adv_locations.listAppend("<span style='color:gray; font-size:80%;'>Adds special non-combats to several zones, which seem to appear as your first non-combat per ascension in that zone (or first adventure, if the zone has no non-combats)<br><a href='https://kol.coldfront.net/thekolwiki/index.php/Comprehensive_Cartography#Notes' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Table of Special Advs</span></a></span>");
+		
+		if ( my_location() == $location[Guano Junction] && qprop("questL04Bat < 3") && $location[Guano Junction].turns_spent < 2 ) {
+			special_adv_locations.listAppend("Choice: The Hidden Junction<br>At Guano Junction (Will be first adv.)<br><span style='color:red; font-size:110%;'>Fight a screambat<br>or...300-400 meat for no adv cost.</span>");
+		}
+		
+		if ( my_location().zone == "Manor1" && qprop("questM20Necklace < 3") && qprop("questM20Necklace > 0") ) {
+			special_adv_locations.listAppend("Choice: Billiards Room Options<br><span style='color:red; font-size:110%;'>Visit the Pool table<br>..Hustle the ghost & get key.</span>");
+		}
+		
+		if ( my_location() == $location[The Dark Neck of the Woods] && qprop("questL06Friar < 2") ) {
+			special_adv_locations.listAppend("Choice: Your Neck of the Woods<br><span style='color:red; font-size:110%;'>Skip to the second quest noncombat (and gain 1,000 Meat) or skip to the third quest noncombat</span>");
+		}
+		if ( my_location() == $location[The Defiled Nook] && $location[The Defiled Nook].turns_spent < 2 && get_property_int("cyrptNookEvilness") > 25 ) {
+			special_adv_locations.listAppend("Choice: No Nook Unknown (Will be first adv.)<br><span style='color:red; font-size:110%;'>2 evil eyes or fight a party skelteon</span>");
+		}
+		if ( my_location().zone == "Highlands" && qprop("questL09Topping < 3") && $location[A-Boo Peak].turns_spent < 2) {
+			special_adv_locations.listAppend("Choice: Ghostly Memories (ch#1430)<br>At A-Boo peak (Will be first adv.)<br><span style='color:red; font-size:110%;'>1...do an A-Boo clue<br>2...fight an oil monster</span><br>3...Visit Twin Peak noncom");
+		}
+		if ( my_location() == $location[The Castle in the Clouds in the Sky (Top Floor)] && qprop("questL10Garbage < 10") ) {
+			special_adv_locations.listAppend("Choice: Here There Be Giants<br><span style='color:red; font-size:110%;'>Choose one of any of the four normal non-combats.</span>");
+		}
+		if ( my_location() == $location[A Mob of Zeppelin Protesters] && qprop("questL11Ron < 2") ) {
+			special_adv_locations.listAppend("Choice: Mob Maptality<br><span style='color:red; font-size:110%;'>choose whichever of the normal non-combats that will get rid of the most protestors</span>");
+		}
+		if ( my_location() == $location[Wartime Frat House (Hippy Disguise)] && qprop("questL12War < 1") ) {
+			special_adv_locations.listAppend("Choice: Sneaky, Sneaky (Frat Warrior Fatigues)<br><span style='color:red; font-size:110%;'>Stop by the signpost for further directions<br>...The Lookout Tower (starts war)</span><br>Alternately, choose one of the other options instead of the Signpost. Then choose the last option of the subsequent choice to fight a monster for a war outfit.");
+		}
+		if ( my_location() == $location[Wartime Hippy Camp (Frat Disguise)] && qprop("questL12War < 1") ) {
+			special_adv_locations.listAppend("Choice: Sneaky, Sneaky (War Hippy Fatigues)<br><span style='color:red; font-size:110%;'>Go into the fratacombs<br>...Screw this, head to the roof (starts war)</span><br>Alternately, choose one of the other options instead of the Fratacombs. Then choose the last option of the subsequent choice to fight a monster for a war outfit.");
+		}
+		
+		if ( count(special_adv_locations) > 1 ) {
+			task_entries.listAppend(ChecklistEntryMake("__skill Map the Monsters", "", ChecklistSubentryMake("Special cartography adventure occurs here.", "", special_adv_locations), -11).ChecklistEntrySetIDTag("Cartography skill map now"));
+		}
+	}
+}
+
+RegisterResourceGenerationFunction("IOTMComprehensiveCartographyGenerateResource");
+void IOTMComprehensiveCartographyGenerateResource(ChecklistEntry [int] resource_entries)
+{
+    if (!lookupSkill("Map the Monsters").have_skill()) return;
+	// Entries
+	string url = "skillz.php";
+	string [int] description;
+	string [int] location_list;
+	location_list.listAppend("<span style='color:gray; font-size:80%;'>Affected locations:</span>");
+	location_list.listAppend("The Haunted Billiards Room");
+	location_list.listAppend("Guano Junction");
+	location_list.listAppend("The Dark Neck of the Woods");
+	location_list.listAppend("The Defiled Nook");
+	location_list.listAppend("A-boo Peak");
+	location_list.listAppend("Castle (Top Floor)");
+	location_list.listAppend("A Mob of Zeppelin Protesters");
+	location_list.listAppend("Orcish Frat House");
+	location_list.listAppend("Orcish Frat House (Verge of War)");
+	location_list.listAppend("The Hippy Camp (Verge of War)");
+
+    int casts_remaining = 3 - get_property_int("_monstersMapped");
+    if (casts_remaining > 0) {
+		 description.listAppend("Cast Map the Monsters, for anything on the olfaction list. |<span style='color:red; font-size:100%; font-weight:bold;'>Excluded: </span> smut orc pervert, elegant nightstand.");
+    }
+	description.listAppend("Adds special non-combats to several zones, which seem to appear as your first non-combat per ascension in that zone (or first adventure, if the zone has no non-combats)");
+	description.listAppend("<a href='https://kol.coldfront.net/thekolwiki/index.php/Comprehensive_Cartography#Notes' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Table of Special Advs</span></a>");
+	description.listAppendList(location_list);
+	
+	resource_entries.listAppend(ChecklistEntryMake("__skill Map the Monsters", url, ChecklistSubentryMake(casts_remaining.pluralise(" monster mapping", " monster mappings") + " remaining", "", description), -10).ChecklistEntrySetIDTag("Cartography skill map resource"));
 }
 /* RegisterTaskGenerationFunction("IOTMSuperheroCapeGenerateTasks");
 void IOTMSuperheroCapeGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
@@ -51485,7 +51570,7 @@ void IOTMCommerceGhostGenerateTasks(ChecklistEntry [int] task_entries, Checklist
 // 2021
 //2021
 //Miniature Crystal ball
-RegisterResourceGenerationFunction("IOTMCrystalBallGenerateTasks");
+/* RegisterResourceGenerationFunction("IOTMCrystalBallGenerateTasks");
 void IOTMCrystalBallGenerateTasks(ChecklistEntry [int] resource_entries)
 {
 	if (lookupItem("miniature crystal ball").available_amount() == 0)
@@ -51524,6 +51609,46 @@ void IOTMCrystalBallGenerateTasks(ChecklistEntry [int] resource_entries)
 			resource_entries.listAppend(ChecklistEntryMake("__item quantum of familiar", url, ChecklistSubentryMake(title, description)));
 		}	
 	}
+} */
+
+// Miniature crystal ball
+RegisterTaskGenerationFunction("IOTMCrystalBallGenerateTasks");
+void IOTMCrystalBallGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
+{
+	string title = "Next monster?";
+	string [int] description; // No general orb description yet.
+	string [int] orb_predictions = get_property("crystalBallPredictions").split_string("[|]"); // Breaks mafia's orb tracking propterty down into a map of individual predictions.
+	int orbimp = -10;
+	if ( __iotms_usable[$item[miniature crystal ball]] ) // Only do things if we have the orb.
+	{
+		if (orb_predictions[0] != "") { // If the prediction property isn't empty:
+            description.listAppend(HTMLGenerateSpanFont("Miniature crystal ball monster prediction. These predictions may not be accurate, the crystal ball is very fiddly.", "grey"));
+			foreach x in orb_predictions { // For every indidivual prediction,
+                string [int] split_predictions = orb_predictions[x].split_string(":"); // break down the prediciton into turn/zone/monster
+				description.listAppend("Monster: " + split_predictions[2] + " | Zone: "+ split_predictions[1] + " | " + (split_predictions[0].to_int() + 2 - my_turncount() > 0 ? ("Turns left: " + (split_predictions[0].to_int() + 2 - my_turncount()).to_string()) : "Expired")); // then format and add the prediction substrings to the crystal ball tile.
+			}
+
+            string tile_image = count(orb_predictions) == 1 ? "__monster " + orb_predictions[0].split_string(":")[2] : "__item quantum of familiar";
+            if (!have_equipped($item[miniature crystal ball])) { // If we don't have the crystal ball equipped, add a reminder.
+                description.listAppend(HTMLGenerateSpanFont("Equip your miniature crystal ball if you want to encounter your predictions!", "red"));
+                optional_task_entries.listAppend(ChecklistEntryMake(tile_image, "familiar.php", ChecklistSubentryMake(title, description), -10)); // Optional task if not equipped.
+                //task_entries.listAppend(ChecklistEntryMake(tile_image, "familiar.php", ChecklistSubentryMake(title, description), orbimp));
+            }
+			else {
+            	task_entries.listAppend(ChecklistEntryMake(tile_image, "familiar.php", ChecklistSubentryMake(title, description), orbimp));
+			}
+        }
+        else { // If we don't have any predictions, let us know.
+            description.listAppend("The crystal ball will predict the next monster in a zone. Adventure in the zone again to encounter the monster, or elsewhere to reset the prediction.");
+ 			description.listAppend("You currently have no predicitons.");
+            if (!have_equipped($item[miniature crystal ball]))
+            {							
+                description.listAppend(HTMLGenerateSpanFont("Equip the miniature crystal ball to predict a monster!", "red"));
+            }
+			optional_task_entries.listAppend(ChecklistEntryMake("__item miniature crystal ball", "familiar.php", ChecklistSubentryMake(title, description), -1));
+			//task_entries.listAppend(ChecklistEntryMake("__item miniature crystal ball", "familiar.php", ChecklistSubentryMake(title, description), orbimp));
+        }
+    }
 }
 //Emotion Chip
 RegisterResourceGenerationFunction("IOTMEmotionChipGenerateResource");
@@ -51717,7 +51842,7 @@ void IOTMBackupCameraGenerateResource(ChecklistEntry [int] resource_entries)
 				description.listAppend(HTMLGenerateSpanFont("Equip the backup camera first", "red"));
 			else
 				description.listAppend("Back up and fight your backup monster!");
-			resource_entries.listAppend(ChecklistEntryMake("__item backup camera", url, ChecklistSubentryMake(backup_camera_uses_remaining + " backup camera snaps left", "", description)).ChecklistEntrySetIDTag("Backup camera skill resource"));
+			resource_entries.listAppend(ChecklistEntryMake("__item backup camera", url, ChecklistSubentryMake(backup_camera_uses_remaining + " backup camera snaps left", "", description)).ChecklistEntrySetIDTag("Backup camera skill resource").ChecklistEntrySetCombinationTag("copy sources"));
 		}
 }
 
@@ -52628,7 +52753,7 @@ void IOTMCombatLoversLocketGenerateResource(ChecklistEntry [int] resource_entrie
 				if (options.count() > 0) {
 					description.listAppend("Rain Man the IotM:|*" + options.listJoinComponents("|*"));
 				}
-				resource_entries.listAppend(ChecklistEntryMake("__item combat lover's locket", url, ChecklistSubentryMake(pluralise(monstersReminisced, "Combat lover's locket reminiscence", "Combat lover's locket reminiscences"), "", description), 5).ChecklistEntrySetIDTag("Locket fax resource"));
+				resource_entries.listAppend(ChecklistEntryMake("__item combat lover's locket", url, ChecklistSubentryMake(pluralise(monstersReminisced, "Combat lover's locket reminiscence", "Combat lover's locket reminiscences"), "", description), 5).ChecklistEntrySetIDTag("Locket fax resource").ChecklistEntrySetCombinationTag("copy sources"));
 			}
 		}
 	}
@@ -53006,9 +53131,9 @@ void IOTMTinyStillsuitGenerateTasks(ChecklistEntry [int] task_entries, Checklist
 	}
 	
 	if ($item[tiny stillsuit].item_amount() == 1) {
-		title = HTMLGenerateSpanFont("Equip the stillsuit", "purple");
+		//title = HTMLGenerateSpanFont("Equip the stillsuit", "purple");
 		description.listAppend("" + HTMLGenerateSpanFont("Not collecting sweat from any familiar right now.", "red") + "");
-		task_entries.listAppend(ChecklistEntryMake("__item tiny stillsuit", url, ChecklistSubentryMake(title, description), -11).ChecklistEntrySetIDTag("tiny stillsuit task"));
+		//task_entries.listAppend(ChecklistEntryMake("__item tiny stillsuit", url, ChecklistSubentryMake(title, description), -11).ChecklistEntrySetIDTag("tiny stillsuit task"));
 	}
 	else if ($item[tiny stillsuit].equipped_amount() == 1) {
 		description.listAppend("" + HTMLGenerateSpanFont("Currently collecting sweat from current familiar!", "purple") + "");
@@ -53016,6 +53141,7 @@ void IOTMTinyStillsuitGenerateTasks(ChecklistEntry [int] task_entries, Checklist
 		description.listAppend("" + HTMLGenerateSpanFont("Currently collecting sweat on a different familiar!", "fuchsia") + "");
     }	
 	title = HTMLGenerateSpanFont(sweatAdvs + " adv stillsuit sweat booze", "purple");
+	
 	if (__misc_state["in run"] && sweatAdvs > 3) {
 		task_entries.listAppend(ChecklistEntryMake("__item tiny stillsuit", url, ChecklistSubentryMake(title, description), -11).ChecklistEntrySetIDTag("tiny stillsuit task"));
 	}
@@ -53539,6 +53665,23 @@ stationDescriptions = {
     }
 };
 
+//2022: Shadows of Loathing Mr A Content (itoy?)
+//Oliver's Speakeasy
+RegisterResourceGenerationFunction("IOTMOliversSpeakeasyGenerateResource");
+void IOTMOliversSpeakeasyGenerateResource(ChecklistEntry [int] resource_entries)
+{
+    #if (!locationAvailable($location[An Unusually Quiet Barroom Brawl])) return; //un-comment this when the check starts working
+    
+    int free_speakeasy_fights_left = clampi(3 - get_property_int("_speakeasyFreeFights"), 0, 3);
+	string url;
+	string [int] description;
+	url = "place.php?whichplace=speakeasy";
+	description.listAppend("Smuggle in some wanderers to make them free!|*<span style='color:blue; font-size:85%; font-weight:bold;'>(An Unusually Quiet Barroom Brawl)</span>");
+		
+    if (get_property_int("_speakeasyFreeFights") < 3) {
+        resource_entries.listAppend(ChecklistEntryMake("__item drink chit", url, ChecklistSubentryMake(pluralise(free_speakeasy_fights_left, "speakeasy fight", "speakeasy fights"), "", description), 8).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("Speakeasy free fight"));
+    }
+}
 
 
 RegisterTaskGenerationFunction("PathActuallyEdtheUndyingGenerateTasks");
