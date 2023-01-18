@@ -1,6 +1,6 @@
 //2021
 //Miniature Crystal ball
-/* RegisterResourceGenerationFunction("IOTMCrystalBallGenerateTasks");
+RegisterResourceGenerationFunction("IOTMCrystalBallGenerateTasks");
 void IOTMCrystalBallGenerateTasks(ChecklistEntry [int] resource_entries)
 {
 	if (lookupItem("miniature crystal ball").available_amount() == 0)
@@ -39,7 +39,7 @@ void IOTMCrystalBallGenerateTasks(ChecklistEntry [int] resource_entries)
 			resource_entries.listAppend(ChecklistEntryMake("__item quantum of familiar", url, ChecklistSubentryMake(title, description)));
 		}	
 	}
-} */
+}
 
 // Miniature crystal ball
 RegisterTaskGenerationFunction("IOTMCrystalBallGenerateTasks");
