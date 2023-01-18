@@ -110,6 +110,8 @@ void initialiseIOTMsUsable()
         __iotms_usable[lookupItem("cosmic bowling ball")] = true;
     if (lookupItem("unbreakable umbrella").available_amount() > 0) //Mar 2021
         __iotms_usable[lookupItem("unbreakable umbrella")] = true;
+    if (lookupItem("miniature crystal ball").available_amount() > 0)
+        __iotms_usable[lookupItem("miniature crystal ball")] = true;
     if ($item[Clan VIP Lounge key].item_amount() > 0)
     {
     	//FIXME all
