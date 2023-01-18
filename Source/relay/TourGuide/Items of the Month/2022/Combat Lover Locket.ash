@@ -91,7 +91,7 @@ void IOTMCombatLoversLocketGenerateResource(ChecklistEntry [int] resource_entrie
 				if (options.count() > 0) {
 					description.listAppend("Rain Man the IotM:|*" + options.listJoinComponents("|*"));
 				}
-				resource_entries.listAppend(ChecklistEntryMake("__item combat lover's locket", url, ChecklistSubentryMake(pluralise(monstersReminisced, "Combat lover's locket reminiscence", "Combat lover's locket reminiscences"), "", description), 5).ChecklistEntrySetIDTag("Locket fax resource"));
+				resource_entries.listAppend(ChecklistEntryMake("__item combat lover's locket", url, ChecklistSubentryMake(pluralise(monstersReminisced, "Combat lover's locket reminiscence", "Combat lover's locket reminiscences"), "", description), 5).ChecklistEntrySetIDTag("Locket fax resource").ChecklistEntrySetCombinationTag("copy sources"));
 			}
 		}
 	}

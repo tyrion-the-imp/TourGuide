@@ -52,9 +52,9 @@ void IOTMTinyStillsuitGenerateTasks(ChecklistEntry [int] task_entries, Checklist
 	}
 	
 	if ($item[tiny stillsuit].item_amount() == 1) {
-		title = HTMLGenerateSpanFont("Equip the stillsuit", "purple");
+		//title = HTMLGenerateSpanFont("Equip the stillsuit", "purple");
 		description.listAppend("" + HTMLGenerateSpanFont("Not collecting sweat from any familiar right now.", "red") + "");
-		task_entries.listAppend(ChecklistEntryMake("__item tiny stillsuit", url, ChecklistSubentryMake(title, description), -11).ChecklistEntrySetIDTag("tiny stillsuit task"));
+		//task_entries.listAppend(ChecklistEntryMake("__item tiny stillsuit", url, ChecklistSubentryMake(title, description), -11).ChecklistEntrySetIDTag("tiny stillsuit task"));
 	}
 	else if ($item[tiny stillsuit].equipped_amount() == 1) {
 		description.listAppend("" + HTMLGenerateSpanFont("Currently collecting sweat from current familiar!", "purple") + "");
@@ -62,6 +62,7 @@ void IOTMTinyStillsuitGenerateTasks(ChecklistEntry [int] task_entries, Checklist
 		description.listAppend("" + HTMLGenerateSpanFont("Currently collecting sweat on a different familiar!", "fuchsia") + "");
     }	
 	title = HTMLGenerateSpanFont(sweatAdvs + " adv stillsuit sweat booze", "purple");
+	
 	if (__misc_state["in run"] && sweatAdvs > 3) {
 		task_entries.listAppend(ChecklistEntryMake("__item tiny stillsuit", url, ChecklistSubentryMake(title, description), -11).ChecklistEntrySetIDTag("tiny stillsuit task"));
 	}
