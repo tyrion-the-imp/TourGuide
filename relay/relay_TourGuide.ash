@@ -5897,8 +5897,12 @@ void initialiseIOTMsUsable()
             __iotms_usable[lookupItem("diabolic pizza cube")] = true;
         if (__campground[lookupItem("cold medicine cabinet")] > 0)
             __iotms_usable[lookupItem("cold medicine cabinet")] = true;
+		if	( !get_property_boolean("_workshedItemUsed") && available_amount($item[cold medicine cabinet]) > 0 )
+			__iotms_usable[lookupItem("cold medicine cabinet")] = true;
         if (__campground[lookupItem("model train set")] > 0)
             __iotms_usable[lookupItem("model train set")] = true;
+		if	( !get_property_boolean("_workshedItemUsed") && available_amount($item[model train set]) > 0 )
+			__iotms_usable[lookupItem("model train set")] = true;
 
         // Garden
         if (__campground[lookupItem("packet of mushroom spores")] > 0)
@@ -5985,6 +5989,8 @@ void initialiseIOTMsUsable()
         __iotms_usable[lookupItem("unbreakable umbrella")] = true;
     if (lookupItem("miniature crystal ball").available_amount() > 0)
         __iotms_usable[lookupItem("miniature crystal ball")] = true;
+    if (lookupItem("backup camera").available_amount() > 0)
+        __iotms_usable[lookupItem("backup camera")] = true;
     if ($item[Clan VIP Lounge key].item_amount() > 0)
     {
     	//FIXME all
@@ -12271,7 +12277,41 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
             potential_copies.listAppend("Modern zmobies.");
         if (!__quest_state["Level 8"].state_boolean["Mountain climbed"] && $items[ninja rope,ninja carabiner,ninja crampons].available_amount() == 0 && !have_outfit_components("eXtreme Cold-Weather Gear"))
             potential_copies.listAppend("Ninja assassin.");
-        //if (!__quest_state["Level 11"].finished && !__quest_state["Level 11 Palindome"].finished && $item[talisman o' namsilat].available_amount() == 0 && $items[gaudy key,snakehead charrrm].available_amount() < 2 && my_path().id != PATH_G_LOVER)
+		
+        if	( $item[Richard's star key].available_amount() == 0 && __misc_state["in run"] ) {
+			potential_copies.listAppend("Skinflute.");
+			potential_copies.listAppend("Camel's toe.");
+		}
+        if	( !qprop("questL10Garbage") ) {
+			potential_copies.listAppend("Goth giant (candles).");
+		}
+        if	( !qprop("questL11Pyramid") ) {
+			potential_copies.listAppend("Tomb rat.");
+		}
+        if	( !qprop("questL11Spare") ) {
+			potential_copies.listAppend("Pygmy bowler.");
+		}
+        if	( !qprop("questL11Curses") ) {
+			potential_copies.listAppend("Pygmy shaman.");
+		}
+        if	( !qprop("questL11Business") ) {
+			potential_copies.listAppend("Pygmy accountant.");
+		}
+        if	( !qprop("questL11Doctor") ) {
+			potential_copies.listAppend("Pygmy surgeon.");
+		}
+        if	( !qprop("questL11Manor") ) {
+			potential_copies.listAppend("Posessed wine rack");
+			potential_copies.listAppend("Cabinet of Dr. Limpienza.");
+		}
+        if	( !qprop("questL11Ron") ) {
+			potential_copies.listAppend("red butler");
+			potential_copies.listAppend("blue oyster cultist");
+			potential_copies.listAppend("lynyrd and/or lynyrd skinner");
+		}
+		
+		
+		//if (!__quest_state["Level 11"].finished && !__quest_state["Level 11 Palindome"].finished && $item[talisman o' namsilat].available_amount() == 0 && $items[gaudy key,snakehead charrrm].available_amount() < 2 && my_path().id != PATH_G_LOVER)
             //potential_copies.listAppend("Gaudy pirate - copy once for extra key."); //now obsolete
         //√baa'baa. astronomer? √nuns trick brigand
         //FIXME astronomer when we can calculate that
@@ -30466,7 +30506,7 @@ void SOlfactionGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [
         
         
         //Suggestion time!
-        task_entries.listAppend(ChecklistEntryMake("__item " + $item[soft green echo eyedrop antidote], "inventory.php?ftext=soft+green+echo+eyedrop+antidote", ChecklistSubentryMake("Remove " + $effect[on the trail], "", description), -11).ChecklistEntrySetIDTag("Olfaction better suggestion")); //TODO could differentiate by suggestion
+        //task_entries.listAppend(ChecklistEntryMake("__item " + $item[soft green echo eyedrop antidote], "inventory.php?ftext=soft+green+echo+eyedrop+antidote", ChecklistSubentryMake("Remove " + $effect[on the trail], "", description), -11).ChecklistEntrySetIDTag("Olfaction better suggestion")); //TODO could differentiate by suggestion
         
         break;
     }
@@ -52667,13 +52707,13 @@ void IOTMColdMedicineCabinetGenerateResource(ChecklistEntry [int] resource_entri
     }
 	//breathitin
 	int breaths_remaining = get_property_int("breathitinCharges");
-	if (breaths_remaining > 0 || ( lookupItem("Breathitin&trade;").available_amount() > 0 && pill_uses_remaining > 0 )) 
+	if (breaths_remaining > 0 || ( lookupItem("Breathitin&trade;").available_amount() > 0 && pill_uses_remaining > 0 ) ) 
 	{
         string [int] description;
+		imp = -11;
 		description.listAppend("Breathitin&trade; (2 spleen): <span style='color:red; font-size:90%; font-weight:bold;'>"+lookupItem("Breathitin&trade;").available_amount()+"</span> available");
         description.listAppend("Next 5 outdoor fights become free.");
-		if ( breaths_remaining > 0 ) { imp = -11; }
-        resource_entries.listAppend(ChecklistEntryMake("__item beefy pill", "", ChecklistSubentryMake(pluralise(breaths_remaining, "free outdoor fight via Breathitin&trade;", "free outdoor fights via Breathitin&trade;")+"", "", description), imp));
+        resource_entries.listAppend(ChecklistEntryMake("__item beefy pill", "", ChecklistSubentryMake(pluralise(breaths_remaining, "free outdoor fight via Breathitin&trade;", "free outdoor fights via Breathitin&trade;")+"", "", description), imp).ChecklistEntrySetCombinationTag("daily free fight"));
     }
 	//homebodyl Homebodyl&trade;
 	int homebodyls_remaining = get_property_int("homebodylCharges");
