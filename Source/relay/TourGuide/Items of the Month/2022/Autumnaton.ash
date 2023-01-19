@@ -73,7 +73,8 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 	{
 		if (locationAvailable($location[sonofa beach]) == true && available_amount($item[barrel of gunpowder]) < 5)
 		{
-			targets.listAppend("barrel of gunpowder (need "+(5 - item_amount($item[barrel of gunpowder]))+")");
+			int xbog = ( get_property("sidequestLighthouseCompleted") == "none" ) ? 5 - item_amount($item[barrel of gunpowder]):0;
+			targets.listAppend("barrel of gunpowder (need "+xbog+")");
 		}
 		if (locationAvailable($location[twin peak]) == false && get_property_int("chasmBridgeProgress") < 30)
 		{
