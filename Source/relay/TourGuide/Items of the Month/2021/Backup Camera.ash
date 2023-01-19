@@ -50,6 +50,6 @@ void IOTMBackupCameraGenerateResource(ChecklistEntry [int] resource_entries)
 				description.listAppend(HTMLGenerateSpanFont("Equip the backup camera first", "red"));
 			else
 				description.listAppend("Back up and fight your backup monster!");
-			resource_entries.listAppend(ChecklistEntryMake("__item backup camera", url, ChecklistSubentryMake(backup_camera_uses_remaining + " backup camera snaps left", "", description)).ChecklistEntrySetIDTag("Backup camera skill resource").ChecklistEntrySetCombinationTag("copy sources"));
+			resource_entries.listAppend(ChecklistEntryMake("__item backup camera", url, ChecklistSubentryMake(backup_camera_uses_remaining + " backup camera snaps left", "", description)).ChecklistEntrySetIDTag("Backup camera skill resource"));
 		}
 }
