@@ -1,7 +1,7 @@
 //Jurassic parka
 
-RegisterTaskGenerationFunction("IOTMJurrassicParkaGenerateTasks");
-void IOTMJurrassicParkaGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
+RegisterTaskGenerationFunction("IOTMJurassicParkaGenerateTasks");
+void IOTMJurassicParkaGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
 	//string url = "inventory.php?ftext=jurassic";
 	string url = "inventory.php?action=jparka";
@@ -10,7 +10,7 @@ void IOTMJurrassicParkaGenerateTasks(ChecklistEntry [int] task_entries, Checklis
 	string main_title = spikos_left + " Parka forced non-coms remaining";
 	
 	if	( spikos_left > 0 && __misc_state["in run"] ) {
-		task_entries.listAppend(ChecklistEntryMake("__item jurrassic parka", url, ChecklistSubentryMake(main_title, description), -9));
+		task_entries.listAppend(ChecklistEntryMake("__item jurassic parka", url, ChecklistSubentryMake(main_title, description), -9));
 	}
 }
 
