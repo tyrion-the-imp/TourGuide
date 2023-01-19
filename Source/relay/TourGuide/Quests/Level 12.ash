@@ -531,7 +531,7 @@ void QLevel12GenerateTasksSidequests(ChecklistEntry [int] task_entries, Checklis
 			item it = $item[jam band flyers];
 			if ($item[rock band flyers].available_amount() > 0 && $item[jam band flyers].available_amount() == 0)
 				it = $item[rock band flyers];
-			task_entries.listAppend(ChecklistEntryMake(it, "", ChecklistSubentryMake("Flyer with " + it + " every combat", "+ML", details), -12).ChecklistEntrySetIDTag("Council L12 quest side advertise reminder"));
+			task_entries.listAppend(ChecklistEntryMake(it, "", ChecklistSubentryMake("Flyer with " + it + " every combat", "+ML", details), -1).ChecklistEntrySetIDTag("Council L12 quest side advertise reminder"));
 		}
 	}
 }
