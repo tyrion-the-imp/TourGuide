@@ -12280,14 +12280,18 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
         //possibly less relevant:
         //√ghosts/skulls/bloopers...?
         //seems very marginal
-        //if (!__quest_state["Level 13"].state_boolean["past keys"] && ($item[digital key].available_amount() + creatable_amount($item[digital key])) == 0)
-            //potential_copies.listAppend("Ghosts/morbid skulls/bloopers, for digital key. (marginal?)");
+        if (!__quest_state["Level 13"].state_boolean["past keys"] && ($item[digital key].available_amount() + creatable_amount($item[digital key])) == 0)
+            potential_copies.listAppend("Ghosts / morbid skulls / bloopers.");
         //bricko bats, if they have bricko...?
         //if (__misc_state["bookshelf accessible"] && $skill[summon brickos].skill_is_usable())
             //potential_copies.listAppend("Bricko bats...?");
     }
     ChecklistEntry copy_source_entry;
     copy_source_entry.tags.id = "Copy options resource";
+	if (__misc_state["in run"]) {
+		copy_source_entry.importance_level = -11;
+	}
+	copy_source_entry.subentries.listAppend(ChecklistSubentryMake("<u>Copy source(s)</u>", "", ""));
     
     if (__misc_state["Chateau Mantegna available"] && !get_property_boolean("_chateauMonsterFought") && mafiaIsPastRevision(15115))
     {
@@ -12329,7 +12333,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
         {
             string [int] monster_description;
             CopiedMonstersGenerateDescriptionForMonster(current_monster, monster_description, true, true);
-            string line = HTMLGenerateSpanOfClass("Currently have " + current_monster.to_string() + ".", "r_bold");
+            string line = "Current monster: " + HTMLGenerateSpanFont(current_monster.to_string() + ".", "red");
             if (monster_description.count() > 0)
                 line += "|*" + monster_description.listJoinComponents("|*");
             description.listPrepend(line);
@@ -12363,8 +12367,10 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = copy_source_list[0];
 	}
-    
-    if (!get_property_boolean("_cameraUsed") && (get_property("cameraMonster") == "") && $item[4-d camera].available_amount() > 0)
+	if (__misc_state["fax available"] && $item[photocopied monster].available_amount() == 0) {
+        copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(1, "fax machine fight", "fax machine fights") + " available", "", ""));
+	}
+    if (!get_property_boolean("_cameraUsed") && $item[4-d camera].available_amount() > 0)
     {
 		//resource_entries.listAppend(ChecklistEntryMake("__item 4-d camera", "", ChecklistSubentryMake("4-d camera copy available", "", potential_copies)));
         
@@ -12394,6 +12400,12 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__item print screen button";
     }
+    if (lookupItem("cloning kit").available_amount() > 0)
+    {
+        copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise($item[cloning kit].available_amount(), "cloning kit", "cloning kits") + " available", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__item cloning kit";
+    }
     if ($item[LOV Enamorang].available_amount() > 0)
     {
         copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise($item[LOV Enamorang]), "", ""));
@@ -12405,12 +12417,71 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
         string [int] description;// = listCopy(potential_copies);
         description.listPrepend("50% success rate");
 		//resource_entries.listAppend(ChecklistEntryMake("__item crappy camera", "", ChecklistSubentryMake("Crappy camera copy available", "", description)));
-        
-        
         copy_source_entry.subentries.listAppend(ChecklistSubentryMake("Crappy camera copy available", "", description));
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__item crappy camera";
     }
+	
+    if (__iotms_usable[lookupItem("backup camera")] && get_property_int("_backUpUses") < 11)
+    {
+        int pix_taken = get_property_int("_backUpUses");
+		int pix_left = 11 - pix_taken;
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(pix_left, "backup camera use", "backup camera uses") + "", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__item backup camera";
+    }
+	//_monstersMapped
+    if ($skill[Map the Monsters].skill_is_usable() && get_property_int("_monstersMapped") < 3)
+    {
+        int maps_taken = get_property_int("_monstersMapped");
+		int maps_left = 3 - maps_taken;
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(maps_left, "cast of Map the Monsters", "casts of Map the Monsters") + "", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__skill Map the Monsters";
+    }
+    //combat lover's locket		_locketMonstersFought = comma separated list of monster id's
+	string[int] lmf = split_string(get_property("_locketMonstersFought"),",");
+	int monstersReminisced = count(lmf);
+	if	( get_property("_locketMonstersFought") == "" ) { monstersReminisced = 0; }
+	int usesRemaining = 3 - monstersReminisced;
+    if (__iotms_usable[lookupItem("combat lover's locket")] && usesRemaining > 0)
+    {
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(usesRemaining, "combat lover's locket fight", "combat lover's locket fights") + "", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__item combat lover's locket";
+    }
+	//_genieFightsUsed
+    if (get_property_int("_genieFightsUsed") < 3 && is_unrestricted($item[pocket wish]))
+    {
+        copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise((3 - get_property_int("_genieFightsUsed")), "genie/wish fight", "genie/wish fights") + " available", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__item pocket wish";
+    }
+	//beGregariousCharges
+	int greg_copies = 3 * get_property_int("beGregariousCharges");
+	if	( get_property_int("beGregariousCharges") > 0 && greg_copies > 0 ) {
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(greg_copies, "copies via Be Gregarious", "copies via Be Gregarious") + "", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__item physiostim pill";
+	}
+	//Extrovermectin  __iotms_usable[lookupItem("cold medicine cabinet")] && 
+    if (available_amount($item[Extrovermectin&trade;]) > 0 && spleen_limit() - my_spleen_use() >= 2 )
+    {
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(available_amount($item[Extrovermectin&trade;]), "Extrovermectin&trade; pill", "Extrovermectin&trade; pills") + "", "", "|*3 wandering copies for 2 spleen|*(via casting be gregarious)"));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__item cold medicine cabinet";
+    }
+	//_cargoPocketEmptied
+    if (__iotms_usable[lookupItem("Cargo Cultist Shorts")] && !get_property_boolean("_cargoPocketEmptied"))
+    {
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(1, "cargo pocket fight is possible", "") + "", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__item cargo cultist shorts";
+    }
+	
+	
+	
+	
     if (copy_source_entry.subentries.count() > 0)
     {
         ChecklistSubentry last_subentry = copy_source_entry.subentries[copy_source_entry.subentries.count() - 1];
@@ -12422,10 +12493,10 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
             last_subentry.entries.listAppendList(potential_copies);
         resource_entries.listAppend(copy_source_entry);
     }
-    
+	
+	
+	
     //Copies made:
-
-
 	generateCopiedMonstersEntry(resource_entries, resource_entries, false);
 	SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[Rain-Doh box full of monster], "rain doh", "rainDohMonster");
 	SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[spooky putty monster], "spooky putty", "spookyPuttyMonster");
@@ -16832,7 +16903,7 @@ void QLevel12GenerateTasksSidequests(ChecklistEntry [int] task_entries, Checklis
 			item it = $item[jam band flyers];
 			if ($item[rock band flyers].available_amount() > 0 && $item[jam band flyers].available_amount() == 0)
 				it = $item[rock band flyers];
-			task_entries.listAppend(ChecklistEntryMake(it, "", ChecklistSubentryMake("Flyer with " + it + " every combat", "+ML", details), -11).ChecklistEntrySetIDTag("Council L12 quest side advertise reminder"));
+			task_entries.listAppend(ChecklistEntryMake(it, "", ChecklistSubentryMake("Flyer with " + it + " every combat", "+ML", details), -1).ChecklistEntrySetIDTag("Council L12 quest side advertise reminder"));
 		}
 	}
 }
@@ -51842,7 +51913,7 @@ void IOTMBackupCameraGenerateResource(ChecklistEntry [int] resource_entries)
 				description.listAppend(HTMLGenerateSpanFont("Equip the backup camera first", "red"));
 			else
 				description.listAppend("Back up and fight your backup monster!");
-			resource_entries.listAppend(ChecklistEntryMake("__item backup camera", url, ChecklistSubentryMake(backup_camera_uses_remaining + " backup camera snaps left", "", description)).ChecklistEntrySetIDTag("Backup camera skill resource").ChecklistEntrySetCombinationTag("copy sources"));
+			resource_entries.listAppend(ChecklistEntryMake("__item backup camera", url, ChecklistSubentryMake(backup_camera_uses_remaining + " backup camera snaps left", "", description)).ChecklistEntrySetIDTag("Backup camera skill resource"));
 		}
 }
 
@@ -52167,7 +52238,7 @@ void IOTMVampireVintnerGenerateTasks(ChecklistEntry [int] task_entries, Checklis
 			case "familiar":
 				wineDescription.listAppend(HTMLGenerateSpanFont("Familiar wine: grants +" + vintnerWineLevel + " familiar experience and +" + vintnerWineLevel * 3 + " ML.", "purple")); break;
 		}
-	   optional_task_entries.listAppend(ChecklistEntryMake("__item 1950 vampire vintner wine", url, ChecklistSubentryMake("Drink your vampire vintner wine", wineDescription)));
+	   task_entries.listAppend(ChecklistEntryMake("__item 1950 vampire vintner wine", url, ChecklistSubentryMake("Drink your vampire vintner wine", wineDescription),-10));
 	}
 	else if (vintnerFightsLeft > 1)
 	{
@@ -52337,6 +52408,8 @@ void IOTMDaylightShavingsHelmetGenerateTasks(ChecklistEntry [int] task_entries, 
 	}
 }
 //Cold Medicine Cabinet
+/*
+
 RegisterTaskGenerationFunction("IOTMColdMedicineCabinetGenerateTasks");
 void IOTMColdMedicineCabinetGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
@@ -52504,6 +52577,145 @@ void IOTMColdMedicineCabinetGenerateResource(ChecklistEntry [int] resource_entri
         description.listAppend(HTMLGenerateSimpleTableLines(spleeners));
 
         resource_entries.listAppend(ChecklistEntryMake("__item snow suit", url, ChecklistSubentryMake(CMC_consults.pluralise("CMC consultation", "CMC consultations" + " remaining"), "", description)).ChecklistEntrySetIDTag("cold medicine cabinet resource")); 
+	}
+}
+*/
+
+//Cold Medicine Cabinet
+RegisterTaskGenerationFunction("IOTMColdMedicineCabinetGenerateTasks");
+void IOTMColdMedicineCabinetGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
+{
+    monster gregarious_monster = get_property_monster("beGregariousMonster");
+    int fights_left = clampi(get_property_int("beGregariousFightsLeft"), 0, 3);
+	string [int] description;
+	
+	if (gregarious_monster != $monster[none] && fights_left > 0) 
+	{
+        description.listAppend("Will appear in any zone, so try to find a zone with few monsters.");
+	
+		optional_task_entries.listAppend(ChecklistEntryMake("__monster " + gregarious_monster, "url", ChecklistSubentryMake("Fight " + pluralise(fights_left, "more gregarious " + gregarious_monster, "more gregarious " + gregarious_monster + "s"), "", "Neaaaar, faaaaaaar, wherever you aaaaaaaare, I believe that the heart does go on."), -1));
+    }
+}
+
+RegisterResourceGenerationFunction("IOTMColdMedicineCabinetGenerateResource");
+void IOTMColdMedicineCabinetGenerateResource(ChecklistEntry [int] resource_entries)
+{
+    
+	int pill_uses_remaining = floor((spleen_limit() - my_spleen_use()) / 2.0);
+	int imp = 7;
+	//buy pills from mall
+	if ( pill_uses_remaining > 0 && !in_hardcore() ) {
+		string url = "mall.php";
+		string [int] pillprices;
+		if ( lookupItem("Extrovermectin&trade;").available_amount() == 0 ) {
+			pillprices.listAppend("Extrovermectin&trade; @ "+rnum(historical_price($item[Extrovermectin&trade;])) + " meat |* 3 wandering copies / 1 Be Gregarious");
+		}
+		if ( lookupItem("Homebodyl&trade;").available_amount() == 0 ) {
+			pillprices.listAppend("Homebodyl&trade; @ "+rnum(historical_price($item[Homebodyl&trade;])) + " meat |* 11 free crafts");
+		}
+		if ( lookupItem("Breathitin&trade;").available_amount() == 0 ) {
+			pillprices.listAppend("Breathitin&trade; @ "+rnum(historical_price($item[Breathitin&trade;])) + " meat |* 5 free outdoor fights");
+		}
+		if ( lookupItem("Fleshazole&trade;").available_amount() == 0 ) {
+			pillprices.listAppend("Fleshazole&trade; @ "+rnum(historical_price($item[Fleshazole&trade;])) + " meat |* Level x 1000 meat, max 11k");
+		}
+		if ( count(pillprices) > 0 ) {
+			 resource_entries.listAppend(ChecklistEntryMake("__item vitamin G pill", url, ChecklistSubentryMake("Buy CMC pills (2 spleen/ea.)", "", pillprices), imp)); 
+		}
+	}
+	
+	
+	
+	//gregariousness
+	int uses_remaining = get_property_int("beGregariousCharges");
+	if (uses_remaining > 0 || ( lookupItem("Extrovermectin&trade;").available_amount() > 0 && pill_uses_remaining > 0 )) 
+	{
+        if (true) 
+		{
+            //The section that will be sent as a stand-alone resource
+            string url;
+            
+            string [int] description;
+            description.listAppend("Be gregarious in combat, which lets you turn foe into friend!");
+            description.listAppend("Extrovermectin&trade; (2 spleen): <span style='color:red; font-size:90%; font-weight:bold;'>"+lookupItem("Extrovermectin&trade;").available_amount()+"</span> available");
+			string [int] gregfriends;
+			if (__misc_state["in run"]) {
+				gregfriends.listAppend("eldritch tentacle");
+				gregfriends.listAppend("lobsterfrogman");
+				gregfriends.listAppend("lynyrd");
+				gregfriends.listAppend("dense liana");
+				gregfriends.listAppend("drunk pygmy");
+				gregfriends.listAppend("war monster");
+			} else {
+				gregfriends.listAppend("aftercore farming target???");
+			}
+			
+			description.listAppend("3 Wandering copies <a href='https://kol.coldfront.net/thekolwiki/index.php/Be_Gregarious#Notes' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>info</span></a>:|*" + gregfriends.listJoinComponents("|*"));
+			if ( uses_remaining > 0 ) { imp = -11; }
+            resource_entries.listAppend(ChecklistEntryMake("__item vitamin G pill", url, ChecklistSubentryMake(uses_remaining.pluralise("gregarious handshake", "gregarious handshakes"), "", description), imp).ChecklistEntrySetIDTag("gregarious wanderer resource")); 
+        }
+    }
+	
+	//Fleshazole&trade;
+	int flesh_uses_remaining = floor((spleen_limit() - my_spleen_use()) / 2.0);
+	if (lookupItem("Fleshazole&trade;").available_amount() > 0 && pill_uses_remaining > 0) 
+	{
+        string [int] description;
+		description.listAppend("Fleshazole&trade; (2 spleen): <span style='color:red; font-size:90%; font-weight:bold;'>"+lookupItem("Fleshazole&trade;").available_amount()+"</span> available");
+        description.listAppend("Trade 2 spleen for "+HTMLGenerateSpanFont(min((my_level() * 1000),11000), "blue")+" meat.");
+        resource_entries.listAppend(ChecklistEntryMake("__item beefy pill", "", ChecklistSubentryMake(pluralise(flesh_uses_remaining, "Fleshazole&trade; use possible<br>(Meat source)", "Fleshazole&trade; uses possible<br>(Meat source)"), "", description), imp));
+    }
+	//breathitin
+	int breaths_remaining = get_property_int("breathitinCharges");
+	if (breaths_remaining > 0 || ( lookupItem("Breathitin&trade;").available_amount() > 0 && pill_uses_remaining > 0 )) 
+	{
+        string [int] description;
+		description.listAppend("Breathitin&trade; (2 spleen): <span style='color:red; font-size:90%; font-weight:bold;'>"+lookupItem("Breathitin&trade;").available_amount()+"</span> available");
+        description.listAppend("Next 5 outdoor fights become free.");
+		if ( breaths_remaining > 0 ) { imp = -11; }
+        resource_entries.listAppend(ChecklistEntryMake("__item beefy pill", "", ChecklistSubentryMake(pluralise(breaths_remaining, "free outdoor fight via Breathitin&trade;", "free outdoor fights via Breathitin&trade;")+"", "", description), imp));
+    }
+	//homebodyl Homebodyl&trade;
+	int homebodyls_remaining = get_property_int("homebodylCharges");
+	if (homebodyls_remaining > 0 || ( lookupItem("Homebodyl&trade;").available_amount() > 0 && pill_uses_remaining > 0 )) 
+	{
+        string [int] description;
+		description.listAppend("Homebodyl&trade; (2 spleen): <span style='color:red; font-size:90%; font-weight:bold;'>"+lookupItem("Homebodyl&trade;").available_amount()+"</span> available");
+        description.listAppend("Free crafting.");
+		description.listAppend("Lynyrd equipment, potions, and more.");
+		if ( homebodyls_remaining > 0 ) { imp = -10; }
+        resource_entries.listAppend(ChecklistEntryMake("__item excitement pill", "", ChecklistSubentryMake(pluralise(homebodyls_remaining, "homebodyl free craft", "homebodyl free crafts"), "", description), imp));
+    }
+	
+	//consultation counter
+	if (!__iotms_usable[lookupItem("cold medicine cabinet")]) return;
+	{
+		int CMC_consults = clampi(5 - get_property_int("_coldMedicineConsults"), 0, 5);
+		if (CMC_consults > 0) 
+		{
+			int next_CMC_Turn = get_property_int("_nextColdMedicineConsult");
+			int next_CMC_Timer = (next_CMC_Turn - total_turns_played());
+			string [int] description;
+			string url = "campground.php?action=workshed";
+			
+			if (next_CMC_Turn <= total_turns_played())
+			{
+				description.listAppend(HTMLGenerateSpanFont("Just what the doctor ordered!", "red"));
+				description.listAppend("You have " + CMC_consults + " consultations remaining.");
+				resource_entries.listAppend(ChecklistEntryMake("__item snow suit", url, ChecklistSubentryMake("The cold medicine cabinet is in session", "", description), -12));
+			}	
+			else
+			{
+				description.listAppend("<span style='color:green; font-size:100%; font-weight:bold;'><span style='color:fuchsia; font-size:110%; font-weight:bold;'>"+next_CMC_Timer + "</span> advs. until your next consult.</span>");
+				//resource_entries.listAppend(ChecklistEntryMake("__item snow suit", url, ChecklistSubentryMake("An apple today kept the doctor away", "", description), 8));
+			
+				//description.listAppend(HTMLGenerateSpanOfClass("Diagnosis: dickstabbing", "r_bold") + "");
+				description.listAppend("Do 11+ combats in underground zones for 5 free kills.");
+				description.listAppend("Do 11+ combats in indoor zones for a wanderer.");
+				description.listAppend("Do 11+ combats in outdoor zones for 11 free crafts.");
+				resource_entries.listAppend(ChecklistEntryMake("__item snow suit", url, ChecklistSubentryMake(CMC_consults.pluralise("CMC consultation", "CMC consultations" + " remaining"), "", description), imp).ChecklistEntrySetIDTag("cold medicine cabinet resource")); 
+			}
+		}
 	}
 }
 
@@ -52753,7 +52965,7 @@ void IOTMCombatLoversLocketGenerateResource(ChecklistEntry [int] resource_entrie
 				if (options.count() > 0) {
 					description.listAppend("Rain Man the IotM:|*" + options.listJoinComponents("|*"));
 				}
-				resource_entries.listAppend(ChecklistEntryMake("__item combat lover's locket", url, ChecklistSubentryMake(pluralise(monstersReminisced, "Combat lover's locket reminiscence", "Combat lover's locket reminiscences"), "", description), 5).ChecklistEntrySetIDTag("Locket fax resource").ChecklistEntrySetCombinationTag("copy sources"));
+				resource_entries.listAppend(ChecklistEntryMake("__item combat lover's locket", url, ChecklistSubentryMake(pluralise(monstersReminisced, "Combat lover's locket reminiscence", "Combat lover's locket reminiscences"), "", description), 5).ChecklistEntrySetIDTag("Locket fax resource"));
 			}
 		}
 	}
@@ -52907,6 +53119,7 @@ void IOTMUnbreakableUmbrellaGenerateResource(ChecklistEntry [int] resource_entri
 		resource_entries.listAppend(ChecklistEntryMake("__item unbreakable umbrella", "inventory.php?action=useumbrella&pwd=" + my_hash(), ChecklistSubentryMake(main_title, "", description)));
 }
 // MayDay Package
+/*
 RegisterResourceGenerationFunction("IOTMMayDayContractGenerateResource");
 void IOTMMayDayContractGenerateResource(ChecklistEntry [int] resource_entries)
 {
@@ -52918,6 +53131,61 @@ void IOTMMayDayContractGenerateResource(ChecklistEntry [int] resource_entries)
 		resource_entries.listAppend(ChecklistEntryMake("__item MayDay&trade; supply package", url, ChecklistSubentryMake(pluralise($item[MayDay&trade; supply package]), "", description)));
     }
 }
+*/
+
+// 2022 MayDay™ supply package
+// MayDay Package
+RegisterResourceGenerationFunction("IOTMMayDayContractGenerateResource");
+void IOTMMayDayContractGenerateResource(ChecklistEntry [int] resource_entries)
+{
+    //if ($item[MayDay&trade; supply package].available_amount() > 0) #&& in_ronin() && $item[MayDay&trade; supply package].item_is_usable())
+	string subnotesSizePercent = "75";
+    if ( get_property_boolean("hasMaydayContract") )
+    {
+        string [int] description;
+		if ($item[MayDay&trade; supply package].available_amount() > 0) {
+			description.listAppend("You have a <b>MayDay&trade; supply package</b>");
+			description.listAppend("Use for 30 advs of +100% init as well as useful seeded drops.");
+		}
+		//meltable equipment
+		if ($item[survival knife].available_amount() > 0)
+			description.listAppend("<span style='color:blue;'><b>survival knife</b></span>. <span style='font-size:"+subnotesSizePercent+"%;'>(+2% desert exploration)</span>");
+		if ($item[crank-powered radio on a lanyard].available_amount() > 0)
+			description.listAppend("<span style='color:blue;'><b>crank-powered radio on a lanyard</b></span>. <span style='font-size:"+subnotesSizePercent+"%;'>(accy, +15 ML)</span>");
+		if ($item[headlamp].available_amount() > 0)
+			description.listAppend("<span style='color:blue;'><b>headlamp</b></span>. <span style='font-size:"+subnotesSizePercent+"%;'>(hat, +15% items)</span>");
+		if ($item[thermal blanket].available_amount() > 0)
+			description.listAppend("<span style='color:blue;'><b>thermal blanket</b></span>. <span style='font-size:"+subnotesSizePercent+"%;'>(back, +5% CR, <span style='color:blue;'>+2 c.res</span>, <span style='color:gray;'>+1 sp.res</span>)</span>");
+		if ($item[atlas of local maps].available_amount() > 0)
+			description.listAppend("<span style='color:blue;'><b>atlas of local maps</b></span>. <span style='font-size:"+subnotesSizePercent+"%;'>(accy, -5% CR)</span>");
+		//
+		//potions, sellable
+		if ($item[emergency glowstick].available_amount() > 0)
+			description.listAppend(" <span style='color:red;'>"+$item[emergency glowstick].available_amount()+"</span> <b>emergency glowstick</b>. <span style='font-size:"+subnotesSizePercent+"%;'>(pot, +25% items, 20a)</span>");
+		if ($item[spare battery].available_amount() > 0)
+			description.listAppend(" <span style='color:red;'>"+$item[spare battery].available_amount()+"</span> <b>spare battery</b>. <span style='font-size:"+subnotesSizePercent+"%;'>(pot, +20-30 MP/a, 20a)</span>");
+		if ($item[space blanket].available_amount() > 0)
+			description.listAppend(" <span style='color:red;'>"+$item[space blanket].available_amount()+"</span> <b>space blanket</b>. <span style='font-size:"+subnotesSizePercent+"%;'>(sell, 5000 meat)</span>");
+		if ($item[single-use dust mask].available_amount() > 0)
+			description.listAppend(" <span style='color:red;'>"+$item[single-use dust mask].available_amount()+"</span> <b>single-use dust mask</b>. <span style='font-size:"+subnotesSizePercent+"%;'>(pot, <span style='color:green;'>+5 st.res</span>, 20a)</span>");
+		if ($item[gaffer's tape].available_amount() > 0)
+			description.listAppend(" <span style='color:red;'>"+$item[gaffer's tape].available_amount()+"</span> <b>emergency glowstick</b>. <span style='font-size:"+subnotesSizePercent+"%;'>(pot, +15 Mx, +50% Mx, 20a)</span>");
+		//
+		//foods
+		if ($item[bar of freeze-dried water].available_amount() > 0)
+			description.listAppend(" <span style='color:purple;'>"+$item[bar of freeze-dried water].available_amount()+"</span> <b>bar of freeze-dried water</b>. <span style='font-size:"+subnotesSizePercent+"%;'>(<span style='color:blue;'>awesome</span>, 1F, 4a, <span style='color:gray;'>Ultrahydrated for 10a</span>)</span>");
+		if ($item[expired MRE].available_amount() > 0)
+			description.listAppend(" <span style='color:purple;'>"+$item[expired MRE].available_amount()+"</span> <b>expired MRE</b>. <span style='font-size:"+subnotesSizePercent+"%;'>(<span style='color:blue;'>awesome</span>, 2F, 8a, <span style='color:gray;'>3 random effects for 10a ea.</span>)</span>");
+		if ($item[20-lb can of rice and beans].available_amount() > 0)
+			description.listAppend(" <span style='color:purple;'>"+$item[20-lb can of rice and beans].available_amount()+"</span> <b>20-lb can of rice and beans</b>. <span style='font-size:"+subnotesSizePercent+"%;'>(<span style='color:green;'>good</span>, 15F, 45a, <span style='color:gray;'>+100 HP for 100a</span>)</span>");
+		if ($item[cool mint precipice bar].available_amount() > 0)
+			description.listAppend(" <span style='color:purple;'>"+$item[cool mint precipice bar].available_amount()+"</span> <b>cool mint precipice bar</b>. <span style='font-size:"+subnotesSizePercent+"%;'>(<span style='color:green;'>good</span>, 1F, 3a, <span style='color:gray;'>+10 stats/fight +15% Mu/My/Mx for 30a</span>)</span>");
+		if ($item[carrot cake precipice bar].available_amount() > 0)
+			description.listAppend(" <span style='color:purple;'>"+$item[carrot cake precipice bar].available_amount()+"</span> <b>carrot cake precipice bar</b>. <span style='font-size:"+subnotesSizePercent+"%;'>(<span style='color:green;'>good</span>, 1F, 3a, <span style='color:gray;'>+10% items +20% meat +15% Mu/My/Mx for 30a</span>)</span>");
+		resource_entries.listAppend(ChecklistEntryMake("__item MayDay&trade; supply package", "", ChecklistSubentryMake(pluralise($item[MayDay&trade; supply package]), "", description)));
+    }
+}
+
 //June cleaver
 RegisterTaskGenerationFunction("IOTMJuneCleaverGenerateTasks");
 void IOTMJuneCleaverGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
@@ -53143,10 +53411,10 @@ void IOTMTinyStillsuitGenerateTasks(ChecklistEntry [int] task_entries, Checklist
 	title = HTMLGenerateSpanFont(sweatAdvs + " adv stillsuit sweat booze", "purple");
 	
 	if (__misc_state["in run"] && sweatAdvs > 3) {
-		task_entries.listAppend(ChecklistEntryMake("__item tiny stillsuit", url, ChecklistSubentryMake(title, description), -11).ChecklistEntrySetIDTag("tiny stillsuit task"));
+		task_entries.listAppend(ChecklistEntryMake("__item tiny stillsuit", url, ChecklistSubentryMake(title, description), -1).ChecklistEntrySetIDTag("tiny stillsuit task"));
 	}
 	else if (!__misc_state["in run"] && sweatAdvs > 8) {
-		task_entries.listAppend(ChecklistEntryMake("__item tiny stillsuit", url, ChecklistSubentryMake(title, description), -11).ChecklistEntrySetIDTag("tiny stillsuit task"));
+		task_entries.listAppend(ChecklistEntryMake("__item tiny stillsuit", url, ChecklistSubentryMake(title, description), -1).ChecklistEntrySetIDTag("tiny stillsuit task"));
 	}
 }
 
@@ -53273,12 +53541,28 @@ void IOTMTinyStillsuitGenerateResource(ChecklistEntry [int] resource_entries)
     resource_entries.listAppend(ChecklistEntryMake("__item tiny stillsuit", url, ChecklistSubentryMake(title, description), -2).ChecklistEntrySetIDTag("tiny stillsuit resource"));
 }
 //Jurassic parka
+
+RegisterTaskGenerationFunction("IOTMJurassicParkaGenerateTasks");
+void IOTMJurassicParkaGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
+{
+	//string url = "inventory.php?ftext=jurassic";
+	string url = "inventory.php?action=jparka";
+	string [int] description;
+	int spikos_left = clampi(5 - get_property_int("_spikolodonSpikeUses"), 0, 5);
+	string main_title = spikos_left + " Parka forced non-coms remaining";
+	
+	if	( spikos_left > 0 && __misc_state["in run"] ) {
+		description.listAppend("cli: parka spikolodon|*- sk#7424 Launch spikolodon spikes|*- 35 dmg, +force non-com, 5x/day|*- Used: "+get_property_int("_spikolodonSpikeUses")+" / 5");
+		task_entries.listAppend(ChecklistEntryMake("__item jurassic parka", url, ChecklistSubentryMake(main_title, description), -9));
+	}
+}
+
 RegisterResourceGenerationFunction("IOTMJurassicParkaGenerateResource");
 void IOTMJurassicParkaGenerateResource(ChecklistEntry [int] resource_entries)
 {
     item parka = lookupItem("jurassic parka");
     if (!parka.have()) return;
-    if (!__misc_state["in run"]) return; 
+    //if (!__misc_state["in run"]) return; 
     string url;
 	string parkaMode = get_property("parkaMode");
 	string parkaEnchant;
@@ -53382,7 +53666,8 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 	{
 		if (locationAvailable($location[sonofa beach]) == true && available_amount($item[barrel of gunpowder]) < 5)
 		{
-			targets.listAppend("barrel of gunpowder");
+			int xbog = ( get_property("sidequestLighthouseCompleted") == "none" ) ? 5 - item_amount($item[barrel of gunpowder]):0;
+			targets.listAppend("barrel of gunpowder (need "+xbog+")");
 		}
 		if (locationAvailable($location[twin peak]) == false && get_property_int("chasmBridgeProgress") < 30)
 		{
