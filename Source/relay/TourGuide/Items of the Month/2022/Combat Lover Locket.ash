@@ -65,7 +65,7 @@ void IOTMCombatLoversLocketGenerateResource(ChecklistEntry [int] resource_entrie
 		// Entries
 		int monstersReminisced = clampi(3 - count(split_string(get_property("_locketMonstersFought"), ",")), 0, 3);
 		if (get_property("_locketMonstersFought") == "") {
-			resource_entries.listAppend(ChecklistEntryMake("__item combat lover's locket", url, ChecklistSubentryMake("" + "3 Combat lover's locket reminiscences", "", description)).ChecklistEntrySetIDTag("Locket fax resource"));
+			resource_entries.listAppend(ChecklistEntryMake("__item combat lover's locket", url, ChecklistSubentryMake("" + "3 Combat lover's locket reminiscences", "", description)).ChecklistEntrySetIDTag("Locket fax resource").ChecklistEntrySetCombinationTag("copy sources"));
 		}
 		else {
 			if (monstersReminisced > 0) 
