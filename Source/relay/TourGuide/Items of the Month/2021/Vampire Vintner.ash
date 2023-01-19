@@ -37,7 +37,7 @@ void IOTMVampireVintnerGenerateTasks(ChecklistEntry [int] task_entries, Checklis
 			case "familiar":
 				wineDescription.listAppend(HTMLGenerateSpanFont("Familiar wine: grants +" + vintnerWineLevel + " familiar experience and +" + vintnerWineLevel * 3 + " ML.", "purple")); break;
 		}
-	   optional_task_entries.listAppend(ChecklistEntryMake("__item 1950 vampire vintner wine", url, ChecklistSubentryMake("Drink your vampire vintner wine", wineDescription)));
+	   task_entries.listAppend(ChecklistEntryMake("__item 1950 vampire vintner wine", url, ChecklistSubentryMake("Drink your vampire vintner wine", wineDescription),-10));
 	}
 	else if (vintnerFightsLeft > 1)
 	{
