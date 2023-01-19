@@ -7,10 +7,10 @@ void IOTMJurrassicParkaGenerateTasks(ChecklistEntry [int] task_entries, Checklis
 	string url = "inventory.php?action=jparka";
 	string [int] description;
 	int spikos_left = clampi(5 - get_property_int("_spikolodonSpikeUses"), 0, 5);
-	string main_title = spikos_left + "Parka forced non-coms remaining";
+	string main_title = spikos_left + " Parka forced non-coms remaining";
 	
 	if	( spikos_left > 0 && __misc_state["in run"] ) {
-		task_entries.listAppend(ChecklistEntryMake("__item jurrasic parka", url, ChecklistSubentryMake(main_title, description), -9));
+		task_entries.listAppend(ChecklistEntryMake("__item jurrassic parka", url, ChecklistSubentryMake(main_title, description), -9));
 	}
 }
 
