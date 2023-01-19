@@ -1,4 +1,18 @@
 //Designer sweatpants
+RegisterTaskGenerationFunction("IOTMDesignerSweatpantsTasks");
+void IOTMDesignerSweatpantsTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
+{
+	int sweat_o_meter = get_property_int("sweat");
+	int booze_sweats_left = clampi(3 - get_property_int("_sweatOutSomeBoozeUsed"), 0, 3);
+	string title = "Repair Liver & Destroy It Again";
+	string [int] description;
+	string url = "inventory.php?ftext=designer+sweatpants";
+	if ( booze_sweats_left > 0 ) {
+		description.listAppend(HTMLGenerateSpanOfClass("Sweat Out Some Booze:|*", "r_bold") + HTMLGenerateSpanFont(" -1 Drunkenness. " + booze_sweats_left + " uses left.|*", "green") + HTMLGenerateSpanFont("Sweat: "+sweat_o_meter+" / "+( 25 * booze_sweats_left )+" needed.", "fuchsia") );
+		task_entries.listAppend(ChecklistEntryMake("__item designer sweatpants", url, ChecklistSubentryMake(title, description), -10).ChecklistEntrySetIDTag("designer sweatpants tasks"));
+	}
+}
+
 RegisterResourceGenerationFunction("IOTMDesignerSweatpantsResource");
 void IOTMDesignerSweatpantsResource(ChecklistEntry [int] resource_entries)
 {

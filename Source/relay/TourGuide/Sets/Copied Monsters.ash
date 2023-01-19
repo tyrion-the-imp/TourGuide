@@ -563,6 +563,9 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__item physiostim pill";
 	}
+	if	( get_property_int("beGregariousFightsLeft") > 0 ) {
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(get_property_int("beGregariousFightsLeft")+" gregarious fight(s) vs <span style='color:red; font-size:75%; font-weight:bold;'>"+get_property("beGregariousMonster")+"</span> remain", "", ""));
+	}
 	//Extrovermectin  __iotms_usable[lookupItem("cold medicine cabinet")] && 
     if (available_amount($item[Extrovermectin&trade;]) > 0 && spleen_limit() - my_spleen_use() >= 2 )
     {
