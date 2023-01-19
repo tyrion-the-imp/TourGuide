@@ -345,14 +345,18 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
         //possibly less relevant:
         //√ghosts/skulls/bloopers...?
         //seems very marginal
-        //if (!__quest_state["Level 13"].state_boolean["past keys"] && ($item[digital key].available_amount() + creatable_amount($item[digital key])) == 0)
-            //potential_copies.listAppend("Ghosts/morbid skulls/bloopers, for digital key. (marginal?)");
+        if (!__quest_state["Level 13"].state_boolean["past keys"] && ($item[digital key].available_amount() + creatable_amount($item[digital key])) == 0)
+            potential_copies.listAppend("Ghosts / morbid skulls / bloopers.");
         //bricko bats, if they have bricko...?
         //if (__misc_state["bookshelf accessible"] && $skill[summon brickos].skill_is_usable())
             //potential_copies.listAppend("Bricko bats...?");
     }
     ChecklistEntry copy_source_entry;
     copy_source_entry.tags.id = "Copy options resource";
+	if (__misc_state["in run"]) {
+		copy_source_entry.importance_level = -11;
+	}
+	copy_source_entry.subentries.listAppend(ChecklistSubentryMake("<u>Copy source(s)</u>", "", ""));
     
     if (__misc_state["Chateau Mantegna available"] && !get_property_boolean("_chateauMonsterFought") && mafiaIsPastRevision(15115))
     {
@@ -394,7 +398,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
         {
             string [int] monster_description;
             CopiedMonstersGenerateDescriptionForMonster(current_monster, monster_description, true, true);
-            string line = HTMLGenerateSpanOfClass("Currently have " + current_monster.to_string() + ".", "r_bold");
+            string line = "Current monster: " + HTMLGenerateSpanFont(current_monster.to_string() + ".", "red");
             if (monster_description.count() > 0)
                 line += "|*" + monster_description.listJoinComponents("|*");
             description.listPrepend(line);
@@ -428,8 +432,10 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = copy_source_list[0];
 	}
-    
-    if (!get_property_boolean("_cameraUsed") && (get_property("cameraMonster") == "") && $item[4-d camera].available_amount() > 0)
+	if (__misc_state["fax available"] && $item[photocopied monster].available_amount() == 0) {
+        copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(1, "fax machine fight", "fax machine fights") + " available", "", ""));
+	}
+    if (!get_property_boolean("_cameraUsed") && $item[4-d camera].available_amount() > 0)
     {
 		//resource_entries.listAppend(ChecklistEntryMake("__item 4-d camera", "", ChecklistSubentryMake("4-d camera copy available", "", potential_copies)));
         
@@ -459,6 +465,12 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__item print screen button";
     }
+    if (lookupItem("cloning kit").available_amount() > 0)
+    {
+        copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise($item[cloning kit].available_amount(), "cloning kit", "cloning kits") + " available", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__item cloning kit";
+    }
     if ($item[LOV Enamorang].available_amount() > 0)
     {
         copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise($item[LOV Enamorang]), "", ""));
@@ -470,12 +482,71 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
         string [int] description;// = listCopy(potential_copies);
         description.listPrepend("50% success rate");
 		//resource_entries.listAppend(ChecklistEntryMake("__item crappy camera", "", ChecklistSubentryMake("Crappy camera copy available", "", description)));
-        
-        
         copy_source_entry.subentries.listAppend(ChecklistSubentryMake("Crappy camera copy available", "", description));
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__item crappy camera";
     }
+	
+    if (__iotms_usable[lookupItem("backup camera")] && get_property_int("_backUpUses") < 11)
+    {
+        int pix_taken = get_property_int("_backUpUses");
+		int pix_left = 11 - pix_taken;
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(pix_left, "backup camera use", "backup camera uses") + "", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__item backup camera";
+    }
+	//_monstersMapped
+    if ($skill[Map the Monsters].skill_is_usable() && get_property_int("_monstersMapped") < 3)
+    {
+        int maps_taken = get_property_int("_monstersMapped");
+		int maps_left = 3 - maps_taken;
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(maps_left, "cast of Map the Monsters", "casts of Map the Monsters") + "", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__skill Map the Monsters";
+    }
+    //combat lover's locket		_locketMonstersFought = comma separated list of monster id's
+	string[int] lmf = split_string(get_property("_locketMonstersFought"),",");
+	int monstersReminisced = count(lmf);
+	if	( get_property("_locketMonstersFought") == "" ) { monstersReminisced = 0; }
+	int usesRemaining = 3 - monstersReminisced;
+    if (__iotms_usable[lookupItem("combat lover's locket")] && usesRemaining > 0)
+    {
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(usesRemaining, "combat lover's locket fight", "combat lover's locket fights") + "", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__item combat lover's locket";
+    }
+	//_genieFightsUsed
+    if (get_property_int("_genieFightsUsed") < 3 && is_unrestricted($item[pocket wish]))
+    {
+        copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise((3 - get_property_int("_genieFightsUsed")), "genie/wish fight", "genie/wish fights") + " available", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__item pocket wish";
+    }
+	//beGregariousCharges
+	int greg_copies = 3 * get_property_int("beGregariousCharges");
+	if	( get_property_int("beGregariousCharges") > 0 && greg_copies > 0 ) {
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(greg_copies, "copies via Be Gregarious", "copies via Be Gregarious") + "", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__item physiostim pill";
+	}
+	//Extrovermectin  __iotms_usable[lookupItem("cold medicine cabinet")] && 
+    if (available_amount($item[Extrovermectin&trade;]) > 0 && spleen_limit() - my_spleen_use() >= 2 )
+    {
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(available_amount($item[Extrovermectin&trade;]), "Extrovermectin&trade; pill", "Extrovermectin&trade; pills") + "", "", "|*3 wandering copies for 2 spleen|*(via casting be gregarious)"));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__item cold medicine cabinet";
+    }
+	//_cargoPocketEmptied
+    if (__iotms_usable[lookupItem("Cargo Cultist Shorts")] && !get_property_boolean("_cargoPocketEmptied"))
+    {
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(1, "cargo pocket fight is possible", "") + "", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__item cargo cultist shorts";
+    }
+	
+	
+	
+	
     if (copy_source_entry.subentries.count() > 0)
     {
         ChecklistSubentry last_subentry = copy_source_entry.subentries[copy_source_entry.subentries.count() - 1];
@@ -487,10 +558,10 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
             last_subentry.entries.listAppendList(potential_copies);
         resource_entries.listAppend(copy_source_entry);
     }
-    
+	
+	
+	
     //Copies made:
-
-
 	generateCopiedMonstersEntry(resource_entries, resource_entries, false);
 	SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[Rain-Doh box full of monster], "rain doh", "rainDohMonster");
 	SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[spooky putty monster], "spooky putty", "spookyPuttyMonster");
