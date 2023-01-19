@@ -10,6 +10,9 @@ void IOTMJurassicParkaGenerateTasks(ChecklistEntry [int] task_entries, Checklist
 	string main_title = spikos_left + " Parka forced non-coms remaining";
 	
 	if	( spikos_left > 0 && __misc_state["in run"] ) {
+		description.listAppend("parka spikolodon");
+		description.listAppend("Launch spikolodon spikes - sk# 7424");
+		description.listAppend("35 dmg, +force non-com, 5x / day Used: "+get_property_int("_spikolodonSpikeUses"));
 		task_entries.listAppend(ChecklistEntryMake("__item jurassic parka", url, ChecklistSubentryMake(main_title, description), -9));
 	}
 }
