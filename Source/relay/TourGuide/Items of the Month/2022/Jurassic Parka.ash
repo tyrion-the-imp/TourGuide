@@ -10,7 +10,7 @@ void IOTMJurassicParkaGenerateTasks(ChecklistEntry [int] task_entries, Checklist
 	string main_title = spikos_left + " Parka forced non-coms remaining";
 	
 	if	( spikos_left > 0 && __misc_state["in run"] ) {
-		description.listAppend("cli: parka spikolodon|*- sk#7424 launch spikolodon spikes|*- 35 dmg, +force non-com, 5x/day|*- Used: "+get_property_int("_spikolodonSpikeUses")+" / 5");
+		description.listAppend("cli: parka spikolodon|*- sk#7424 Launch spikolodon spikes|*- 35 dmg, +force non-com, 5x/day|*- Used: "+get_property_int("_spikolodonSpikeUses")+" / 5");
 		task_entries.listAppend(ChecklistEntryMake("__item jurassic parka", url, ChecklistSubentryMake(main_title, description), -9));
 	}
 }
