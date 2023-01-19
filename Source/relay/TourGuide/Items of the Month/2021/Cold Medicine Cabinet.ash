@@ -258,13 +258,13 @@ void IOTMColdMedicineCabinetGenerateResource(ChecklistEntry [int] resource_entri
     }
 	//breathitin
 	int breaths_remaining = get_property_int("breathitinCharges");
-	if (breaths_remaining > 0 || ( lookupItem("Breathitin&trade;").available_amount() > 0 && pill_uses_remaining > 0 )) 
+	if (breaths_remaining > 0 || ( lookupItem("Breathitin&trade;").available_amount() > 0 && pill_uses_remaining > 0 ) ) 
 	{
         string [int] description;
+		imp = -11;
 		description.listAppend("Breathitin&trade; (2 spleen): <span style='color:red; font-size:90%; font-weight:bold;'>"+lookupItem("Breathitin&trade;").available_amount()+"</span> available");
         description.listAppend("Next 5 outdoor fights become free.");
-		if ( breaths_remaining > 0 ) { imp = -11; }
-        resource_entries.listAppend(ChecklistEntryMake("__item beefy pill", "", ChecklistSubentryMake(pluralise(breaths_remaining, "free outdoor fight via Breathitin&trade;", "free outdoor fights via Breathitin&trade;")+"", "", description), imp));
+        resource_entries.listAppend(ChecklistEntryMake("__item beefy pill", "", ChecklistSubentryMake(pluralise(breaths_remaining, "free outdoor fight via Breathitin&trade;", "free outdoor fights via Breathitin&trade;")+"", "", description), imp).ChecklistEntrySetCombinationTag("daily free fight"));
     }
 	//homebodyl Homebodyl&trade;
 	int homebodyls_remaining = get_property_int("homebodylCharges");

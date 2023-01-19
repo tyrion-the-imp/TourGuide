@@ -336,7 +336,41 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
             potential_copies.listAppend("Modern zmobies.");
         if (!__quest_state["Level 8"].state_boolean["Mountain climbed"] && $items[ninja rope,ninja carabiner,ninja crampons].available_amount() == 0 && !have_outfit_components("eXtreme Cold-Weather Gear"))
             potential_copies.listAppend("Ninja assassin.");
-        //if (!__quest_state["Level 11"].finished && !__quest_state["Level 11 Palindome"].finished && $item[talisman o' namsilat].available_amount() == 0 && $items[gaudy key,snakehead charrrm].available_amount() < 2 && my_path().id != PATH_G_LOVER)
+		
+        if	( $item[Richard's star key].available_amount() == 0 && __misc_state["in run"] ) {
+			potential_copies.listAppend("Skinflute.");
+			potential_copies.listAppend("Camel's toe.");
+		}
+        if	( !qprop("questL10Garbage") ) {
+			potential_copies.listAppend("Goth giant (candles).");
+		}
+        if	( !qprop("questL11Pyramid") ) {
+			potential_copies.listAppend("Tomb rat.");
+		}
+        if	( !qprop("questL11Spare") ) {
+			potential_copies.listAppend("Pygmy bowler.");
+		}
+        if	( !qprop("questL11Curses") ) {
+			potential_copies.listAppend("Pygmy shaman.");
+		}
+        if	( !qprop("questL11Business") ) {
+			potential_copies.listAppend("Pygmy accountant.");
+		}
+        if	( !qprop("questL11Doctor") ) {
+			potential_copies.listAppend("Pygmy surgeon.");
+		}
+        if	( !qprop("questL11Manor") ) {
+			potential_copies.listAppend("Posessed wine rack");
+			potential_copies.listAppend("Cabinet of Dr. Limpienza.");
+		}
+        if	( !qprop("questL11Ron") ) {
+			potential_copies.listAppend("red butler");
+			potential_copies.listAppend("blue oyster cultist");
+			potential_copies.listAppend("lynyrd and/or lynyrd skinner");
+		}
+		
+		
+		//if (!__quest_state["Level 11"].finished && !__quest_state["Level 11 Palindome"].finished && $item[talisman o' namsilat].available_amount() == 0 && $items[gaudy key,snakehead charrrm].available_amount() < 2 && my_path().id != PATH_G_LOVER)
             //potential_copies.listAppend("Gaudy pirate - copy once for extra key."); //now obsolete
         //√baa'baa. astronomer? √nuns trick brigand
         //FIXME astronomer when we can calculate that

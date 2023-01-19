@@ -24,8 +24,12 @@ void initialiseIOTMsUsable()
             __iotms_usable[lookupItem("diabolic pizza cube")] = true;
         if (__campground[lookupItem("cold medicine cabinet")] > 0)
             __iotms_usable[lookupItem("cold medicine cabinet")] = true;
+		if	( !get_property_boolean("_workshedItemUsed") && available_amount($item[cold medicine cabinet]) > 0 )
+			__iotms_usable[lookupItem("cold medicine cabinet")] = true;
         if (__campground[lookupItem("model train set")] > 0)
             __iotms_usable[lookupItem("model train set")] = true;
+		if	( !get_property_boolean("_workshedItemUsed") && available_amount($item[model train set]) > 0 )
+			__iotms_usable[lookupItem("model train set")] = true;
 
         // Garden
         if (__campground[lookupItem("packet of mushroom spores")] > 0)
@@ -112,6 +116,8 @@ void initialiseIOTMsUsable()
         __iotms_usable[lookupItem("unbreakable umbrella")] = true;
     if (lookupItem("miniature crystal ball").available_amount() > 0)
         __iotms_usable[lookupItem("miniature crystal ball")] = true;
+    if (lookupItem("backup camera").available_amount() > 0)
+        __iotms_usable[lookupItem("backup camera")] = true;
     if ($item[Clan VIP Lounge key].item_amount() > 0)
     {
     	//FIXME all
