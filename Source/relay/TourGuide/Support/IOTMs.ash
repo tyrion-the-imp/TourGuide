@@ -118,12 +118,16 @@ void initialiseIOTMsUsable()
         __iotms_usable[lookupItem("cosmic bowling ball")] = true;
     if (lookupItem("unbreakable umbrella").available_amount() > 0) //Mar 2021
         __iotms_usable[lookupItem("unbreakable umbrella")] = true;
+    if (lookupItem("combat lover's locket").available_amount() > 0)
+        __iotms_usable[lookupItem("combat lover's locket")] = true;
+    if (lookupItem("cargo cultist shorts").available_amount() > 0)
+        __iotms_usable[lookupItem("cargo cultist shorts")] = true;
+    if (lookupItem("powerful glove").available_amount() > 0)
+        __iotms_usable[lookupItem("powerful glove")] = true;
     if (lookupItem("miniature crystal ball").available_amount() > 0)
         __iotms_usable[lookupItem("miniature crystal ball")] = true;
     if (lookupItem("backup camera").available_amount() > 0)
         __iotms_usable[lookupItem("backup camera")] = true;
-    if (lookupItem("combat lover's locket").available_amount() > 0)
-        __iotms_usable[lookupItem("combat lover's locket")] = true;
     if ($item[Clan VIP Lounge key].item_amount() > 0)
     {
     	//FIXME all
