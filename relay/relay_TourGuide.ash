@@ -28974,8 +28974,9 @@ void LockPickingGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry 
 	{
 		string [int] description;
 		string main_title = "Pick a lock!";
+		int ddlpimp = ( __misc_state["in run"] ) ? -11:-2;
 		description.listAppend("Grab your mainstat key, probably.");
-		task_entries.listAppend(ChecklistEntryMake("__skill lock picking", "skillz.php", ChecklistSubentryMake(main_title, "", description), -11));
+		task_entries.listAppend(ChecklistEntryMake("__skill lock picking", "skillz.php", ChecklistSubentryMake(main_title, "", description), ddlpimp));
 	}
 }
 
