@@ -12,6 +12,12 @@ void IOTMOliversSpeakeasyGenerateResource(ChecklistEntry [int] resource_entries)
 	description.listAppend("Smuggle in some wanderers to make them free!|*<span style='color:blue; font-size:85%; font-weight:bold;'>(An Unusually Quiet Barroom Brawl)</span>");
 		
     if (get_property_int("_speakeasyFreeFights") < 3) {
-        resource_entries.listAppend(ChecklistEntryMake("__item drink chit", url, ChecklistSubentryMake(pluralise(free_speakeasy_fights_left, "speakeasy fight", "speakeasy fights"), "", description), 8).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("Speakeasy free fight"));
+        resource_entries.listAppend(ChecklistEntryMake("__item drink chit", url, ChecklistSubentryMake(pluralise(free_speakeasy_fights_left, "speakeasy fight", "speakeasy fights"), "", description), -10).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("Speakeasy free fight"));
     }
+	if ( true ) {
+		string soturl = "place.php?whichplace=speakeasy&action=olivers_sot";
+		string [int] sotdescription;
+		sotdescription.listAppend("Get a milk cap from the sot...good for size 3 awesome booze.|*<span style='color:blue; font-size:85%; font-weight:bold;'>(A Milky-Eyed Sot)</span>");
+		resource_entries.listAppend(ChecklistEntryMake("__item milk cap", soturl, ChecklistSubentryMake("Speakeasy milk cap quest","",sotdescription), -8).ChecklistEntrySetIDTag("Speakeasy milk cap quest"));
+	}
 }
