@@ -12339,9 +12339,9 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
     ChecklistEntry copy_source_entry;
     copy_source_entry.tags.id = "Copy options resource";
 	if (__misc_state["in run"]) {
-		copy_source_entry.importance_level = -11;
+		copy_source_entry.importance_level = -12;
 	} else {
-		copy_source_entry.importance_level = -10;
+		copy_source_entry.importance_level = -12;
 	}
 	copy_source_entry.subentries.listAppend(ChecklistSubentryMake("<u>Copy source(s)</u>", "", ""));
     
@@ -48973,8 +48973,8 @@ void IOTMGodLobsterGenerateResource(ChecklistEntry [int] resource_entries)
     resource_entries.listAppend(ChecklistEntryMake("__familiar god lobster", url, ChecklistSubentryMake(pluralise(free_fights_left, "free God Lobster fight", "free God Lobster fights"), "", description)).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("God lobster daily fights"));
 }
 
-RegisterResourceGenerationFunction("IOTMBoomBoxGenerateTasks");
-void IOTMBoomBoxGenerateTasks(ChecklistEntry [int] resource_entries)
+RegisterResourceGenerationFunction("IOTMBoomBoxGenerateResource");
+void IOTMBoomBoxGenerateResource(ChecklistEntry [int] resource_entries)
 {
 	if (lookupItem("SongBoom&trade; BoomBox").available_amount() == 0)
 		return;
@@ -49000,8 +49000,8 @@ void IOTMBoomBoxGenerateTasks(ChecklistEntry [int] resource_entries)
 			description.listAppend(HTMLGenerateSpanFont("Boombox drop next fight", "red"));
 		}
 		description.listAppend("" + changes_left + " song changes left today.");
-		resource_entries.listAppend(ChecklistEntryMake("__item SongBoom&trade; BoomBox", "inv_use.php?pwd=" + my_hash() + "&whichitem=9919", ChecklistSubentryMake("Boombox song stuff", "", description), -11));
-	}	
+		resource_entries.listAppend(ChecklistEntryMake("__item SongBoom&trade; BoomBox", "inv_use.php?pwd=" + my_hash() + "&whichitem=9919", ChecklistSubentryMake("Boombox song stuff", "", description), -7));
+	}
 	
 	if (song == "" && changes_left > 0)
 	{
@@ -49012,7 +49012,7 @@ void IOTMBoomBoxGenerateTasks(ChecklistEntry [int] resource_entries)
 			description.listAppend("Food Vibrations: extra adventures from food" + (__misc_state["in run"] ? ", +30% food drop" : "") + ".");
 		description.listAppend("Total Eclipse of Your Meat: extra meat, +30% meat.");
 		
-		resource_entries.listAppend(ChecklistEntryMake("__item SongBoom&trade; BoomBox", "inv_use.php?pwd=" + my_hash() + "&whichitem=9919", ChecklistSubentryMake("Set BoomBox song", "", description), 8));
+		resource_entries.listAppend(ChecklistEntryMake("__item SongBoom&trade; BoomBox", "inv_use.php?pwd=" + my_hash() + "&whichitem=9919", ChecklistSubentryMake("Set BoomBox song", "", description), CHECKLIST_DEFAULT_IMPORTANCE));
 	}
 	
 }
