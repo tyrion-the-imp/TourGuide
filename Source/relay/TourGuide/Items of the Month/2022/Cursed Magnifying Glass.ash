@@ -18,30 +18,35 @@ void IOTYCursedMagnifyingGlassGenerateTasks(ChecklistEntry [int] task_entries, C
             url = invSearch("cursed magnifying glass");
 			description.listAppend((13 - cursedGlassCounter).pluralise("combat", "combats") + " until next void fight.");
 			optional_task_entries.listAppend(ChecklistEntryMake("__item cursed magnifying glass", url, ChecklistSubentryMake("Cursed magnifying glass combat", "", description), 8));
-        }	
+        }
+		int cmg_il = -1;
+		if	( __misc_state["in run"] ) { cmg_il = -10; }
+		
+		
 		
 		if (cursedGlassCounter == 12)
 		{
 			description.listAppend(HTMLGenerateSpanFont("One more fight until you encounter a void.", "blue"));
-			task_entries.listAppend(ChecklistEntryMake("__item void stone", url, ChecklistSubentryMake("Cursed magnifying glass combat", "", description), -11));
+			task_entries.listAppend(ChecklistEntryMake("__item void stone", url, ChecklistSubentryMake("Cursed magnifying glass combat", "", description), cmg_il));
         }	
-	
+		
 		if (cursedGlassCounter == 13)
         {
             if (lookupItem("cursed magnifying glass").equipped_amount() == 0) 
 			{
-			task_entries.listAppend(ChecklistEntryMake("__item void stone", url, ChecklistSubentryMake("Cursed magnifying glass combat", "", description), -11));
+			task_entries.listAppend(ChecklistEntryMake("__item void stone", url, ChecklistSubentryMake("Cursed magnifying glass combat", "", description), cmg_il));
 			}  
 			else 
 			{
 			description.listAppend(HTMLGenerateSpanFont("Void combat next adventure, ", "red") + HTMLGenerateSpanFont("magnifying glass equipped", "blue"));
-			task_entries.listAppend(ChecklistEntryMake("__item void stone", url, ChecklistSubentryMake("Cursed magnifying glass combat", "", description), -11));
+			task_entries.listAppend(ChecklistEntryMake("__item void stone", url, ChecklistSubentryMake("Cursed magnifying glass combat", "", description), cmg_il));
 			}
         }
+		
 		if (free_void_fights_left > 0)
 		{
             description.listAppend("" + free_void_fights_left + " free void fights remaining.");
-        }	
+        }
 		else if (lookupSkill("Meteor Lore").have_skill() || lookupItem("powerful glove").available_amount() > 0) 
 		{
 			description.listAppend("No free void fights remaining, but you can replace them with lobsterfrogmen or something.");
