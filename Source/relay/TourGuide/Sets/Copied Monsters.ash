@@ -389,6 +389,8 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
     copy_source_entry.tags.id = "Copy options resource";
 	if (__misc_state["in run"]) {
 		copy_source_entry.importance_level = -11;
+	} else {
+		copy_source_entry.importance_level = -10;
 	}
 	copy_source_entry.subentries.listAppend(ChecklistSubentryMake("<u>Copy source(s)</u>", "", ""));
     
