@@ -26,7 +26,7 @@ void IOTMMachineElfGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 	{
 		description.listAppend("" + HTMLGenerateSpanFont("Item duplication available!", "blue") + "");
 		description.listAppend("Copy a PVPable potion, food, drink, or spleen item.");
-		task_entries.listAppend(ChecklistEntryMake("__item abstraction: comprehension", url, ChecklistSubentryMake("Deep Machine Tunnels noncom ready!", "", description), -11));
+		task_entries.listAppend(ChecklistEntryMake("__item abstraction: comprehension", url, ChecklistSubentryMake("Deep Machine Tunnels noncom ready!", "", description), -3));
 	}
 }
 
