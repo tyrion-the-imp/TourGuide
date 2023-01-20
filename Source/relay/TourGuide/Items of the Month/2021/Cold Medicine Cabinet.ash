@@ -288,8 +288,13 @@ void IOTMColdMedicineCabinetGenerateResource(ChecklistEntry [int] resource_entri
 			int next_CMC_Timer = (next_CMC_Turn - total_turns_played());
 			string [int] description;
 			string url = "campground.php?action=workshed";
-			
-			if (next_CMC_Turn <= total_turns_played())
+			//shouldn't be in inventory if restricted or already in shed
+			if	( !get_property_boolean("_workshedItemUsed") && item_amount($item[cold medicine cabinet]) > 0 ) {
+				description.listAppend(HTMLGenerateSpanFont("<span style='font-weight:bold;'>Place the Medicine Cabinet in your workshed.</span>", "red"));
+				description.listAppend("You have " + CMC_consults + " consultations remaining.");
+				resource_entries.listAppend(ChecklistEntryMake("__item snow suit", url, ChecklistSubentryMake("Cold medicine cabinet to shed?", "", description), -12));
+			}
+			else if (next_CMC_Turn <= total_turns_played())
 			{
 				description.listAppend(HTMLGenerateSpanFont("Just what the doctor ordered!", "red"));
 				description.listAppend("You have " + CMC_consults + " consultations remaining.");
