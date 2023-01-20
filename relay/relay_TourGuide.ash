@@ -5897,13 +5897,17 @@ void initialiseIOTMsUsable()
             __iotms_usable[lookupItem("diabolic pizza cube")] = true;
         if (__campground[lookupItem("cold medicine cabinet")] > 0)
             __iotms_usable[lookupItem("cold medicine cabinet")] = true;
-		if	( !get_property_boolean("_workshedItemUsed") && available_amount($item[cold medicine cabinet]) > 0 )
-			__iotms_usable[lookupItem("cold medicine cabinet")] = true;
         if (__campground[lookupItem("model train set")] > 0)
             __iotms_usable[lookupItem("model train set")] = true;
-		if	( !get_property_boolean("_workshedItemUsed") && available_amount($item[model train set]) > 0 )
-			__iotms_usable[lookupItem("model train set")] = true;
-
+		
+		//Workshed installer available but not in place
+		if	( !get_property_boolean("_workshedItemUsed") ) {
+			if	( available_amount($item[cold medicine cabinet]) > 0 )
+				__iotms_usable[lookupItem("cold medicine cabinet")] = true;
+			if	( available_amount($item[model train set]) > 0 )
+				__iotms_usable[lookupItem("model train set")] = true;
+		}
+		
         // Garden
         if (__campground[lookupItem("packet of mushroom spores")] > 0)
             __iotms_usable[lookupItem("packet of mushroom spores")] = true;
@@ -5987,6 +5991,12 @@ void initialiseIOTMsUsable()
         __iotms_usable[lookupItem("cosmic bowling ball")] = true;
     if (lookupItem("unbreakable umbrella").available_amount() > 0) //Mar 2021
         __iotms_usable[lookupItem("unbreakable umbrella")] = true;
+    if (lookupItem("combat lover's locket").available_amount() > 0)
+        __iotms_usable[lookupItem("combat lover's locket")] = true;
+    if (lookupItem("cargo cultist shorts").available_amount() > 0)
+        __iotms_usable[lookupItem("cargo cultist shorts")] = true;
+    if (lookupItem("powerful glove").available_amount() > 0)
+        __iotms_usable[lookupItem("powerful glove")] = true;
     if (lookupItem("miniature crystal ball").available_amount() > 0)
         __iotms_usable[lookupItem("miniature crystal ball")] = true;
     if (lookupItem("backup camera").available_amount() > 0)
@@ -12330,6 +12340,8 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
     copy_source_entry.tags.id = "Copy options resource";
 	if (__misc_state["in run"]) {
 		copy_source_entry.importance_level = -11;
+	} else {
+		copy_source_entry.importance_level = -10;
 	}
 	copy_source_entry.subentries.listAppend(ChecklistSubentryMake("<u>Copy source(s)</u>", "", ""));
     
