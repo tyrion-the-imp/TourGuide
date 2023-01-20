@@ -197,6 +197,7 @@ void IOTMColdMedicineCabinetGenerateResource(ChecklistEntry [int] resource_entri
 	//buy pills from mall
 	if ( pill_uses_remaining > 0 && !in_hardcore() ) {
 		string url = "mall.php";
+		if	( !in_hardcore() && pulls_remaining() > 0 ) { imp = -10; }
 		string [int] pillprices;
 		if ( lookupItem("Extrovermectin&trade;").available_amount() == 0 ) {
 			pillprices.listAppend("Extrovermectin&trade; @ "+rnum(historical_price($item[Extrovermectin&trade;])) + " meat |* 3 wandering copies / 1 Be Gregarious");
@@ -211,7 +212,7 @@ void IOTMColdMedicineCabinetGenerateResource(ChecklistEntry [int] resource_entri
 			pillprices.listAppend("Fleshazole&trade; @ "+rnum(historical_price($item[Fleshazole&trade;])) + " meat |* Level x 1000 meat, max 11k");
 		}
 		if ( count(pillprices) > 0 ) {
-			 resource_entries.listAppend(ChecklistEntryMake("__item vitamin G pill", url, ChecklistSubentryMake("Buy CMC pills (2 spleen/ea.)", "", pillprices), imp)); 
+			 resource_entries.listAppend(ChecklistEntryMake("__item vitamin G pill", url, ChecklistSubentryMake("Buy (& pull?) CMC pills (2 spleen/ea.)", "", pillprices), imp)); 
 		}
 	}
 	
