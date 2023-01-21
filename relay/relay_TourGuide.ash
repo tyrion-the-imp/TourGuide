@@ -14761,6 +14761,9 @@ void QLevel11DesertGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
             subentry.entries.listAppend(line);
         }
     }
+	if	( available_amount($item[milestone]) > 0 ) {
+		subentry.entries.listAppend(available_amount($item[milestone])+" <a href='inventory.php?ftext=milestone' target='mainpane'><span style='color:blue;'><u>milestone(s)</u></span></a> can be used for +5% exploration each.");
+	}
     if ($effect[ultrahydrated].have_effect() == 0 && my_path().id != PATH_G_LOVER) {
         if (exploration > 0)
             subentry.entries.listAppend("Acquire ultrahydrated effect from oasis. (potential clover for 20 adventures)");
