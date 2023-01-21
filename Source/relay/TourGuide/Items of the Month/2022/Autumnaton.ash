@@ -92,7 +92,7 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 		{
 			targets.listAppend("killing jar");
 		}
-		if (locationAvailable($location[the oasis]) == true && get_property_int("desertExploration") < 100)
+		if (locationAvailable($location[the oasis]) == true && get_property_int("desertExploration") < 100 && available_amount($item[drum machine]) == 0 && !qprop("questL11Desert"))
 		{
 			targets.listAppend("drum machine");
 		}
