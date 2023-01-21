@@ -9,7 +9,7 @@ void IOTMUndergroundFireworksShopGenerateTasks(ChecklistEntry [int] task_entries
 			string [int] description;
 			description.listAppend(HTMLGenerateSpanFont("5x food statgain on the next thing you eat!", "red"));
 			description.listAppend(HTMLGenerateSpanFont("Don't waste it on fire crackers!", "red"));
-			task_entries.listAppend(ChecklistEntryMake("__effect Ready to Eat", "", ChecklistSubentryMake("Ready to Eat!", "", description), -10));
+			task_entries.listAppend(ChecklistEntryMake("__effect Ready to Eat", "", ChecklistSubentryMake("Ready to Eat ("+have_effect($effect[Ready to Eat])+")", "", description), -10));
 		}
 		if ($effect[Everything Looks Red].have_effect() == 0)
 		{
