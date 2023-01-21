@@ -71,12 +71,12 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 	
 	if (__misc_state["in run"] && my_path().id != 25)
 	{
-		if (locationAvailable($location[sonofa beach]) == true && available_amount($item[barrel of gunpowder]) < 5)
+		if (locationAvailable($location[sonofa beach]) == true && available_amount($item[barrel of gunpowder]) < 5 && get_property("sidequestLighthouseCompleted") == "none" )
 		{
 			int xbog = ( get_property("sidequestLighthouseCompleted") == "none" ) ? 5 - item_amount($item[barrel of gunpowder]):0;
 			targets.listAppend("barrel of gunpowder (need "+xbog+")");
 		}
-		if (locationAvailable($location[twin peak]) == false && get_property_int("chasmBridgeProgress") < 30)
+		if (locationAvailable($location[twin peak]) == false && get_property_int("chasmBridgeProgress") < 30 && !qprop("questL09Topping"))
 		{
 			targets.listAppend("bridge parts");
 		}
@@ -84,15 +84,15 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 		{
 			targets.listAppend("bowling balls");
 		}
-		if (get_property_int("twinPeakProgress") < 14);
+		if (get_property_int("twinPeakProgress") < 14 && !qprop("questL09Topping"))
 		{
 			targets.listAppend("bubblin' crude");
 		}
-		if (get_property_int("desertExploration") < 100);
+		if ( get_property_int("desertExploration") < 100 && available_amount($item[killing jar]) == 0 )
 		{
 			targets.listAppend("killing jar");
 		}
-		if (locationAvailable($location[the oasis]) == true && get_property_int("desertExploration") < 100);
+		if (locationAvailable($location[the oasis]) == true && get_property_int("desertExploration") < 100)
 		{
 			targets.listAppend("drum machine");
 		}
