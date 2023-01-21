@@ -53722,7 +53722,8 @@ boolean statsConfiguredWhenNotNeeded() {
 }
 
 boolean shouldNag() {
-    return trainSetReconfigurableIn() == 0 &&
+    if	( !( get_campground() contains $item[model train set]) ) { return false; }
+	return trainSetReconfigurableIn() == 0 &&
         (oreConfiguredWhenNotNeeded() ||
         loggingMillConfiguredWhenNotNeeded() ||
         statsConfiguredWhenNotNeeded() ||
