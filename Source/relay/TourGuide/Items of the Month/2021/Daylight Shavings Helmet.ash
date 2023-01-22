@@ -116,6 +116,8 @@ void IOTMDaylightShavingsHelmetGenerateTasks(ChecklistEntry [int] task_entries, 
 	description.listAppend(beardCycleList);
 
 	if ($effect[Toiletbrush Moustache].have_effect() < 2 && $effect[Barbell Moustache].have_effect() < 2 && $effect[Grizzly Beard].have_effect() < 2 && $effect[Surrealist's Moustache].have_effect() < 2 && $effect[Musician's Musician's Moustache].have_effect() < 2 && $effect[Gull-Wing Moustache].have_effect() < 2 && $effect[Space Warlord's Beard].have_effect() < 2 && $effect[Pointy Wizard Beard].have_effect() < 2 && $effect[Cowboy Stache].have_effect() < 2 && $effect[Friendly Chops].have_effect() < 2 && $effect[Spectacle Moustache].have_effect() < 2) {
+		set_property("nextBeardBuffDue","true");
+		description.listAppend(HTMLGenerateSpanOfClass("Next shavings effect: ", "r_bold") + nextBeardBuffEffect);
 		task_entries.listAppend(ChecklistEntryMake("__item daylight shavings helmet", url, ChecklistSubentryMake("Daylight Shavings Helmet buff available", "", description), -10));
 	}
 	else {
