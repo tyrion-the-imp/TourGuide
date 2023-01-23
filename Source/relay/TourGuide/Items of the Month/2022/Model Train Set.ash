@@ -78,6 +78,9 @@ void IOTMModelTrainSetGenerateTasks(ChecklistEntry [int] task_entries, Checklist
     if (stationConfigured("empty")) {
         description.listAppend(HTMLGenerateSpanFont("Have an empty station configured!", "red"));
     }
+	if	( __iotms_usable[lookupItem("cold medicine cabinet")] && my_level() > 11 ) {
+		description.listAppend("<span style='color:green; font-size:110%; font-weight:bold;'>Install medicine cabinet?</span>");
+	}
 
     int reconfigurableIn = trainSetReconfigurableIn();
     if (reconfigurableIn == 0)
