@@ -82,7 +82,9 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 		}
 		if (get_property_int("hiddenBowlingAlleyProgress") < 6)
 		{
-			targets.listAppend("bowling balls");
+			int ballsNeeded = ( get_property_int("hiddenBowlingAlleyProgress") < 2 ) ? ( 5 - $item[bowling ball].available_amount() ):( 5 - get_property_int("hiddenBowlingAlleyProgress") + 1 - $item[bowling ball].available_amount() );
+			ballsNeeded = max(ballsNeeded, 0);
+			targets.listAppend("bowling balls (need "+ballsNeeded+")");
 		}
 		if (get_property_int("twinPeakProgress") < 14 && !qprop("questL09Topping"))
 		{
