@@ -1,6 +1,6 @@
 //Cold Medicine Cabinet
-RegisterTaskGenerationFunction("IOTMColdMedicineCabinetGenerateTasks");
-void IOTMColdMedicineCabinetGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
+RegisterTaskGenerationFunction("IOTMColdMedicineCabinetGenerateTasksAR");
+void IOTMColdMedicineCabinetGenerateTasksAR(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
     monster gregarious_monster = get_property_monster("beGregariousMonster");
     int fights_left = clampi(get_property_int("beGregariousFightsLeft"), 0, 3);
@@ -14,8 +14,8 @@ void IOTMColdMedicineCabinetGenerateTasks(ChecklistEntry [int] task_entries, Che
     }
 }
 
-RegisterResourceGenerationFunction("IOTMColdMedicineCabinetGenerateResource");
-void IOTMColdMedicineCabinetGenerateResource(ChecklistEntry [int] resource_entries)
+RegisterResourceGenerationFunction("IOTMColdMedicineCabinetGenerateResourceAR");
+void IOTMColdMedicineCabinetGenerateResourceAR(ChecklistEntry [int] resource_entries)
 {
     
 	int pill_uses_remaining = floor((spleen_limit() - my_spleen_use()) / 2.0);
