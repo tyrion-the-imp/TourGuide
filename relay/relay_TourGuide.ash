@@ -52805,14 +52805,14 @@ void IOTMColdMedicineCabinetGenerateTasks(ChecklistEntry [int] task_entries, Che
 			description.listAppend(HTMLGenerateSpanFont("Consultation ready next turn!", "red"));
 			description.listAppend("You'll be prescribed " + HTMLGenerateSpanOfClass(expectedSpleenItem, "r_bold"));
 			description.listAppend("You have " + CMC_consults + " consultations remaining.");
-			task_entries.listAppend(ChecklistEntryMake("__item snow suit", url, ChecklistSubentryMake("The cold medicine cabinet is almost in session", "", description), -11));
+			task_entries.listAppend(ChecklistEntryMake("__item snow suit", url, ChecklistSubentryMake("The <span style='color:red; font-size:100%; font-weight:bold;'>Official</span> cold medicine cabinet is almost in session", "", description), -9));
 		}
 		else if (next_CMC_Turn <= total_turns_played())
 		{
 			description.listAppend(HTMLGenerateSpanFont("Just what the doctor ordered!", "blue"));
 			description.listAppend("You'll be prescribed " + HTMLGenerateSpanOfClass(expectedSpleenItem, "r_bold"));
 			description.listAppend("You have " + CMC_consults + " consultations remaining.");
-			task_entries.listAppend(ChecklistEntryMake("__item snow suit", url, ChecklistSubentryMake("The cold medicine cabinet is in session", "", description), -11));
+			optional_task_entries.listAppend(ChecklistEntryMake("__item snow suit", url, ChecklistSubentryMake("The <span style='color:red; font-size:100%; font-weight:bold;'>Official</span> cold medicine cabinet is in session", "", description), -9));
 		}
 	}
 }
