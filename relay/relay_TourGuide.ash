@@ -14659,6 +14659,9 @@ void QLevel11DesertGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
         exploration_per_turn += 1.0;
     if (my_path().id == PATH_LICENSE_TO_ADVENTURE && get_property_boolean("bondDesert"))
         exploration_per_turn += 2.0;
+    if ($item[survival knife].have() && __misc_state["can equip just about any weapon"] && $effect[ultrahydrated].have_effect() > 0) {
+        exploration_per_turn += 2.0;
+    }
     
     boolean have_blacklight_bulb = (my_path().id == PATH_AVATAR_OF_SNEAKY_PETE && get_property("peteMotorbikeHeadlight") == "Blacklight Bulb");
     if (have_blacklight_bulb)
@@ -14680,6 +14683,8 @@ void QLevel11DesertGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
             description.listAppend("Adventure in the Oasis.");
             if ($items[11-leaf clover].available_amount() > 0)
                 description.listAppend("Potentially clover for 20 turns, versus 5.");
+            if (!get_property_boolean("fireExtinguisherDesertUsed") && !(available_amount($item[industrial fire extinguisher]) > 0) && get_property_int("_fireExtinguisherCharge") > 20)
+                description.listAppend("Or, use 20% fire extinguisher charge in the desert to drink the foam.");
             task_entries.listAppend(ChecklistEntryMake("__effect ultrahydrated", "place.php?whichplace=desertbeach", ChecklistSubentryMake("Acquire ultrahydrated effect", "", description), -11).ChecklistEntrySetIDTag("Council L11 quest desert ultrahydrated"));
         }
         //if (exploration > 0)
@@ -14806,13 +14811,21 @@ void QLevel11DesertGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
             else
                 line_extra += "|Or bring along Melodramedary.";
         }
+		if ($item[survival knife].have() && ($item[survival knife].equipped_amount() == 0)) {
+			if (line == "")
+                line += "Equip your survival knife (only effective while Ultrahydrated)";
+            else
+                line_extra += "|Equip your survival knife (only effective while Ultrahydrated)";
+		}
         if (line != "") {
             if (should_output_compass_in_red)
                 line = HTMLGenerateSpanFont(line, "red");
             line += line_extra;
             subentry.entries.listAppend(line);
         }
-    }
+	 
+    } else
+        subentry.entries.listAppend("Could bring along Melodramedary.");
     task_entries.listAppend(ChecklistEntryMake(base_quest_state.image_name, url, subentry, $locations[the arid\, extra-dry desert,the oasis]).ChecklistEntrySetIDTag("Council L11 quest desert exploration"));
 }
 
@@ -19726,7 +19739,7 @@ void QManorGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int]
         
         float drawers_per_turn = 1.0 + MAX(hot_resistance / 6.0, 0.0) + MAX(stench_resistance / 6.0, 0.0);
         
-        float drawers_needed = MAX(0, 21 - get_property_int("manorDrawerCount"));
+        int drawers_needed = MAX(0, 21 - get_property_int("manorDrawerCount"));
         
         int total_turns = ceil(drawers_needed / drawers_per_turn) + 1;
         
@@ -19752,7 +19765,7 @@ void QManorGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int]
                 }
             }
             
-            line += total_turns + " turns remaining.";
+            line += total_turns + " turns remaining, " + drawers_needed + " drawers remaining.";
             subentry.entries.listAppend(line);
         }
         
@@ -23899,7 +23912,33 @@ void QSleazeAirportGenerateTasks(ChecklistEntry [int] task_entries)
     QSleazeAirportUMDGenerateTasks(task_entries);
 }
 
-//
+//Conspiracy Island Omega Button
+RegisterTaskGenerationFunction("IOTMConspiracyIslandGenerateTasks");
+void IOTMConspiracyIslandGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
+{
+    if (!__misc_state["spooky airport available"])
+        return;
+	//press the button!
+    ChecklistEntry entry;
+    entry.url = "place.php?whichplace=airport_spooky_bunker&action=si_controlpanel";
+    entry.image_lookup_name = "__item big red button";
+    entry.importance_level = 8;
+	int omegaPower = get_property_int("controlPanelOmega");
+	if (!get_property_boolean("_controlPanelUsed"))
+	{
+        entry.subentries.listAppend(ChecklistSubentryMake(omegaPower + "% Conspiracy Island Omega power", "", "At 100%, press Omega Button to reset better quests."));
+		if (!get_property_boolean("controlPanel8") == false)
+			entry.subentries.listAppend(ChecklistSubentryMake("", "", "Press 1912 Button."));
+		if (!get_property_boolean("controlPanel9") == false)
+			entry.subentries.listAppend(ChecklistSubentryMake("", "", "Press 0-0Z-E Button."));
+	}
+	if (omegaPower == 100)
+		entry.subentries.listAppend(ChecklistSubentryMake("100% power! Reset to gain new quests and then uze 0-0Z-E again!"));
+	if (entry.subentries.count() > 0)
+	{
+        optional_task_entries.listAppend(entry);
+	}
+}
 
 void QSpookyAirportJunglePunGenerateTasks(ChecklistEntry [int] task_entries)
 {
@@ -26737,6 +26776,7 @@ void SSkillsGenerateResource(ChecklistEntry [int] resource_entries)
         craft_entry.importance_level = 4;
 
         int free_crafts_left = 0;
+        int free_cooks_left = 0;
         if ($effect[Inigo's Incantation of Inspiration].have_effect() >= 5) {
             free_crafts_left += $effect[Inigo's Incantation of Inspiration].have_effect() / 5;
         }
@@ -26751,6 +26791,15 @@ void SSkillsGenerateResource(ChecklistEntry [int] resource_entries)
         }    
         if (get_property_int("homebodylCharges") > 0) {
             free_crafts_left += (get_property_int("homebodylCharges"));
+        }
+        // adding cookbookbat free crafts into crafting tile        
+        if (lookupFamiliar("Cookbookbat").familiar_is_usable()) {
+            string [int] description;
+			free_cooks_left += clampi(5 - get_property_int("_cookbookbatCrafting"), 0, 5);
+			string title = "free cooking";
+			if (free_cooks_left > 0) {
+			craft_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(free_cooks_left, title, title + "s") + " remaining", free_crafts_left > 0 ? "COOKING only" : "", description));
+			}
         }
 
         int free_smiths_left = 0;
@@ -26959,7 +27008,7 @@ void SSkillsGenerateResource(ChecklistEntry [int] resource_entries)
         resource_entries.listAppend(ChecklistEntryMake("__skill Evoke Eldritch Horror", "skillz.php", ChecklistSubentryMake("Evoke Eldritch Horror", "", "Free fight."), 5).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("Evoke eldritch horror skill free fight"));
     }
     if (!get_property_boolean("_eldritchTentacleFought") && my_path().id != PATH_EXPLOSIONS) {
-        resource_entries.listAppend(ChecklistEntryMake("__skill Evoke Eldritch Horror", "place.php?whichplace=forestvillage", ChecklistSubentryMake("Science Tent Tentacle", "", "Free fight."), 5).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("Daily forest tentacle free fight"));
+        resource_entries.listAppend(ChecklistEntryMake("__skill Evoke Eldritch Horror", "place.php?whichplace=forestvillage&action=fv_scientist", ChecklistSubentryMake("Science Tent Tentacle", "", "Free fight."), 5).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("Daily forest tentacle free fight"));
     }
     
 }
@@ -27599,6 +27648,8 @@ void SMiscItemsGenerateResource(ChecklistEntry [int] resource_entries)
         int stinky_cheese_charge = min(100, get_property_int("_stinkyCheeseCount"));
         string title;
         string [int] description;
+		string url;
+		url = invSearch("stinky cheese");
         int importance = importance_level_item;
 
         if (stinky_cheese_charge < 100) {
@@ -27613,7 +27664,7 @@ void SMiscItemsGenerateResource(ChecklistEntry [int] resource_entries)
         }
         description.listAppend("Or some other stinky things.");
         
-        resource_entries.listAppend(ChecklistEntryMake("__item Ched", "", ChecklistSubentryMake(title, "", description), importance).ChecklistEntrySetIDTag("Stinky cheese resource"));
+        resource_entries.listAppend(ChecklistEntryMake("__item Ched", url, ChecklistSubentryMake(title, "", description), importance).ChecklistEntrySetIDTag("Stinky cheese resource"));
     }
 
     if ($item[mayfly bait necklace].available_amount() > 0 && get_property_int("_mayflySummons") < 30) {
@@ -30721,6 +30772,22 @@ void SRemindersGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [
             task_entries.listAppend(ChecklistEntryMake("__effect " + have_poison, url, ChecklistSubentryMake("Remove " + have_poison, "", methods), -11).ChecklistEntrySetIDTag("Poisoned reminder"));
         }
     }
+    if ($effect[teleportitis].have_effect() > 0)
+    {
+        string url = "inventory.php";
+		string method = "Use a soft green echo eyedrop antidote.";
+        if ($item[soft green echo eyedrop antidote].available_amount()<1)
+            method = "Acquire & use a soft green echo eyedrop antidote.";
+        task_entries.listAppend(ChecklistEntryMake("__effect teleportitis", url, ChecklistSubentryMake("Remove Teleportitis", "", method), -11).ChecklistEntrySetIDTag("Teleportitis reminder"));
+    }
+	if ($effect[feeling lost].have_effect() > 0)
+    {
+        string url = "inventory.php";
+		string method = "Use a soft green echo eyedrop antidote.";
+        if ($item[soft green echo eyedrop antidote].available_amount()<1)
+            method = "Acquire & use a soft green echo eyedrop antidote.";
+        task_entries.listAppend(ChecklistEntryMake("__effect Feeling Lost", url, ChecklistSubentryMake("Remove Feeling Lost", "", method), -11).ChecklistEntrySetIDTag("Feeling Lost reminder"));
+    }	
     if ($effect[Cunctatitis].have_effect() > 0 && $skill[disco nap].skill_is_usable() && $skill[adventurer of leisure].skill_is_usable())
     {
         string url = "skills.php";
@@ -31096,8 +31163,8 @@ static
     __banish_source_length["beancannon"] = -1;
     __banish_source_length["licorice rope"] = -1;
     __banish_source_length["kgb tranquilizer dart"] = 20;
-    //__banish_source_length["breathe out"] = 20; // is it listed as hot jelly, breathe out or space jellyfish ?
-    //__banish_source_length["daily affirmation: be a mind master"] = 80; // how long does it last, exactly? is it still unknown?
+    __banish_source_length["breathe out"] = 20; // is it listed as hot jelly, breathe out or space jellyfish ?
+    __banish_source_length["daily affirmation: be a mind master"] = 80; // how long does it last, exactly? is it still unknown?
     __banish_source_length["spring-loaded front bumper"] = 30;
     __banish_source_length["mafia middle finger ring"] = 60;
     __banish_source_length["throw latte on opponent"] = 30;
@@ -31107,6 +31174,10 @@ static
     __banish_source_length["saber force"] = 30;
     __banish_source_length["human musk"] = -1;
     __banish_source_length["ultra smash"] = -1; // is it the right name?
+    __banish_source_length["b. l. a. r. t. spray (wide)"] = -1;
+	__banish_source_length["system sweep"] = -1;
+	__banish_source_length["feel hatred"] = 50;
+	__banish_source_length["show your boring familiar pictures"] = 100;
     
     int [string] __banish_simultaneous_limit;
     __banish_simultaneous_limit["beancannon"] = 5;
@@ -34001,24 +34072,19 @@ RegisterTaskGenerationFunction("SMonorailStationGenerateTasks");
 void SMonorailStationGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
     if (__misc_state["can eat just about anything"] && get_property("muffinOnOrder") == "earthenware muffin tin")
-        optional_task_entries.listAppend(ChecklistEntryMake("__item earthenware muffin tin", "place.php?whichplace=monorail", ChecklistSubentryMake("Get your muffin tin back", "", "Vist the monorail's breakfast counter"), 8).ChecklistEntrySetIDTag("Monorail get muffin tin"));
-}
-
-RegisterResourceGenerationFunction("SMonorailStationBreakfastCounterGenerateResource");
-void SMonorailStationBreakfastCounterGenerateResource(ChecklistEntry [int] resource_entries)
-{
+        task_entries.listAppend(ChecklistEntryMake("__item earthenware muffin tin", "place.php?whichplace=monorail&action=monorail_downtown", ChecklistSubentryMake("Get your muffin tin back", "", "Vist the monorail's breakfast counter"), -11).ChecklistEntrySetIDTag("Monorail get muffin tin"));
+ 
     if (get_property_boolean("_muffinOrderedToday") || get_property("muffinOnOrder") == "earthenware muffin tin")
         return;
 
     item order = get_property("muffinOnOrder").lookupItem();
     if (order != $item[none]) {
-        resource_entries.listAppend(ChecklistEntryMake("__item " + order.to_string(), "place.php?whichplace=monorail", ChecklistSubentryMake("Go grab your " + order.to_string()), 5).ChecklistEntrySetIDTag("Monorail muffin resource"));
+        task_entries.listAppend(ChecklistEntryMake("__item " + order.to_string(), "place.php?whichplace=monorail&action=monorail_downtown", ChecklistSubentryMake("Go grab your " + order.to_string()), -11).ChecklistEntrySetIDTag("Monorail muffin resource"));
     }
-    else if (lookupItem("earthenware muffin tin").available_amount() > 0) {
-        resource_entries.listAppend(ChecklistEntryMake("__item earthenware muffin tin", "place.php?whichplace=monorail", ChecklistSubentryMake("Order a new muffin"), 5).ChecklistEntrySetIDTag("Monorail muffin resource"));
+    else if (lookupItem("earthenware muffin tin").available_amount() > 0 && __misc_state["in run"]) {
+        optional_task_entries.listAppend(ChecklistEntryMake("__item earthenware muffin tin", "place.php?whichplace=monorail", ChecklistSubentryMake("Order a new muffin"), 5).ChecklistEntrySetIDTag("Monorail muffin resource"));
     }
 }
-
 
 
 void SetsInit()
@@ -43743,6 +43809,50 @@ void IOTMCOTGenerateResource(ChecklistEntry [int] resource_entries)
         return;
     string [int] description;
     
+    void addFamiliarDropsLine(string fam, string prop, int limit, string dropdesc) {
+        int currentDrops = get_property_int(prop);
+        familiar thisFam = fam.to_familiar();
+        if    ( !thisFam.have_familiar() ) { return; }
+        string txtclr = "";
+        if    ( fam.index_of("Stomping") > -1 ) {
+            txtclr = (get_property_boolean("bootsCharged"))?"blue":"black";
+        }
+        if    ( currentDrops == limit ) { txtclr = "gray"; }
+        
+        description.listAppend(HTMLGenerateSpanFont(fam+": "+currentDrops + "/"+limit+" "+dropdesc+".", txtclr));
+        return;
+    }
+    
+    description.listAppend(HTMLGenerateSpanFont("Crown/Bjorn-specific drops", "purple"));
+    addFamiliarDropsLine("Garbage Fire", "_garbageFireDropsCrown", 3, "burning newspapers");
+	addFamiliarDropsLine("Grim Brother", "_grimFairyTaleDropsCrown", 2, "grim fairy tales");
+	addFamiliarDropsLine("Grimstone Golem", "_grimstoneMaskDropsCrown", 1, "grimstone mask");
+	addFamiliarDropsLine("Machine Elf", "_abstractionDropsCrown", 25, "abstractions");
+    addFamiliarDropsLine("Optimistic Candle", "_optimisticCandleDropsCrown", 3, "globs of melted wax");
+	addFamiliarDropsLine("Ms. Puck Man", "_yellowPixelDropsCrown", 25, "yellow pixels");
+	addFamiliarDropsLine("Puck Man", "_yellowPixelDropsCrown", 25, "yellow pixels");
+	addFamiliarDropsLine("Trick-or-Treating Tot", "_hoardedCandyDropsCrown", 3, "hoarded candy wads");
+	
+    description.listAppend(HTMLGenerateSpanFont("General familiar drops", "purple"));
+    addFamiliarDropsLine("Adventurous Spelunker", "_spelunkingTalesDrops", 1, "Tales of Spelunking");
+	addFamiliarDropsLine("Astral Badger", "_astralDrops", 5, "astral mushrooms");
+	addFamiliarDropsLine("Baby Sandworm", "_aguaDrops", 5, "Agua de Vidae");
+	addFamiliarDropsLine("Blavious Kloop", "_kloopDrops", 5, "devlish folios");
+	addFamiliarDropsLine("Bloovian Groose", "_grooseDrops", 5, "groose grease");
+	addFamiliarDropsLine("Cat Burglar", "_catBurglarCharge", 30, "Heist charges");
+	#addFamiliarDropsLine("Cookbookbat", "_turkeyBooze", 5, "Turkey booze");
+	addFamiliarDropsLine("Fist Turkey", "_turkeyBooze", 5, "Turkey booze");
+	addFamiliarDropsLine("Galloping Grill", "_hotAshesDrops", 5, "hot ashes");
+    addFamiliarDropsLine("Golden Monkey", "_powderedGoldDrops", 5, "powdered gold");
+    addFamiliarDropsLine("Green Pixie", "_absintheDrops", 5, "bottles of absinthe");
+	addFamiliarDropsLine("Grim Brother", "_grimFairyTaleDrops", 5, "grim fairy tales");
+	addFamiliarDropsLine("Li'l Xenomorph", "_transponderDrops", 5, "transponders");
+	addFamiliarDropsLine("Llama Lama", "_gongDrops", 5, "Llama gongs");
+	addFamiliarDropsLine("Puck Man", "_powerPillDrops", 11, "power pills");
+    addFamiliarDropsLine("Ms. Puck Man", "_powerPillDrops", 11, "power pills");
+    addFamiliarDropsLine("Rogue Program", "_tokenDrops", 5, "GG tokens");
+    addFamiliarDropsLine("Stomping Boots", "_pasteDrops", 7, "spleen pastes");
+    addFamiliarDropsLine("Unconscious Collective", "_dreamJarDrops", 5, "dream jars");
     item crown_item = $item[crown of thrones];
     if (crown_item.equipped_amount() == 0 && $item[Buddy Bjorn].available_amount() > 0)
         crown_item = $item[Buddy Bjorn];
@@ -46697,6 +46807,24 @@ float expectedDamageFromGhostAfterCastingShootGhost(monster m)
 RegisterTaskGenerationFunction("IOTMProtonicAcceleratorPackGenerateTasks");
 void IOTMProtonicAcceleratorPackGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
+    if (!$item[protonic accelerator pack].have()) return;
+	{	int nextGhostTurn = get_property_int("nextParanormalActivity");
+		int nextGhostTimer = (nextGhostTurn - total_turns_played());
+		string [int] description;
+		string url;
+		url = invSearch("protonic accelerator pack");
+		
+		if (nextGhostTurn <= total_turns_played())
+		{
+			description.listAppend(HTMLGenerateSpanFont("Who you gonna call? You!", "blue"));
+			if (!lookupItem("protonic accelerator pack").equipped())
+				description.listAppend(HTMLGenerateSpanFont("Equip the protopack first", "red"));
+			task_entries.listAppend(ChecklistEntryMake("__item protonic accelerator pack", url, ChecklistSubentryMake("It's ghost bustin' time!", "", description), -11));
+		}	
+		else
+			description.listAppend(nextGhostTimer + " adventures until your next protonic ghost.");
+			optional_task_entries.listAppend(ChecklistEntryMake("__item protonic accelerator pack", url, ChecklistSubentryMake("It's ghost bustin' time... eventually.", "", description), 8));
+	}	
     //Quest:
     if (QuestState("questPAGhost").in_progress || get_property("ghostLocation") != "")
     {
@@ -48177,8 +48305,8 @@ void IOTMKGBriefcaseGenerateResource(ChecklistEntry [int] resource_entries)
         description.listAppend("Free run/banishes for twenty turns.|Use the KGB tranquilizer dart skill in-combat.");
         if (lookupItem("kremlin's greatest briefcase").equipped_amount() == 0)
         {
-            description.listAppend("Equip the briefcase first.");
-            //entry.url = "inventory.php?which=2";
+		    description.listAppend(HTMLGenerateSpanFont("Equip the briefcase first!", "red"));
+            entry.url = "inventory.php?ftext=kremlin";
         }
         resource_entries.listAppend(ChecklistEntryMake("__item Kremlin's Greatest Briefcase", entry.url, ChecklistSubentryMake(pluralise(3 - get_property_int("_kgbTranquilizerDartUses"), "briefcase dart", "briefcase darts"), "", description)).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Kremlin Briefcase tranq dart banish"));
     }
@@ -49653,14 +49781,14 @@ void IOTMKramcoSausageOMaticGenerateResource(ChecklistEntry [int] resource_entri
         main_title = "Sausage goblin fight available";
         if (lookupItem("Kramco Sausage-o-Matic&trade;").equipped_amount() == 0) {
             main_description.listAppend(HTMLGenerateSpanFont("Equip the Kramco Sausage-o-Matic&trade; first.", "red"));
-            entry.url = "inventory.php?ftext=kramco+sausage-o-matic";
+            entry.url = "inventory.php?action=grind";
         }
     } else {
         main_title = round(fight_information.probability_of_sausage_fight * 100.0) + "% chance of sausage goblin this turn";
         main_description.listAppend(pluralise(fight_information.turns_to_next_guaranteed_fight, "turn", "turns") + " until next guaranteed goblin fight.");
         if (lookupItem("Kramco Sausage-o-Matic&trade;").equipped_amount() == 0) {
-            main_description.listAppend("Equip the Kramco Sausage-o-Matic&trade; first.");
-            entry.url = "inventory.php?ftext=kramco+sausage-o-matic";
+            main_description.listAppend(HTMLGenerateSpanFont("Equip the Kramco Sausage-o-Matic&trade; first.", "red"));
+            entry.url = "inventory.php?action=grind";
         }
     }
 
@@ -49682,15 +49810,20 @@ void IOTMKramcoSausageOMaticGenerateResource(ChecklistEntry [int] resource_entri
         int sausages_made = get_property_int("_sausagesMade");
         int meat_cost = 111 * (sausages_made + 1);
         sausage_description.listAppend("+1 adventure and +999 MP each.");
-        sausage_description.listAppend(sausage_casings + " casings available, " + sausages_eaten + "/23 eaten today.");
-        sausage_description.listAppend(pluralise(sausages_made, "sausage", "sausages") + " made; next costs " + meat_cost + " meat.");
-        
+        sausage_description.listAppend(HTMLGenerateSpanOfClass(sausage_casings, "r_bold") + " casings available, " + HTMLGenerateSpanOfClass(sausages_eaten + "/23", "r_bold") + " eaten today.");
+        if (sausages_made > 22)
+		{
+            sausage_description.listAppend(HTMLGenerateSpanFont(sausages_made + " sausages made today.", "purple"));
+        }	
+        else
+		{
+			sausage_description.listAppend(pluralise(sausages_made, "sausage", "sausages") + " made; next costs " + meat_cost + " meat.");
+		}
         entry.subentries.listAppend(ChecklistSubentryMake(pluralise(MIN(sausages_available, 23 - sausages_eaten), "magical sausage", "magical sausages") + " edible", "", sausage_description));
     }
     
     resource_entries.listAppend(entry);
 }
-
 RegisterTaskGenerationFunction("IOTMLilDoctorBagGenerateTasks");
 void IOTMLilDoctorBagGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
@@ -49736,7 +49869,8 @@ void IOTMLilDoctorBagGenerateResource(ChecklistEntry [int] resource_entries)
 	if (lookupItem("Lil' Doctor&trade; bag").available_amount() == 0) return;
 	//Otoscope: +200% item
     int otoscopes_left = clampi(3 - get_property_int("_otoscopeUsed"), 0, 3);
-    if (otoscopes_left > 0 && $skill[Otoscope].skill_is_usable() && __misc_state["in run"])
+    boolean otoscope_usable = my_path().id != PATH_G_LOVER && my_path().id != PATH_POCKET_FAMILIARS;
+    if (otoscopes_left > 0 && otoscope_usable && __misc_state["in run"])
     {
         string url;
         string [int] description;
@@ -49747,13 +49881,12 @@ void IOTMLilDoctorBagGenerateResource(ChecklistEntry [int] resource_entries)
             description.listAppend("Equip the Lil' Doctor™ bag first.");
             url = "inventory.php?ftext=lil'+doctor";
         }
-        //if (snojo_skill_entry.image_lookup_name == "")
-            //snojo_skill_entry.image_lookup_name = "__skill shattering punch";
         resource_entries.listAppend(ChecklistEntryMake("__item Lil' Doctor&trade; bag", url, ChecklistSubentryMake(pluralise(otoscopes_left, "otoscope", "otoscopes"), "", description), 8).ChecklistEntrySetIDTag("Lil doctor bag otoscope"));
     }
 	//Chest X-Ray: instakill
     int instakills_left = clampi(3 - get_property_int("_chestXRayUsed"), 0, 3);
-    if (instakills_left > 0 && $skill[Chest X-Ray].skill_is_usable())
+    boolean instakills_usable = my_path().id != PATH_G_LOVER && my_path().id != PATH_POCKET_FAMILIARS;
+    if (instakills_left > 0 && instakills_usable)
     {
     	string url;
         string [int] description;
@@ -49762,22 +49895,21 @@ void IOTMLilDoctorBagGenerateResource(ChecklistEntry [int] resource_entries)
         if (lookupItem("Lil' Doctor&trade; bag").equipped_amount() == 0)
         {
         	description.listAppend("Equip the Lil' Doctor™ bag first.");
-            url = "inventory.php?which=3";
+            url = "inventory.php?ftext=lil'+doctor";
         }
-        //if (snojo_skill_entry.image_lookup_name == "")
-            //snojo_skill_entry.image_lookup_name = "__skill shattering punch";
         resource_entries.listAppend(ChecklistEntryMake("__item Lil' Doctor&trade; bag", url, ChecklistSubentryMake(pluralise(instakills_left, "chest x-ray", "chest x-rays"), "", description), 0).ChecklistEntrySetCombinationTag("free instakill").ChecklistEntrySetIDTag("Lil doctor bag x-ray free kill"));
         
     }
 	//Reflex Hammer: Banish
     int banishes_left = clampi(3 - get_property_int("_reflexHammerUsed"), 0, 3);
-    if (banishes_left > 0 && $skill[Reflex Hammer].skill_is_usable())
+    boolean banishes_usable = my_path().id != PATH_G_LOVER && my_path().id != PATH_POCKET_FAMILIARS;
+    if (banishes_left > 0 && banishes_usable)
     {
         string url;
         string [int] description;
         if (lookupItem("Lil' Doctor&trade; bag").equipped_amount() == 0) {
             description.listAppend(HTMLGenerateSpanFont("Equip the Lil' Doctor™ bag first", "red"));
-            url = "inventory.php?which=3";
+            url = "inventory.php?ftext=lil'+doctor";
         } else {
             description.listAppend("Free run/banish");
         }
@@ -50177,7 +50309,7 @@ void IOTMPocketProfessorResource(ChecklistEntry [int] resource_entries)
         int nextLectureWeight = lecturesUsed ** 2 + 1;
         int nextLectureWeightChip = (lecturesUsed - 2) ** 2 + 1;
 
-        string main_title = (availableLectures > 0 ? pluralise(availableLectures, "lecture", "lectures") : "No lectures") + " available";
+        string main_title = (availableLectures > 0 ? pluralise(availableLectures, "lecture", "lectures") : "No lectures") + " available, " + lecturesUsed + " lectures used";
 
         // Subtitle
         string subtitle = "";
@@ -50285,7 +50417,6 @@ void IOTMPocketProfessorResource(ChecklistEntry [int] resource_entries)
         resource_entries.listAppend(entry);
     }
 }
-
 RegisterResourceGenerationFunction("IOTMEightDaysAWeekPillsGenerateResource");
 void IOTMEightDaysAWeekPillsGenerateResource(ChecklistEntry [int] resource_entries)
 {
@@ -50935,7 +51066,7 @@ void IOTMPowerfulGloveGenerateResource(ChecklistEntry [int] resource_entries)
         description.listAppend(HTMLGenerateSpanOfClass("Replace Enemy (10% charge):", "r_bold") + " Swap monster.");
     description.listAppend(HTMLGenerateSpanOfClass("Shrink Enemy (5% charge):", "r_bold") + " Delevel.");
 
-    resource_entries.listAppend(ChecklistEntryMake("__item Powerful Glove", url, ChecklistSubentryMake(chargeLeft + "% battery charge", "", description)).ChecklistEntrySetIDTag("Powerful glove skills resource"));
+    resource_entries.listAppend(ChecklistEntryMake("__item Powerful Glove", url, ChecklistSubentryMake(chargeLeft + "% Powerful Glove battery charge", "", description)).ChecklistEntrySetIDTag("Powerful glove skills resource"));
 }
 
 RegisterTaskGenerationFunction("IOTMPowerfulGloveTask");
@@ -50956,7 +51087,6 @@ void IOTMPowerfulGloveTask(ChecklistEntry [int] task_entries, ChecklistEntry [in
 
     optional_task_entries.listAppend(ChecklistEntryMake("__item white pixel", "place.php?whichplace=forestvillage&action=fv_mystic", ChecklistSubentryMake("Equip Powerful Glove", "", "Get extra " + glove_drops.listJoinComponents(" and ") + "."), is_plumber ? -10 : 0).ChecklistEntrySetIDTag("Powerful glove equip reminder"));
 }
-
 RegisterResourceGenerationFunction("IOTMBetterShroomsAndGardensGenerateResource");
 void IOTMBetterShroomsAndGardensGenerateResource(ChecklistEntry [int] resource_entries)
 {
@@ -51676,8 +51806,8 @@ RegisterTaskGenerationFunction("IOTMCommerceGhostGenerateTasks");
 void IOTMCommerceGhostGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
 	item commerce_item = get_property_item("commerceGhostItem");
-	int commerce_statgain1 = my_level() * 20;
-	int commerce_statgain2 = my_level() * 25;
+	int commerce_statgain1 = (my_level() * 20) * (1.0 + numeric_modifier(my_primestat().to_string() + " Experience Percent") / 100.0);
+	int commerce_statgain2 = (my_level() * 25) * (1.0 + numeric_modifier(my_primestat().to_string() + " Experience Percent") / 100.0);
 	boolean in_grey_you = my_class() == $class[grey goo]; // Grey You gains zero stats from your commerce ghost.
 
 	if (__misc_state["in run"] && $familiar[Ghost of Crimbo Commerce].familiar_is_usable() && !in_grey_you)
@@ -52479,8 +52609,8 @@ void IOTMDaylightShavingsHelmetGenerateTasks(ChecklistEntry [int] task_entries, 
 	}
 }
 //Cold Medicine Cabinet
-RegisterTaskGenerationFunction("IOTMColdMedicineCabinetGenerateTasks");
-void IOTMColdMedicineCabinetGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
+RegisterTaskGenerationFunction("IOTMColdMedicineCabinetGenerateTasksAR");
+void IOTMColdMedicineCabinetGenerateTasksAR(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
     monster gregarious_monster = get_property_monster("beGregariousMonster");
     int fights_left = clampi(get_property_int("beGregariousFightsLeft"), 0, 3);
@@ -52494,8 +52624,8 @@ void IOTMColdMedicineCabinetGenerateTasks(ChecklistEntry [int] task_entries, Che
     }
 }
 
-RegisterResourceGenerationFunction("IOTMColdMedicineCabinetGenerateResource");
-void IOTMColdMedicineCabinetGenerateResource(ChecklistEntry [int] resource_entries)
+RegisterResourceGenerationFunction("IOTMColdMedicineCabinetGenerateResourceAR");
+void IOTMColdMedicineCabinetGenerateResourceAR(ChecklistEntry [int] resource_entries)
 {
     
 	int pill_uses_remaining = floor((spleen_limit() - my_spleen_use()) / 2.0);
@@ -52626,6 +52756,181 @@ void IOTMColdMedicineCabinetGenerateResource(ChecklistEntry [int] resource_entri
 				resource_entries.listAppend(ChecklistEntryMake("__item snow suit", url, ChecklistSubentryMake(CMC_consults.pluralise("CMC consultation", "CMC consultations" + " remaining"), "", description), cmcrsrcimp).ChecklistEntrySetIDTag("cold medicine cabinet resource")); 
 			}
 		}
+	}
+}
+RegisterTaskGenerationFunction("IOTMColdMedicineCabinetGenerateTasks");
+void IOTMColdMedicineCabinetGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
+{
+    monster gregarious_monster = get_property_monster("beGregariousMonster");
+    int fights_left = clampi(get_property_int("beGregariousFightsLeft"), 0, 3);
+	string [int] description;
+	
+	if (gregarious_monster != $monster[none] && fights_left > 0) 
+	{
+        description.listAppend("Neaaaar, faaaaaaar, wherever you spaaaaaaar, I believe that the heart does go onnnnn.");
+		description.listAppend("Will appear in any zone, so try to find a zone with few monsters.");
+		optional_task_entries.listAppend(ChecklistEntryMake("__monster " + gregarious_monster, "url", ChecklistSubentryMake("Fight " + pluralise(fights_left, "more gregarious " + gregarious_monster, "more gregarious " + gregarious_monster + "s"), "", description), -1));
+    }
+	if (!__iotms_usable[lookupItem("cold medicine cabinet")]) return;
+
+	// Parsing the lastCombatEnvironments for a count of CMC combats.
+	string cmcCombatString = get_property("lastCombatEnvironments");
+	string[int] splitCMC = split_string(cmcCombatString, "");
+    int uTurns;
+	int iTurns;
+	int oTurns;
+
+	foreach turn in splitCMC {
+		if (splitCMC[turn] == "i") {iTurns +=1;}
+		if (splitCMC[turn] == "u") {uTurns +=1;}
+		if (splitCMC[turn] == "o") {oTurns +=1;}
+	}
+
+	string expectedSpleenItem = "Fleshazole";
+
+	if (uTurns > 10) expectedSpleenItem = "Breathitin";
+	if (iTurns > 10) expectedSpleenItem = "Extrovermectin";
+	if (oTurns > 10) expectedSpleenItem = "Homebodyl";
+
+	int CMC_consults = clampi(5 - get_property_int("_coldMedicineConsults"), 0, 5);
+	if (CMC_consults > 0) 
+	{
+		int next_CMC_Turn = get_property_int("_nextColdMedicineConsult");
+		int next_CMC_Timer = (next_CMC_Turn - total_turns_played());
+		string [int] description;
+		string url = "campground.php?action=workshed";
+			
+		if (next_CMC_Turn -1 == total_turns_played())
+		{
+			description.listAppend(HTMLGenerateSpanFont("Consultation ready next turn!", "red"));
+			description.listAppend("You'll be prescribed " + HTMLGenerateSpanOfClass(expectedSpleenItem, "r_bold"));
+			description.listAppend("You have " + CMC_consults + " consultations remaining.");
+			task_entries.listAppend(ChecklistEntryMake("__item snow suit", url, ChecklistSubentryMake("The cold medicine cabinet is almost in session", "", description), -11));
+		}
+		else if (next_CMC_Turn <= total_turns_played())
+		{
+			description.listAppend(HTMLGenerateSpanFont("Just what the doctor ordered!", "blue"));
+			description.listAppend("You'll be prescribed " + HTMLGenerateSpanOfClass(expectedSpleenItem, "r_bold"));
+			description.listAppend("You have " + CMC_consults + " consultations remaining.");
+			task_entries.listAppend(ChecklistEntryMake("__item snow suit", url, ChecklistSubentryMake("The cold medicine cabinet is in session", "", description), -11));
+		}
+	}
+}
+
+RegisterResourceGenerationFunction("IOTMColdMedicineCabinetGenerateResource");
+void IOTMColdMedicineCabinetGenerateResource(ChecklistEntry [int] resource_entries)
+{
+    //gregariousness
+	int uses_remaining = get_property_int("beGregariousCharges");
+	if (uses_remaining > 0) 
+	{
+        if (true) 
+		{
+            //The section that will be sent as a stand-alone resource
+            string url;
+            
+            string [int] description;
+            description.listAppend("Be gregarious in combat, which lets you turn foes into friends!");
+			string [int] gregfriends;
+			gregfriends.listAppend("Bob Racecar, or his brother Racecar Bob");
+			gregfriends.listAppend("dirty old lihc (cyrpt progress)");
+			gregfriends.listAppend("lobsterfrogman (gunpowder)");
+			gregfriends.listAppend("modern zmobie (cyrpt progress)");
+			gregfriends.listAppend("dense liana (free fight)");
+			gregfriends.listAppend("drunk pygmy (free fight)");
+			gregfriends.listAppend("eldritch tentacle (free fight, difficult)");
+			gregfriends.listAppend("lynyrd (free fight)");
+			gregfriends.listAppend("[degenerate aftercore farming target]");
+			description.listAppend("Potentially good friendships:|*" + gregfriends.listJoinComponents("|*"));
+            resource_entries.listAppend(ChecklistEntryMake("__effect Good Karma", url, ChecklistSubentryMake(uses_remaining.pluralise("gregarious handshake", "gregarious handshakes"), "", description)).ChecklistEntrySetIDTag("gregarious wanderer resource")); 
+        }
+    }
+	
+	//breathitin
+	int breaths_remaining = get_property_int("breathitinCharges");
+	if (breaths_remaining > 0) 
+	{
+        string [int] description;
+        description.listAppend("Outdoor fights become free.");
+        resource_entries.listAppend(ChecklistEntryMake("__item beefy pill", "", ChecklistSubentryMake(pluralise(breaths_remaining, "breathitin breath", "breathitin breaths"), "", description), -2));
+    }
+
+	//homebodyl
+	int homebodyls_remaining = get_property_int("homebodylCharges");
+	if (homebodyls_remaining > 0) 
+	{
+        string [int] description;
+        description.listAppend("Free crafting.");
+		description.listAppend("Lynyrd equipment, potions, and more.");
+        resource_entries.listAppend(ChecklistEntryMake("__item excitement pill", "", ChecklistSubentryMake(pluralise(homebodyls_remaining, "homebodyl free craft", "homebodyl free crafts"), "", description)));
+    }
+	
+	//consultation counter
+	int CMC_consults = clampi(5 - get_property_int("_coldMedicineConsults"), 0, 5);
+	if (CMC_consults > 0 && __misc_state["in run"] && __iotms_usable[lookupItem("cold medicine cabinet")]) 
+	{
+		// Tracking tile; gives the user information about the last turn-taking combats per the pref.
+		int next_CMC_Turn = get_property_int("_nextColdMedicineConsult");
+		int next_CMC_Timer = (next_CMC_Turn - total_turns_played());
+        int fleshazoleMeat = clampi(my_level(),0,11)*1000;
+       
+        // Parsing the lastCombatEnvironments for a count of CMC combats.
+        string cmcCombatString = get_property("lastCombatEnvironments");
+        string[int] splitCMC = split_string(cmcCombatString, "");
+        int uTurns;
+        int iTurns;
+        int oTurns;
+		string dotMatrix = '';
+
+        foreach turn in splitCMC {
+            if (splitCMC[turn] == "i") {iTurns +=1; dotMatrix = dotMatrix+'<span style="color:Salmon">• </span>';}
+            if (splitCMC[turn] == "u") {uTurns +=1; dotMatrix = dotMatrix+'<span style="color:Indigo">• </span>';}
+            if (splitCMC[turn] == "o") {oTurns +=1; dotMatrix = dotMatrix+'<span style="color:Wheat">• </span>';}
+        }
+        
+    	string expectedSpleenItem = "Fleshazole";
+
+    	if (uTurns > 10) expectedSpleenItem = "Breathitin";
+    	if (iTurns > 10) expectedSpleenItem = "Extrovermectin";
+    	if (oTurns > 10) expectedSpleenItem = "Homebodyl";
+
+		string [int] description;
+		string url = "campground.php?action=workshed";
+			
+		description.listAppend(HTMLGenerateSpanFont("Route turn-taking combats into the correct environments for a helpful spleen item!", "blue"));
+		if (next_CMC_Turn > total_turns_played())
+		{
+			description.listAppend("" + HTMLGenerateSpanOfClass(next_CMC_Timer, "r_bold") + " adventures until your next consultation.");
+			description.listAppend("Spend " + HTMLGenerateSpanOfClass(next_CMC_Timer - 9, "r_bold") + " non-environmental adventures to double your pill.");
+			description.listAppend("" + HTMLGenerateSpanOfClass("Last 20 environments: ", "r_bold") + cmcCombatString + "");
+		}
+			
+		// Append the lil dot guy if it's useful.
+		if (length(dotMatrix) > 5) {
+			description.listAppend(dotMatrix);    
+		}
+
+        string uFormat = uTurns > 10 ? "black" : "grey";
+        string iFormat = iTurns > 10 ? "black" : "grey";
+        string oFormat = oTurns > 10 ? "black" : "grey";
+
+        string [int] currentState;
+        currentState.listAppend(HTMLGenerateSpanOfClass("Currently Expected Spleener: ", "r_bold")+ expectedSpleenItem);
+        currentState.listAppend(HTMLGenerateSpanFont(uTurns.to_string() + " Underground turns", uFormat));
+        currentState.listAppend(HTMLGenerateSpanFont(iTurns.to_string() + " Indoor turns", iFormat));
+        currentState.listAppend(HTMLGenerateSpanFont(oTurns.to_string() + " Outdoor turns", oFormat));
+        description.listAppend(currentState.listJoinComponents("|*"));
+
+        string [int][int] spleeners;
+        // Generates a reference table for the user of the spleener effects.
+        spleeners.listAppend(listMake("<strong>Spleen Item</strong>", "<strong>Environment</strong>", "<strong>Effect</strong>"));
+        spleeners.listAppend(listMake("Extrovermectin","<span style=\"color:Salmon\">Indoors</span>","+3 Wandering Monsters"));
+        spleeners.listAppend(listMake("Breathitin","<span style=\"color:Indigo\">Underground</span>","+5 Outdoor Free Kills"));
+        spleeners.listAppend(listMake("Homebodyl","<span style=\"color:Wheat\">Outdoors</span>","+11 Free Crafts"));
+        spleeners.listAppend(listMake("Fleshazole","N/A","+"+fleshazoleMeat.to_string()+" meat"));
+        description.listAppend(HTMLGenerateSimpleTableLines(spleeners));
+
+        resource_entries.listAppend(ChecklistEntryMake("__item snow suit", url, ChecklistSubentryMake(CMC_consults.pluralise("CMC consultation", "CMC consultations" + " remaining"), "", description)).ChecklistEntrySetIDTag("cold medicine cabinet resource")); 
 	}
 }
 
@@ -53676,9 +53981,15 @@ void IOTMCookbookbatGenerateResource(ChecklistEntry [int] resource_entries)
     buffer tooltip_text;
 	tooltip_text.append(HTMLGenerateTagWrap("div", "Cookbookbat Recipes!", mapMake("class", "r_bold r_centre", "style", "padding-bottom:0.25em;")));
 	tooltip_text.append(HTMLGenerateSimpleTableLines(pizzaParlorRecipes));
-			
+		
 	description.listAppend(HTMLGenerateSpanOfClass(HTMLGenerateSpanOfClass(tooltip_text, "r_tooltip_inner_class r_tooltip_inner_class_margin") + "Important Recipes", "r_tooltip_outer_class"));
 
+    int cookings_remaining = clampi(5 - get_property_int("_cookbookbatCrafting"), 0, 5);
+    if (cookings_remaining > 0) 
+    {
+        description.listAppend(HTMLGenerateSpanOfClass(cookings_remaining, "r_bold") + " free cooks: Unstable fulminate, potions, and more.");
+    }
+	
     resource_entries.listAppend(ChecklistEntryMake("__familiar cookbookbat", url, ChecklistSubentryMake("Pizza party with the Cookbookbat!", "", description)).ChecklistEntrySetIDTag("Cookbookbat Resource"));
 }
 string [string, string] stationDescriptions;
