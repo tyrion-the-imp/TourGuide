@@ -28,12 +28,10 @@ void initialiseIOTMsUsable()
             __iotms_usable[lookupItem("model train set")] = true;
 		
 		//Workshed installer available but not in place
-		if	( !get_property_boolean("_workshedItemUsed") ) {
-			if	( available_amount($item[cold medicine cabinet]) > 0 )
-				__iotms_usable[lookupItem("cold medicine cabinet")] = true;
-			if	( available_amount($item[model train set]) > 0 )
-				__iotms_usable[lookupItem("model train set")] = true;
-		}
+		if	( available_amount($item[cold medicine cabinet]) > 0 )
+			__iotms_usable[lookupItem("cold medicine cabinet")] = true;
+		if	( available_amount($item[model train set]) > 0 )
+			__iotms_usable[lookupItem("model train set")] = true;
 		
         // Garden
         if (__campground[lookupItem("packet of mushroom spores")] > 0)

@@ -78,18 +78,25 @@ void IOTMModelTrainSetGenerateTasks(ChecklistEntry [int] task_entries, Checklist
     if (stationConfigured("empty")) {
         description.listAppend(HTMLGenerateSpanFont("Have an empty station configured!", "red"));
     }
-	if	( __iotms_usable[lookupItem("cold medicine cabinet")] && my_level() > 11 ) {
+	if	( __iotms_usable[lookupItem("cold medicine cabinet")] && !get_property_boolean("_workshedItemUsed") && !( get_campground() contains $item[cold medicine cabinet] ) ) {
 		description.listAppend("<span style='color:green; font-size:110%; font-weight:bold;'>Install medicine cabinet?</span>");
 	}
 
     int reconfigurableIn = trainSetReconfigurableIn();
-    if (reconfigurableIn == 0)
-    {
-        description.listAppend("Train set reconfigurable!");
-    }
-    else {
-        description.listAppend("Train set reconfigurable in " + HTMLGenerateSpanOfClass(reconfigurableIn.to_string() + " combats.", "r_bold"));
-    }
+	if	( get_campground() contains $item[model train set] ) {
+		if (reconfigurableIn == 0)
+		{
+			description.listAppend("Train set reconfigurable!");
+		}
+		else {
+			description.listAppend("Train set reconfigurable in " + HTMLGenerateSpanOfClass(reconfigurableIn.to_string() + " combats.", "r_bold"));
+		}
+	} else if ( $item[model train set].available_amount() > 0 && !get_property_boolean("_workshedItemUsed") ) {
+		url = "inventory.php?ftext=model train set";
+		description.listAppend("<span style='color:red; font-size:90%; font-weight:bold;'>Model train set is not in your workshed but you can put it in.</span>");
+	} else if ( $item[model train set].available_amount() > 0 && get_property_boolean("_workshedItemUsed") ) {
+		description.listAppend("<span style='color:maroon; font-size:90%; font-weight:bold;'>Model train set can't be put into your workshed until tomorrow.</span>");
+	}
 
     string[string] nextStation = stationDescriptions[stations[trainPosition % 8]];
     description.listAppend("Next station: " + HTMLGenerateSpanOfClass(nextStation["name"], "r_bold") + " - " + nextStation["description"]);
