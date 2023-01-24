@@ -23,7 +23,7 @@ void IOTMColdMedicineCabinetGenerateResourceAR(ChecklistEntry [int] resource_ent
 	//buy pills from mall
 	if ( pill_uses_remaining > 0 && !in_hardcore() ) {
 		string url = "mall.php";
-		if	( !in_hardcore() && pulls_remaining() > 0 ) { imp = -10; }
+		if	( !in_hardcore() && pulls_remaining() > 0 ) { imp = -8; }
 		string [int] pillprices;
 		if ( lookupItem("Extrovermectin&trade;").available_amount() == 0 ) {
 			pillprices.listAppend("Extrovermectin&trade; @ "+rnum(historical_price($item[Extrovermectin&trade;])) + " meat |* 3 wandering copies / 1 Be Gregarious");
@@ -124,7 +124,7 @@ void IOTMColdMedicineCabinetGenerateResourceAR(ChecklistEntry [int] resource_ent
 			if	( __misc_state["in run"] && !get_property_boolean("_workshedItemUsed") && item_amount($item[cold medicine cabinet]) > 0 ) {
 				description.listAppend(HTMLGenerateSpanFont("<span style='font-weight:bold;'>Place the Medicine Cabinet in your workshed.</span>", "red"));
 				description.listAppend("You have " + CMC_consults + " consultations remaining.");
-				cmcrsrcimp = -12;
+				cmcrsrcimp = -9;
 				resource_entries.listAppend(ChecklistEntryMake("__item snow suit", url, ChecklistSubentryMake("Cold medicine cabinet to shed?", "", description), cmcrsrcimp));
 			}
 			else if ( next_CMC_Turn <= total_turns_played() )
