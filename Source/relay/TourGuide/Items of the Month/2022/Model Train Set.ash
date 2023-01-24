@@ -64,6 +64,7 @@ void IOTMModelTrainSetGenerateTasks(ChecklistEntry [int] task_entries, Checklist
 
     int trainPosition = get_property_int("trainsetPosition");
     int whenTrainsetWasConfigured = get_property_int("lastTrainsetConfiguration");
+	int priority = 8;
     string[int] stations = split_string(get_property("trainsetConfiguration"), ",");
 
     if (oreConfiguredWhenNotNeeded()) {
@@ -94,6 +95,12 @@ void IOTMModelTrainSetGenerateTasks(ChecklistEntry [int] task_entries, Checklist
 	} else if ( $item[model train set].available_amount() > 0 && !get_property_boolean("_workshedItemUsed") ) {
 		url = "inventory.php?ftext=model train set";
 		description.listAppend("<span style='color:red; font-size:90%; font-weight:bold;'>Model train set is not in your workshed but you can put it in.</span>");
+		if	( !(get_campground() contains $item[model train set] ) && turns_played() < 5 ) {
+			url = "inventory.php?ftext=model train";
+			priority = -11;
+			task_entries.listAppend(ChecklistEntryMake("__item model train set", url, ChecklistSubentryMake("Train has escaped the shed!", "", description), -11));
+			return;
+		}
 	} else if ( $item[model train set].available_amount() > 0 && get_property_boolean("_workshedItemUsed") ) {
 		description.listAppend("<span style='color:maroon; font-size:90%; font-weight:bold;'>Model train set can't be put into your workshed until tomorrow.</span>");
 	}
@@ -116,7 +123,6 @@ void IOTMModelTrainSetGenerateTasks(ChecklistEntry [int] task_entries, Checklist
 	}
     
     ChecklistEntry[int] whereToAddTile = optional_task_entries;
-    int priority = 8;
 
     if (shouldNag()) {
         whereToAddTile = task_entries;
