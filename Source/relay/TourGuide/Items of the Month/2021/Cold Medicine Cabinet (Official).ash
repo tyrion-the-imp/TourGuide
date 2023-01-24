@@ -1,7 +1,8 @@
 RegisterTaskGenerationFunction("IOTMColdMedicineCabinetGenerateTasks");
 void IOTMColdMedicineCabinetGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
-    monster gregarious_monster = get_property_monster("beGregariousMonster");
+    if	( !(get_campground() contains $item[cold medicine cabinet]) ) { return; }
+	monster gregarious_monster = get_property_monster("beGregariousMonster");
     int fights_left = clampi(get_property_int("beGregariousFightsLeft"), 0, 3);
 	string [int] description;
 	
@@ -60,7 +61,8 @@ void IOTMColdMedicineCabinetGenerateTasks(ChecklistEntry [int] task_entries, Che
 RegisterResourceGenerationFunction("IOTMColdMedicineCabinetGenerateResource");
 void IOTMColdMedicineCabinetGenerateResource(ChecklistEntry [int] resource_entries)
 {
-    //gregariousness
+    if	( !(get_campground() contains $item[cold medicine cabinet]) ) { return; }
+	//gregariousness
 	int uses_remaining = get_property_int("beGregariousCharges");
 	if (uses_remaining > 0) 
 	{
