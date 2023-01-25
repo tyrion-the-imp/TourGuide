@@ -10,7 +10,7 @@ void IOTMColdMedicineCabinetGenerateTasks(ChecklistEntry [int] task_entries, Che
 	{
         description.listAppend("Neaaaar, faaaaaaar, wherever you spaaaaaaar, I believe that the heart does go onnnnn.");
 		description.listAppend("Will appear in any zone, so try to find a zone with few monsters.");
-		optional_task_entries.listAppend(ChecklistEntryMake("__monster " + gregarious_monster, "url", ChecklistSubentryMake("Fight " + pluralise(fights_left, "more gregarious " + gregarious_monster, "more gregarious " + gregarious_monster + "s"), "", description), -1));
+		optional_task_entries.listAppend(ChecklistEntryMake("__monster " + gregarious_monster, "url", ChecklistSubentryMake("Fight " + pluralise(fights_left, "more gregarious " + gregarious_monster, "more gregarious " + gregarious_monster + "s <span style='color:red; font-size:100%; font-weight:bold;'>(Official)</span>"), "", description), -7));
     }
 	if (!__iotms_usable[lookupItem("cold medicine cabinet")]) return;
 
@@ -84,7 +84,7 @@ void IOTMColdMedicineCabinetGenerateResource(ChecklistEntry [int] resource_entri
 			gregfriends.listAppend("lynyrd (free fight)");
 			gregfriends.listAppend("[degenerate aftercore farming target]");
 			description.listAppend("Potentially good friendships:|*" + gregfriends.listJoinComponents("|*"));
-            resource_entries.listAppend(ChecklistEntryMake("__effect Good Karma", url, ChecklistSubentryMake(uses_remaining.pluralise("gregarious handshake", "gregarious handshakes"), "", description)).ChecklistEntrySetIDTag("gregarious wanderer resource")); 
+            resource_entries.listAppend(ChecklistEntryMake("__effect Good Karma", url, ChecklistSubentryMake(uses_remaining.pluralise("gregarious handshake", "gregarious handshakes")+" <span style='color:red; font-size:100%; font-weight:bold;'>(Official)</span>", "", description),-6).ChecklistEntrySetIDTag("gregarious wanderer resource")); 
         }
     }
 	
@@ -94,7 +94,7 @@ void IOTMColdMedicineCabinetGenerateResource(ChecklistEntry [int] resource_entri
 	{
         string [int] description;
         description.listAppend("Outdoor fights become free.");
-        resource_entries.listAppend(ChecklistEntryMake("__item beefy pill", "", ChecklistSubentryMake(pluralise(breaths_remaining, "breathitin breath", "breathitin breaths"), "", description), -2));
+        resource_entries.listAppend(ChecklistEntryMake("__item beefy pill", "", ChecklistSubentryMake(pluralise(breaths_remaining, "breathitin breath", "breathitin breaths")+" <span style='color:red; font-size:100%; font-weight:bold;'>(Official)</span>", "", description), -6));
     }
 
 	//homebodyl
@@ -104,7 +104,7 @@ void IOTMColdMedicineCabinetGenerateResource(ChecklistEntry [int] resource_entri
         string [int] description;
         description.listAppend("Free crafting.");
 		description.listAppend("Lynyrd equipment, potions, and more.");
-        resource_entries.listAppend(ChecklistEntryMake("__item excitement pill", "", ChecklistSubentryMake(pluralise(homebodyls_remaining, "homebodyl free craft", "homebodyl free crafts"), "", description)));
+        resource_entries.listAppend(ChecklistEntryMake("__item excitement pill", "", ChecklistSubentryMake(pluralise(homebodyls_remaining, "homebodyl free craft", "homebodyl free crafts")+" <span style='color:red; font-size:100%; font-weight:bold;'>(Official)</span>", "", description), -2));
     }
 	
 	//consultation counter
@@ -172,6 +172,6 @@ void IOTMColdMedicineCabinetGenerateResource(ChecklistEntry [int] resource_entri
         spleeners.listAppend(listMake("Fleshazole","N/A","+"+fleshazoleMeat.to_string()+" meat"));
         description.listAppend(HTMLGenerateSimpleTableLines(spleeners));
 
-        resource_entries.listAppend(ChecklistEntryMake("__item snow suit", url, ChecklistSubentryMake(CMC_consults.pluralise("CMC consultation", "CMC consultations" + " remaining"), "", description)).ChecklistEntrySetIDTag("cold medicine cabinet resource")); 
+        resource_entries.listAppend(ChecklistEntryMake("__item snow suit", url, ChecklistSubentryMake(CMC_consults.pluralise("CMC consultation", "CMC consultations" + " remaining")+" <span style='color:red; font-size:100%; font-weight:bold;'>(Official)</span>", "", description), -6).ChecklistEntrySetIDTag("cold medicine cabinet resource")); 
 	}
 }

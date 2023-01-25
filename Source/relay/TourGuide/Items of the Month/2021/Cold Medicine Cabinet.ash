@@ -19,7 +19,7 @@ void IOTMColdMedicineCabinetGenerateResourceAR(ChecklistEntry [int] resource_ent
 {
     
 	int pill_uses_remaining = floor((spleen_limit() - my_spleen_use()) / 2.0);
-	int imp = 7;
+	int imp = -8;
 	//buy pills from mall
 	if ( pill_uses_remaining > 0 && !in_hardcore() ) {
 		string url = "mall.php";
@@ -46,6 +46,7 @@ void IOTMColdMedicineCabinetGenerateResourceAR(ChecklistEntry [int] resource_ent
 	
 	//gregariousness
 	int uses_remaining = get_property_int("beGregariousCharges");
+	imp = -8;
 	if (uses_remaining > 0 || ( lookupItem("Extrovermectin&trade;").available_amount() > 0 && pill_uses_remaining > 0 )) 
 	{
         if (true) 
@@ -86,6 +87,7 @@ void IOTMColdMedicineCabinetGenerateResourceAR(ChecklistEntry [int] resource_ent
         description.listAppend("Trade 2 spleen for "+HTMLGenerateSpanFont(min((my_level() * 1000),11000), "blue")+" meat.");
         resource_entries.listAppend(ChecklistEntryMake("__item beefy pill", "", ChecklistSubentryMake(pluralise(flesh_uses_remaining, "Fleshazole&trade; use possible<br>(Meat source)", "Fleshazole&trade; uses possible<br>(Meat source)"), "", description), imp));
     }
+	
 	//breathitin
 	int breaths_remaining = get_property_int("breathitinCharges");
 	if (breaths_remaining > 0 || ( lookupItem("Breathitin&trade;").available_amount() > 0 && pill_uses_remaining > 0 ) ) 
@@ -101,7 +103,7 @@ void IOTMColdMedicineCabinetGenerateResourceAR(ChecklistEntry [int] resource_ent
 	if (homebodyls_remaining > 0 || ( lookupItem("Homebodyl&trade;").available_amount() > 0 && pill_uses_remaining > 0 )) 
 	{
         string [int] description;
-		int hbimp = 7;
+		int hbimp = -5;
 		description.listAppend("Homebodyl&trade; (2 spleen): <span style='color:red; font-size:90%; font-weight:bold;'>"+lookupItem("Homebodyl&trade;").available_amount()+"</span> available");
         description.listAppend("Free crafting.");
 		description.listAppend("Lynyrd equipment, potions, and more.");
@@ -111,13 +113,14 @@ void IOTMColdMedicineCabinetGenerateResourceAR(ChecklistEntry [int] resource_ent
 	
 	//consultation counter
 	if (!__iotms_usable[lookupItem("cold medicine cabinet")]) return;
+	
 	{
 		int CMC_consults = clampi(5 - get_property_int("_coldMedicineConsults"), 0, 5);
 		if (CMC_consults > 0) 
 		{
 			int next_CMC_Turn = get_property_int("_nextColdMedicineConsult");
 			int next_CMC_Timer = (next_CMC_Turn - total_turns_played());
-			int cmcrsrcimp = 0;
+			int cmcrsrcimp = -5;
 			string [int] description;
 			string url = "campground.php?action=workshed";
 			//shouldn't be in inventory if restricted or already in shed
