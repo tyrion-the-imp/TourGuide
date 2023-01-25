@@ -52629,7 +52629,7 @@ void IOTMColdMedicineCabinetGenerateResourceAR(ChecklistEntry [int] resource_ent
 {
     
 	int pill_uses_remaining = floor((spleen_limit() - my_spleen_use()) / 2.0);
-	int imp = 7;
+	int imp = -8;
 	//buy pills from mall
 	if ( pill_uses_remaining > 0 && !in_hardcore() ) {
 		string url = "mall.php";
@@ -52656,6 +52656,7 @@ void IOTMColdMedicineCabinetGenerateResourceAR(ChecklistEntry [int] resource_ent
 	
 	//gregariousness
 	int uses_remaining = get_property_int("beGregariousCharges");
+	imp = -8;
 	if (uses_remaining > 0 || ( lookupItem("Extrovermectin&trade;").available_amount() > 0 && pill_uses_remaining > 0 )) 
 	{
         if (true) 
@@ -52696,6 +52697,7 @@ void IOTMColdMedicineCabinetGenerateResourceAR(ChecklistEntry [int] resource_ent
         description.listAppend("Trade 2 spleen for "+HTMLGenerateSpanFont(min((my_level() * 1000),11000), "blue")+" meat.");
         resource_entries.listAppend(ChecklistEntryMake("__item beefy pill", "", ChecklistSubentryMake(pluralise(flesh_uses_remaining, "Fleshazole&trade; use possible<br>(Meat source)", "Fleshazole&trade; uses possible<br>(Meat source)"), "", description), imp));
     }
+	
 	//breathitin
 	int breaths_remaining = get_property_int("breathitinCharges");
 	if (breaths_remaining > 0 || ( lookupItem("Breathitin&trade;").available_amount() > 0 && pill_uses_remaining > 0 ) ) 
@@ -52711,7 +52713,7 @@ void IOTMColdMedicineCabinetGenerateResourceAR(ChecklistEntry [int] resource_ent
 	if (homebodyls_remaining > 0 || ( lookupItem("Homebodyl&trade;").available_amount() > 0 && pill_uses_remaining > 0 )) 
 	{
         string [int] description;
-		int hbimp = 7;
+		int hbimp = -5;
 		description.listAppend("Homebodyl&trade; (2 spleen): <span style='color:red; font-size:90%; font-weight:bold;'>"+lookupItem("Homebodyl&trade;").available_amount()+"</span> available");
         description.listAppend("Free crafting.");
 		description.listAppend("Lynyrd equipment, potions, and more.");
@@ -52721,13 +52723,14 @@ void IOTMColdMedicineCabinetGenerateResourceAR(ChecklistEntry [int] resource_ent
 	
 	//consultation counter
 	if (!__iotms_usable[lookupItem("cold medicine cabinet")]) return;
+	
 	{
 		int CMC_consults = clampi(5 - get_property_int("_coldMedicineConsults"), 0, 5);
 		if (CMC_consults > 0) 
 		{
 			int next_CMC_Turn = get_property_int("_nextColdMedicineConsult");
 			int next_CMC_Timer = (next_CMC_Turn - total_turns_played());
-			int cmcrsrcimp = 0;
+			int cmcrsrcimp = -5;
 			string [int] description;
 			string url = "campground.php?action=workshed";
 			//shouldn't be in inventory if restricted or already in shed
@@ -52770,7 +52773,7 @@ void IOTMColdMedicineCabinetGenerateTasks(ChecklistEntry [int] task_entries, Che
 	{
         description.listAppend("Neaaaar, faaaaaaar, wherever you spaaaaaaar, I believe that the heart does go onnnnn.");
 		description.listAppend("Will appear in any zone, so try to find a zone with few monsters.");
-		optional_task_entries.listAppend(ChecklistEntryMake("__monster " + gregarious_monster, "url", ChecklistSubentryMake("Fight " + pluralise(fights_left, "more gregarious " + gregarious_monster, "more gregarious " + gregarious_monster + "s"), "", description), -1));
+		optional_task_entries.listAppend(ChecklistEntryMake("__monster " + gregarious_monster, "url", ChecklistSubentryMake("Fight " + pluralise(fights_left, "more gregarious " + gregarious_monster, "more gregarious " + gregarious_monster + "s <span style='color:red; font-size:100%; font-weight:bold;'>(Official)</span>"), "", description), -7));
     }
 	if (!__iotms_usable[lookupItem("cold medicine cabinet")]) return;
 
@@ -52844,7 +52847,7 @@ void IOTMColdMedicineCabinetGenerateResource(ChecklistEntry [int] resource_entri
 			gregfriends.listAppend("lynyrd (free fight)");
 			gregfriends.listAppend("[degenerate aftercore farming target]");
 			description.listAppend("Potentially good friendships:|*" + gregfriends.listJoinComponents("|*"));
-            resource_entries.listAppend(ChecklistEntryMake("__effect Good Karma", url, ChecklistSubentryMake(uses_remaining.pluralise("gregarious handshake", "gregarious handshakes"), "", description)).ChecklistEntrySetIDTag("gregarious wanderer resource")); 
+            resource_entries.listAppend(ChecklistEntryMake("__effect Good Karma", url, ChecklistSubentryMake(uses_remaining.pluralise("gregarious handshake", "gregarious handshakes")+" <span style='color:red; font-size:100%; font-weight:bold;'>(Official)</span>", "", description),-6).ChecklistEntrySetIDTag("gregarious wanderer resource")); 
         }
     }
 	
@@ -52854,7 +52857,7 @@ void IOTMColdMedicineCabinetGenerateResource(ChecklistEntry [int] resource_entri
 	{
         string [int] description;
         description.listAppend("Outdoor fights become free.");
-        resource_entries.listAppend(ChecklistEntryMake("__item beefy pill", "", ChecklistSubentryMake(pluralise(breaths_remaining, "breathitin breath", "breathitin breaths"), "", description), -2));
+        resource_entries.listAppend(ChecklistEntryMake("__item beefy pill", "", ChecklistSubentryMake(pluralise(breaths_remaining, "breathitin breath", "breathitin breaths")+" <span style='color:red; font-size:100%; font-weight:bold;'>(Official)</span>", "", description), -6));
     }
 
 	//homebodyl
@@ -52864,7 +52867,7 @@ void IOTMColdMedicineCabinetGenerateResource(ChecklistEntry [int] resource_entri
         string [int] description;
         description.listAppend("Free crafting.");
 		description.listAppend("Lynyrd equipment, potions, and more.");
-        resource_entries.listAppend(ChecklistEntryMake("__item excitement pill", "", ChecklistSubentryMake(pluralise(homebodyls_remaining, "homebodyl free craft", "homebodyl free crafts"), "", description)));
+        resource_entries.listAppend(ChecklistEntryMake("__item excitement pill", "", ChecklistSubentryMake(pluralise(homebodyls_remaining, "homebodyl free craft", "homebodyl free crafts")+" <span style='color:red; font-size:100%; font-weight:bold;'>(Official)</span>", "", description), -2));
     }
 	
 	//consultation counter
@@ -52932,7 +52935,7 @@ void IOTMColdMedicineCabinetGenerateResource(ChecklistEntry [int] resource_entri
         spleeners.listAppend(listMake("Fleshazole","N/A","+"+fleshazoleMeat.to_string()+" meat"));
         description.listAppend(HTMLGenerateSimpleTableLines(spleeners));
 
-        resource_entries.listAppend(ChecklistEntryMake("__item snow suit", url, ChecklistSubentryMake(CMC_consults.pluralise("CMC consultation", "CMC consultations" + " remaining"), "", description)).ChecklistEntrySetIDTag("cold medicine cabinet resource")); 
+        resource_entries.listAppend(ChecklistEntryMake("__item snow suit", url, ChecklistSubentryMake(CMC_consults.pluralise("CMC consultation", "CMC consultations" + " remaining")+" <span style='color:red; font-size:100%; font-weight:bold;'>(Official)</span>", "", description), -6).ChecklistEntrySetIDTag("cold medicine cabinet resource")); 
 	}
 }
 
