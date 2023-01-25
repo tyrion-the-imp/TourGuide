@@ -967,9 +967,9 @@ function recalculateTimerInterval()
     else if (seconds_since_last_reload < 60) //thinking
     	__guide_timer_interval = 1250;
     else if (seconds_since_last_reload < 60 * 5) //off for a cup of tea
-    	__guide_timer_interval = 2500;
+    	__guide_timer_interval = 1250;
     else //huddled in the corner afraid of ascension
-    	__guide_timer_interval = 4000;
+    	__guide_timer_interval = 1250;
     
     if (__matrix_last_event_time == undefined)
     	__matrix_last_event_time = timeInMilliseconds();
