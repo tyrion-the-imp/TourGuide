@@ -113,7 +113,9 @@ void IOTMColdMedicineCabinetGenerateResourceAR(ChecklistEntry [int] resource_ent
 	
 	//consultation counter
 	if (!__iotms_usable[lookupItem("cold medicine cabinet")]) return;
+	//defer to 'official' tile for this resource
 	
+	if	( false )
 	{
 		int CMC_consults = clampi(5 - get_property_int("_coldMedicineConsults"), 0, 5);
 		if (CMC_consults > 0) 

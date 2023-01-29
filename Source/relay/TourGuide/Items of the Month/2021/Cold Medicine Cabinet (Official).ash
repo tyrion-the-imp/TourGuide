@@ -172,6 +172,6 @@ void IOTMColdMedicineCabinetGenerateResource(ChecklistEntry [int] resource_entri
         spleeners.listAppend(listMake("Fleshazole","N/A","+"+fleshazoleMeat.to_string()+" meat"));
         description.listAppend(HTMLGenerateSimpleTableLines(spleeners));
 
-        resource_entries.listAppend(ChecklistEntryMake("__item snow suit", url, ChecklistSubentryMake(CMC_consults.pluralise("CMC consultation", "CMC consultations" + " remaining")+" <span style='color:red; font-size:100%; font-weight:bold;'>(Official)</span>", "", description), -6).ChecklistEntrySetIDTag("cold medicine cabinet resource")); 
+        resource_entries.listAppend(ChecklistEntryMake("__item snow suit", url, ChecklistSubentryMake(CMC_consults.pluralise("CMC consultation", "CMC consultations" + " remaining")+" <span style='color:red; font-size:100%; font-weight:bold;'>(Official)</span>", "", description), -9).ChecklistEntrySetIDTag("cold medicine cabinet resource")); 
 	}
 }
