@@ -36,6 +36,8 @@ void initialiseIOTMsUsable()
         // Garden
         if (__campground[lookupItem("packet of mushroom spores")] > 0)
             __iotms_usable[lookupItem("packet of mushroom spores")] = true;
+		if ( __campground contains $item[packet of rock seeds] )
+            __iotms_usable[lookupItem("packet of rock seeds")] = true;
 
     }
     if (florist_available() && $item[hand turkey outline].is_unrestricted()) //May 2013
