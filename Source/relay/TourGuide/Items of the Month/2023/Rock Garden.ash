@@ -12,7 +12,7 @@ void IOTMRockGardenGenerateResource(ChecklistEntry [int] resource_entries)
     }
 	// Ascension stuff
     if (!__iotms_usable[lookupItem("packet of rock seeds")]) return;
-	if (__misc_state["in run"] && my_path().id != 25) return;
+	if (__misc_state["in run"] && my_path().id == 25) return;
 	int gardenGravels = available_amount($item[groveling gravel]);
 	int gardenMilestones = available_amount($item[milestone]);
 	int gardenWhetstones = available_amount($item[whet stone]);
