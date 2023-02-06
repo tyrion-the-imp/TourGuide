@@ -53820,7 +53820,7 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 	}
 	else if (turncountWhereAutobotReturns <= total_turns_played())
 	{
-		string main_title = "Autumn-aton returns next adventure";
+		string main_title = "Autumn-aton returns <span style='color:red; font-size:100%; font-weight:bold;'>next adventure</span>";
 		string autobotZone = get_property("autumnatonQuestLocation");
 		description.listAppend("Next mission takes " + HTMLGenerateSpanOfClass(autobotsReturnTime, "r_bold") + " adventures.");
 		description.listAppend(HTMLGenerateSpanOfClass("Currently exploring: ", "r_bold") + autobotZone);
