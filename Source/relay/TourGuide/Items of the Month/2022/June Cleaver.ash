@@ -61,7 +61,7 @@ void IOTMJuneCleaverGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEn
 		if (lookupItem("june cleaver").equipped_amount() == 0) {
 			description.listAppend(HTMLGenerateSpanFont("Equip the June cleaver", "red"));
 		}
-		task_entries.listAppend(ChecklistEntryMake("__item June Cleaver", url, ChecklistSubentryMake(main_title, description), -8).ChecklistEntrySetIDTag("June cleaver dreams"));
+		task_entries.listAppend(ChecklistEntryMake("__item June Cleaver", url, ChecklistSubentryMake(main_title, description), 1).ChecklistEntrySetIDTag("June cleaver dreams"));
 	}
 }
 
