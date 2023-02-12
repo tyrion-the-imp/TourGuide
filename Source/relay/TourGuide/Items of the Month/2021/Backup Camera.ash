@@ -15,7 +15,7 @@ void IOTMBackupCameraGenerateTasks(ChecklistEntry [int] task_entries, ChecklistE
 	description.listAppend(backup_camera_uses_remaining + " backup camera snaps left");
 	if ( emotionNostalgic > 0 )
 		description.listAppend(emotionNostalgic + " Nostalgias left. Item copying. ");
-	if (!lookupItem("backup camera").have_equipped())
+	if ( !lookupItem("backup camera").have_equipped() && (11 - get_property_int("_backUpUses") > 0) )
 		description.listAppend("<span style='color:red; font-size:100%; font-weight:bold;'>Equip backup camera!!</span>");
 	if (lcm.to_string() != "" && lcm.to_string() != "none" && ( emotionNostalgic > 0 || backup_camera_uses_remaining > 0 ) )
 		task_entries.listAppend(ChecklistEntryMake("__effect twist and an eye", url, ChecklistSubentryMake(main_title, "", description), -11).ChecklistEntrySetIDTag("Backup camera skill task"));
