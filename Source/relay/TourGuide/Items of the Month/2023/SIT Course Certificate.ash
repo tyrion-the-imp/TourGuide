@@ -28,6 +28,7 @@ void IOTMSITCertificateGenerateTasks(ChecklistEntry [int] task_entries, Checklis
         "Don't play hooky!",
         "You already paid for it.",
         "This one time in college...",
+        "This one time, at band camp,...",
     };
     string miscPhrase = miscPhrases[random(count(miscPhrases))];
     description.listAppend(HTMLGenerateSpanFont(miscPhrase + " Take your S.I.T. course!", "red"));
