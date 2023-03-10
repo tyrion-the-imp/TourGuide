@@ -54531,6 +54531,58 @@ void IOTMSITCertificateGenerateTasks(ChecklistEntry [int] task_entries, Checklis
     task_entries.listAppend(ChecklistEntryMake("__item S.I.T. Course Completion Certificate", url, ChecklistSubentryMake(main_title, description), -11).ChecklistEntrySetIDTag("S.I.T. Course Completion Certificate"));
 }
 
+//SIT course certificate
+RegisterTaskGenerationFunction("IOTMSITCertificateGenerateTasks2");
+void IOTMSITCertificateGenerateTasks2(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
+{
+    //if (!__misc_state["in run"]) return;
+    if (!lookupItem("S.I.T. Course Completion Certificate").have()) return;
+    string SITCourse = get_property_int("currentSITSkill");
+    string url = "inv_use.php?pwd=" + my_hash() + "&which=3&whichitem=11116";
+    string title;
+    string [int] description;
+
+    if (!get_property_boolean("_sitCourseCompleted")) {
+        title = HTMLGenerateSpanFont("Enroll in a SIT course!", "black");
+        description.listAppend("" + HTMLGenerateSpanOfClass("", "r_bold") + "Insectology (meat)");
+        description.listAppend("" + HTMLGenerateSpanOfClass("", "r_bold") + "Cryptobotany (items)");
+        task_entries.listAppend(ChecklistEntryMake("__item S.I.T. Course Completion Certificate", url, ChecklistSubentryMake(title, description), -11));
+    }
+}
+//Shadow phone
+RegisterResourceGenerationFunction("ClosedCircuitPayPhoneGenerateResource");
+void ClosedCircuitPayPhoneGenerateResource(ChecklistEntry [int] resource_entries)
+{
+    if (!__misc_state["in run"]) return;
+    string [int] description;
+    int shadowLodestones = available_amount($item[Rufus's shadow lodestone]);
+    
+    int RufusQuestItems;
+    string url;
+    for i from 1 to 6
+    {
+        RufusQuestItems += i*available_amount(to_item(11169+i));
+    }
+    if (RufusQuestItems > 0)
+    {
+        description.listAppend(HTMLGenerateSpanFont("Give Rufus that shadow quest item to get a lodestone!", "blue") + "");
+        resource_entries.listAppend(ChecklistEntryMake("__item Rufus's shadow lodestone", url, ChecklistSubentryMake("Shadow lodestone usable", "", description), 5));
+    }
+    
+    if ($item[Rufus's shadow lodestone].available_amount() > 0)
+    {
+        description.listAppend("30 advs of +100% init, +100% item, +200% meat, -10% combat.");
+        description.listAppend("Triggers on next visit to any Shadow Rift.");
+        resource_entries.listAppend(ChecklistEntryMake("__item Rufus's shadow lodestone", url, ChecklistSubentryMake("Shadow lodestone usable", "", description), 5));
+    }
+    
+/*    if (!get_property_boolean("_shadowPhoneUsed"))
+    {
+        description.listAppend("Call Rufus to get 11 free Shadow Rift combats.");
+        resource_entries.listAppend(ChecklistEntryMake("__effect Shadow Affinity", "", ChecklistSubentryMake("Shadow Affinity free fights", "", description), 5));
+    }    
+*/    
+}
 
 
 RegisterTaskGenerationFunction("PathActuallyEdtheUndyingGenerateTasks");
