@@ -234,7 +234,8 @@ void QLevel11DesertGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
             subentry.entries.listAppend(line);
         }
 	 
-    } else
+    } else if ( $familiar[Melodramedary].familiar_is_usable() ) {
         subentry.entries.listAppend("Could bring along Melodramedary.");
+	}
     task_entries.listAppend(ChecklistEntryMake(base_quest_state.image_name, url, subentry, $locations[the arid\, extra-dry desert,the oasis]).ChecklistEntrySetIDTag("Council L11 quest desert exploration"));
 }
