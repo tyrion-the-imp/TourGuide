@@ -46,7 +46,8 @@ void Q8BitInit()
 
 void Q8bitRealmGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] future_task_entries)
 {
-    // In 2023, there was a large rework of the 8-bit realm. Instead of needing 30 white
+    if	( item_amount($item[digital key]) > 0 ) { return; }
+	// In 2023, there was a large rework of the 8-bit realm. Instead of needing 30 white
     //   pixels to generate your Digital Key, you now need a certain amount of score. This
     //   new tile is an attempt to help users figure out the new 8-bit zone!
 
