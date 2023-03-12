@@ -12349,8 +12349,8 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
         //possibly less relevant:
         //√ghosts/skulls/bloopers...?
         //seems very marginal
-        if (!__quest_state["Level 13"].state_boolean["past keys"] && ($item[digital key].available_amount() + creatable_amount($item[digital key])) == 0)
-            potential_copies.listAppend("Ghosts / morbid skulls / bloopers.");
+        //if (!__quest_state["Level 13"].state_boolean["past keys"] && ($item[digital key].available_amount() + creatable_amount($item[digital key])) == 0)
+            //potential_copies.listAppend("Ghosts / morbid skulls / bloopers.");
         //bricko bats, if they have bricko...?
         //if (__misc_state["bookshelf accessible"] && $skill[summon brickos].skill_is_usable())
             //potential_copies.listAppend("Bricko bats...?");
@@ -12362,7 +12362,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
 	} else {
 		copy_source_entry.importance_level = -12;
 	}
-	copy_source_entry.subentries.listAppend(ChecklistSubentryMake("<u>Copy source(s)</u>", "", ""));
+	
     
     if (__misc_state["Chateau Mantegna available"] && !get_property_boolean("_chateauMonsterFought") && mafiaIsPastRevision(15115))
     {
@@ -12553,8 +12553,13 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
             copy_source_entry.image_lookup_name = "__item cargo cultist shorts";
     }
 	
-	
-	
+	string[int] dummy;
+	dummy[0] = "dummy entry";
+	int seidx = 1;
+	foreach s in copy_source_entry.subentries {
+		dummy[seidx] = s;
+		seidx++;
+	}
 	
     if (copy_source_entry.subentries.count() > 0)
     {
