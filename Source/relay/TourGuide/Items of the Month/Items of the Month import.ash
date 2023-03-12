@@ -130,7 +130,7 @@ import "relay/TourGuide/Items of the Month/2022/Autumnaton.ash";
 import "relay/TourGuide/Items of the Month/2022/Cookbookbat.ash";
 import "relay/TourGuide/Items of the Month/2022/Oliver's Place.ash";
 import "relay/TourGuide/Items of the Month/2022/Model Train Set.ash";
-import "relay/TourGuide/Items of the Month/2022/Olivers Speakeasy.ash";
+//import "relay/TourGuide/Items of the Month/2022/Olivers Speakeasy.ash";
 
 // 2023
 import "relay/TourGuide/Items of the Month/2023/Rock Garden.ash";
