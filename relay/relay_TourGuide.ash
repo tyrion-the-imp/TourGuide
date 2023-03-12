@@ -54576,12 +54576,18 @@ void ClosedCircuitPayPhoneGenerateResource(ChecklistEntry [int] resource_entries
         resource_entries.listAppend(ChecklistEntryMake("__item Rufus's shadow lodestone", url, ChecklistSubentryMake("Shadow lodestone usable", "", description), 5));
     }
     
-/*    if (!get_property_boolean("_shadowPhoneUsed"))
+    if (!get_property_boolean("_shadowAffinityToday"))
     {
         description.listAppend("Call Rufus to get 11 free Shadow Rift combats.");
-        resource_entries.listAppend(ChecklistEntryMake("__effect Shadow Affinity", "", ChecklistSubentryMake("Shadow Affinity free fights", "", description), 5));
+        resource_entries.listAppend(ChecklistEntryMake("__effect Shadow Affinity", "", ChecklistSubentryMake("Shadow Affinity free fights", "", description), 5).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("pay phone free fight"));
     }    
-*/    
+    
+	if ( have_effect($effect[Shadow Affinity]) > 0 )
+	{
+		description.listAppend("Shadow Rift combats.");
+		resource_entries.listAppend(ChecklistEntryMake("__effect Shadow Affinity", "", ChecklistSubentryMake(have_effect($effect[Shadow Affinity])+" Shadow Affinity free fights remain", "", description), 5).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("pay phone free fight"));
+	}
+	
 }
 
 
@@ -55498,7 +55504,7 @@ void PathAvatarOfWestOfLoathingGenerateTasks(ChecklistEntry [int] task_entries, 
     class_points[$class[Snake Oiler]] += get_property_int("awolPointsSnakeoiler");
     
     item [class] tale_for_class;
-    tale_for_class[$class[Cow Puncher]] = $item[tales of the west: Cow Punching];
+    tale_for_class[$class[Cow Puncher]] = $item[Tales of the west: \ Cow Punching];
     tale_for_class[$class[Beanslinger]] = $item[Tales of the West: Beanslinging];
     tale_for_class[$class[Snake Oiler]] = $item[Tales of the West: Snake Oiling];
     
