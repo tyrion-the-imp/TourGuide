@@ -9095,6 +9095,9 @@ void PageInit()
 	PageAddCSSClass("", "r_element_cold", "color:blue;");
 	PageAddCSSClass("", "r_element_sleaze", "color:purple;");
 	PageAddCSSClass("", "r_element_spooky", "color:gray;");
+	
+	
+	PageAddCSSClass("", "r_fuchsia", "color:fuchsia;");
     
     //50% desaturated versions of above:
 	PageAddCSSClass("", "r_element_stench_desaturated", "color:#427F40;");
@@ -54518,10 +54521,13 @@ void IOTMSITCertificateGenerateTasks2(ChecklistEntry [int] task_entries, Checkli
     string title;
     string [int] description;
 
-    if (!get_property_boolean("_sitCourseCompleted")) {
+    if (my_level() == 8 || !get_property_boolean("_sitCourseCompleted")) {
         title = HTMLGenerateSpanFont("Enroll in a SIT course!", "black");
-        description.listAppend("" + HTMLGenerateSpanOfClass("", "r_bold") + "Insectology (meat)");
-        description.listAppend("" + HTMLGenerateSpanOfClass("", "r_bold") + "Cryptobotany (items)");
+        description.listAppend("<a href='https://kol.coldfront.net/thekolwiki/index.php/Examine_S.I.T._Course_Certificate#Notes' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Notes table</span></a>");
+        description.listAppend("Current: " + HTMLGenerateSpanOfClass(get_property("currentSITSkill"), "r_fuchsia"));
+        description.listAppend("" + HTMLGenerateSpanOfClass("", "r_bold") + "Psychogeologist (ML, lbs, L8 up)");
+        description.listAppend("" + HTMLGenerateSpanOfClass("", "r_bold") + "Insectology (meat, L8 up)");
+        description.listAppend("" + HTMLGenerateSpanOfClass("", "r_bold") + "Cryptobotany (items, to L7)");
         task_entries.listAppend(ChecklistEntryMake("__item S.I.T. Course Completion Certificate", url, ChecklistSubentryMake(title, description), -11));
     }
 }
