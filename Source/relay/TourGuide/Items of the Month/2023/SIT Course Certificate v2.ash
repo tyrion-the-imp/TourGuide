@@ -13,7 +13,11 @@ void IOTMSITCertificateGenerateTasks2(ChecklistEntry [int] task_entries, Checkli
         title = HTMLGenerateSpanFont("Enroll in a SIT course!", "black");
         description.listAppend("<a href='https://kol.coldfront.net/thekolwiki/index.php/Examine_S.I.T._Course_Certificate#Notes' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Notes table</span></a>");
         description.listAppend("Current: " + HTMLGenerateSpanOfClass(get_property("currentSITSkill"), "r_fuchsia"));
-        description.listAppend("Used today: " + HTMLGenerateSpanOfClass(get_property("_sitCourseCompleted"), "r_element_cold"));
+		if	( !get_property_boolean("_sitCourseCompleted") ) {
+			description.listAppend("Used today: " + HTMLGenerateSpanOfClass(get_property("_sitCourseCompleted"), "r_element_hot"));
+		} else {
+			description.listAppend("Used today: " + HTMLGenerateSpanOfClass(get_property("_sitCourseCompleted"), "r_element_stench"));
+		}
         description.listAppend("" + HTMLGenerateSpanOfClass("", "r_bold") + "Psychogeologist (ML, lbs, L8 up)");
         description.listAppend("" + HTMLGenerateSpanOfClass("", "r_bold") + "Insectology (meat, L8 up)");
         description.listAppend("" + HTMLGenerateSpanOfClass("", "r_bold") + "Cryptobotany (items, to L7)");
