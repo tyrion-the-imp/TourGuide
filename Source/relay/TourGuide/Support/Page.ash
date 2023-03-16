@@ -310,6 +310,9 @@ void PageInit()
 	PageAddCSSClass("", "r_element_cold", "color:blue;");
 	PageAddCSSClass("", "r_element_sleaze", "color:purple;");
 	PageAddCSSClass("", "r_element_spooky", "color:gray;");
+	
+	
+	PageAddCSSClass("", "r_fuchsia", "color:fuchsia;");
     
     //50% desaturated versions of above:
 	PageAddCSSClass("", "r_element_stench_desaturated", "color:#427F40;");
