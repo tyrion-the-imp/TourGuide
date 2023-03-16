@@ -162,7 +162,7 @@ void Q8bitRealmGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [
     // Now that we have calculated everything, we can finally make the tile! Before the very 
     //   detailed subentry, we have a quick statement of what the quest wants you to do. We
     //   do this by adding to the subentries[0] guy.
-    entry.subentries[0].entries.listAppend("Gain "+pluralise(max(10000-base_quest_state.state_int["currentScore"],0), "more point","more points")+" to get your digital key.");
+    entry.subentries[0].entries.listAppend("Gain <span style='color:fuchsia;'>"+pluralise(max(10000-base_quest_state.state_int["currentScore"],0), "more point","more points")+"</span> to get your digital key.");
 
     // OK, now we make our subentry for the bonus zone.
 	ChecklistSubentry subentry;
@@ -241,7 +241,7 @@ void Q8bitRealmGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [
         ChecklistSubentry keyCompletionSubentry;
     
         keyCompletionSubentry.header = "Projected Key Completion";
-        keyCompletionSubentry.modifiers.listAppend("Current Score: "+to_string(base_quest_state.state_int["currentScore"])+" of 10000");
+        keyCompletionSubentry.modifiers.listAppend("Current Score: <span style='color:red; font-size:150%;'>"+to_string(base_quest_state.state_int["currentScore"])+"</span> of <span style='color:green; font-size:150%;'>10,000</span>");
         
         if (base_quest_state.state_int["currentScore"] < 10000) 
         {
