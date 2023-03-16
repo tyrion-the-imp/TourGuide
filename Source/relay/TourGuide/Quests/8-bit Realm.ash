@@ -181,7 +181,11 @@ void Q8bitRealmGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [
 	    subentry.header = "BONUS ZONE: "+zoneMap[currentColor]+" ("+pluralise(bonusTurnsRemaining, "more fight", "more fights")+")";
 
         // Modify the overarching image to match the current zone.
-        entry.image_lookup_name = zoneMap[currentColor];
+		if	( get_property("8BitColor") == "" ) {
+			entry.image_lookup_name = base_quest_state.image_name;
+		} else {
+			entry.image_lookup_name = zoneMap[currentColor];
+		}
 
         // Establish easier shorthand for the active bonus modifier.
         string activeMod = helpfulModifier[currentColor];
