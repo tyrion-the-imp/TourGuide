@@ -86,7 +86,7 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 			ballsNeeded = max(ballsNeeded, 0);
 			targets.listAppend("bowling balls (need "+ballsNeeded+")");
 		}
-		if (get_property_int("twinPeakProgress") < 14 && !qprop("questL09Topping"))
+		if (get_property_int("twinPeakProgress") < 14 && !qprop("questL09Topping") && !get_property_boolean("oilPeakLit"))
 		{
 			targets.listAppend("bubblin' crude");
 		}
