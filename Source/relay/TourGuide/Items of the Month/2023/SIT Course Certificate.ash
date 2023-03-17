@@ -16,7 +16,7 @@ void IOTMSITCertificateGenerateTasks(ChecklistEntry [int] task_entries, Checklis
 
     // Nag if we haven't picked a skill during this ascension    
     string [int] skillNames = {"Psychogeologist", "Insectologist", "Cryptobotanist"};
-    if (hasAnySkillOf(skillNames)) {
+    if ( hasAnySkillOf(skillNames) ) {
         return;
     }
 
