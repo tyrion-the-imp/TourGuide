@@ -54527,7 +54527,7 @@ void IOTMSITCertificateGenerateTasks2(ChecklistEntry [int] task_entries, Checkli
     string title;
     string [int] description;
 
-    if (my_level() == 8 || !get_property_boolean("_sitCourseCompleted")) {
+    if (!get_property_boolean("_sitCourseCompleted")) {
         title = HTMLGenerateSpanFont("Enroll in a SIT course!", "black");
         description.listAppend("<a href='https://kol.coldfront.net/thekolwiki/index.php/Examine_S.I.T._Course_Certificate#Notes' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Notes table</span></a>");
         description.listAppend("Current: " + HTMLGenerateSpanOfClass(get_property("currentSITSkill"), "r_fuchsia"));
