@@ -54558,22 +54558,22 @@ void ClosedCircuitPayPhoneGenerateResourceOLD(ChecklistEntry [int] resource_entr
     }
     if (RufusQuestItems > 0)
     {
-        description.listAppend(HTMLGenerateSpanFont("Give Rufus that shadow quest item to get a lodestone!", "blue") + "");
-        resource_entries.listAppend(ChecklistEntryMake("__item Rufus's shadow lodestone", url, ChecklistSubentryMake("Shadow lodestone usable", "", description), 5));
+        description.listAppend(HTMLGenerateSpanFont("xGive Rufus that shadow quest item to get a lodestone!", "blue") + "");
+        resource_entries.listAppend(ChecklistEntryMake("__item Rufus's shadow lodestone", url, ChecklistSubentryMake("xShadow lodestone usable", "", description), 5));
     }
     
     if ($item[Rufus's shadow lodestone].available_amount() > 0)
     {
-        description.listAppend("30 advs of +100% init, +100% item, +200% meat, -10% combat.");
-        description.listAppend("Triggers on next visit to any Shadow Rift.");
-        resource_entries.listAppend(ChecklistEntryMake("__item Rufus's shadow lodestone", url, ChecklistSubentryMake("Shadow lodestone usable", "", description), 5));
+        description.listAppend("x30 advs of +100% init, +100% item, +200% meat, -10% combat.");
+        description.listAppend("xTriggers on next visit to any Shadow Rift.");
+        resource_entries.listAppend(ChecklistEntryMake("__item Rufus's shadow lodestone", url, ChecklistSubentryMake("xShadow lodestone usable", "", description), 5));
     }
     //https://kol.coldfront.net/thekolwiki/index.php/Shadow_Rifts#Loot
 	if (!get_property_boolean("_shadowAffinityToday") || have_effect($effect[Shadow Affinity]) > 0 ) {
-		description.listAppend("<a href='https://kol.coldfront.net/thekolwiki/index.php/Shadow_Rifts#Loot' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Shadow_Rifts#Loot table</span></a>");
+		description.listAppend("x<a href='https://kol.coldfront.net/thekolwiki/index.php/Shadow_Rifts#Loot' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Shadow_Rifts#Loot table</span></a>");
 		
 		if	( have_effect($effect[Shadow Affinity]) == 0 ) {
-			resource_entries.listAppend(ChecklistEntryMake("__effect Shadow Affinity", "", ChecklistSubentryMake("Shadow Rift info", "", description), 5).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("pay phone free fight"));
+			resource_entries.listAppend(ChecklistEntryMake("__effect Shadow Affinity", "", ChecklistSubentryMake("xShadow Rift info", "", description), 5).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("pay phone free fight"));
 		}
 	}
     /* if (!get_property_boolean("_shadowAffinityToday"))
@@ -54584,8 +54584,8 @@ void ClosedCircuitPayPhoneGenerateResourceOLD(ChecklistEntry [int] resource_entr
     
 	if ( have_effect($effect[Shadow Affinity]) > 0 )
 	{
-		description.listAppend("Shadow Rift combats.");
-		resource_entries.listAppend(ChecklistEntryMake("__effect Shadow Affinity", "", ChecklistSubentryMake(have_effect($effect[Shadow Affinity])+" Shadow Affinity free fights remain", "", description), 5).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("pay phone free fight"));
+		description.listAppend("xShadow Rift combats.");
+		resource_entries.listAppend(ChecklistEntryMake("__effect Shadow Affinity", "", ChecklistSubentryMake(have_effect($effect[Shadow Affinity])+" xShadow Affinity free fights remain", "", description), 5).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("pay phone free fight"));
 	}
 	
 }
@@ -54613,7 +54613,7 @@ void IOTMClosedCircuitPayPhoneGenerateTasks(ChecklistEntry [int] task_entries, C
 		string url = "inv_use.php?pwd=" + my_hash() + "&which=3&whichitem=11169";
 		description2.listAppend(HTMLGenerateSpanFont("Finish the quest to get a lodestone.", "black"));
 		description2.listAppend(HTMLGenerateSpanFont(riftAdvsUntilNC + " encounters until NC/boss.", "black"));
-		optional_task_entries.listAppend(ChecklistEntryMake("__item closed-circuit pay phone", url, ChecklistSubentryMake("Rufus quest in progress", "", description2), 11));
+		optional_task_entries.listAppend(ChecklistEntryMake("__item closed-circuit pay phone", url, ChecklistSubentryMake("Rufus quest in progress", "", description2), -11));
 	}
 	if ($effect[Shadow Affinity].have_effect() > 0) 
 	{
@@ -54644,18 +54644,18 @@ void IOTMClosedCircuitPayPhoneGenerateResource(ChecklistEntry [int] resource_ent
     {
         description2.listAppend("30 advs of +100% init, +100% item, +200% meat, -10% combat.");
 		description2.listAppend("Triggers on next visit to any Shadow Rift.");
-		resource_entries.listAppend(ChecklistEntryMake("__item Rufus's shadow lodestone", url, ChecklistSubentryMake("Rufus's shadow lodestone noncom", description2), 5));
+		resource_entries.listAppend(ChecklistEntryMake("__item Rufus's shadow lodestone", url, ChecklistSubentryMake("Rufus's shadow lodestone noncom", description2), -11));
     }
 	if (RufusQuestItems > 0)
 	{
 		description2.listAppend(HTMLGenerateSpanFont("Give Rufus that shadow quest item to get a lodestone!", "blue") + "");
-		resource_entries.listAppend(ChecklistEntryMake("__item closed-circuit pay phone", url, ChecklistSubentryMake("Rufus's shadow lodestone noncom", description2), 5));
+		resource_entries.listAppend(ChecklistEntryMake("__item closed-circuit pay phone", url, ChecklistSubentryMake("Rufus's shadow lodestone noncom", description2), -11));
 	}
 	
 	if (!get_property_boolean("_shadowAffinityToday"))
     {
         description.listAppend("Call Rufus to get 11+ free Shadow Rift combats.");
-		resource_entries.listAppend(ChecklistEntryMake("__effect Shadow Affinity", url, ChecklistSubentryMake("Shadow Affinity free fights", "", description), 5).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("Shadow affinity free fights"));
+		resource_entries.listAppend(ChecklistEntryMake("__effect Shadow Affinity", url, ChecklistSubentryMake("Shadow Affinity free fights", "", description), -11).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("Shadow affinity free fights"));
 
 	//shadow bricks
 	int shadowBricks = available_amount($item[shadow brick]);
