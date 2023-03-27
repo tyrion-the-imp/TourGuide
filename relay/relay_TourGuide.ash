@@ -54051,6 +54051,11 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 			int xbog = ( get_property("sidequestLighthouseCompleted") == "none" ) ? 5 - item_amount($item[barrel of gunpowder]):0;
 			targets.listAppend("barrel of gunpowder (need "+xbog+")");
 		}
+		if (locationAvailable($location[The Castle in the Clouds in the Sky (Top Floor)]) == true && available_amount($item[thin black candle]) < 3 && available_amount($item[scroll of ancient forbidden unspeakable evil]) > 0 && get_property("sidequestNunsCompleted") == "none" )
+		{
+			int xbog = ( get_property("sidequestNunsCompleted") == "none" ) ? 3 - item_amount($item[thin black candle]):0;
+			targets.listAppend("thin black candle (need "+xbog+")");
+		}
 		if (locationAvailable($location[twin peak]) == false && get_property_int("chasmBridgeProgress") < 30 && !qprop("questL09Topping"))
 		{
 			targets.listAppend("bridge parts");
