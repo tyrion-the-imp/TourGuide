@@ -54568,12 +54568,19 @@ void ClosedCircuitPayPhoneGenerateResourceOLD(ChecklistEntry [int] resource_entr
         description.listAppend("Triggers on next visit to any Shadow Rift.");
         resource_entries.listAppend(ChecklistEntryMake("__item Rufus's shadow lodestone", url, ChecklistSubentryMake("Shadow lodestone usable", "", description), 5));
     }
-    
-    if (!get_property_boolean("_shadowAffinityToday"))
+    //https://kol.coldfront.net/thekolwiki/index.php/Shadow_Rifts#Loot
+	if (!get_property_boolean("_shadowAffinityToday") || have_effect($effect[Shadow Affinity]) > 0 ) {
+		description.listAppend("<a href='https://kol.coldfront.net/thekolwiki/index.php/Shadow_Rifts#Loot' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Shadow_Rifts#Loot table</span></a>");
+		
+		if	( have_effect($effect[Shadow Affinity]) == 0 ) {
+			resource_entries.listAppend(ChecklistEntryMake("__effect Shadow Affinity", "", ChecklistSubentryMake("Shadow Rift info", "", description), 5).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("pay phone free fight"));
+		}
+	}
+    /* if (!get_property_boolean("_shadowAffinityToday"))
     {
         description.listAppend("Call Rufus to get 11 free Shadow Rift combats.");
         resource_entries.listAppend(ChecklistEntryMake("__effect Shadow Affinity", "", ChecklistSubentryMake("Shadow Affinity free fights", "", description), 5).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("pay phone free fight"));
-    }    
+    } */
     
 	if ( have_effect($effect[Shadow Affinity]) > 0 )
 	{
