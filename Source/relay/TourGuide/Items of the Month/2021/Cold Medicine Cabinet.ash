@@ -107,7 +107,7 @@ void IOTMColdMedicineCabinetGenerateResourceAR(ChecklistEntry [int] resource_ent
 		description.listAppend("Homebodyl&trade; (2 spleen): <span style='color:red; font-size:90%; font-weight:bold;'>"+lookupItem("Homebodyl&trade;").available_amount()+"</span> available");
         description.listAppend("Free crafting.");
 		description.listAppend("Lynyrd equipment, potions, and more.");
-		if ( homebodyls_remaining > 0 ) { hbimp = -10; }
+		if ( homebodyls_remaining > 0 ) { hbimp = -7; }
         resource_entries.listAppend(ChecklistEntryMake("__item excitement pill", "", ChecklistSubentryMake(pluralise(homebodyls_remaining, "homebodyl free craft", "homebodyl free crafts"), "", description), hbimp));
     }
 	
