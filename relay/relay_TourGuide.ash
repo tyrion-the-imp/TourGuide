@@ -25959,7 +25959,7 @@ void Q8bitRealmGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [
     // Now that we have calculated everything, we can finally make the tile! Before the very 
     //   detailed subentry, we have a quick statement of what the quest wants you to do. We
     //   do this by adding to the subentries[0] guy.
-    entry.subentries[0].entries.listAppend("Gain <span style='color:fuchsia;'>"+pluralise(max(10000-base_quest_state.state_int["currentScore"],0), "more point","more points")+"</span> to get your digital key.");
+    entry.subentries[0].entries.listAppend("Gain <span style='color:fuchsia;'>"+pluralise(max(10000-base_quest_state.state_int["currentScore"],0), "more point","more points")+"</span> to get your digital key.<br><a href='https://kol.coldfront.net/thekolwiki/index.php/8-Bit_Realm#Strategy' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Wiki quest info</span></a>");
 
     // OK, now we make our subentry for the bonus zone.
 	ChecklistSubentry subentry;
