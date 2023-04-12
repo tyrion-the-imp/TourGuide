@@ -64,7 +64,7 @@ void IOTMClosedCircuitPayPhoneGenerateTasks(ChecklistEntry [int] task_entries, C
 		description2.listAppend(HTMLGenerateSpanFont("Call Rufus and get a lodestone", "black"));
 		task_entries.listAppend(ChecklistEntryMake("__item closed-circuit pay phone", url, ChecklistSubentryMake("Rufus quest done", "", description2), -11));
 	}
-	else if (get_property("questRufus").contains_text("started"))
+	else if (get_property("questRufus").starts_with("started"))
 	{
 		string url = "inv_use.php?pwd=" + my_hash() + "&which=3&whichitem=11169";
 		description2.listAppend(HTMLGenerateSpanFont("Finish the quest to get a lodestone.", "black"));
