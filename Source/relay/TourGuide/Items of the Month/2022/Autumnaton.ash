@@ -25,7 +25,7 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 	
 	string url;
 	string [int] description;
-	string [int] targets;
+	string [int] [int] targets;
 
 	description.listAppend("Autobot grabs items from a zone you've previously visited.");
 	
@@ -83,9 +83,9 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 		}
 		if (locationAvailable($location[twin peak]) == false && get_property_int("chasmBridgeProgress") < 30 && !qprop("questL09Topping"))
 		{
-			targets.listAppend("bridge parts");
+			targets.listAppend(listMake("bridge parts", "The Smut Orc Logging Camp"));
 		}
-		if (get_property_int("hiddenBowlingAlleyProgress") < 6)
+		if (get_property_int("hiddenBowlingAlleyProgress") + available_amount($item[bowling ball]) < 6)
 		{
 			int ballsNeeded = ( get_property_int("hiddenBowlingAlleyProgress") < 2 ) ? ( 5 - $item[bowling ball].available_amount() ):( 5 - get_property_int("hiddenBowlingAlleyProgress") + 1 - $item[bowling ball].available_amount() );
 			ballsNeeded = max(ballsNeeded, 0);
@@ -93,21 +93,29 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 		}
 		if (get_property_int("twinPeakProgress") < 14 && !qprop("questL09Topping") && !get_property_boolean("oilPeakLit"))
 		{
-			targets.listAppend("bubblin' crude");
+			targets.listAppend(listMake("bubblin' crude", "Oil Peak"));
 		}
-		if ( get_property_int("desertExploration") < 100 && available_amount($item[killing jar]) == 0 )
+		// gnasirProgress is a weird property, please read the mafia wiki for clarification:
+		// https://wiki.kolmafia.us/index.php/Quest_Tracking_Preferences#gnasirProgress
+		if (get_property_int("desertExploration") < 100 && available_amount($item[killing jar]) < 1 && (get_property_int("gnasirProgress") & 4) == 0)
 		{
-			targets.listAppend("killing jar");
+			targets.listAppend(listMake("killing jar", "The Haunted Library"));
 		}
 		if (locationAvailable($location[the oasis]) == true && get_property_int("desertExploration") < 100 && available_amount($item[drum machine]) == 0 && !qprop("questL11Desert"))
 		{
-			targets.listAppend("drum machine");
+			targets.listAppend(listMake("drum machine", "An Oasis"));
 		}
 		if (__quest_state["Level 11 Ron"].mafia_internal_step < 5)
 		{
-			targets.listAppend("glark cables");
+			targets.listAppend(listMake("glark cables", "The Red Zeppelin"));
 		}
 		if (targets.count() > 0)
-			description.listAppend(HTMLGenerateSpanOfClass("Potential autobot targets:", "r_bold") + "|*-" + targets.listJoinComponents("|*-"));
+		{
+			buffer tooltip_text;
+			tooltip_text.append(HTMLGenerateTagWrap("div", "Potential Targets", mapMake("class", "r_bold r_centre", "style", "padding-bottom:0.25em;")));
+			tooltip_text.append(HTMLGenerateSimpleTableLines(targets));
+			string potentialTargets = HTMLGenerateSpanOfClass(HTMLGenerateSpanOfClass(tooltip_text, "r_tooltip_inner_class r_tooltip_inner_class_margin") + "Potential Autumnaton Targets", "r_tooltip_outer_class");
+			description.listAppend(potentialTargets);
+		}	
 	}
 }
