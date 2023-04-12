@@ -1,6 +1,6 @@
 //This script and its support scripts are in the public domain.
 
-since r26713; // $path update
+since r27273; // 8BitBonusTurns implemented
 /******************************************************************************
                                   ZLib
                     supporting functions for scripts
@@ -11504,7 +11504,7 @@ void QLevel6Init()
 	
 	if (my_level() >= 6 || my_path().id == PATH_EXPLOSIONS)
 		state.startable = true;
-	
+
     state.state_int["dark neck turns on last nc"] = 0;
     state.state_int["dark heart turns on last nc"] = 0;
     state.state_int["dark elbow turns on last nc"] = 0;
@@ -11515,14 +11515,27 @@ void QLevel6Init()
 
 float QLevel6TurnsToCompleteArea(location place)
 {
+    QuestState base_quest_state = __quest_state["Level 6"];
     //FIXME not sure how accurate these calculations are.
-    int turns_spent_in_zone = turnsAttemptedInLocation(place); //not always accurate
     int ncs_found = noncombatTurnsAttemptedInLocation(place);
 
-	QuestState base_quest_state = __quest_state["Level 6"];
+
+    // get_property("lastFriarsXNC").to_int() will return 0 until the first NC is hit, then it will return the turns spent in the zone prior to hitting the NC,
+    // so we need to add 1 to account for the last NC itself
+    // For example, if you spend 3 turns in the neck, hit an NC, then hit another NC after 2 turns the pref will manifest as:
+    //     TURN 1: lastFriarsNeckNC = 0  
+    //     TURN 2: lastFriarsNeckNC = 0
+    //     TURN 3: lastFriarsNeckNC = 0
+    //     TURN 4: lastFriarsNeckNC = 3 <= hits NC
+    //     TURN 5: lastFriarsNeckNC = 3
+    //     TURN 6: lastFriarsNeckNC = 3
+    //     TURN 7: lastFriarsNeckNC = 6 <= hits NC
+    base_quest_state.state_int["dark neck turns on last nc"] = get_property("lastFriarsNeckNC").to_int() > 0 ? get_property("lastFriarsNeckNC").to_int() + 1 : 0;
+    base_quest_state.state_int["dark heart turns on last nc"] = get_property("lastFriarsHeartNC").to_int() > 0 ? get_property("lastFriarsHeartNC").to_int() + 1 : 0;
+    base_quest_state.state_int["dark elbow turns on last nc"] = get_property("lastFriarsElbowNC").to_int() > 0 ? get_property("lastFriarsElbowNC").to_int() + 1 : 0;
     
     boolean [string] area_known_ncs;
-    if (place == $location[the dark neck of the woods])
+    if (place == $location[The Dark Neck of the Woods])
         area_known_ncs = $strings[How Do We Do It? Quaint and Curious Volume!,Strike One!,Olive My Love To You\, Oh.,Dodecahedrariffic!];
     if (place == $location[The Dark Heart of the Woods])
         area_known_ncs = $strings[Moon Over the Dark Heart,Running the Lode,I\, Martin,Imp Be Nimble\, Imp Be Quick];
@@ -11536,15 +11549,9 @@ float QLevel6TurnsToCompleteArea(location place)
         foreach key, s in location_ncs
         {
             if (area_known_ncs contains s)
-                {
-                if (place == $location[the dark neck of the woods])
-                    base_quest_state.state_int["dark neck turns on last nc"] = turns_spent_in_zone;
-                if (place == $location[the dark heart of the woods])
-                    base_quest_state.state_int["dark heart turns on last nc"] = turns_spent_in_zone;
-                if (place == $location[the dark elbow of the woods])
-                    base_quest_state.state_int["dark elbow turns on last nc"] = turns_spent_in_zone;
+            {
                 ncs_found += 1;
-                }
+            }
         }
     }
 
@@ -11565,12 +11572,12 @@ float QLevel6TurnsToCompleteArea(location place)
         turns_remaining = 10000.0; //how do you refer to infinity in this language?
 
     int max_turns_remaining = ncs_remaining * 5;
-    if (place == $location[the dark neck of the woods])
-        max_turns_remaining += base_quest_state.state_int["dark neck turns on last nc"];
-    if (place == $location[the dark heart of the woods])
-        max_turns_remaining += base_quest_state.state_int["dark heart turns on last nc"];
-    if (place == $location[the dark elbow of the woods])
-        max_turns_remaining += base_quest_state.state_int["dark elbow turns on last nc"];
+    if (place == $location[The Dark Neck of the Woods])
+        max_turns_remaining -= $location[The Dark Neck of the Woods].turns_spent - base_quest_state.state_int["dark neck turns on last nc"];
+    if (place == $location[The Dark Heart of the Woods])
+        max_turns_remaining -= $location[The Dark Heart of the Woods].turns_spent - base_quest_state.state_int["dark heart turns on last nc"];
+    if (place == $location[The Dark Elbow of the Woods])
+        max_turns_remaining -= $location[The Dark Elbow of the Woods].turns_spent - base_quest_state.state_int["dark elbow turns on last nc"];
     return MIN(turns_remaining, max_turns_remaining);
 }
 
@@ -11607,17 +11614,23 @@ void QLevel6GenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int
     boolean need_minus_combat = false;
 	if ($item[dodecagram].available_amount() == 0) {
         hipster_fights_needed = true;
-		subentry.entries.listAppend("Adventure in " + HTMLGenerateSpanOfClass("Dark Neck of the Woods", "r_bold") + ", acquire dodecagram.|~" + roundForOutput(QLevel6TurnsToCompleteArea($location[the dark neck of the woods]), 1) + " average turns remain at " + combat_rate_modifier().floor() + "% combat.");
+		subentry.entries.listAppend("Adventure in " + HTMLGenerateSpanOfClass("Dark Neck of the Woods", "r_bold") + ", acquire dodecagram.|~" + roundForOutput(QLevel6TurnsToCompleteArea($location[The Dark Neck of the Woods]), 1) + " turns remain at " + combat_rate_modifier().floor() + "% combat.");
+        if ($location[The Dark Neck of the Woods].turns_spent - base_quest_state.state_int["dark neck turns on last nc"] >= 5) 
+            subentry.entries.listAppend(HTMLGenerateSpanOfClass("Your next adventure in the Neck will be an NC", "r_bold"));
         need_minus_combat = true;
     }
 	if ($item[box of birthday candles].available_amount() == 0) {
         hipster_fights_needed = true;
-		subentry.entries.listAppend("Adventure in " + HTMLGenerateSpanOfClass("Dark Heart of the Woods", "r_bold") + ", acquire box of birthday candles.|~" + roundForOutput(QLevel6TurnsToCompleteArea($location[the Dark Heart of the Woods]), 1) + " turns remain at " + combat_rate_modifier().floor() + "% combat.");
+		subentry.entries.listAppend("Adventure in " + HTMLGenerateSpanOfClass("Dark Heart of the Woods", "r_bold") + ", acquire box of birthday candles.|~" + roundForOutput(QLevel6TurnsToCompleteArea($location[The Dark Heart of the Woods]), 1) + " turns remain at " + combat_rate_modifier().floor() + "% combat.");
+        if ($location[The Dark Heart of the Woods].turns_spent - base_quest_state.state_int["dark heart turns on last nc"] >= 5) 
+            subentry.entries.listAppend(HTMLGenerateSpanOfClass("Your next adventure in the Heart will be an NC", "r_bold"));
         need_minus_combat = true;
     }
 	if ($item[Eldritch butterknife].available_amount() == 0) {
         hipster_fights_needed = true;
-		subentry.entries.listAppend("Adventure in " + HTMLGenerateSpanOfClass("Dark Elbow of the Woods", "r_bold") + ", acquire Eldritch butterknife.|~" + roundForOutput(QLevel6TurnsToCompleteArea($location[the Dark Elbow of the Woods]), 1) + " turns remain at " + combat_rate_modifier().floor() + "% combat.");
+		subentry.entries.listAppend("Adventure in " + HTMLGenerateSpanOfClass("Dark Elbow of the Woods", "r_bold") + ", acquire Eldritch butterknife.|~" + roundForOutput(QLevel6TurnsToCompleteArea($location[The Dark Elbow of the Woods]), 1) + " turns remain at " + combat_rate_modifier().floor() + "% combat.");
+        if ($location[The Dark Elbow of the Woods].turns_spent - base_quest_state.state_int["dark elbow turns on last nc"] >= 5) 
+            subentry.entries.listAppend(HTMLGenerateSpanOfClass("Your next adventure in the Elbow will be an NC", "r_bold"));
         need_minus_combat = true;
     }
     
@@ -11640,11 +11653,11 @@ void QLevel6GenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int
         if (!(hot_wings_relevant && $item[hot wing].available_amount() <3)) {
             subentry.entries.listAppend("Go to the cairn stones!");
         } else {
-            subentry.entries.listAppend("Visit the dark heart of the woods for hot wings.");
+            subentry.entries.listAppend("Visit The Dark Heart of the Woods for hot wings.");
         }
     }
 	if (!get_property_ascension("lastTempleUnlock") && QuestState("questM16Temple").in_progress && $item[heavy-duty bendy straw].available_amount() == 0)
-        subentry.entries.listAppend("Potentially find a heavy-duty bendy straw, first.|From fallen archfiends in the dark heart of the woods.");
+        subentry.entries.listAppend("Potentially find a heavy-duty bendy straw, first.|From fallen archfiends in The Dark Heart of the Woods.");
 	if (__misc_state_int["ruby w needed"] > 0)
 		subentry.entries.listAppend("Potentially find ruby W, if not clovering (w imp, dark neck, 30% drop)");
 	if (hot_wings_relevant) {
@@ -11659,7 +11672,7 @@ void QLevel6GenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int
 		should_delay = true;
 	}
 
-    ChecklistEntry entry = ChecklistEntryMake(base_quest_state.image_name, "friars.php", subentry, $locations[the dark neck of the woods, the dark heart of the woods, the dark elbow of the woods]);
+    ChecklistEntry entry = ChecklistEntryMake(base_quest_state.image_name, "friars.php", subentry, $locations[The Dark Neck of the Woods, The Dark Heart of the Woods, The Dark Elbow of the Woods]);
     entry.tags.id = "Council L6 friars quest";
     
     if (should_delay)
@@ -25911,16 +25924,7 @@ void Q8bitRealmGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [
     nextColor["blue"] = "green";
     nextColor["green"] = "red";
 
-    int [string] turnsInZone;
-    
-    // I do not like using turnsSpent; it has weird behavior w/ freeruns. Best we got tho! :-(
-    foreach key in helpfulModifier
-        turnsInZone[key] = to_location(zoneMap[key]).turns_spent;
-
-    int bonusTurnsRemaining = 5 - ((turnsInZone["black"]+
-                                turnsInZone["red"]+
-                                turnsInZone["blue"]+
-                                turnsInZone["green"]) % 5);
+    int bonusTurnsRemaining = 5 - get_property("8BitBonusTurns").to_int();
     
     // Populate user's modifier for each bonus; iterates through black/red/blue/green
     int [string] userModifier; 
@@ -54005,7 +54009,7 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 	
 	string url;
 	string [int] description;
-	string [int] targets;
+	string [int] [int] targets;
 
 	description.listAppend("Autobot grabs items from a zone you've previously visited.");
 	
@@ -54063,9 +54067,9 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 		}
 		if (locationAvailable($location[twin peak]) == false && get_property_int("chasmBridgeProgress") < 30 && !qprop("questL09Topping"))
 		{
-			targets.listAppend("bridge parts");
+			targets.listAppend(listMake("bridge parts", "The Smut Orc Logging Camp"));
 		}
-		if (get_property_int("hiddenBowlingAlleyProgress") < 6)
+		if (get_property_int("hiddenBowlingAlleyProgress") + available_amount($item[bowling ball]) < 6)
 		{
 			int ballsNeeded = ( get_property_int("hiddenBowlingAlleyProgress") < 2 ) ? ( 5 - $item[bowling ball].available_amount() ):( 5 - get_property_int("hiddenBowlingAlleyProgress") + 1 - $item[bowling ball].available_amount() );
 			ballsNeeded = max(ballsNeeded, 0);
@@ -54073,22 +54077,30 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 		}
 		if (get_property_int("twinPeakProgress") < 14 && !qprop("questL09Topping") && !get_property_boolean("oilPeakLit"))
 		{
-			targets.listAppend("bubblin' crude");
+			targets.listAppend(listMake("bubblin' crude", "Oil Peak"));
 		}
-		if ( get_property_int("desertExploration") < 100 && available_amount($item[killing jar]) == 0 )
+		// gnasirProgress is a weird property, please read the mafia wiki for clarification:
+		// https://wiki.kolmafia.us/index.php/Quest_Tracking_Preferences#gnasirProgress
+		if (get_property_int("desertExploration") < 100 && available_amount($item[killing jar]) < 1 && (get_property_int("gnasirProgress") & 4) == 0)
 		{
-			targets.listAppend("killing jar");
+			targets.listAppend(listMake("killing jar", "The Haunted Library"));
 		}
 		if (locationAvailable($location[the oasis]) == true && get_property_int("desertExploration") < 100 && available_amount($item[drum machine]) == 0 && !qprop("questL11Desert"))
 		{
-			targets.listAppend("drum machine");
+			targets.listAppend(listMake("drum machine", "An Oasis"));
 		}
 		if (__quest_state["Level 11 Ron"].mafia_internal_step < 5)
 		{
-			targets.listAppend("glark cables");
+			targets.listAppend(listMake("glark cables", "The Red Zeppelin"));
 		}
 		if (targets.count() > 0)
-			description.listAppend(HTMLGenerateSpanOfClass("Potential autobot targets:", "r_bold") + "|*-" + targets.listJoinComponents("|*-"));
+		{
+			buffer tooltip_text;
+			tooltip_text.append(HTMLGenerateTagWrap("div", "Potential Targets", mapMake("class", "r_bold r_centre", "style", "padding-bottom:0.25em;")));
+			tooltip_text.append(HTMLGenerateSimpleTableLines(targets));
+			string potentialTargets = HTMLGenerateSpanOfClass(HTMLGenerateSpanOfClass(tooltip_text, "r_tooltip_inner_class r_tooltip_inner_class_margin") + "Potential Autumnaton Targets", "r_tooltip_outer_class");
+			description.listAppend(potentialTargets);
+		}	
 	}
 }
 
