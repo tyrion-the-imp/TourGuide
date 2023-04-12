@@ -54058,12 +54058,12 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 		if (locationAvailable($location[sonofa beach]) == true && available_amount($item[barrel of gunpowder]) < 5 && get_property("sidequestLighthouseCompleted") == "none" )
 		{
 			int xbog = ( get_property("sidequestLighthouseCompleted") == "none" ) ? 5 - item_amount($item[barrel of gunpowder]):0;
-			targets.listAppend("barrel of gunpowder (need "+xbog+")");
+			targets.listAppend(listMake("barrel of gunpowder (need "+xbog+")","Sonofa Beach"));
 		}
 		if (locationAvailable($location[The Castle in the Clouds in the Sky (Top Floor)]) == true && available_amount($item[thin black candle]) < 3 && available_amount($item[scroll of ancient forbidden unspeakable evil]) > 0 && get_property("sidequestNunsCompleted") == "none" )
 		{
 			int xbog = ( get_property("sidequestNunsCompleted") == "none" ) ? 3 - item_amount($item[thin black candle]):0;
-			targets.listAppend("thin black candle (need "+xbog+")");
+			targets.listAppend(listMake("thin black candle (need "+xbog+")","Castle (Top Floor)"));
 		}
 		if (locationAvailable($location[twin peak]) == false && get_property_int("chasmBridgeProgress") < 30 && !qprop("questL09Topping"))
 		{
@@ -54073,7 +54073,7 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 		{
 			int ballsNeeded = ( get_property_int("hiddenBowlingAlleyProgress") < 2 ) ? ( 5 - $item[bowling ball].available_amount() ):( 5 - get_property_int("hiddenBowlingAlleyProgress") + 1 - $item[bowling ball].available_amount() );
 			ballsNeeded = max(ballsNeeded, 0);
-			targets.listAppend("bowling balls (need "+ballsNeeded+")");
+			targets.listAppend(listMake("bowling balls (need "+ballsNeeded+")","Hidden Bowling Alley"));
 		}
 		if (get_property_int("twinPeakProgress") < 14 && !qprop("questL09Topping") && !get_property_boolean("oilPeakLit"))
 		{
@@ -54098,7 +54098,7 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 			buffer tooltip_text;
 			tooltip_text.append(HTMLGenerateTagWrap("div", "Potential Targets", mapMake("class", "r_bold r_centre", "style", "padding-bottom:0.25em;")));
 			tooltip_text.append(HTMLGenerateSimpleTableLines(targets));
-			string potentialTargets = HTMLGenerateSpanOfClass(HTMLGenerateSpanOfClass(tooltip_text, "r_tooltip_inner_class r_tooltip_inner_class_margin") + "Potential Autumnaton Targets", "r_tooltip_outer_class");
+			string potentialTargets = HTMLGenerateSpanOfClass(HTMLGenerateSpanOfClass(tooltip_text, "r_tooltip_inner_class r_tooltip_inner_class_margin") + "Potential Autumnaton Targets <span style='color:red; font-size:80%; font-weight:bold;'>(hover to see)</span>", "r_tooltip_outer_class");
 			description.listAppend(potentialTargets);
 		}	
 	}
