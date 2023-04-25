@@ -1,4 +1,4 @@
-import "relay/TourGuide/Support/zlib.ash"
+import "zlib.ash"
 import "relay/TourGuide/Settings.ash"
 import "relay/TourGuide/Support/Library.ash"
 import "relay/TourGuide/Support/IOTMs.ash"

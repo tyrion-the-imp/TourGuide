@@ -1,5 +1,5 @@
 //Shadow phone
-RegisterResourceGenerationFunction("ClosedCircuitPayPhoneGenerateResourceOLD");
+//RegisterResourceGenerationFunction("ClosedCircuitPayPhoneGenerateResourceOLD");
 void ClosedCircuitPayPhoneGenerateResourceOLD(ChecklistEntry [int] resource_entries)
 {
     if (!__misc_state["in run"]) return;
@@ -47,8 +47,8 @@ void ClosedCircuitPayPhoneGenerateResourceOLD(ChecklistEntry [int] resource_entr
 }
 
 //20230325 https://github.com/uthuluc/TourGuide/blob/master/iotm2023shadowphone
-RegisterTaskGenerationFunction("IOTMClosedCircuitPayPhoneGenerateTasks");
-void IOTMClosedCircuitPayPhoneGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
+RegisterTaskGenerationFunction("IOTMClosedCircuitPayPhoneGenerateTasksAR");
+void IOTMClosedCircuitPayPhoneGenerateTasksAR(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
 	string [int] description;
 	string [int] description2;
@@ -79,10 +79,10 @@ void IOTMClosedCircuitPayPhoneGenerateTasks(ChecklistEntry [int] task_entries, C
 		task_entries.listAppend(ChecklistEntryMake("__effect Shadow Affinity", "", ChecklistSubentryMake(shadowRiftFightsDoableRightNow + " Shadow Rift free fights", "", description), -11));
 	}
 	
-}		
-		
-RegisterResourceGenerationFunction("IOTMClosedCircuitPayPhoneGenerateResource");
-void IOTMClosedCircuitPayPhoneGenerateResource(ChecklistEntry [int] resource_entries)
+}
+
+RegisterResourceGenerationFunction("IOTMClosedCircuitPayPhoneGenerateResourceAR");
+void IOTMClosedCircuitPayPhoneGenerateResourceAR(ChecklistEntry [int] resource_entries)
 {
 	#if (!__misc_state["in run"]) return;
 	string [int] description;
