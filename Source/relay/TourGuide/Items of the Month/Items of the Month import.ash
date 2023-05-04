@@ -140,3 +140,4 @@ import "relay/TourGuide/Items of the Month/2023/Closed-circuit pay phone.ash";
 import "relay/TourGuide/Items of the Month/2023/Cursed Monkeys Paw.ash";
 import "relay/TourGuide/Items of the Month/2023/Closed Circuit Pay Phone.ash";
 import "relay/TourGuide/Items of the Month/2023/Cursed Monkey Paw.ash";
+import "relay/TourGuide/Items of the Month/2023/Cincho de Mayo.ash";
