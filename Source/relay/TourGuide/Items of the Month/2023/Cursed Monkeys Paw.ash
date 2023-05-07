@@ -7,7 +7,7 @@ void IOTMCursedMonkeysPawGenerateResourceMINE(ChecklistEntry [int] resource_entr
     string url;
 	string [int] description;
 	url = "main.php?action=cmonk&pwd=" + my_hash() + "";
-	description.listAppend("Wish for items or effects:");
+	description.listAppend("<span style='color:red; font-size:100%; font-weight:bold;'>(MINE)</span> Wish for items or effects:");
 	
 	int monkey_wishes_left = clampi(5 - get_property_int("_monkeyPawWishesUsed"), 0, 5);
 	string [int] options;
