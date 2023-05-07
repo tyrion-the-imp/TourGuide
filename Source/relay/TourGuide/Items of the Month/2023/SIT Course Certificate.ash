@@ -33,5 +33,11 @@ void IOTMSITCertificateGenerateTasks(ChecklistEntry [int] task_entries, Checklis
     string miscPhrase = miscPhrases[random(count(miscPhrases))];
     description.listAppend(HTMLGenerateSpanFont(miscPhrase + " Take your S.I.T. course!", "red"));
 	description.listAppend("Current: " + HTMLGenerateSpanOfClass(get_property("currentSITSkill"), "r_fuchsia"));
+    description.listAppend(HTMLGenerateSpanFont("Psych: L1-7 = +30% M3, +3 sl.res, +3 sp.res", "black"));
+    description.listAppend(HTMLGenerateSpanFont("Psych: L8+ = +30 ML, booze, +5 lb. & +10 fam.dmg", "black"));
+	description.listAppend(HTMLGenerateSpanFont("Insect: L1-7 = +25 st.dmg, delevel, +10 h.dmg", "blue"));
+    description.listAppend(HTMLGenerateSpanFont("Insect: L8+ = +6 stats/fight, +100% meat, booze (D1 awesome)", "blue"));
+	description.listAppend(HTMLGenerateSpanFont("Crypto: L1-7 = +15 mp regen, +50% item, +25 hp regen", "green"));
+    description.listAppend(HTMLGenerateSpanFont("Crypto: L8+ = +10 spell & h.dmg, +100% init (S1), food (F1 awesome)", "green"));
     task_entries.listAppend(ChecklistEntryMake("__item S.I.T. Course Completion Certificate", url, ChecklistSubentryMake(main_title, description), -11).ChecklistEntrySetIDTag("S.I.T. Course Completion Certificate"));
 }
