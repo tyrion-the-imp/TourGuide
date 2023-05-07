@@ -1,6 +1,6 @@
 //Cursed monkey's paw
-RegisterResourceGenerationFunction("IOTMCursedMonkeysPawGenerateResource");
-void IOTMCursedMonkeysPawGenerateResource(ChecklistEntry [int] resource_entries)
+RegisterResourceGenerationFunction("IOTMCursedMonkeysPawGenerateResourceMINE");
+void IOTMCursedMonkeysPawGenerateResourceMINE(ChecklistEntry [int] resource_entries)
 {
     if (!lookupItem("cursed monkey's paw").have()) return;
     

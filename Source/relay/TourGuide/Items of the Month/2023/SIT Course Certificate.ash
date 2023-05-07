@@ -32,6 +32,7 @@ void IOTMSITCertificateGenerateTasks(ChecklistEntry [int] task_entries, Checklis
     };
     string miscPhrase = miscPhrases[random(count(miscPhrases))];
     description.listAppend(HTMLGenerateSpanFont(miscPhrase + " Take your S.I.T. course!", "red"));
+	description.listAppend("<a href='https://kol.coldfront.net/thekolwiki/index.php/Examine_S.I.T._Course_Certificate#Notes' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Notes table</span></a>");
 	description.listAppend("Current: " + HTMLGenerateSpanOfClass(get_property("currentSITSkill"), "r_fuchsia"));
     description.listAppend(HTMLGenerateSpanFont("Psych: L1-7 = +30% M3, +3 sl.res, +3 sp.res", "black"));
     description.listAppend(HTMLGenerateSpanFont("Psych: L8+ = +30 ML, booze, +5 lb. & +10 fam.dmg", "black"));
