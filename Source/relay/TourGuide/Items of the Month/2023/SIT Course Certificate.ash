@@ -16,7 +16,7 @@ void IOTMSITCertificateGenerateTasks(ChecklistEntry [int] task_entries, Checklis
 
     // Nag if we haven't picked a skill during this ascension   or haven't changed it today
     string [int] skillNames = {"Psychogeologist", "Insectologist", "Cryptobotanist"};
-    if ( hasAnySkillOf(skillNames) && get_property_boolean("_sitCourseComplete") ) {
+    if ( hasAnySkillOf(skillNames) && get_property_boolean("_sitCourseCompleted") ) {
         return;
     }
 
