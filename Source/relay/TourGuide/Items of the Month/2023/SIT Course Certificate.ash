@@ -14,9 +14,9 @@ void IOTMSITCertificateGenerateTasks(ChecklistEntry [int] task_entries, Checklis
     if (!lookupItem("S.I.T. Course Completion Certificate").have())
         return;
 
-    // Nag if we haven't picked a skill during this ascension    
+    // Nag if we haven't picked a skill during this ascension   or haven't changed it today
     string [int] skillNames = {"Psychogeologist", "Insectologist", "Cryptobotanist"};
-    if ( hasAnySkillOf(skillNames) ) {
+    if ( hasAnySkillOf(skillNames) && get_property_boolean("_sitCourseComplete") ) {
         return;
     }
 
@@ -27,7 +27,7 @@ void IOTMSITCertificateGenerateTasks(ChecklistEntry [int] task_entries, Checklis
     string [int] miscPhrases = {
         "Don't play hooky!",
         "You already paid for it.",
-        "This one time in college...",
+        //"This one time in college...",
         "This one time, at band camp,...",
     };
     string miscPhrase = miscPhrases[random(count(miscPhrases))];
