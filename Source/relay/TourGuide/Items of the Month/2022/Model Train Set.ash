@@ -45,8 +45,7 @@ boolean statsConfiguredWhenNotNeeded() {
 }
 
 boolean shouldNag() {
-    if	( !( get_campground() contains $item[model train set]) ) { return false; }
-	return trainSetReconfigurableIn() == 0 &&
+    return trainSetReconfigurableIn() == 0 &&
         (oreConfiguredWhenNotNeeded() ||
         loggingMillConfiguredWhenNotNeeded() ||
         statsConfiguredWhenNotNeeded() ||
@@ -64,7 +63,6 @@ void IOTMModelTrainSetGenerateTasks(ChecklistEntry [int] task_entries, Checklist
 
     int trainPosition = get_property_int("trainsetPosition");
     int whenTrainsetWasConfigured = get_property_int("lastTrainsetConfiguration");
-	int priority = 8;
     string[int] stations = split_string(get_property("trainsetConfiguration"), ",");
 
     if (count(stations) < 8) {
@@ -85,50 +83,32 @@ void IOTMModelTrainSetGenerateTasks(ChecklistEntry [int] task_entries, Checklist
     if (stationConfigured("empty")) {
         description.listAppend(HTMLGenerateSpanFont("Have an empty station configured!", "red"));
     }
-	if	( __iotms_usable[lookupItem("cold medicine cabinet")] && !get_property_boolean("_workshedItemUsed") && !( get_campground() contains $item[cold medicine cabinet] ) ) {
-		description.listAppend("<span style='color:green; font-size:110%; font-weight:bold;'>Install medicine cabinet?</span>");
-	}
 
     int reconfigurableIn = trainSetReconfigurableIn();
-	if	( get_campground() contains $item[model train set] ) {
-		if (reconfigurableIn == 0)
-		{
-			description.listAppend("Train set reconfigurable!");
-		}
-		else {
-			description.listAppend("Train set reconfigurable in " + HTMLGenerateSpanOfClass(reconfigurableIn.to_string() + " combats.", "r_bold"));
-		}
-	} else if ( $item[model train set].available_amount() > 0 && !get_property_boolean("_workshedItemUsed") ) {
-		url = "inventory.php?ftext=model train set";
-		description.listAppend("<span style='color:red; font-size:90%; font-weight:bold;'>Model train set is not in your workshed but you can put it in.</span>");
-		if	( !(get_campground() contains $item[model train set] ) && turns_played() < 5 ) {
-			url = "inventory.php?ftext=model train";
-			priority = -11;
-			task_entries.listAppend(ChecklistEntryMake("__item model train set", url, ChecklistSubentryMake("Train has escaped the shed!", "", description), -11));
-			return;
-		}
-	} else if ( $item[model train set].available_amount() > 0 && get_property_boolean("_workshedItemUsed") ) {
-		description.listAppend("<span style='color:maroon; font-size:90%; font-weight:bold;'>Model train set can't be put into your workshed until tomorrow.</span>");
-	}
+    if (reconfigurableIn == 0)
+    {
+        HTMLGenerateSpanFont("Train set reconfigurable!", "blue");
+    }
+    else {
+        description.listAppend("Train set reconfigurable in " + HTMLGenerateSpanOfClass(reconfigurableIn.to_string() + " combats.", "r_bold"));
+    }
 
     string[string] nextStation = stationDescriptions[stations[trainPosition % 8]];
     description.listAppend("Next station: " + HTMLGenerateSpanOfClass(nextStation["name"], "r_bold") + " - " + nextStation["description"]);
 
-    if	( get_property_int("trainsetPosition") > 0 ) {
-		string [int][int] tooltipTable;
-		for i from trainPosition to trainPosition + 7 {
-			string[string] station = stationDescriptions[stations[i % 8]];
-			tooltipTable.listAppend(listMake(HTMLGenerateSpanOfClass(station["name"], "r_bold"), station["description"]));
-		}
-		buffer tooltipText;
-		tooltipText.append(HTMLGenerateTagWrap("div", "Train station cycle", mapMake("class", "r_bold r_centre", "style", "padding-bottom:0.25em;")));
-		tooltipText.append(HTMLGenerateSimpleTableLines(tooltipTable));
-		
-		string trainCycleList = HTMLGenerateSpanOfClass(HTMLGenerateSpanOfClass(tooltipText, "r_tooltip_inner_class r_tooltip_inner_class_margin") + "Full train cycle", "r_tooltip_outer_class");
-		description.listAppend(trainCycleList);
+    string [int][int] tooltipTable;
+    for i from trainPosition to trainPosition + 7 {
+		string[string] station = stationDescriptions[stations[i % 8]];
+		tooltipTable.listAppend(listMake(HTMLGenerateSpanOfClass(station["name"], "r_bold"), station["description"]));
 	}
+    buffer tooltipText;
+    tooltipText.append(HTMLGenerateTagWrap("div", "Train station cycle", mapMake("class", "r_bold r_centre", "style", "padding-bottom:0.25em;")));
+	tooltipText.append(HTMLGenerateSimpleTableLines(tooltipTable));
+    string trainCycleList = HTMLGenerateSpanOfClass(HTMLGenerateSpanOfClass(tooltipText, "r_tooltip_inner_class r_tooltip_inner_class_margin") + "Full train cycle", "r_tooltip_outer_class");
+	description.listAppend(trainCycleList);
     
     ChecklistEntry[int] whereToAddTile = optional_task_entries;
+    int priority = 8;
 
     if (shouldNag()) {
         whereToAddTile = task_entries;

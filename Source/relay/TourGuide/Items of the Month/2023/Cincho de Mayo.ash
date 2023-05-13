@@ -19,7 +19,7 @@ void IOTMCinchoDeMayoGenerateResource(ChecklistEntry [int] resource_entries)
     int rest = cinchoRests;
 
     // This while loop expands your possible cinch starting at rests you haven't used.
-    while (rest < freeRests+1)
+    while (rest < freeRests)
         {
             int cinchAmount = rest > count(cinchLevels) ? 5 : cinchLevels[rest];
             totalCinch += cinchAmount;
@@ -50,7 +50,7 @@ void IOTMCinchoDeMayoGenerateResource(ChecklistEntry [int] resource_entries)
     // This should always be true because there's no way to have <5 cinch and not hit the return on line 33.
     //   Still including it as a conditional for the tile build as a failsafe I guess.
     if (cinchUses.count() > 0)
-        description.listAppend("Use <b>free rests</b> to cinch up your belt and cast some cool skills:");
+        description.listAppend("Use your Cincho de Mayo to cast skills in exchange for cinch; when you're out of cinch, take a <b>free rest!?</b>");
 
     // Doing this one outside of the large list append, because it's more important.
     if (totalCinch > 60) { 
@@ -65,6 +65,5 @@ void IOTMCinchoDeMayoGenerateResource(ChecklistEntry [int] resource_entries)
     if (lookupItem("June cleaver").have() && !lookupItem("mother's necklace").have()) {
         description.listAppend("You do "+HTMLGenerateSpanOfClass("not", "r_element_hot")+" have a mother's necklace yet, so you're missing 5 free rests. Be careful of overusing the combat skills!");
     }
-
     resource_entries.listAppend(ChecklistEntryMake("__item cincho de mayo", "", ChecklistSubentryMake(`{currentCinch}% belt cinch`, "", description), -9).ChecklistEntrySetIDTag("Cincho de Mayo resource"));
 }
