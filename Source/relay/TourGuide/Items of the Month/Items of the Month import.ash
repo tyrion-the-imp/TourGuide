@@ -113,7 +113,6 @@ import "relay/TourGuide/Items of the Month/2021/Industrial Fire Extinguisher.ash
 import "relay/TourGuide/Items of the Month/2021/Vampire Vintner.ash";
 import "relay/TourGuide/Items of the Month/2021/Daylight Shavings Helmet.ash";
 import "relay/TourGuide/Items of the Month/2021/Cold Medicine Cabinet.ash";
-import "relay/TourGuide/Items of the Month/2021/Cold Medicine Cabinet (Official).ash";
 
 // 2022
 import "relay/TourGuide/Items of the Month/2022/Cursed Magnifying Glass.ash";
