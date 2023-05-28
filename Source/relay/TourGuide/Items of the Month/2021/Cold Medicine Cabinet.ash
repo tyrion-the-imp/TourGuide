@@ -33,7 +33,7 @@ void IOTMColdMedicineCabinetGenerateTasks(ChecklistEntry [int] task_entries, Che
 	if (oTurns > 10) expectedSpleenItem = "Homebodyl";
 
 	int CMC_consults = clampi(5 - get_property_int("_coldMedicineConsults"), 0, 5);
-	if (CMC_consults > 0) 
+	if (CMC_consults > 0 && get_campground() contains $item[cold medicine cabinet]) 
 	{
 		int next_CMC_Turn = get_property_int("_nextColdMedicineConsult");
 		int next_CMC_Timer = (next_CMC_Turn - total_turns_played());
