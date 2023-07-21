@@ -25,8 +25,10 @@ void IOTMPatrioticEagleGenerateResourceTEMP(ChecklistEntry [int] resource_entrie
     if (screechRecharge > 0) {
         title = (screechRecharge + " combats until Patriotic Eagle can screech again.");
     } else {
-        title = "Patriotic Eagle can screech and banish an entire phylum!";
-        description.listAppend(HTMLGenerateSpanFont("SCREEEE", "red") + HTMLGenerateSpanFont("EEEEE", "grey") + HTMLGenerateSpanFont("EEEEE!,", "blue"));
+        //title = "Patriotic Eagle can screech and banish an entire phylum!";
+        title = HTMLGenerateSpanFont("Patriotic ", "red") + HTMLGenerateSpanFont("Eagle ", "grey") + HTMLGenerateSpanFont("can screech.", "blue");
+        //description.listAppend(HTMLGenerateSpanFont("SCREEEE", "red") + HTMLGenerateSpanFont("EEEEE", "grey") + HTMLGenerateSpanFont("EEEEE!,", "blue"));
+        description.listAppend("Banish an entire phylum!");
     }
     
 	if ($effect[Citizen of A Zone].have_effect() == 0) {
@@ -46,5 +48,16 @@ void IOTMPatrioticEagleGenerateResourceTEMP(ChecklistEntry [int] resource_entrie
     if (options.count() > 0)
         description.listAppend("Screech targets:" + options.listJoinComponents("<hr>").HTMLGenerateIndentedText());
     
+	if ($effect[Citizen of A Zone].have_effect() > 0) {
+		if	( get_property("_aaa_guideCitizenship") != today_to_string() ) {
+			visit_url("desc_effect.php?whicheffect=9391a5f7577e30ac3af6309804da6944");
+			set_property("_aaa_guideCitizenship", today_to_string());
+		}
+		description.listAppend("<span style='color:blue; font-size:90%; font-weight:bold;'>›››››Pledged Citizenship‹‹‹‹‹</span>");
+		description.listAppend(HTMLGenerateSpanOfClass("Zone: "+get_property("_citizenZone"), "r_bold"));
+		description.listAppend(HTMLGenerateSpanOfClass("Mods: ", "r_bold") + HTMLGenerateSpanFont(get_property("_citizenZoneMods"), "red"));
+	}
+	
+	
     resource_entries.listAppend(ChecklistEntryMake("__familiar Patriotic Eagle", "familiar.php", ChecklistSubentryMake(title, description), -9).ChecklistEntrySetIDTag("Patriotic Eagle familiar resource"));
 }
