@@ -46,5 +46,5 @@ void IOTMPatrioticEagleGenerateResourceTEMP(ChecklistEntry [int] resource_entrie
     if (options.count() > 0)
         description.listAppend("Screech targets:" + options.listJoinComponents("<hr>").HTMLGenerateIndentedText());
     
-    resource_entries.listAppend(ChecklistEntryMake("__familiar Patriotic Eagle", "familiar.php", ChecklistSubentryMake(title, description), 8).ChecklistEntrySetIDTag("Patriotic Eagle familiar resource"));
+    resource_entries.listAppend(ChecklistEntryMake("__familiar Patriotic Eagle", "familiar.php", ChecklistSubentryMake(title, description), -9).ChecklistEntrySetIDTag("Patriotic Eagle familiar resource"));
 }
