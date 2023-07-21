@@ -970,6 +970,10 @@ function recalculateTimerInterval()
     	__guide_timer_interval = 1250;
     else //huddled in the corner afraid of ascension
     	__guide_timer_interval = 1250;
+	
+	//override
+	__guide_timer_interval = 500;
+	
     
     if (__matrix_last_event_time == undefined)
     	__matrix_last_event_time = timeInMilliseconds();
