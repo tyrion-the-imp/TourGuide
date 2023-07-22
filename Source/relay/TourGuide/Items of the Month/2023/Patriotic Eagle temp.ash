@@ -53,8 +53,7 @@ void IOTMPatrioticEagleGenerateResourceTEMP(ChecklistEntry [int] resource_entrie
 			visit_url("desc_effect.php?whicheffect=9391a5f7577e30ac3af6309804da6944");
 			set_property("_aaa_guideCitizenship", today_to_string());
 		}
-		description.listAppend("<span style='color:blue; font-size:90%; font-weight:bold;'>›››››Pledged Citizenship‹‹‹‹‹</span>");
-		description.listAppend(HTMLGenerateSpanOfClass("Zone: "+get_property("_citizenZone"), "r_bold"));
+		description.listAppend(HTMLGenerateSpanOfClass("Citizen of: : ", "r_bold") + "<span style='color:blue; font-size:90%; font-weight:bold;'>"+get_property("_citizenZone")+"</span>");
 		description.listAppend(HTMLGenerateSpanOfClass("Mods: ", "r_bold") + HTMLGenerateSpanFont(get_property("_citizenZoneMods"), "red"));
 	}
 	
