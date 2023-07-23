@@ -5,6 +5,7 @@ void IOTMCinchoDeMayoGenerateResource(ChecklistEntry [int] resource_entries)
     
     // _cinchUsed is a weird preference that actually means distance from 100% you are at in your current cinch.
     int freeRests = __misc_state_int["free rests remaining"];
+    //total_free_rests() - get_property_int("timesRested");
     int cinchoRests = get_property_int('_cinchRests');
     int cinchUsed = get_property_int('_cinchUsed');
     
@@ -53,7 +54,7 @@ void IOTMCinchoDeMayoGenerateResource(ChecklistEntry [int] resource_entries)
         description.listAppend("Use your Cincho de Mayo to cast skills in exchange for cinch; when you're out of cinch, take a <b>free rest!?</b>");
 
     // Doing this one outside of the large list append, because it's more important.
-    if (totalCinch > 60) { 
+    if (totalCinch >= 60) { 
         description.listAppend("<strong>"+HTMLGenerateSpanOfClass("Fiesta Exit (60%)", "r_element_sleaze")+":</strong> Force a NC on your next adventure. "+`You have <b>{possibleFiestaExits}</b> more possible, with {totalCinch % 60}% cinch leftover`);
     }
 
