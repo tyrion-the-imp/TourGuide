@@ -1,10 +1,85 @@
+string[int] eagle30item;
+string[int] eagle50meat;
+
+void populateEagleCitizenshipMaps() {
+	int ix = 0;
+	clear(eagle30item);
+	foreach s in $strings[
+		The Bat Hole Entrance,
+		Cobb's Knob Laboratory,
+		The Valley of Rof L'm Fao,
+		Whitey's Grove,
+		The Icy Peak,
+		Belowdecks,
+		An Octopus's Garden,
+		Mer-kin Colosseum,
+		Noob Cave,
+		Cobb's Knob Treasury,
+		Itznotyerzitz Mine,
+		The Hidden Temple,
+		Dreadsylvanian Castle,
+		The Haunted Library,
+		The Haunted Laundry Room,
+		Madness Bakery,
+		LavaCo™ Lamp Factory,
+		The X-32-F Combat Training Snowman,
+		Gingerbread Upscale Retail District,
+		Default (no zone chosen),
+	] {
+		eagle30item[ix] = s;
+		ix++;
+	}
+
+	ix = 0;
+	clear(eagle50meat);
+	foreach s in $strings[
+	The Batrat and Ratbat Burrow,
+	Cobb's Knob Menagerie\, Level 2,
+	The Dire Warren,
+	The Sleazy Back Alley,
+	An Oasis,
+	The Laugh Floor,
+	Lair of the Ninja Snowmen,
+	The Castle in the Clouds in the Sky (Basement),
+	The Hidden Hospital,
+	The Haunted Bathroom,
+	The Fun-Guy Mansion,
+	Barf Mountain,
+	] {
+		eagle50meat[ix] = s;
+		ix++;
+	}
+}
+
+
 //Patriotic Eagle
 RegisterTaskGenerationFunction("IOTMPatrioticEagleGenerateTasksTEMP");
 void IOTMPatrioticEagleGenerateTasksTEMP(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
 	if (!lookupFamiliar("Patriotic Eagle").familiar_is_usable()) return;
 
-    monster RWB_monster = get_property_monster("rwbMonster");
+	if	( count(eagle30item) == 0 || count(eagle50meat) == 0 ) {
+		populateEagleCitizenshipMaps();
+	}
+	
+	eagle50meat[count(eagle50meat)] = "<a href='https://docs.google.com/spreadsheets/d/1jJhgityF_MS_Ohna6VePJ4IVXNAzrHIieqlST49C-SU/edit#gid=2131678522' target='_blank'><span style='color:blue; font-size:100%;'>Zones.</span></a>";
+	
+	
+	ChecklistSubentry [int] lists;
+	lists.listAppend(ChecklistSubentryMake("+30% items", "", eagle30item));
+	lists.listAppend(ChecklistSubentryMake("+50% meat", "", eagle50meat));
+	ChecklistSubentry [int] descs;
+	
+	ChecklistEntry entry;
+	entry.image_lookup_name = "__familiar patriotic eagle";
+	entry.url = "familiar.php";
+	entry.tags.id = "Patriotic Eagle familiar task";
+	entry.importance_level = -2;
+	entry.subentries_on_mouse_over = lists;
+
+
+    //optional_task_entries
+	monster RWB_monster = get_property_monster("rwbMonster");
     if (RWB_monster != $monster[none]) {
         int fights_left = clampi(get_property_int("rwbMonsterCount"), 0, 2);
         location [int] possible_appearance_locations = RWB_monster.getPossibleLocationsMonsterCanAppearInNaturally().listInvert();
@@ -13,14 +88,20 @@ void IOTMPatrioticEagleGenerateTasksTEMP(ChecklistEntry [int] task_entries, Chec
             optional_task_entries.listAppend(ChecklistEntryMake("__monster " + RWB_monster, possible_appearance_locations[0].getClickableURLForLocation(), ChecklistSubentryMake("Fight " + pluralise(fights_left, "more " + RWB_monster, "more " + RWB_monster + "s"), "", "Will appear when you adventure in " + possible_appearance_locations.listJoinComponents(", ", "or") + "."), -1).ChecklistEntrySetIDTag("RWB copies"));
     }
 	
+	//task_entries
     if (get_property("_citizenZone") == "" ) {
 		string [int] description;
-		description.listAppend(HTMLGenerateSpanOfClass("+30% Item:", "r_bold") + " Haunted Library, Haunted Laundry");
-		description.listAppend(HTMLGenerateSpanOfClass("+50% Meat:", "r_bold") + " Ninja Snowmen, Hidden Hospital");
-		description.listAppend(HTMLGenerateSpanOfClass("Citizen of Zone effect can be removed.", "r_bold") + "");
-		description.listAppend(HTMLGenerateSpanOfClass("<a href='https://docs.google.com/spreadsheets/d/1jJhgityF_MS_Ohna6VePJ4IVXNAzrHIieqlST49C-SU/edit#gid=2131678522' target='_blank'><span style='color:blue; font-size:100%;'>Zones.</span></a>", "r_bold") + "");
+		//description.listAppend(HTMLGenerateSpanOfClass("+30% Item:", "r_bold") + " Haunted Library, Haunted Laundry");
+		//description.listAppend(HTMLGenerateSpanOfClass("+50% Meat:", "r_bold") + " Ninja Snowmen, Hidden Hospital");
+		description.listAppend(HTMLGenerateSpanOfClass("Citizen of Zone effect can be removed.", "r_bold") + "<br>" + HTMLGenerateSpanOfStyle("=== Hover mouse for info ===", "font-size:0.8em;color:red"));
 		
-		task_entries.listAppend(ChecklistEntryMake("__familiar patriotic eagle", "familiar.php", ChecklistSubentryMake("Pledge citizenship! ", "", description), -11).ChecklistEntrySetIDTag("Patriotic Eagle familiar task"));
+		
+		
+		descs.listAppend(ChecklistSubentryMake("Eagle can Pledge Allegiance", "", description));
+		entry.subentries = descs;
+		entry.importance_level = -11;
+		
+		task_entries.listAppend(entry);
 	}
 }
 	
