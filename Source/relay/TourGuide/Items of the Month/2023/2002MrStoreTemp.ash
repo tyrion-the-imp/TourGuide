@@ -7,7 +7,7 @@ void IOTM2002MrStoreGenerateResourceTemp(ChecklistEntry [int] resource_entries)
 	int Mr2002Credits = get_property_int("availableMrStore2002Credits");
 	string main_title = (Mr2002Credits + " 2002 Mr. Store credits (TEMP)");
 	string [int] description;
-	string url = "inv_use.php?pwd=" + my_hash() + "&which=3&whichitem=11280";
+	string url = "inv_use.php?pwd=" + my_hash() + "&which=3&whichitem=11257";
 
     if (Mr2002Credits > 0) {
     description.listAppend("Spend credits on prehistoric IotMs!");
