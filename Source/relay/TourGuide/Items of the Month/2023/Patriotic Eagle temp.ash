@@ -12,6 +12,14 @@ void IOTMPatrioticEagleGenerateTasksTEMP(ChecklistEntry [int] task_entries, Chec
         if (fights_left > 0 && possible_appearance_locations.count() > 0)
             optional_task_entries.listAppend(ChecklistEntryMake("__monster " + RWB_monster, possible_appearance_locations[0].getClickableURLForLocation(), ChecklistSubentryMake("Fight " + pluralise(fights_left, "more " + RWB_monster, "more " + RWB_monster + "s"), "", "Will appear when you adventure in " + possible_appearance_locations.listJoinComponents(", ", "or") + "."), -1).ChecklistEntrySetIDTag("RWB copies"));
     }
+	
+    if (get_property("_citizenZone") == "" ) {
+		string [int] description;
+		description.listAppend(HTMLGenerateSpanOfClass("+30% Item:", "r_bold") + " Haunted Library, Haunted Laundry");
+		description.listAppend(HTMLGenerateSpanOfClass("+50% Meat:", "r_bold") + " Ninja Snowmen, Hidden Hospital");
+		
+		task_entries.listAppend(ChecklistEntryMake("__familiar patriotic eagle", "familiar.php", ChecklistSubentryMake("Pledge citizenship! ", "", description), -11).ChecklistEntrySetIDTag("Patriotic Eagle familiar task"));
+	}
 }
 	
 RegisterResourceGenerationFunction("IOTMPatrioticEagleGenerateResourceTEMP");
