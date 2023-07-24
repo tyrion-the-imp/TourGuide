@@ -31,7 +31,7 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 	description.listAppend("Autobot grabs items from a zone you've previously visited.");
 	
 	// Autobot on expedition
-	if (lookupItem("autumn-aton").available_amount() > 0)
+	if (lookupItem("autumn-aton").available_amount() > 0 && autobotsReturnTime < 66 )
 	{
 		string main_title = "Use your autumn-aton";
 		description.listAppend("Next use will take " + HTMLGenerateSpanOfClass(autobotsReturnTime, "r_bold") + " adventures.");
