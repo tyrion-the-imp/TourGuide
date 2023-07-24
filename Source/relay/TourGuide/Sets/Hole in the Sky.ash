@@ -277,7 +277,11 @@ void QHitsGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] 
             subentry.entries.listAppend("Can make Richard's Star Key.");
         }
     }
-	optional_task_entries.listAppend(ChecklistEntryMake("hole in the sky", active_url, subentry, $locations[the hole in the sky, the castle in the clouds in the sky (top floor)]).ChecklistEntrySetIDTag("Hole in the sky quest"));
+	int task_importance = 0;
+	if	( qprop("questL10Garbage") ) { task_importance = -1; }
+	
+	
+	task_entries.listAppend(ChecklistEntryMake("hole in the sky", active_url, subentry, task_importance, $locations[the hole in the sky, the castle in the clouds in the sky (top floor)]).ChecklistEntrySetIDTag("Hole in the sky quest"));
 }
 
 
