@@ -89,7 +89,7 @@ void IOTMPatrioticEagleGenerateTasksTEMP(ChecklistEntry [int] task_entries, Chec
     }
 	
 	//task_entries
-    if (get_property("_citizenZone") == "" ) {
+    if (get_property("_citizenZone") == "" || $effect[Citizen of A Zone].have_effect() == 0 ) {
 		string [int] description;
 		//description.listAppend(HTMLGenerateSpanOfClass("+30% Item:", "r_bold") + " Haunted Library, Haunted Laundry");
 		//description.listAppend(HTMLGenerateSpanOfClass("+50% Meat:", "r_bold") + " Ninja Snowmen, Hidden Hospital");
