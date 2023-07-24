@@ -103,6 +103,23 @@ void IOTMPatrioticEagleGenerateTasksTEMP(ChecklistEntry [int] task_entries, Chec
 		
 		task_entries.listAppend(entry);
 	}
+	
+	if	( get_property("banishedPhyla").index_of("Patriotic Screech") > -1 ) {
+		string[int] prop_parts = split_string(get_property("banishedPhyla"), ":");
+		string banishedPhylum = "";
+		foreach i, s in prop_parts {
+			if	( s == "Patriotic Screech" ) {
+				banishedPhylum = prop_parts[i - 1];
+			}
+		}
+		string [int] description2;
+		if	( banishedPhylum != "" ) {
+			//description2.listAppend(HTMLGenerateSpanOfStyle(banishedPhylum, "color:red"));
+			task_entries.listAppend(ChecklistEntryMake("__skill Singer's Faithful Ocelot", "familiar.php", ChecklistSubentryMake("Banned phylum: "+ HTMLGenerateSpanOfStyle(banishedPhylum, "color:red"), "", ""), -11).ChecklistEntrySetIDTag("Banned Phyla"));
+		//__item ketchup hound
+		}
+	}
+	
 }
 	
 RegisterResourceGenerationFunction("IOTMPatrioticEagleGenerateResourceTEMP");
