@@ -61,6 +61,7 @@ void IOTMCombatLoversLocketGenerateResource(ChecklistEntry [int] resource_entrie
 		
 		description.listAppend(HTMLGenerateSpanOfClass("Current enchantment: ", "r_bold") + locketType);
 		description.listAppend(HTMLGenerateSpanFont(locketEnchant, "blue") + "");
+		description.listAppend(HTMLGenerateSpanFont("Monsters can be fought while over-drunk.", "red") + "");
 		
 		// Entries
 		int monstersReminisced = clampi(3 - count(split_string(get_property("_locketMonstersFought"), ",")), 0, 3);
