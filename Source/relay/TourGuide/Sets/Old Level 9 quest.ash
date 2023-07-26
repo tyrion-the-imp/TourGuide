@@ -1,14 +1,15 @@
 
 void SOldLevel9GenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
-    if ($location[The Valley of Rof L'm Fao].turnsAttemptedInLocation() == 0)
+    //if ($location[The Valley of Rof L'm Fao].turnsAttemptedInLocation() == 0 || qprop("questM15Lol"))
+    if ( qprop("questM15Lol") )
         return;
     //if (__misc_state["in run"])
         //return;
 	QuestState state;
 	QuestStateParseMafiaQuestProperty(state, "questM15Lol", false); //don't issue a quest log load for this, no information gained
-    if (!state.in_progress)
-        return;
+    //if (!state.in_progress)
+        //return;
         
     string url = "place.php?whichplace=mountains";
     
@@ -56,6 +57,11 @@ void SOldLevel9GenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [
         description.listAppend("31337 scroll is 30669 + 668. (334 + 334)");
     }
     ChecklistSubentry [int] subentries;
-    subentries.listAppend(ChecklistSubentryMake("A Quest, LOL", "", description));
-    optional_task_entries.listAppend(ChecklistEntryMake("__item 64735 scroll", url, subentries, 10, $locations[the valley of rof l'm fao]).ChecklistEntrySetIDTag("Valley rof l'm fao quest"));
+    //subentries.listAppend(ChecklistSubentryMake("A Quest, LOL", "", description));
+    subentries.listAppend(ChecklistSubentryMake("Get facsimile dictionary!", "", description));
+	if (__misc_state["in run"]) {
+		optional_task_entries.listAppend(ChecklistEntryMake("__item 64735 scroll", url, subentries, 10, $locations[the valley of rof l'm fao]).ChecklistEntrySetIDTag("Valley rof l'm fao quest"));
+	} else {
+		task_entries.listAppend(ChecklistEntryMake("__item 64735 scroll", url, subentries, -10, $locations[the valley of rof l'm fao]).ChecklistEntrySetIDTag("Valley rof l'm fao quest"));
+	}
 }
