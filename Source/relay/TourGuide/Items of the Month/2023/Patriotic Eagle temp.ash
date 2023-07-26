@@ -62,10 +62,13 @@ void IOTMPatrioticEagleGenerateTasksTEMP(ChecklistEntry [int] task_entries, Chec
 		populateEagleCitizenshipMaps();
 	}
 	
+	int sgeeaa = $item[soft green echo eyedrop antidote].available_amount();
+	
 	eagle50meat[count(eagle50meat)] = "<a href='https://docs.google.com/spreadsheets/d/1jJhgityF_MS_Ohna6VePJ4IVXNAzrHIieqlST49C-SU/edit#gid=2131678522' target='_blank'><span style='color:blue; font-size:100%;'>Zones.</span></a>";
 	
 	
 	ChecklistSubentry [int] lists;
+	lists.listAppend(ChecklistSubentryMake(HTMLGenerateSpanOfStyle("Citizen of Zone is removable. sgeea ("+sgeeaa+")", "font-size:75%") + "<br>" + HTMLGenerateSpanOfStyle("Curr mods: "+get_property("_citizenZoneMods"), "font-size:75%")));
 	lists.listAppend(ChecklistSubentryMake("+30% items", "", eagle30item));
 	lists.listAppend(ChecklistSubentryMake("+50% meat", "", eagle50meat));
 	ChecklistSubentry [int] descs;
@@ -89,11 +92,15 @@ void IOTMPatrioticEagleGenerateTasksTEMP(ChecklistEntry [int] task_entries, Chec
     }
 	
 	//task_entries
-    if (get_property("_citizenZone") == "" || $effect[Citizen of A Zone].have_effect() == 0 ) {
-		string [int] description;
+    if (
+			get_property("_citizenZone") == ""
+			|| $effect[Citizen of A Zone].have_effect() == 0
+			|| ( get_property("sidequestNunsCompleted") == "none" && my_location() == $location[The Themthar Hills] && sgeeaa > 0 )
+		) {
+		string [int] description; 
 		//description.listAppend(HTMLGenerateSpanOfClass("+30% Item:", "r_bold") + " Haunted Library, Haunted Laundry");
 		//description.listAppend(HTMLGenerateSpanOfClass("+50% Meat:", "r_bold") + " Ninja Snowmen, Hidden Hospital");
-		description.listAppend(HTMLGenerateSpanOfClass("Citizen of Zone effect can be removed.", "r_bold") + "<br>" + HTMLGenerateSpanOfStyle("=== Hover mouse for info ===", "font-size:0.8em;color:red"));
+		description.listAppend(HTMLGenerateSpanOfStyle("=== Hover mouse for info ===", "font-size:0.8em;color:red"));
 		
 		
 		
@@ -114,8 +121,12 @@ void IOTMPatrioticEagleGenerateTasksTEMP(ChecklistEntry [int] task_entries, Chec
 		}
 		string [int] description2;
 		if	( banishedPhylum != "" ) {
-			//description2.listAppend(HTMLGenerateSpanOfStyle(banishedPhylum, "color:red"));
-			task_entries.listAppend(ChecklistEntryMake("__skill Singer's Faithful Ocelot", "familiar.php", ChecklistSubentryMake("Banned phylum: "+ HTMLGenerateSpanOfStyle(banishedPhylum, "color:red"), "", ""), -11).ChecklistEntrySetIDTag("Banned Phyla"));
+			if	( get_property_int("screechCombats") > 0 ) {
+				description2.listAppend(HTMLGenerateSpanOfStyle(get_property_int("screechCombats")+" fights before Eagle can screech again.", "color:red"));
+			} else {
+				description2.listAppend(HTMLGenerateSpanOfStyle("Eagle can screech again.", "color:green"));
+			}
+			task_entries.listAppend(ChecklistEntryMake("__skill Singer's Faithful Ocelot", "familiar.php", ChecklistSubentryMake("Banned phylum: "+ HTMLGenerateSpanOfStyle(banishedPhylum, "color:red"), "", description2), -11).ChecklistEntrySetIDTag("Banned Phyla"));
 		//__item ketchup hound
 		}
 	}
