@@ -106,7 +106,7 @@ void IOTMPatrioticEagleGenerateTasksTEMP(ChecklistEntry [int] task_entries, Chec
 		
 		descs.listAppend(ChecklistSubentryMake("Eagle can Pledge Allegiance", "", description));
 		entry.subentries = descs;
-		entry.importance_level = -11;
+		entry.importance_level = -10;
 		
 		task_entries.listAppend(entry);
 	}
@@ -126,7 +126,7 @@ void IOTMPatrioticEagleGenerateTasksTEMP(ChecklistEntry [int] task_entries, Chec
 			} else {
 				description2.listAppend(HTMLGenerateSpanOfStyle("Eagle can screech again.", "color:green"));
 			}
-			task_entries.listAppend(ChecklistEntryMake("__skill Singer's Faithful Ocelot", "familiar.php", ChecklistSubentryMake("Banned phylum: "+ HTMLGenerateSpanOfStyle(banishedPhylum, "color:red"), "", description2), -11).ChecklistEntrySetIDTag("Banned Phyla"));
+			task_entries.listAppend(ChecklistEntryMake("__skill Singer's Faithful Ocelot", "familiar.php", ChecklistSubentryMake("Banned phylum: "+ HTMLGenerateSpanOfStyle(banishedPhylum, "color:red"), "", description2), -10).ChecklistEntrySetIDTag("Banned Phyla"));
 		//__item ketchup hound
 		}
 	}

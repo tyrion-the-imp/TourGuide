@@ -5,10 +5,12 @@ boolean HITSStillRelevant()
 		return true;
 	if (!__misc_state["in run"])
 		return false;
+	if (__misc_state["in run"] && $item[Richard's star key].available_amount() + $item[Richard's star key].creatable_amount() > 0 )
+		return false;
 	if (__quest_state["Level 13"].state_boolean["Richard's star key used"])
 		return false;
-	if (!__quest_state["Level 10"].finished && my_path().id != PATH_EXPLOSIONS)
-		return false;
+	//if (!__quest_state["Level 10"].finished && my_path().id != PATH_EXPLOSIONS)
+		//return false;
 	if (my_path().id == PATH_COMMUNITY_SERVICE)
 		return false;
 
@@ -278,7 +280,7 @@ void QHitsGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] 
         }
     }
 	int task_importance = 0;
-	if	( qprop("questL10Garbage") ) { task_importance = -1; }
+	if	( qprop("questL10Garbage >= 9") ) { task_importance = -1; }
 	
 	
 	task_entries.listAppend(ChecklistEntryMake("hole in the sky", active_url, subentry, task_importance, $locations[the hole in the sky, the castle in the clouds in the sky (top floor)]).ChecklistEntrySetIDTag("Hole in the sky quest"));
