@@ -21,12 +21,17 @@ void IOTMJurassicParkaGenerateResource(ChecklistEntry [int] resource_entries)
     item parka = lookupItem("jurassic parka");
     if (!parka.have()) return;
     //if (!__misc_state["in run"]) return; 
+    if (!__iotms_usable[$item[Jurassic Parka]]) return;
+
     string url;
 	string parkaMode = get_property("parkaMode");
 	string parkaEnchant;
 	string [int] description;
+
     url = invSearch("jurassic parka");
+
 	int spikos_left = clampi(5 - get_property_int("_spikolodonSpikeUses"), 0, 5);
+	
     // Title
         string main_title = "Jurassic Parka";
         description.listAppend("You're the dinosaur now, dawg.");

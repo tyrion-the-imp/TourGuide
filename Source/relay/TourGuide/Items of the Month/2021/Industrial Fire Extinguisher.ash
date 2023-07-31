@@ -58,8 +58,7 @@ void IOTMFireExtinguisherGenerateTasks(ChecklistEntry [int] task_entries, Checkl
 RegisterResourceGenerationFunction("IOTMFireExtinguisherGenerateResource");
 void IOTMFireExtinguisherGenerateResource(ChecklistEntry [int] resource_entries)
 {
-    if (!__iotms_usable[lookupItem("industrial fire extinguisher")]) return;
-		// Title
+	if (!__iotms_usable[lookupItem("industrial fire extinguisher")]) return;
 	string [int] description;
 	string [int] options;
 
