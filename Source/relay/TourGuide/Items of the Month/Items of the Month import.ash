@@ -138,9 +138,9 @@ import "relay/TourGuide/Items of the Month/2023/Closed Circuit Pay Phone.ash";
 import "relay/TourGuide/Items of the Month/2023/Cursed Monkey Paw.ash";
 import "relay/TourGuide/Items of the Month/2023/Cincho de Mayo.ash";
 import "relay/TourGuide/Items of the Month/2023/2002MrStoreTemp.ash";
-import "relay/TourGuide/Items of the Month/2023/2002 Catalog.ash";
+//import "relay/TourGuide/Items of the Month/2023/2002 Catalog.ash";
 import "relay/TourGuide/Items of the Month/2023/Patriotic Eagle temp.ash";
-import "relay/TourGuide/Items of the Month/2023/Patriotic Eagle.ash";
+//import "relay/TourGuide/Items of the Month/2023/Patriotic Eagle.ash";
 import "relay/TourGuide/Items of the Month/2023/Perpetrate Mild Evil temp.ash";
 
 

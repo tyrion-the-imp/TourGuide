@@ -149,7 +149,7 @@ void IOTMPatrioticEagleGenerateResourceTEMP(ChecklistEntry [int] resource_entrie
         description.listAppend("Banish an entire phylum!");
     }
     
-	if ($effect[Citizen of A Zone].have_effect() == 0) {
+	/* if ($effect[Citizen of A Zone].have_effect() == 0) {
         description.listAppend(HTMLGenerateSpanFont("Pledge ", "red") + HTMLGenerateSpanFont("allegiance ", "grey") + HTMLGenerateSpanFont("to a zone!", "blue"));
 		description.listAppend(HTMLGenerateSpanOfClass("+30% Item:", "r_bold") + " Haunted Library, Haunted Laundry");
 		description.listAppend(HTMLGenerateSpanOfClass("+50% Meat:", "r_bold") + " Ninja Snowmen, Hidden Hospital");
@@ -166,8 +166,62 @@ void IOTMPatrioticEagleGenerateResourceTEMP(ChecklistEntry [int] resource_entrie
 		options.listAppend(HTMLGenerateSpanOfClass("Undead:", "r_bold") + " Haunted Library 1/3, Red Zeppelin 1/5, Haunted Wine Cellar 1/3, Haunted Boiler 1/3, Pyramid Middle 1/3");
     }
     if (options.count() > 0)
-        description.listAppend("Screech targets:" + options.listJoinComponents("<hr>").HTMLGenerateIndentedText());
+        description.listAppend("Screech targets:" + options.listJoinComponents("<hr>").HTMLGenerateIndentedText()); */
     
+	
+    // Making option frames for the phylums you want to banish, with if statements that should remove them 
+    //   when you have completed the task. Additionally, the location availability should ensure these show 
+    //   in gray if you cannot access the zone.
+	
+    string [int] dudeOptions;
+    if ( __quest_state["Level 11"].mafia_internal_step < 2)
+        dudeOptions.listAppend(HTMLGenerateFutureTextByLocationAvailability("Black Forest (2/5)", $location[The Black Forest]));
+    if (__quest_state["Level 9"].state_int["twin peak progress"] < 15) 
+        dudeOptions.listAppend(HTMLGenerateFutureTextByLocationAvailability("Twin Peak (5/8)", $location[Twin Peak]));
+    if (!__quest_state["Level 11 Palindome"].state_boolean["dr. awkward's office unlocked"]) 
+        dudeOptions.listAppend(HTMLGenerateFutureTextByLocationAvailability("Whitey's Grove (1/4)", $location[Whitey's Grove]));
+
+    string [int] beastOptions;
+    if (__quest_state["Level 11 Hidden City"].state_boolean["need machete for liana"])
+        beastOptions.listAppend(HTMLGenerateFutureTextByLocationAvailability("Hidden Park (1/4)", $location[The Hidden Park]));
+    if (!__quest_state["Level 11 Palindome"].state_boolean["dr. awkward's office unlocked"]) 
+        beastOptions.listAppend(HTMLGenerateFutureTextByLocationAvailability("Palindome (3/7)", $location[Inside the Palindome]));
+    if (!$location[The Castle in the Clouds in the Sky (Basement)].locationAvailable())
+        beastOptions.listAppend(HTMLGenerateFutureTextByLocationAvailability("Airship (2/7)", $location[The Penultimate Fantasy Airship]));
+
+    string [int] constructOptions;
+    if (!__quest_state["Level 11 Palindome"].state_boolean["dr. awkward's office unlocked"]) 
+        constructOptions.listAppend(HTMLGenerateFutureTextByLocationAvailability("Whitey's Grove (1/4)", $location[Whitey's Grove]));
+    if (!$location[The Haunted Library].locationAvailable()) 
+        constructOptions.listAppend(HTMLGenerateFutureTextByLocationAvailability("Billiards Room (1/2)", $location[The Haunted Billiards Room]));
+    if (!$location[The Castle in the Clouds in the Sky (Basement)].locationAvailable())
+        beastOptions.listAppend(HTMLGenerateFutureTextByLocationAvailability("Airship (1/7)", $location[The Penultimate Fantasy Airship]));
+
+    string [int] undeadOptions;
+    if (!$location[The Haunted Bathroom].locationAvailable()) 
+        undeadOptions.listAppend(HTMLGenerateFutureTextByLocationAvailability("Haunted Library (1/3)", $location[The Haunted Library]));
+    if (__quest_state["Level 11 Ron"].mafia_internal_step <= 4)
+        undeadOptions.listAppend(HTMLGenerateFutureTextByLocationAvailability("Red Zeppelin (1/5)", $location[The Red Zeppelin]));
+    if (__quest_state["Level 11 Manor"].mafia_internal_step < 3)
+        undeadOptions.listAppend(HTMLGenerateFutureTextByLocationAvailability("Haunted Wine Cellar (1/3)", $location[The Haunted Wine Cellar]));
+    if (__quest_state["Level 11 Manor"].mafia_internal_step < 3)
+        undeadOptions.listAppend(HTMLGenerateFutureTextByLocationAvailability("Haunted Boiler (1/3)", $location[The Haunted Boiler Room]));
+    if (!__quest_state["Level 11 Pyramid"].finished)
+        undeadOptions.listAppend(HTMLGenerateFutureTextByLocationAvailability("Pyramid Middle (1/3)", $location[The Middle Chamber]));
+    
+
+    string [int] options;
+	{
+        if (dudeOptions.count() > 0) options.listAppend(HTMLGenerateSpanOfClass("Dude: ", "r_bold") + dudeOptions.listJoinComponents(", ")); 
+        if (beastOptions.count() > 0) options.listAppend(HTMLGenerateSpanOfClass("Beast: ", "r_bold") + beastOptions.listJoinComponents(", "));
+        if (constructOptions.count() > 0) options.listAppend(HTMLGenerateSpanOfClass("Construct: ", "r_bold") + constructOptions.listJoinComponents(", "));
+        if (undeadOptions.count() > 0) options.listAppend(HTMLGenerateSpanOfClass("Undead: ", "r_bold") + undeadOptions.listJoinComponents(", "));
+    }
+    if (options.count() > 0)
+        description.listAppend("Screech these phylums away to banish a fraction of monsters from a relevant zone:" + options.listJoinComponents("<hr>").HTMLGenerateIndentedText());
+	
+	
+	
 	if ($effect[Citizen of A Zone].have_effect() > 0) {
 		if	( get_property("_aaa_guideCitizenship") != today_to_string() ) {
 			visit_url("desc_effect.php?whicheffect=9391a5f7577e30ac3af6309804da6944");
