@@ -113,26 +113,25 @@ void IOTMPatrioticEagleGenerateTasksTEMP(ChecklistEntry [int] task_entries, Chec
 	
 	if	( get_property("banishedPhyla").index_of("Patriotic Screech") > -1 ) {
 		string[int] prop_parts = split_string(get_property("banishedPhyla"), ":");
-		string banishedPhylum = "";
+		string banishedPhylumStr = "";
 		foreach i, s in prop_parts {
 			if	( s == "Patriotic Screech" ) {
-				banishedPhylum = prop_parts[i - 1];
+				banishedPhylumStr = prop_parts[i - 1];
 			}
 		}
 		string [int] description2;
-		if	( banishedPhylum != "" ) {
+		if	( banishedPhylumStr != "" ) {
 			if	( get_property_int("screechCombats") > 0 ) {
 				description2.listAppend(HTMLGenerateSpanOfStyle(get_property_int("screechCombats")+" fights before Eagle can screech again.", "color:red"));
 			} else {
 				description2.listAppend(HTMLGenerateSpanOfStyle("Eagle can screech again.", "color:green"));
 			}
-			task_entries.listAppend(ChecklistEntryMake("__skill Singer's Faithful Ocelot", "familiar.php", ChecklistSubentryMake("Banned phylum: "+ HTMLGenerateSpanOfStyle(banishedPhylum, "color:red"), "", description2), -10).ChecklistEntrySetIDTag("Banned Phyla"));
+			task_entries.listAppend(ChecklistEntryMake("__skill Singer's Faithful Ocelot", "familiar.php", ChecklistSubentryMake("Banned phylum: "+ HTMLGenerateSpanOfStyle(banishedPhylumStr, "color:red"), "", description2), -10).ChecklistEntrySetIDTag("Banned Phyla"));
 		//__item ketchup hound
 		}
 	}
-	
 }
-	
+
 RegisterResourceGenerationFunction("IOTMPatrioticEagleGenerateResourceTEMP");
 void IOTMPatrioticEagleGenerateResourceTEMP(ChecklistEntry [int] resource_entries)
 {
