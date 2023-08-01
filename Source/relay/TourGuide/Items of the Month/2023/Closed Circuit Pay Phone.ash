@@ -53,7 +53,7 @@ string getShadowBrickLocationTooltip() {
     }
 
     string shadowBricksTooltip = HTMLGenerateSimpleTableLines(shadowBricksTable);
-    return HTMLGenerateSpanOfClass(HTMLGenerateSpanOfClass(shadowBricksTooltip, "r_tooltip_inner_class") + "Shadow Brick locations", "r_tooltip_outer_class");
+    return HTMLGenerateSpanOfClass(HTMLGenerateSpanOfClass(shadowBricksTooltip, "r_tooltip_inner_class") + "Shadow Brick locations <span style='color:red; font-size:75%; font-weight:bold;'>(hover)</span>", "r_tooltip_outer_class");
 }
 
 RegisterTaskGenerationFunction("IOTMClosedCircuitPayPhoneGenerateTasks");
@@ -105,6 +105,10 @@ void IOTMClosedCircuitPayPhoneGenerateTasks(ChecklistEntry [int] task_entries, C
         rufusQuestTitle = "Rufus quest doable now";
         rufusQuestPriority = 11;
         whereToAddRufusQuestTile = optional_task_entries;
+		if	( !calledRufusToday && my_daycount() == 1 ) {
+			rufusQuestPriority = -11;
+			whereToAddRufusQuestTile = task_entries;
+		}
     }
 
     rufusQuestDescription.listAppend(getShadowBrickLocationTooltip());
