@@ -88,7 +88,7 @@ void IOTMPatrioticEagleGenerateTasksTEMP(ChecklistEntry [int] task_entries, Chec
         location [int] possible_appearance_locations = RWB_monster.getPossibleLocationsMonsterCanAppearInNaturally().listInvert();
         
         if (fights_left > 0 && possible_appearance_locations.count() > 0)
-            optional_task_entries.listAppend(ChecklistEntryMake("__monster " + RWB_monster, possible_appearance_locations[0].getClickableURLForLocation(), ChecklistSubentryMake("Fight " + pluralise(fights_left, "more " + RWB_monster, "more " + RWB_monster + "s"), "", "Will appear when you adventure in " + possible_appearance_locations.listJoinComponents(", ", "or") + "."), -1).ChecklistEntrySetIDTag("RWB copies"));
+            task_entries.listAppend(ChecklistEntryMake("__monster " + RWB_monster, possible_appearance_locations[0].getClickableURLForLocation(), ChecklistSubentryMake("Fight " + pluralise(fights_left, "more " + RWB_monster, "more " + RWB_monster + "s"), "", "Will appear when you adventure in " + possible_appearance_locations.listJoinComponents(", ", "or") + "."), -5).ChecklistEntrySetIDTag("RWB copies"));
     }
 	
 	//task_entries
@@ -187,7 +187,7 @@ void IOTMPatrioticEagleGenerateResourceTEMP(ChecklistEntry [int] resource_entrie
     if (!__quest_state["Level 11 Palindome"].state_boolean["dr. awkward's office unlocked"]) 
         beastOptions.listAppend(HTMLGenerateFutureTextByLocationAvailability("Palindome (3/7)", $location[Inside the Palindome]));
     if (!$location[The Castle in the Clouds in the Sky (Basement)].locationAvailable())
-        beastOptions.listAppend(HTMLGenerateFutureTextByLocationAvailability("Airship (2/7)", $location[The Penultimate Fantasy Airship]));
+        beastOptions.listAppend(HTMLGenerateFutureTextByLocationAvailability("Airship (1/7)", $location[The Penultimate Fantasy Airship]));
 
     string [int] constructOptions;
     if (!__quest_state["Level 11 Palindome"].state_boolean["dr. awkward's office unlocked"]) 
@@ -195,7 +195,7 @@ void IOTMPatrioticEagleGenerateResourceTEMP(ChecklistEntry [int] resource_entrie
     if (!$location[The Haunted Library].locationAvailable()) 
         constructOptions.listAppend(HTMLGenerateFutureTextByLocationAvailability("Billiards Room (1/2)", $location[The Haunted Billiards Room]));
     if (!$location[The Castle in the Clouds in the Sky (Basement)].locationAvailable())
-        beastOptions.listAppend(HTMLGenerateFutureTextByLocationAvailability("Airship (1/7)", $location[The Penultimate Fantasy Airship]));
+        constructOptions.listAppend(HTMLGenerateFutureTextByLocationAvailability("Airship (1/7)", $location[The Penultimate Fantasy Airship]));
 
     string [int] undeadOptions;
     if (!$location[The Haunted Bathroom].locationAvailable()) 
