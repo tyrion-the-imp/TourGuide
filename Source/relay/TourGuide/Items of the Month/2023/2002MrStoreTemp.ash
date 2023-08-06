@@ -54,7 +54,7 @@ void IOTM2002MrStoreGenerateResourceTemp(ChecklistEntry [int] resource_entries)
 		description.listAppend("Have " + availableIdolMics + " Loathing Idol microphones.");
 	} */
 	//https://kol.coldfront.net/thekolwiki/index.php/2002_Mr._Store
-	description.listAppend("<a href='https://kol.coldfront.net/thekolwiki/index.php/2002_Mr._Store' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>2002 Mr. Store merch</span></a>");
+	description.listAppend("<a href='https://kol.coldfront.net/thekolwiki/index.php/2002_Mr._Store' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>2002 Mr. Store merch</span></a><br><span style='color:red; font-size:100%; font-weight:bold;'>Credits disappear on rollover.</span>");
 	
 	
 	// List out the mics from least to most charged
