@@ -223,16 +223,25 @@ void IOTMPatrioticEagleGenerateResourceTEMP(ChecklistEntry [int] resource_entrie
 	
 	
 	if ($effect[Citizen of A Zone].have_effect() > 0) {
-		if	( get_property("_aaa_guideCitizenship") != today_to_string() ) {
-			visit_url("desc_effect.php?whicheffect=9391a5f7577e30ac3af6309804da6944");
-			set_property("_aaa_guideCitizenship", today_to_string());
-		}
-		description.listAppend(HTMLGenerateSpanOfClass("Citizen of Zone effect can be removed.", "r_bold") + "");
-		description.listAppend(HTMLGenerateSpanOfClass("<a href='https://docs.google.com/spreadsheets/d/1jJhgityF_MS_Ohna6VePJ4IVXNAzrHIieqlST49C-SU/edit#gid=2131678522' target='_blank'><span style='color:blue; font-size:100%;'>Zones.</span></a>", "r_bold") + "");
+		description.listAppend(HTMLGenerateSpanOfClass("<hr style='background-color:blue; width:85%; height:5px;'>Citizen of Zone effect can be removed.", "r_bold") + "");
+		description.listAppend("<a href='https://docs.google.com/spreadsheets/d/1jJhgityF_MS_Ohna6VePJ4IVXNAzrHIieqlST49C-SU/edit#gid=2131678522' target='_blank'><span style='color:blue; font-size:100%;'>Zones</span></a> <a href='desc_effect.php?whicheffect=9391a5f7577e30ac3af6309804da6944' target='_blank'><span style='color:blue; font-size:100%;'>Visit effect description.</span></a>");
 		description.listAppend(HTMLGenerateSpanOfClass("Citizen of: ", "r_bold") + "<span style='color:blue; font-size:90%; font-weight:bold;'>"+get_property("_citizenZone")+"</span>");
 		description.listAppend(HTMLGenerateSpanOfClass("Mods: ", "r_bold") + HTMLGenerateSpanFont(get_property("_citizenZoneMods"), "red"));
 	}
 	
+	
+	monster RWB_monster = get_property_monster("rwbMonster");
+	int fights_left = clampi(get_property_int("rwbMonsterCount"), 0, 2);
+	effect rwb = $effect[Everything Looks Red, White and Blue ];
+    if (fights_left == 0 && have_effect(rwb) == 0) {
+        description.listAppend(HTMLGenerateSpanOfClass("<hr style='background-color:red; width:85%; height:5px;'>Fire a Red, White and Blue Blast", "r_bold"));
+        description.listAppend("Can banish all monsters in zone except the one the skill is used on.  After, 2 (3?) appearances of the monster, all other monsters will return. (Effectively, 2 or 3? immediate copies.)");
+    } else if (fights_left > 0) {
+		description.listAppend(HTMLGenerateSpanOfClass("<hr style='background-color:red; width:85%; height:5px;'>Red, White and Blue Blast active on "+RWB_monster+" for "+fights_left+" more fight(s)", "r_bold"));
+	} else if (have_effect(rwb) > 0) {
+		description.listAppend(HTMLGenerateSpanOfClass("<hr style='background-color:red; width:85%; height:5px;'>"+have_effect(rwb)+" turns until %fn, fire a Red, White and Blue Blast can be used again.", "r_bold"));
+	}
+
 	
     resource_entries.listAppend(ChecklistEntryMake("__familiar Patriotic Eagle", "familiar.php", ChecklistSubentryMake(title, description), -9).ChecklistEntrySetIDTag("Patriotic Eagle familiar resource"));
 }
