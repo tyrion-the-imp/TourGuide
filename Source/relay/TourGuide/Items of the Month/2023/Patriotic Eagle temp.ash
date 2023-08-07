@@ -64,7 +64,7 @@ void IOTMPatrioticEagleGenerateTasksTEMP(ChecklistEntry [int] task_entries, Chec
 	
 	int sgeeaa = $item[soft green echo eyedrop antidote].available_amount();
 	
-	eagle50meat[count(eagle50meat)] = "<a href='https://docs.google.com/spreadsheets/d/1jJhgityF_MS_Ohna6VePJ4IVXNAzrHIieqlST49C-SU/edit#gid=2131678522' target='_blank'><span style='color:blue; font-size:100%;'>Zones.</span></a>";
+	eagle50meat[count(eagle50meat)] = "<a href='https://docs.google.com/spreadsheets/d/1jJhgityF_MS_Ohna6VePJ4IVXNAzrHIieqlST49C-SU/edit#gid=2131678522' target='_blank'><span style='color:blue; font-size:100%;'>Zones.</span></a> <a href='desc_effect.php?whicheffect=9391a5f7577e30ac3af6309804da6944' target='_blank'><span style='color:blue; font-size:100%;'>Effect description.</span></a>";
 	
 	
 	ChecklistSubentry [int] lists;
@@ -224,7 +224,7 @@ void IOTMPatrioticEagleGenerateResourceTEMP(ChecklistEntry [int] resource_entrie
 	
 	if ($effect[Citizen of A Zone].have_effect() > 0) {
 		description.listAppend(HTMLGenerateSpanOfClass("<hr style='background-color:blue; width:85%; height:5px;'>Citizen of Zone effect can be removed.", "r_bold") + "");
-		description.listAppend("<a href='https://docs.google.com/spreadsheets/d/1jJhgityF_MS_Ohna6VePJ4IVXNAzrHIieqlST49C-SU/edit#gid=2131678522' target='_blank'><span style='color:blue; font-size:100%;'>Zones</span></a> <a href='desc_effect.php?whicheffect=9391a5f7577e30ac3af6309804da6944' target='_blank'><span style='color:blue; font-size:100%;'>Visit effect description.</span></a>");
+		description.listAppend("<a href='https://docs.google.com/spreadsheets/d/1jJhgityF_MS_Ohna6VePJ4IVXNAzrHIieqlST49C-SU/edit#gid=2131678522' target='_blank'><span style='color:blue; font-size:100%;'>Zones</span></a> <a href='desc_effect.php?whicheffect=9391a5f7577e30ac3af6309804da6944' target='_blank'><span style='color:blue; font-size:100%;'>Effect description.</span></a>");
 		description.listAppend(HTMLGenerateSpanOfClass("Citizen of: ", "r_bold") + "<span style='color:blue; font-size:90%; font-weight:bold;'>"+get_property("_citizenZone")+"</span>");
 		description.listAppend(HTMLGenerateSpanOfClass("Mods: ", "r_bold") + HTMLGenerateSpanFont(get_property("_citizenZoneMods"), "red"));
 	}
