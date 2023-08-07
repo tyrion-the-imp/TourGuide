@@ -1,5 +1,6 @@
 string[int] eagle30item;
 string[int] eagle50meat;
+effect rwb = $effect[Everything Looks Red, White and Blue ];
 
 void populateEagleCitizenshipMaps() {
 	int ix = 0;
@@ -87,8 +88,11 @@ void IOTMPatrioticEagleGenerateTasksTEMP(ChecklistEntry [int] task_entries, Chec
         int fights_left = clampi(get_property_int("rwbMonsterCount"), 0, 2);
         location [int] possible_appearance_locations = RWB_monster.getPossibleLocationsMonsterCanAppearInNaturally().listInvert();
         
-        if (fights_left > 0 && possible_appearance_locations.count() > 0)
+        if (fights_left > 0 && possible_appearance_locations.count() > 0) {
             task_entries.listAppend(ChecklistEntryMake("__monster " + RWB_monster, possible_appearance_locations[0].getClickableURLForLocation(), ChecklistSubentryMake("Fight " + pluralise(fights_left, "more " + RWB_monster, "more " + RWB_monster + "s"), "", "Will appear when you adventure in " + possible_appearance_locations.listJoinComponents(", ", "or") + "."), -5).ChecklistEntrySetIDTag("RWB copies"));
+		} else if (have_effect(rwb) > 0) {
+			task_entries.listAppend(ChecklistEntryMake("__familiar Patriotic Eagle", "familiar.php", ChecklistSubentryMake(HTMLGenerateSpanOfClass("<span style='color:blue; font-size:100%; font-weight:bold;'>"+have_effect(rwb)+" turns</span> until Fire a Red, White and Blue Blast can be used again.", "r_bold"), "", ""), -10));
+		}
     }
 	
 	//task_entries
@@ -232,14 +236,13 @@ void IOTMPatrioticEagleGenerateResourceTEMP(ChecklistEntry [int] resource_entrie
 	
 	monster RWB_monster = get_property_monster("rwbMonster");
 	int fights_left = clampi(get_property_int("rwbMonsterCount"), 0, 2);
-	effect rwb = $effect[Everything Looks Red, White and Blue ];
     if (fights_left == 0 && have_effect(rwb) == 0) {
         description.listAppend(HTMLGenerateSpanOfClass("<hr style='background-color:red; width:85%; height:5px;'>Fire a Red, White and Blue Blast", "r_bold"));
         description.listAppend("Can banish all monsters in zone except the one the skill is used on.  After, 2 (3?) appearances of the monster, all other monsters will return. (Effectively, 2 or 3? immediate copies.)");
     } else if (fights_left > 0) {
 		description.listAppend(HTMLGenerateSpanOfClass("<hr style='background-color:red; width:85%; height:5px;'>Red, White and Blue Blast active on "+RWB_monster+" for "+fights_left+" more fight(s)", "r_bold"));
 	} else if (have_effect(rwb) > 0) {
-		description.listAppend(HTMLGenerateSpanOfClass("<hr style='background-color:red; width:85%; height:5px;'>"+have_effect(rwb)+" turns until %fn, fire a Red, White and Blue Blast can be used again.", "r_bold"));
+		description.listAppend(HTMLGenerateSpanOfClass("<hr style='background-color:red; width:85%; height:5px;'>"+have_effect(rwb)+" turns until Fire a Red, White and Blue Blast can be used again.", "r_bold"));
 	}
 
 	
