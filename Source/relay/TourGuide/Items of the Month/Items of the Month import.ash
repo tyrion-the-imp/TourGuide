@@ -82,7 +82,7 @@ import "relay/TourGuide/Items of the Month/2019/Rune Spoon.ash";
 import "relay/TourGuide/Items of the Month/2019/Beach Comb.ash";
 import "relay/TourGuide/Items of the Month/2019/Getaway Campsite.ash";
 import "relay/TourGuide/Items of the Month/2019/Pocket Professor.ash";
-import "relay/TourGuide/Items of the Month/2019/Eight Days a week Pills.ash";
+import "relay/TourGuide/Items of the Month/2019/Eight Days a Week Pills.ash";
 import "relay/TourGuide/Items of the Month/2019/Pizza Cube.ash";
 import "relay/TourGuide/Items of the Month/2019/Red Nosed Snapper.ash";
 
@@ -98,14 +98,14 @@ import "relay/TourGuide/Items of the Month/2020/Spinmaster Lathe.ash";
 import "relay/TourGuide/Items of the Month/2020/Cargo Cultist Shorts.ash";
 import "relay/TourGuide/Items of the Month/2020/Comprehensive Cartography.ash";
 import "relay/TourGuide/Items of the Month/2020/Superhero Cape.ash";
-import "relay/TourGuide/Items of the Month/2020/Box o Ghosts.ash";
+import "relay/TourGuide/Items of the Month/2020/Box O Ghosts.ash";
 
 // 2021
 import "relay/TourGuide/Items of the Month/2021/Miniature Crystal Ball.ash";
 import "relay/TourGuide/Items of the Month/2021/Emotion Chip.ash";
 import "relay/TourGuide/Items of the Month/2021/Potted Power Plant.ash";
 import "relay/TourGuide/Items of the Month/2021/Backup Camera.ash";
-// Missing: Shortest-Order Cook
+import "relay/TourGuide/Items of the Month/2021/Short Order Cook.ash";
 import "relay/TourGuide/Items of the Month/2021/Familiar Scrapbook.ash";
 import "relay/TourGuide/Items of the Month/2021/Underground Fireworks Shop.ash";
 // Missing: Candles
@@ -142,5 +142,4 @@ import "relay/TourGuide/Items of the Month/2023/2002MrStoreTemp.ash";
 import "relay/TourGuide/Items of the Month/2023/Patriotic Eagle temp.ash";
 //import "relay/TourGuide/Items of the Month/2023/Patriotic Eagle.ash";
 import "relay/TourGuide/Items of the Month/2023/Perpetrate Mild Evil temp.ash";
-
-
+import "relay/TourGuide/Items of the Month/2023/August Scepter.ash";
