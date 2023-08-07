@@ -20,9 +20,6 @@ void IOTMSITCertificateGenerateTasks(ChecklistEntry [int] task_entries, Checklis
         return;
     }
 
-    // Don't generate a tile if the user has completed SIT already today
-    if (completedSITToday) return;
-
     string [int] description;
     string url = "inv_use.php?pwd=" + my_hash() + "&which=3&whichitem=11116";
     string main_title = "S.I.T. Course Enrollment";
