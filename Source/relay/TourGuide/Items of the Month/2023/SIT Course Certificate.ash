@@ -8,11 +8,13 @@ boolean hasAnySkillOf(string [int] skillNames) {
     return false;
 }
 
-// Prompt to register which SIT course you took
 RegisterTaskGenerationFunction("IOTMSITCertificateGenerateTasks");
 void IOTMSITCertificateGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries) {
-    if (!lookupItem("S.I.T. Course Completion Certificate").have())
-        return;
+    // Don't generate a tile if the user doesn't have SIT.
+    if (!lookupItem("S.I.T. Course Completion Certificate").have()) return;
+
+    // Cannot use S.I.T. in G-Lover    
+    if (my_path().id == PATH_G_LOVER) return;
 
     // Nag if we haven't picked a skill during this ascension   or haven't changed it today
     string [int] skillNames = {"Psychogeologist", "Insectologist", "Cryptobotanist"};
@@ -22,7 +24,8 @@ void IOTMSITCertificateGenerateTasks(ChecklistEntry [int] task_entries, Checklis
 
     string [int] description;
     string url = "inv_use.php?pwd=" + my_hash() + "&which=3&whichitem=11116";
-    string main_title = "S.I.T. Course Enrollment";
+    string main_title = "S.I.T. Course Enrollment";    
+    string subtitle = "";
 
     string [int] miscPhrases = {
         "Don't play hooky!",
@@ -31,7 +34,7 @@ void IOTMSITCertificateGenerateTasks(ChecklistEntry [int] task_entries, Checklis
         "This one time in college...",
         "Bright college days, oh, carefree days that fly.", // <3 tom lehrer
         "No child of mine is leaving here without a degree!",
-        "Make like a tree and leaf (through your papers)",
+        "Make like a tree and leaf (through your papers).",
     };
 
     string miscPhrase = miscPhrases[random(count(miscPhrases))];
@@ -50,7 +53,23 @@ void IOTMSITCertificateGenerateTasks(ChecklistEntry [int] task_entries, Checklis
         if (lookupSkill("Psychogeologist").have_skill())    subtitle = "you have ML; consider <b>Insectology</b>, for meat?";
         if (lookupSkill("Insectologist").have_skill())      subtitle = "you have Meat; consider <b>Psychogeology</b>, for ML?";
         if (lookupSkill("Cryptobotanist").have_skill())     subtitle = "you have Init; consider <b>Insectology</b>, for meat?";
+        
+        if (__misc_state["in run"]) {
+            // If in-run, generate a supernag
+            description.listAppend("Try changing your S.I.T. course to accumulate different items.");
+            task_entries.listAppend(ChecklistEntryMake("__item S.I.T. Course Completion Certificate", url, ChecklistSubentryMake(main_title, subtitle, description), -11).ChecklistEntrySetIDTag("S.I.T. Course Completion Certificate"));
+        } 
+        else {
+            // If not, generate an optional task
+            main_title = "Could change your S.I.T. skill, for new items...";
+            optional_task_entries.listAppend(ChecklistEntryMake("__item S.I.T. Course Completion Certificate", url, ChecklistSubentryMake(main_title, subtitle, description), 1).ChecklistEntrySetIDTag("S.I.T. Course Completion Certificate"));
+        }
+    } 
+    else {
+        // If they don't have a skill, generate a supernag.
+        string miscPhrase = miscPhrases[random(count(miscPhrases))];
+        description.listAppend(HTMLGenerateSpanFont(miscPhrase + " Take your S.I.T. course!", "red"));
+        task_entries.listAppend(ChecklistEntryMake("__item S.I.T. Course Completion Certificate", url, ChecklistSubentryMake(main_title, subtitle, description), -11).ChecklistEntrySetIDTag("S.I.T. Course Completion Certificate"));
     }
 
-    task_entries.listAppend(ChecklistEntryMake("__item S.I.T. Course Completion Certificate", url, ChecklistSubentryMake(main_title, subtitle, description), -11).ChecklistEntrySetIDTag("S.I.T. Course Completion Certificate"));
 }

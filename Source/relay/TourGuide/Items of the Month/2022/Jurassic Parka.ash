@@ -22,6 +22,7 @@ void IOTMJurassicParkaGenerateResource(ChecklistEntry [int] resource_entries)
     if (!parka.have()) return;
     //if (!__misc_state["in run"]) return; 
     if (!__iotms_usable[$item[Jurassic Parka]]) return;
+	if (my_path().id == PATH_G_LOVER) return; // cannot use parka in g-lover
 
     string url;
 	string parkaMode = get_property("parkaMode");
