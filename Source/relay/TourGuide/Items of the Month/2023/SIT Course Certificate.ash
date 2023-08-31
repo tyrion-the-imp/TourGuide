@@ -48,7 +48,7 @@ void IOTMSITCertificateGenerateTasks(ChecklistEntry [int] task_entries, Checklis
 	description.listAppend(HTMLGenerateSpanFont("Crypto: L1-7 = +15 mp regen, +50% item, +25 hp regen", "green"));
     description.listAppend(HTMLGenerateSpanFont("Crypto: L8+ = +10 spell & h.dmg, +100% init (S1), food (F1 awesome)", "green"));
     //task_entries.listAppend(ChecklistEntryMake("__item S.I.T. Course Completion Certificate", url, ChecklistSubentryMake(main_title, description), -11).ChecklistEntrySetIDTag("S.I.T. Course Completion Certificate"));
-    string subtitle = "";
+    
     if (hasAnySkillOf(skillNames)) {
         if (lookupSkill("Psychogeologist").have_skill())    subtitle = "you have ML; consider <b>Insectology</b>, for meat?";
         if (lookupSkill("Insectologist").have_skill())      subtitle = "you have Meat; consider <b>Psychogeology</b>, for ML?";
