@@ -144,4 +144,5 @@ import "relay/TourGuide/Items of the Month/2023/Patriotic Eagle temp.ash";
 import "relay/TourGuide/Items of the Month/2023/Perpetrate Mild Evil temp.ash";
 import "relay/TourGuide/Items of the Month/2023/August Scepter.ash";
 import "relay/TourGuide/Items of the Month/2023/Book of Facts temp.ash";
-import "relay/TourGuide/Items of the Month/2023/Book of Facts.ash";
+import "relay/TourGuide/Items of the Month/2023/Jill of all Trades.ash";
+import "relay/TourGuide/Items of the Month/2023/A Guide to Burning Leaves.ash";
