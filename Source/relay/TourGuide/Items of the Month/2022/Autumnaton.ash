@@ -29,11 +29,12 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 	string url;
 	string [int] description;
 	string [int] [int] targets;
+	boolean klib = get_property_boolean("kingLiberated");
 
 	description.listAppend("Autobot grabs items from a zone you've previously visited.");
 	
 	// Autobot on expedition
-	if (lookupItem("autumn-aton").available_amount() > 0 && autobotsReturnTime < 66 )
+	if (lookupItem("autumn-aton").available_amount() > 0 && ( klib || ( !klib && autobotsReturnTime < 66 ) ) )
 	{
 		string main_title = "Use your autumn-aton";
 		description.listAppend("Next use will take " + HTMLGenerateSpanOfClass(autobotsReturnTime, "r_bold") + " adventures.");
