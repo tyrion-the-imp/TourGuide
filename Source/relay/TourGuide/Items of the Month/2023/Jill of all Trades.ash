@@ -47,3 +47,19 @@ void IOTMJillv2GenerateResource(ChecklistEntry [int] resource_entries)
 	
     resource_entries.listAppend(ChecklistEntryMake("__familiar jill-of-all-trades", url, ChecklistSubentryMake("Celebrating the Jillenium", "", description)).ChecklistEntrySetIDTag("Jill of All Trades tile"));
 }
+
+//Jill-of-All-Trades
+//....added 2023.12.04...from https://discord.com/channels/466605739838930955/711957790859460650/1178123877453410415 ... AR
+RegisterResourceGenerationFunction("IOTMJOATGenerateResource");
+void IOTMJOATGenerateResource(ChecklistEntry [int] resource_entries)
+{
+    string [int] description;
+    if ($item[map to a candy-rich block].available_amount() > 0 && !get_property_boolean("_mapToACandyRichBlockUsed")) {
+        description.listAppend("Unlock candy and 5 free fights!");
+    resource_entries.listAppend(ChecklistEntryMake("__item map to a candy-rich block", "inventory.php?ftext=candy-rich", ChecklistSubentryMake("Candy-rich block available", description)).ChecklistEntrySetCombinationTag("JOAT resources").ChecklistEntrySetIDTag("JOAT"));
+    }
+    else if (get_property_boolean("_mapToACandyRichBlockUsed") == true) {
+        description.listAppend("Trick-or-Treat!");
+    resource_entries.listAppend(ChecklistEntryMake("__familiar Jill-of-All-Trades", "place.php?whichplace=town&action=town_trickortreat", ChecklistSubentryMake("Candy-rich block available", description)).ChecklistEntrySetCombinationTag("JOAT resources").ChecklistEntrySetIDTag("JOAT"));
+    }
+}
