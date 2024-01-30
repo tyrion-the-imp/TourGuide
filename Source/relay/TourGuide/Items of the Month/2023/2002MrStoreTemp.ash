@@ -17,7 +17,7 @@ void IOTM2002MrStoreGenerateResourceTemp(ChecklistEntry [int] resource_entries)
 		{
         	if ($item[Flash Liquidizer Ultra Dousing Accessory].available_amount() == 0)
             {
-                options.listAppend(HTMLGenerateSpanOfClass("Flash Liquidizer Ultra Dousing Accessory:", "r_bold") + " +3 BLARTpockets");
+                options.listAppend(HTMLGenerateSpanOfClass("Flash Liquidizer Ultra Dousing Accessory:", "r_bold") + " +3 BLARTpockets, +20% items (& multi-equip)");
             }        
             if ($item[pro skateboard].available_amount() == 0)
             {
