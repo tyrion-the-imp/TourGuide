@@ -1,4 +1,4 @@
-//Book of FActs
+//Book of Facts
 RegisterTaskGenerationFunction("IOTMBookofFactsGenerateTasks");
 void IOTMBookofFactsGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
@@ -52,7 +52,7 @@ void IOTMBookofFactsGenerateResource(ChecklistEntry [int] resource_entries)
 	int habitatRecallsLeft = clampi(3 - get_property_int("_monsterHabitatsRecalled"), 0, 3);
     if (get_property_int("_monsterHabitatsRecalled") < 3) {
         description.listAppend("Good targets include monsters you want 6 of:");
-		description.listAppend("Fantasy bandit, eldritch tentacle, black crayon orc if the stars align");
+		description.listAppend("Fantasy bandit, eldritch tentacle, black crayon monsters, halloween monsters.");
         resource_entries.listAppend(ChecklistEntryMake("__item hey deze map", "", ChecklistSubentryMake(pluralise(habitatRecallsLeft, "Habitat recall", "Habitat recalls"), "", description), 8).ChecklistEntrySetIDTag("habitat recalls"));
     }
 
