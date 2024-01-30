@@ -60,9 +60,9 @@ void IOTMCandyCaneSwordGenerateTasksBETA(ChecklistEntry [int] task_entries, Chec
 		if (options.count() > 0)
 			description.listAppend("Candy cane sword noncoms:" + options.listJoinComponents("<hr>").HTMLGenerateIndentedText());
 		
-	if (lookupItem("candy cane sword cane").equipped_amount() == 0) {
-		description.listAppend(HTMLGenerateSpanFont("Equip the candy cane sword", "red"));
-	}
+		if (lookupItem("candy cane sword cane").equipped_amount() == 0) {
+			description.listAppend(HTMLGenerateSpanFont("Equip the candy cane sword", "red"));
+		}
 	optional_task_entries.listAppend(ChecklistEntryMake("__item Candy cane sword cane", url, ChecklistSubentryMake("Candy cane sword cane noncombats", description)).ChecklistEntrySetCombinationTag("CCSC tasks").ChecklistEntrySetIDTag("CCSC"));
 	}
 }

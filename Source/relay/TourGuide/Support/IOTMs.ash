@@ -163,6 +163,8 @@ void initialiseIOTMsUsable()
         __iotms_usable[lookupItem("backup camera")] = true;
     if (lookupItem("industrial fire extinguisher").available_amount() > 0)
         __iotms_usable[lookupItem("industrial fire extinguisher")] = true;
+    if (lookupItem("candy cane sword cane").available_amount() > 0)
+        __iotms_usable[lookupItem("candy cane sword cane")] = true;
     if ($item[Clan VIP Lounge key].item_amount() > 0)
     {
     	//FIXME all
