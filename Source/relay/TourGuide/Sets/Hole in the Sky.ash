@@ -145,9 +145,13 @@ void QHitsGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] 
 	
 	if (!$location[the hole in the sky].locationAvailable())
 	{
+		//skinflute = odd ascensions, camel's toe = even ascensions
+		int currRun = my_ascensions() +1;
+		string thisMons = ( currRun % 2 == 0 ) ? "camel's toe":"skinflute";
 		//find a way to space:
 		subentry.modifiers.listAppend("-combat");
 		subentry.entries.listAppend("Run -combat on the top floor of the castle for the steam-powered model rocketship.|From steampunk non-combat, unlocks Hole in the Sky.");
+		subentry.entries.listAppend("Best monster this run ("+currRun+"): "+thisMons);
         active_url = "place.php?whichplace=giantcastle";
         
         

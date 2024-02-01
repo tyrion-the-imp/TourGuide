@@ -62,6 +62,7 @@ void IOTMBookofFactsGenerateResource(ChecklistEntry [int] resource_entries)
 	if (get_property_int("_bookOfFactsWishes") < 3) {
         BOFAdropsDescription.listAppend("" + BOFApocketwishes + " BOFA wishes available.");
     }
+	BOFAdropsDescription.listAppend("<a href='https://bofa.loathers.net/' target='_blank'><span style='color:blue;'>Loathers seed tool</span></a>&nbsp;");
 
 	// Not going to remove this because I think it's valid right now but once mt_rand is 
 	//   properly exposed it would be good to hide this if the user is in a seed where 
