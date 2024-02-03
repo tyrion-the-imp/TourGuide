@@ -302,7 +302,11 @@ void generateCopiedMonstersEntry(ChecklistEntry [int] task_entries, ChecklistEnt
 
 void SCopiedMonstersGenerateResourceForCopyType(ChecklistEntry [int] resource_entries, item shaking_object, string shaking_shorthand_name, string monster_name_property_name)
 {
-	if (shaking_object.available_amount() == 0 && shaking_object != $item[none])
+	if	( shaking_object == $item[Spooky VHS Tape] ) {
+		//not an actual monster holder...the copy comes as a wanderer 8 turns after this item is used
+		//when the copy appears, it will be auto-killed and Yellow-Rayed (no ELY)
+	}
+	else if (shaking_object.available_amount() == 0 && shaking_object != $item[none])
 		return;
     
     string url = "inventory.php?ftext=" + shaking_object;
@@ -333,7 +337,7 @@ void SCopiedMonstersGenerateResourceForCopyType(ChecklistEntry [int] resource_en
         url = "place.php?whichplace=chateau";
     }
 	
-	resource_entries.listAppend(ChecklistEntryMake(image_name, url, ChecklistSubentryMake(shaking_shorthand_name.capitaliseFirstLetter() + " monster trapped!", "", line)).ChecklistEntrySetIDTag("Copy item " + shaking_shorthand_name));
+	resource_entries.listAppend(ChecklistEntryMake(image_name, url, ChecklistSubentryMake(shaking_shorthand_name.capitaliseFirstLetter() + " monster trapped!", "", line),-79).ChecklistEntrySetIDTag("Copy item " + shaking_shorthand_name));
 }
 
 void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
@@ -531,10 +535,22 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
     }
     if ($item[LOV Enamorang].available_amount() > 0)
     {
-        copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise($item[LOV Enamorang]), "", ""));
+        copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise($item[LOV Enamorang].available_amount(), "LOV Enamorang", "LOV Enamorangs")+"","",""));
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__item lov enamorang";
     }
+    if ($item[Spooky VHS Tape].available_amount() > 0)
+    {
+        copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise($item[Spooky VHS Tape].available_amount(), "Spooky VHS Tape", "Spooky VHS Tapes"),"",""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__item Spooky VHS Tape";
+    }
+	if	( is_unrestricted($item[Spooky VHS Tape]) && get_property_int("availableMrStore2002Credits") > 0 )
+	{
+        copy_source_entry.subentries.listAppend(ChecklistSubentryMake(get_property_int("availableMrStore2002Credits")+" Spooky VHS Tape(s) purchasable","",""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__item 2002 Mr. Store Catalog";
+	}
     if (!get_property_boolean("_crappyCameraUsed") && $item[crappy camera].available_amount() > 0)
     {
         string [int] description;// = listCopy(potential_copies);
@@ -589,6 +605,8 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
 	}
 	if	( get_property_int("beGregariousFightsLeft") > 0 ) {
 		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(get_property_int("beGregariousFightsLeft")+" gregarious fight(s) vs <span style='color:red; font-size:75%; font-weight:bold;'>"+get_property("beGregariousMonster")+"</span> remain", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__item physiostim pill";
 	}
 	//Extrovermectin  __iotms_usable[lookupItem("cold medicine cabinet")] && 
     if (available_amount($item[Extrovermectin&trade;]) > 0 && spleen_limit() - my_spleen_use() >= 2 )
@@ -611,14 +629,22 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
 		chestCopiesAvailable = min(chestCopiesAvailable, chestCopiesLimit);
 		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(chestCopiesAvailable, "chest mimic copy is possible", "chest mimic copies are possible") + "", "", ""));
         if (copy_source_entry.image_lookup_name == "")
-            copy_source_entry.image_lookup_name = "__item cargo cultist shorts";
+            copy_source_entry.image_lookup_name = "__familiar chest mimic";
+            //copy_source_entry.image_lookup_name = "__skill %fn, lay an egg";
+	}
+	//patriotic eagle
+	if	( $familiar[patriotic eagle].familiar_is_usable() && have_effect($effect[Everything Looks Red, White and Blue]) == 0 ) {
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(1, "red, white & blue blast (2 immediate copies)", "") + "", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__familiar patriotic eagle";
+            //copy_source_entry.image_lookup_name = "__skill Recall Facts: Monster Habitats";
 	}
 	//habitat recalls, book of facts, Just the Facts
 	if	( is_unrestricted($skill[Just the Facts]) && get_property_int("_monsterHabitatsRecalled") < 3 ) {
 		int jtfCastsLeft = 3 - get_property_int("_monsterHabitatsRecalled");
 		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(jtfCastsLeft, "cast of habitat recall", "casts of habitat recall") + "", "", ""));
         if (copy_source_entry.image_lookup_name == "")
-            copy_source_entry.image_lookup_name = "__item cargo cultist shorts";
+            copy_source_entry.image_lookup_name = "__item book of facts";
 	}
 	
 	
@@ -662,6 +688,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
     SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[mimic egg], "mimic egg", "");
     SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[wax bugbear], "wax bugbear", "waxMonster");
     SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[crude monster sculpture], "crude sculpture", "crudeMonster");
+    SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[Spooky VHS Tape], "spooky vhs wanderer", "spookyVHSTapeMonster");
 }
 
 void SCopiedMonstersGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
