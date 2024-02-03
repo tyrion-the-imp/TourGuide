@@ -165,13 +165,15 @@ void initialiseIOTMsUsable()
         __iotms_usable[lookupItem("industrial fire extinguisher")] = true;
     if (lookupItem("candy cane sword cane").available_amount() > 0)
         __iotms_usable[lookupItem("candy cane sword cane")] = true;
-    if ($item[Clan VIP Lounge key].item_amount() > 0)
+    
+	if ($item[Clan VIP Lounge key].item_amount() > 0)
     {
     	//FIXME all
         __iotms_usable[lookupItem("Clan Carnival Game")] = true;
         __iotms_usable[$item[clan floundry]] = true;
     }
-    //Can't use many things in G-Lover
+    
+	//Can't use many things in G-Lover
     if (my_path().id == PATH_G_LOVER) //Path 33
     {
         __iotms_usable[lookupItem("Bird-a-Day calendar")] = false;

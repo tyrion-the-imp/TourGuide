@@ -72,6 +72,24 @@ void CopiedMonstersGenerateDescriptionForMonster(string monster_name, string [in
             description.listAppend(line);
         }
 	}
+	//mimic egg, is list of monsters which mafia is not aware of yet
+	else if (monster_name == "")
+	{
+		string line;
+		boolean requirements_met = false;
+		if ( available_amount($item[mimic egg]) > 0 )
+			line += "Click here: to view the list of monsters the egg contains.";
+			requirements_met = true;
+		else
+		{
+			line += "";
+			requirements_met = false;
+		}
+		//line += "+150% item for large box";
+		//if (show_details && !requirements_met)
+			//line = HTMLGenerateSpanFont(line, "red");
+		description.listAppend(line);
+	}
 	else if (monster_name == "quantum mechanic")
 	{
 		string line;
@@ -289,7 +307,10 @@ void SCopiedMonstersGenerateResourceForCopyType(ChecklistEntry [int] resource_en
     string url = "inventory.php?ftext=" + shaking_object;
 	
 	string [int] monster_description;
-	string monster_name = get_property(monster_name_property_name).HTMLEscapeString();
+	string monster_name = "dummy monster";
+	if	( monster_name_property_name != "" ) {
+		monster_name = get_property(monster_name_property_name).HTMLEscapeString();
+	}
 	CopiedMonstersGenerateDescriptionForMonster(monster_name, monster_description, true, true);
     
     if (get_auto_attack() != 0)
@@ -552,7 +573,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
             copy_source_entry.image_lookup_name = "__item combat lover's locket";
     }
 	//_genieFightsUsed
-    if (get_property_int("_genieFightsUsed") < 3 && is_unrestricted($item[pocket wish]))
+    if (get_property_int("_genieFightsUsed") < 3 && is_unrestricted($item[pocket wish]) && available_amount($item[pocket wish]) > 0 )
     {
         copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise((3 - get_property_int("_genieFightsUsed")), "genie/wish fight", "genie/wish fights") + " available", "", ""));
         if (copy_source_entry.image_lookup_name == "")
@@ -582,6 +603,23 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__item cargo cultist shorts";
     }
+	//chest mimic
+	if	( $familiar[chest mimic].familiar_is_usable() && $familiar[chest mimic].experience > 50 ) {
+		int chestCopiesAvailable = ($familiar[chest mimic].experience.to_float() / 50.0).to_int();
+		int chestCopiesLimit = 11 - get_property_int("_mimicEggsObtained");
+		chestCopiesAvailable = min(chestCopiesAvailable, chestCopiesLimit);
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(chestCopiesAvailable, "chest mimic copy is possible", "chest mimic copies are possible") + "", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__item cargo cultist shorts";
+	}
+	//habitat recalls, book of facts, Just the Facts
+	if	( is_unrestricted($skill[Just the Facts]) && get_property_int("_monsterHabitatsRecalled") < 3 ) {
+		int jtfCastsLeft = 3 - get_property_int("_monsterHabitatsRecalled");
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(jtfCastsLeft, "cast of habitat recall", "casts of habitat recall") + "", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__item cargo cultist shorts";
+	}
+	
 	
 	string[int] dummy;
 	dummy[0] = "dummy entry";
@@ -620,10 +658,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
 	if (!get_property_boolean("_iceSculptureUsed"))
 		SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[ice sculpture], "ice sculpture", "iceSculptureMonster");
     SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[screencapped monster], "screencapped", "screencappedMonster");
-        
-	//if (__misc_state["Chateau Mantegna available"] && !get_property_boolean("_chateauMonsterFought") && mafiaIsPastRevision(15115))
-		//SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[none], "chateau painting", "chateauMonster");
-    
+    SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[mimic egg], "mimic egg", "");
     SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[wax bugbear], "wax bugbear", "waxMonster");
     SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[crude monster sculpture], "crude sculpture", "crudeMonster");
 }
