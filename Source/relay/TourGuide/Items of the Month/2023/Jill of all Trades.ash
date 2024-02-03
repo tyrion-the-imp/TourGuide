@@ -55,8 +55,8 @@ void IOTMJOATGenerateResource(ChecklistEntry [int] resource_entries)
 {
     string [int] description;
     if ($item[map to a candy-rich block].available_amount() > 0 && !get_property_boolean("_mapToACandyRichBlockUsed")) {
-        description.listAppend("Unlock candy and 5 free fights!");
-    resource_entries.listAppend(ChecklistEntryMake("__item map to a candy-rich block", "inventory.php?ftext=candy-rich", ChecklistSubentryMake("Candy-rich block available", description)).ChecklistEntrySetCombinationTag("JOAT resources").ChecklistEntrySetIDTag("JOAT"));
+        description.listAppend("Need to equip an outfit!");
+    resource_entries.listAppend(ChecklistEntryMake("__item map to a candy-rich block", "inventory.php?ftext=candy-rich", ChecklistSubentryMake("5 Candy-rich block fights available", description)).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("JOAT"));
     }
     else if (get_property_boolean("_mapToACandyRichBlockUsed") == true) {
         description.listAppend("Trick-or-Treat!");
