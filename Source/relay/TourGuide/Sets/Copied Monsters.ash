@@ -77,9 +77,10 @@ void CopiedMonstersGenerateDescriptionForMonster(string monster_name, string [in
 	{
 		string line;
 		boolean requirements_met = false;
-		if ( available_amount($item[mimic egg]) > 0 )
+		if ( available_amount($item[mimic egg]) > 0 ) {
 			line += "Click here: to view the list of monsters the egg contains.";
 			requirements_met = true;
+		}
 		else
 		{
 			line += "";
