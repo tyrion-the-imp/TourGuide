@@ -244,6 +244,14 @@ void IOTMCursedMonkeysPawGenerateResource(ChecklistEntry [int] resource_entries)
         ),
         new MonkeyWish(
             $item[none],
+            //from a Wal-Mart potion but seems to work
+			$effect[Warm Shoulders],
+            "+5 fam XP, +5 lbs.",
+            ($familiar[chest mimic].familiar_is_usable() && get_property_int("_mimicEggsObtained") < 11) || $familiar[grey goose].familiar_is_usable(),
+            true
+        ),
+        new MonkeyWish(
+            $item[none],
             $effect[Staying Frosty],
             HTMLGenerateSpanFont("cold damage race", "blue"),
             !__quest_state["Level 13"].state_boolean["Elemental damage race completed"] && 

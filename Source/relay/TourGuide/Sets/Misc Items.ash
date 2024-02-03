@@ -85,6 +85,8 @@ void SMiscItemsGenerateResource(ChecklistEntry [int] resource_entries)
 {
     int importance_level_item = 7;
     int importance_level_unimportant_item = 8;
+    int meatgen_importance_level = importance_level_item;
+	if	( in_hardcore() ) { meatgen_importance_level = -50; }
     
     boolean in_run = __misc_state["in run"] && in_ronin();
     
@@ -541,7 +543,7 @@ void SMiscItemsGenerateResource(ChecklistEntry [int] resource_entries)
     }
     
     
-    if ($item[mojo filter].available_amount() > 0 && get_property_int("currentMojoFilters") <3 && in_run) {
+    if ($item[mojo filter].available_amount() > 0 && get_property_int("currentMojoFilters") < 3 && in_run) {
         int mojo_filters_usable = MIN(my_spleen_use(), MIN(3 - get_property_int("currentMojoFilters"), $item[mojo filter].available_amount()));
         string line = "Removes one spleen each.";
         if (mojo_filters_usable != $item[mojo filter].available_amount())
@@ -721,15 +723,16 @@ void SMiscItemsGenerateResource(ChecklistEntry [int] resource_entries)
         resource_entries.listAppend(ChecklistEntryMake("__item " + $item[rusty hedge trimmers], "inventory.php?ftext=rusty+hedge+trimmers", ChecklistSubentryMake(pluralise($item[rusty hedge trimmers]), "", description), importance_level_unimportant_item).ChecklistEntrySetIDTag("Rusty hedge trimmers"));
     }
     
+	//meat tile / autosell tile
     if (in_run && my_path().id != PATH_WAY_OF_THE_SURPRISING_FIST) {
         string image_name = "";
         string [int] autosell_list;
         boolean [item] autosellable_items = $items[meat stack, dense meat stack, really dense meat stack, solid gold bowling ball, fancy seashell necklace, commemorative war stein,huge gold coin].makeConstantItemArrayMutable();
-        if (!__iotms_usable[lookupItem("diabolic pizza cube")])
-            autosellable_items[$item[space blanket]] = true;
-            autosellable_items[$item[1952 Mickey Mantle card]] = true;
-        if ($item[pixel coin] != $item[none])
-            autosellable_items[$item[pixel coin]] = true;
+        //if (!__iotms_usable[lookupItem("diabolic pizza cube")])		What does the pizza cube have to do with selling the space blanket?
+		autosellable_items[$item[space blanket]] = true;
+		autosellable_items[$item[1952 Mickey Mantle card]] = true;
+        //if ($item[pixel coin] != $item[none])							huh?
+		autosellable_items[$item[pixel coin]] = true;
         foreach it in autosellable_items {
             if (it.available_amount() == 0)
                 continue;
@@ -762,7 +765,7 @@ void SMiscItemsGenerateResource(ChecklistEntry [int] resource_entries)
         }
         
         if (description.count() > 0) {
-            resource_entries.listAppend(ChecklistEntryMake(image_name, url, ChecklistSubentryMake("Meat", "", description), importance_level_unimportant_item).ChecklistEntrySetIDTag("Meat giving items resource"));
+            resource_entries.listAppend(ChecklistEntryMake(image_name, url, ChecklistSubentryMake("Meat", "", description), meatgen_importance_level).ChecklistEntrySetIDTag("Meat giving items resource"));
         }
     }
     //Penultimate Fantasy chest?
@@ -1035,7 +1038,7 @@ void SMiscItemsGenerateResource(ChecklistEntry [int] resource_entries)
         string [int] description;
         description.listAppend("Use for " + possibilities.listJoinComponents(", ", "or"));
         
-        resource_entries.listAppend(ChecklistEntryMake("__item tonic djinn", "inventory.php?ftext=tonic+djinn", ChecklistSubentryMake("Tonic djinn", "", description), importance_level_unimportant_item).ChecklistEntrySetIDTag("Tonic djinn resource"));
+        resource_entries.listAppend(ChecklistEntryMake("__item tonic djinn", "inventory.php?ftext=tonic+djinn", ChecklistSubentryMake("Tonic djinn", "", description), meatgen_importance_level).ChecklistEntrySetIDTag("Tonic djinn resource"));
     }
     
     // Removed an is_unrestricted check; I think this actually is fine, since this checks ownership, and 
