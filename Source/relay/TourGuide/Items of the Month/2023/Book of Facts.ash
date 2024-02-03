@@ -62,14 +62,20 @@ void IOTMBookofFactsGenerateResource(ChecklistEntry [int] resource_entries)
 	if (get_property_int("_bookOfFactsWishes") < 3) {
         BOFAdropsDescription.listAppend("" + BOFApocketwishes + " BOFA wishes available.");
     }
-	BOFAdropsDescription.listAppend("<a href='https://bofa.loathers.net/' target='_blank'><span style='color:blue;'>Loathers seed tool</span></a>&nbsp;");
-
 	// Not going to remove this because I think it's valid right now but once mt_rand is 
 	//   properly exposed it would be good to hide this if the user is in a seed where 
 	//   they can't really access tatters...
 	int BOFAtatters = clampi(11 - get_property_int("_bookOfFactsTatters"), 0, 11);
 	if (get_property_int("_bookOfFactsTatters") < 11) {
         BOFAdropsDescription.listAppend("" + BOFAtatters + " BOFA tatters available.");
+	}
+	BOFAdropsDescription.listAppend("<a href='https://bofa.loathers.net/' target='_blank'><span style='color:blue;'>Loathers seed tool</span></a>&nbsp;");
+	BOFAdropsDescription.listAppend(" === pocket wishes, <span style='color:red; font-weight:bold;'>"+my_class()+"</span> standard === ");
+	if	( my_class().id == 1 ) {
+		BOFAdropsDescription.listAppend("SC Standard: ");
+	}
+	if	( my_class().id == 2 ) {
+		BOFAdropsDescription.listAppend("ancient protector spirit (The Hidden Bowling Alley)|animated rustic nightstand|Black Crayon Frat Orc|fantasy bandit|filthy hippy Vegan chef|huge ghuol (cranny)|irate mariachi (SotB)|mayonnaise wasp (DD)|oil cartel|plaque of locusts (Arid)|screambat (bathole)|Thinknerd Moving Robot|Thinknerd Packing Robot|tree hugging hippy protestor (monorail station)|Victor the Insult Comic Hellhound (laugh floor)|War Hippy Homeopath|War Hippy Sky Captain|zombie waltzers (ballroom)");
 	}
 	resource_entries.listAppend(ChecklistEntryMake("__item book of facts", "", ChecklistSubentryMake(("Miscellaneous valuable BOFA drops"), "", BOFAdropsDescription), 8).ChecklistEntrySetIDTag("bofa tatters"));
 }
