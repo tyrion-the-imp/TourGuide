@@ -129,7 +129,6 @@ import "relay/TourGuide/Items of the Month/2022/Autumnaton.ash";
 import "relay/TourGuide/Items of the Month/2022/Cookbookbat.ash";
 import "relay/TourGuide/Items of the Month/2022/Oliver's Place.ash";
 import "relay/TourGuide/Items of the Month/2022/Model Train Set.ash";
-//import "relay/TourGuide/Items of the Month/2022/Olivers Speakeasy.ash";
 
 // 2023
 import "relay/TourGuide/Items of the Month/2023/Rock Garden.ash";
@@ -143,7 +142,6 @@ import "relay/TourGuide/Items of the Month/2023/Patriotic Eagle temp.ash";
 //import "relay/TourGuide/Items of the Month/2023/Patriotic Eagle.ash";
 import "relay/TourGuide/Items of the Month/2023/Perpetrate Mild Evil temp.ash";
 import "relay/TourGuide/Items of the Month/2023/August Scepter.ash";
-//import "relay/TourGuide/Items of the Month/2023/Book of Facts temp.ash";
 import "relay/TourGuide/Items of the Month/2023/Book of Facts.ash";
 import "relay/TourGuide/Items of the Month/2023/Jill of all Trades.ash";
 import "relay/TourGuide/Items of the Month/2023/A Guide to Burning Leaves.ash";
