@@ -236,10 +236,8 @@ void IOTMCursedMonkeysPawGenerateResource(ChecklistEntry [int] resource_entries)
         new MonkeyWish(
             $item[none],
             $effect[Frosty],
-            "init/item/meat",
-            !__quest_state["Level 13"].state_boolean["digital key used"] &&
-                $item[digital key].available_amount() < 1 &&
-                get_property("8BitScore") < 10000,
+            "+100% init/item +200% meat +25 ML",
+            true,
             true
         ),
         new MonkeyWish(
@@ -247,7 +245,23 @@ void IOTMCursedMonkeysPawGenerateResource(ChecklistEntry [int] resource_entries)
             //from a Wal-Mart potion but seems to work
 			$effect[Warm Shoulders],
             "+5 fam XP, +5 lbs.",
-            ($familiar[chest mimic].familiar_is_usable() && get_property_int("_mimicEggsObtained") < 11) || $familiar[grey goose].familiar_is_usable(),
+            (($familiar[chest mimic].familiar_is_usable() && get_property_int("_mimicEggsObtained") < 11) || $familiar[grey goose].familiar_is_usable()) && have_effect($effect[Warm Shoulders]) == 0,
+            true
+        ),
+        new MonkeyWish(
+            $item[none],
+            //from eating hardboiled egg from precinct
+			$effect[Too Noir For Snoir],
+            "+50 ML",
+            have_effect($effect[Too Noir For Snoir]) == 0,
+            true
+        ),
+        new MonkeyWish(
+            $item[none],
+            //from slime tube spleen item
+			$effect[Slimebreath],
+            "+50 ML",
+            have_effect($effect[Slimebreath]) == 0,
             true
         ),
         new MonkeyWish(

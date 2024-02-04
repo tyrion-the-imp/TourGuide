@@ -50,11 +50,14 @@ string generateNinjaSafetyGuide(boolean show_colour)
 }
 
 
+
+
 void CopiedMonstersGenerateDescriptionForMonster(string monster_name, string [int] description, boolean show_details, boolean from_copy)
 {
     if (!__misc_state["in run"])
         return;
     monster_name = monster_name.to_lower_case();
+	
 	if (monster_name == "ninja snowman assassin")
 	{
 		description.listAppend(generateNinjaSafetyGuide(show_details));
@@ -73,12 +76,12 @@ void CopiedMonstersGenerateDescriptionForMonster(string monster_name, string [in
         }
 	}
 	//mimic egg, is list of monsters which mafia is not aware of yet
-	else if (monster_name == "")
+	else if (monster_name == "dummy monster")
 	{
 		string line;
 		boolean requirements_met = false;
 		if ( available_amount($item[mimic egg]) > 0 ) {
-			line += "Click here: to view the list of monsters the egg contains.";
+			line += "<a href='inv_use.php?pwd="+my_hash()+"&which=99&whichitem=11542' target='mainpane'><span style='color:blue; font-size:100%; font-weight:normal;'>Click here:</span></a> to view the list of monsters the egg contains.";
 			requirements_met = true;
 		}
 		else
@@ -227,78 +230,46 @@ void CopiedMonstersGenerateDescriptionForMonster(string monster_name, string [in
         description.listAppend(HTMLGenerateSpanFont("Possibly remove +ML to survive. (at +" + monster_level_adjustment() + " ML)", "red"));
 }
 
+
+
+
+
 void generateCopiedMonstersEntry(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, boolean from_task) //if from_task is false, assumed to be from resources
 {
+	//from_task		this call triggered from SCopiedMonstersGenerateTasks with task_entries & optional_task_entries
+	//!from_task		this call triggered from SCopiedMonstersGenerateResource with resource_entries x2 (?? one is supposed to be 'dummy'??)
+	
 	string [int] description;
 	boolean very_important = false;
 	int show_up_in_tasks_turn_cutoff = 10;
 	string title = "";
 	int min_turns_until = -1;
-    string url = "";
-    if (get_property_boolean("dailyDungeonDone"))
-        url = $location[the daily dungeon].getClickableURLForLocation();
-    Counter romantic_arrow_counter = CounterLookup("Romantic Monster", ErrorMake(), true);
-	if (false && (romantic_arrow_counter.CounterIsRange() || get_property_int("_romanticFightsLeft") > 0))
-	{
-        Vec2i turn_range = romantic_arrow_counter.CounterGetWindowRange();
-        
-        title = "Arrowed " + __misc_state_string["Romantic Monster Name"].to_lower_case() + " appears ";
-        
-        if (turn_range.y <= 0)
-            title += "now or soon";
-        else if (turn_range.x <= 0)
-            title += "between now and " + turn_range.y + " turns.";
-        else
-            title += "in [" + turn_range.x + " to " + turn_range.y + "] turns.";
-        
-        min_turns_until = turn_range.x;
-        
-        int fights_left = get_property_int("_romanticFightsLeft");
-        if (fights_left > 1)
-        {
-            string line = fights_left + " fights left";
-            
-            Vec2i estimated_range = Vec2iMake(15 * (fights_left - 1), 25 * (fights_left - 1));
-            estimated_range.x += turn_range.x;
-            estimated_range.y += turn_range.y;
-            
-            line += " over ~" + (estimated_range.x + estimated_range.y) / 2 + " turns.";
-            
-            description.listAppend(line);
-        }
-        else if (fights_left == 1)
-            description.listAppend("Last fight.");
-        
-        
-        
-        
-        if (turn_range.x <= 0)
-            very_important = true;
+	string url = "";
+	int importance = 4;
+	
+	
+	if	( from_task && get_property("spookyVHSTapeMonster") != "" ) {
+		min_turns_until = (get_property_int("spookyVHSTapeMonsterTurn") + 8) - total_turns_played();
+		title = "VHS Wanderer";
+		string borderSize = "2px";
+		if	( min_turns_until < 3 ) { borderSize = "5px"; importance = -21; }
+		description.listAppend("<span style='border:"+borderSize+" solid red;'>"+get_property("spookyVHSTapeMonster")+" in "+min_turns_until+" turns.</span>");
+		description.listAppend("<span style='color:black; background-color:yellow; font-size:90%; font-weight:bold;'>(free kill & YR), burn delay?</span>");
+		show_up_in_tasks_turn_cutoff = -1;
+		CopiedMonstersGenerateDescriptionForMonster(get_property("spookyVHSTapeMonster"), description, very_important, false);
+		ChecklistEntry entry = ChecklistEntryMake("__monster "+get_property("spookyVHSTapeMonster"), url, ChecklistSubentryMake(title, "", description), importance);
+		task_entries.listAppend(entry);
 	}
+	
 	if (from_task && min_turns_until > show_up_in_tasks_turn_cutoff)
 		return;
 	if (!from_task && min_turns_until <= show_up_in_tasks_turn_cutoff)
 		return;
-		
-	if (title != "")
-	{
-		CopiedMonstersGenerateDescriptionForMonster(__misc_state_string["Romantic Monster Name"], description, very_important, false);
-	}
-	
-	if (title != "")
-	{
-		int importance = 4;
-		if (very_important)
-			importance = -11;
-		ChecklistEntry entry = ChecklistEntryMake(__misc_state_string["obtuse angel name"], url, ChecklistSubentryMake(title, "", description), importance);
-        entry.tags.id = "Angel copy monster old obsolete";
-		if (very_important)
-			task_entries.listAppend(entry);
-		else
-			optional_task_entries.listAppend(entry);
-			
-	}
 }
+
+
+
+
 
 void SCopiedMonstersGenerateResourceForCopyType(ChecklistEntry [int] resource_entries, item shaking_object, string shaking_shorthand_name, string monster_name_property_name)
 {
@@ -316,10 +287,14 @@ void SCopiedMonstersGenerateResourceForCopyType(ChecklistEntry [int] resource_en
 	
 	string [int] monster_description;
 	string monster_name = "dummy monster";
-	if	( monster_name_property_name != "" ) {
+	if	( monster_name_property_name != "dummy monster" ) {
+		//dummy monster b/c mimic egg can actually hold a list of monsters
 		monster_name = get_property(monster_name_property_name).HTMLEscapeString();
 	}
+	
 	CopiedMonstersGenerateDescriptionForMonster(monster_name, monster_description, true, true);
+
+	
     
     if (get_auto_attack() != 0)
     {
@@ -328,13 +303,22 @@ void SCopiedMonstersGenerateResourceForCopyType(ChecklistEntry [int] resource_en
     }
 	
 	//string line = monster_name.capitaliseFirstLetter() + HTMLGenerateIndentedText(monster_description);
-    string line = HTMLGenerateSpanOfClass(monster_name.capitaliseFirstLetter(), "r_bold");
-    
+	string line = "";
+	if	( monster_name != "dummy monster" ) {
+		line = HTMLGenerateSpanOfClass(monster_name.capitaliseFirstLetter(), "r_bold");
+	}
+	if (shaking_shorthand_name == "spooky vhs wanderer") {
+		line += " <span style='color:black; background-color:yellow; font-size:90%; font-weight:bold;'>(free kill & YR), burn delay?</span>";
+	}
+	
     if (monster_description.count() > 0)
         line += "<hr>" + monster_description.listJoinComponents("|");
     
     string image_name = "__item " + shaking_object;
 	string additional_info = " monster trapped!";
+	if	( monster_name == "dummy monster" ) {
+		additional_info = " monster(s) trapped!";
+	}
     if (shaking_shorthand_name == "chateau painting")
     {
         image_name = "__item fancy oil painting";
@@ -344,14 +328,17 @@ void SCopiedMonstersGenerateResourceForCopyType(ChecklistEntry [int] resource_en
     {
         //image_name = "__item fancy oil painting";
         url = "";
-		additional_info = " in "+(get_property_int("spookyVHSTapeMonsterTurn") - total_turns_played())+" turns";
+		additional_info = " in "+((get_property_int("spookyVHSTapeMonsterTurn") + 8) - total_turns_played())+" turns";
     }
-	if	( monster_name != "dummy monster" ) {
-		additional_info += "&nbsp;&nbsp;<span style='color:gray; font-size:75%; font-weight:normal;'>("+monster_name+")</span>";
-	}
 	
-	resource_entries.listAppend(ChecklistEntryMake(image_name, url, ChecklistSubentryMake(shaking_shorthand_name.capitaliseFirstLetter() + additional_info, "", line),-79).ChecklistEntrySetIDTag("Copy item " + shaking_shorthand_name));
+	if (shaking_shorthand_name != "") {
+		resource_entries.listAppend(ChecklistEntryMake(image_name, url, ChecklistSubentryMake(shaking_shorthand_name.capitaliseFirstLetter() + additional_info, "", line),-79).ChecklistEntrySetIDTag("Copy item " + shaking_shorthand_name));
+	}
 }
+
+
+
+
 
 void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
 {
@@ -554,7 +541,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
     }
     if ($item[Spooky VHS Tape].available_amount() > 0)
     {
-        copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise($item[Spooky VHS Tape].available_amount(), "Spooky VHS Tape", "Spooky VHS Tapes")+"&nbsp;&nbsp;<span style='color:gray; font-size:75%; font-weight:normal;'>(1 wandering copy, insta-killed & Y-rayed)</span>","",""));
+        copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise($item[Spooky VHS Tape].available_amount(), "Spooky VHS Tape", "Spooky VHS Tapes")+"<br><span style='color:gray; font-size:75%; font-weight:normal;'>(1 wandering copy, insta-killed & Y-rayed)</span>","",""));
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__item Spooky VHS Tape";
     }
@@ -605,7 +592,13 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
 	//_genieFightsUsed
     if (get_property_int("_genieFightsUsed") < 3 && is_unrestricted($item[pocket wish]) && available_amount($item[pocket wish]) > 0 )
     {
-        copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise((3 - get_property_int("_genieFightsUsed")), "genie/wish fight", "genie/wish fights") + " available", "", ""));
+		int gf = 3 - get_property_int("_genieFightsUsed");
+		int pw = item_amount($item[pocket wish]);
+		
+		if	( !get_property_boolean("kingLiberated") ) {
+			gf = min(gf,pw);
+		}
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(gf, "genie/wish fight", "genie/wish fights") + " available", "", ""));
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__item pocket wish";
     }
@@ -647,7 +640,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
 	}
 	//patriotic eagle
 	if	( $familiar[patriotic eagle].familiar_is_usable() && have_effect($effect[Everything Looks Red, White and Blue]) == 0 ) {
-		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(1, "red, white & blue blast (2 immediate copies)", "") + "", "", ""));
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(1, "red, white & blue blast&nbsp;&nbsp;(2 immediate copies)", "") + "", "", ""));
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__familiar patriotic eagle";
             //copy_source_entry.image_lookup_name = "__skill Recall Facts: Monster Habitats";
@@ -655,7 +648,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
 	//habitat recalls, book of facts, Just the Facts
 	if	( is_unrestricted($skill[Just the Facts]) && get_property_int("_monsterHabitatsRecalled") < 3 ) {
 		int jtfCastsLeft = 3 - get_property_int("_monsterHabitatsRecalled");
-		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(jtfCastsLeft, "cast of habitat recall", "casts of habitat recall") + "&nbsp;&nbsp;<span style='color:gray; font-size:75%; font-weight:normal;'>(6 wandering copies)</span>", "", ""));
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(jtfCastsLeft, "cast of habitat recall", "casts of habitat recall") + "&nbsp;&nbsp;(6 wandering copies)", "", ""));
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__item book of facts";
 	}
@@ -681,10 +674,8 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
         resource_entries.listAppend(copy_source_entry);
     }
 	
-	
-	
-    //Copies made:
 	generateCopiedMonstersEntry(resource_entries, resource_entries, false);
+	
 	SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[Rain-Doh box full of monster], "rain doh", "rainDohMonster");
 	SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[spooky putty monster], "spooky putty", "spookyPuttyMonster");
     if (!get_property_boolean("_cameraUsed"))
@@ -697,12 +688,15 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
 		SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[envyfish egg], "envyfish egg", "envyfishMonster");
 	if (!get_property_boolean("_iceSculptureUsed"))
 		SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[ice sculpture], "ice sculpture", "iceSculptureMonster");
-    SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[screencapped monster], "screencapped", "screencappedMonster");
-    SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[mimic egg], "mimic egg", "");
     SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[wax bugbear], "wax bugbear", "waxMonster");
     SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[crude monster sculpture], "crude sculpture", "crudeMonster");
+    SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[screencapped monster], "screencapped", "screencappedMonster");
+    SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[mimic egg], "mimic egg", "dummy monster");
     SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[Spooky VHS Tape], "spooky vhs wanderer", "spookyVHSTapeMonster");
 }
+
+
+
 
 void SCopiedMonstersGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {

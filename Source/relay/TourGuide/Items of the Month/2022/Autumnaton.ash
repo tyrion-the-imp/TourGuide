@@ -34,8 +34,14 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 
 	description.listAppend("Autobot grabs items from a zone you've previously visited.");
 	
-	// Autobot on expedition
-	if (lookupItem("autumn-aton").available_amount() > 0 && ( klib || ( !klib && autobotsReturnTime < 66 ) ) )
+	// Autobot on expedition && ( klib || ( !klib && autobotsReturnTime < 66 ) ) 
+	if (lookupItem("autumn-aton").available_amount() > 0 && !klib && autobotsReturnTime >= 66 )
+	{
+		string main_title = "Use your autumn-aton";
+		description.listAppend("Next use will take " + HTMLGenerateSpanOfClass(autobotsReturnTime, "r_bold") + " adventures.");
+		optional_task_entries.listAppend(ChecklistEntryMake("__item autumn-aton", "inv_use.php?pwd=" + my_hash() + "&whichitem=10954", ChecklistSubentryMake(main_title, "", description), 0));
+	}
+	else if (lookupItem("autumn-aton").available_amount() > 0 )
 	{
 		string main_title = "Use your autumn-aton";
 		description.listAppend("Next use will take " + HTMLGenerateSpanOfClass(autobotsReturnTime, "r_bold") + " adventures.");
