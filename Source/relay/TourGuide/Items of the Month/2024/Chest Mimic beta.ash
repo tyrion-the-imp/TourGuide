@@ -19,7 +19,7 @@ void IOTMChestMimicGenerateResourceBETA(ChecklistEntry [int] resource_entries)
 		description.listAppend("Can currently add <span style='color:red; font-weight:bold;'>"+chestCopiesAvailable+"</span> copies to the egg.");
 		description.listAppend("Need " + HTMLGenerateSpanOfClass(famExpNeededForNextEgg, "r_bold") + " more famxp for next egg. (" + (50/ famExperienceGain) + " fight(s))");
 		description.listAppend("Can lay " + HTMLGenerateSpanOfClass(mimicEggsLeft, "r_bold") + " more eggs today.");
-		resource_entries.listAppend(ChecklistEntryMake("__familiar chest mimic", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Chest mimic fxp", "black"), "", description), -13));
+		resource_entries.listAppend(ChecklistEntryMake("__familiar chest mimic", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Chest mimic fxp", "black"), "", description), -50));
 	}
 	//mafia doesn't currently recognize when the egg disappears after fighting the last monster in it
 	//this should probably be in Copied Monsters.ash, or duplicated there

@@ -145,10 +145,10 @@ void IOTMPatrioticEagleGenerateResourceTEMP(ChecklistEntry [int] resource_entrie
     string [int] description;
     
     if (screechRecharge > 0) {
-        title = (screechRecharge + " combats until Patriotic Eagle can screech again.");
+        title = (screechRecharge + " combats until Patriotic Eagle can screech again. (TEMP)");
     } else {
         //title = "Patriotic Eagle can screech and banish an entire phylum!";
-        title = HTMLGenerateSpanFont("Patriotic ", "red") + HTMLGenerateSpanFont("Eagle ", "grey") + HTMLGenerateSpanFont("can screech.", "blue");
+        title = HTMLGenerateSpanFont("Patriotic ", "red") + HTMLGenerateSpanFont("Eagle ", "grey") + HTMLGenerateSpanFont("can screech.", "blue")+" (TEMP)";
         //description.listAppend(HTMLGenerateSpanFont("SCREEEE", "red") + HTMLGenerateSpanFont("EEEEE", "grey") + HTMLGenerateSpanFont("EEEEE!,", "blue"));
         description.listAppend("Banish an entire phylum!");
     }
@@ -246,5 +246,5 @@ void IOTMPatrioticEagleGenerateResourceTEMP(ChecklistEntry [int] resource_entrie
 	}
 
 	
-    resource_entries.listAppend(ChecklistEntryMake("__familiar Patriotic Eagle", "familiar.php", ChecklistSubentryMake(title, description), -12).ChecklistEntrySetIDTag("Patriotic Eagle familiar resource"));
+    resource_entries.listAppend(ChecklistEntryMake("__familiar Patriotic Eagle", "familiar.php", ChecklistSubentryMake(title, description), -50).ChecklistEntrySetIDTag("Patriotic Eagle familiar resource"));
 }

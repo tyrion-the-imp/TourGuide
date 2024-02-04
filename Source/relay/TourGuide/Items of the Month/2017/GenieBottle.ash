@@ -30,6 +30,6 @@ void IOTMGenieBottleGenerateResource(ChecklistEntry [int] resource_entries)
         string potential_monsters = SFaxGeneratePotentialFaxes(true, invalid_monsters).listJoinComponents("|<hr>");
         if (potential_monsters != "")
 	        description.listAppend("Could fight a monster:<br>" + potential_monsters);
-        resource_entries.listAppend(ChecklistEntryMake("__item genie bottle", url, ChecklistSubentryMake(pluralise(wishes_left, "wish", "wishes"), "", description), 1).ChecklistEntrySetIDTag("Genie bottle resource"));
+        resource_entries.listAppend(ChecklistEntryMake("__item genie bottle", url, ChecklistSubentryMake(pluralise(wishes_left, "wish", "wishes"), "", description), -50).ChecklistEntrySetIDTag("Genie bottle resource"));
     }
 }
