@@ -9,6 +9,7 @@ void IOTMCandyCaneSwordGenerateTasksBETA(ChecklistEntry [int] task_entries, Chec
 	if (__misc_state["in run"] && my_path().id != PATH_COMMUNITY_SERVICE)
 	{
 		string url = "inventory.php?ftext=candy+cane+sword+cane";
+		location selectedLocation = get_property_location("nextAdventure");
 		description2.listAppend(HTMLGenerateSpanFont("You're", "red") + " " + HTMLGenerateSpanFont("in a", "green") + " " + HTMLGenerateSpanFont("candy", "red") + " " + HTMLGenerateSpanFont("cane", "green") + " " + HTMLGenerateSpanFont("sword", "red") + " " + HTMLGenerateSpanFont("cane", "green") + " " + HTMLGenerateSpanFont("noncom", "red") + " " + HTMLGenerateSpanFont("zone!", "green"));
 		//this supernag will only appear while lastadv is in a cane zone AND the option has not been taken already
 		//candy cane advs
@@ -17,43 +18,43 @@ void IOTMCandyCaneSwordGenerateTasksBETA(ChecklistEntry [int] task_entries, Chec
 		}
 		if (!get_property_boolean("candyCaneSwordBlackForest")) {
 			options.listAppend(HTMLGenerateSpanOfClass("Bonus:", "r_bold") + " Black Forest +8 exploration");
-			if (($locations[The Black Forest] contains __last_adventure_location)) {
+			if (($locations[The Black Forest] contains selectedLocation)) {
 			task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("Equip the candy cane sword cane", "", description2), -11));
 			}	
 		}
 		if (!get_property_boolean("candyCaneSwordDailyDungeon")) {
 			options.listAppend(HTMLGenerateSpanOfClass("Bonus:", "r_bold") + " Daily Dungeon +1 fat loot token");
-			if (($locations[The Daily Dungeon] contains __last_adventure_location)) {
+			if (($locations[The Daily Dungeon] contains selectedLocation)) {
 			task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("Equip the candy cane sword cane", "", description2), -11));
 			}
 		}
 		if (!get_property_boolean("candyCaneSwordApartmentBuilding")) {
 			options.listAppend(HTMLGenerateSpanOfClass("Bonus:", "r_bold") + " Hidden Apartment +1 Curse");
-			if (($locations[The Hidden Apartment Building] contains __last_adventure_location)) {
+			if (($locations[The Hidden Apartment Building] contains selectedLocation)) {
 			task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("Equip the candy cane sword cane", "", description2), -11));
 			}
 		}
 		if (!get_property_boolean("candyCaneSwordBowlingAlley")) {
 			options.listAppend(HTMLGenerateSpanOfClass("Bonus:", "r_bold") + " Hidden Bowling Alley +1 bowlo");
-			if (($locations[The Hidden Bowling Alley] contains __last_adventure_location)) {
+			if (($locations[The Hidden Bowling Alley] contains selectedLocation)) {
 			task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("Equip the candy cane sword cane", "", description2), -11));
 			}
 		}
 		if (!get_property_boolean("candyCaneSwordShore")) {
 			options.listAppend(HTMLGenerateSpanOfClass("Alternate:", "r_bold") + " Shore: +2 scrips");
-			if (($locations[The Shore\, Inc. Travel Agency] contains __last_adventure_location)) {
+			if (($locations[The Shore\, Inc. Travel Agency] contains selectedLocation)) {
 			task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("Equip the candy cane sword cane", "", description2), -11));
 			}
 		}
 		if (locationAvailable($location[The Battlefield (Frat Uniform)]) == false) {
 			options.listAppend(HTMLGenerateSpanOfClass("Alternate:", "r_bold") + " Hippy Camp: Redirect to war start");
-			if (($locations[Wartime Hippy Camp,Wartime Frat House] contains __last_adventure_location)) {
+			if (($locations[Wartime Hippy Camp,Wartime Frat House] contains selectedLocation)) {
 			task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("Equip the candy cane sword cane", "", description2), -11));
 			}
 		}
 		if (locationAvailable($location[The Red Zeppelin]) == true) {
 			options.listAppend(HTMLGenerateSpanOfClass("Alternate: ", "r_bold") + "Zeppelin Protesters: " + HTMLGenerateSpanFont("double Sleaze", "purple"));
-			if (($locations[A Mob of Zeppelin Protesters] contains __last_adventure_location)) {
+			if (($locations[A Mob of Zeppelin Protesters] contains selectedLocation)) {
 			task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("Equip the candy cane sword cane", "", description2), -11));
 			}
 		}
