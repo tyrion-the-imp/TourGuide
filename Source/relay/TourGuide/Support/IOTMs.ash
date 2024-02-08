@@ -165,6 +165,8 @@ void initialiseIOTMsUsable()
         __iotms_usable[lookupItem("industrial fire extinguisher")] = true;
     if (lookupItem("candy cane sword cane").available_amount() > 0)
         __iotms_usable[lookupItem("candy cane sword cane")] = true;
+    if (lookupItem("spring shoes").available_amount() > 0)
+        __iotms_usable[lookupItem("spring shoes")] = true;
     
 	if ($item[Clan VIP Lounge key].item_amount() > 0)
     {

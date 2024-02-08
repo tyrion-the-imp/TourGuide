@@ -4,7 +4,7 @@ void IOTMSpringShoesGenerateTasksBETA(ChecklistEntry [int] task_entries, Checkli
 {
 	if (__misc_state["in run"] && available_amount($item[spring shoes]) > 0 && my_path().id != PATH_COMMUNITY_SERVICE)
 	{
-		if ($effect[everything looks green].have_effect() == 0) {
+		if ( __iotms_usable[lookupItem("spring shoes")] && $effect[everything looks green].have_effect() == 0 ) {
 			string [int] description;
 			string url = "inventory.php?ftext=spring+shoes";
 			description.listAppend(HTMLGenerateSpanFont("Run away from your problems!", "green"));
@@ -14,7 +14,8 @@ void IOTMSpringShoesGenerateTasksBETA(ChecklistEntry [int] task_entries, Checkli
 			}
 			task_entries.listAppend(ChecklistEntryMake("__item spring shoes", url, ChecklistSubentryMake("Spring shoes runaway available! (TEMP)", "", description), -11));
 		}
-		if ( $item[spring shoes].available_amount() > 0 && get_property("questL10Garbage").index_of("started") > -1 ) {
+		//if ( $item[spring shoes].available_amount() > 0 && get_property("questL10Garbage").index_of("started") > -1 ) {
+		if ( __iotms_usable[lookupItem("spring shoes")] && get_property("questL10Garbage").index_of("started") > -1 ) {
 			//questL10Garbage = 'step1' after stalk planted, so display while 'unstarted' or 'started'
 			string [int] description;
 			string url = "inventory.php?ftext=spring+shoes";
