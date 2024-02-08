@@ -1,4 +1,4 @@
-//Patriotic Eagle
+//Patriotic Eagle (not used)
 RegisterTaskGenerationFunction("IOTMPatrioticEagleGenerateTasks");
 void IOTMPatrioticEagleGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {

@@ -1,3 +1,4 @@
+//Patriotic Eagle
 string[int] eagle30item;
 string[int] eagle50meat;
 effect rwb = $effect[Everything Looks Red, White and Blue ];
