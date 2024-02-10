@@ -90,7 +90,7 @@ void IOTMPatrioticEagleGenerateTasksTEMP(ChecklistEntry [int] task_entries, Chec
         location [int] possible_appearance_locations = RWB_monster.getPossibleLocationsMonsterCanAppearInNaturally().listInvert();
         
         if (fights_left > 0 && possible_appearance_locations.count() > 0) {
-            task_entries.listAppend(ChecklistEntryMake("__monster " + RWB_monster, possible_appearance_locations[0].getClickableURLForLocation(), ChecklistSubentryMake("Fight " + pluralise(fights_left, "more " + RWB_monster, "more " + RWB_monster + "s"), "", "Will appear when you adventure in " + possible_appearance_locations.listJoinComponents(", ", "or") + "."), -5).ChecklistEntrySetIDTag("RWB copies"));
+            task_entries.listAppend(ChecklistEntryMake("__monster " + RWB_monster, possible_appearance_locations[0].getClickableURLForLocation(), ChecklistSubentryMake("Fight " + pluralise(fights_left, "more " + RWB_monster, "more " + RWB_monster + "s"), "", "Will appear when you adventure in " + possible_appearance_locations.listJoinComponents(", ", "or") + ". (Use alias 'rwbc' to set monster count back to 0. Mafia doesn't track?)"), -5).ChecklistEntrySetIDTag("RWB copies"));
 		} else if (have_effect(rwb) > 0) {
 			task_entries.listAppend(ChecklistEntryMake("__familiar Patriotic Eagle", "familiar.php", ChecklistSubentryMake(HTMLGenerateSpanOfClass("<span style='color:blue; font-size:100%; font-weight:bold;'>"+have_effect(rwb)+" turns</span> until Fire a Red, White and Blue Blast can be used again.", "r_bold"), "", ""), -10));
 		}
