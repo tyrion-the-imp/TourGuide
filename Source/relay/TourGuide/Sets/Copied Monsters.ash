@@ -653,6 +653,14 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
             copy_source_entry.image_lookup_name = "__item book of facts";
 	}
 	
+	//waffle, replace monster (eg power glove ~ replace enemy, macrometeor)
+	if	( is_unrestricted($item[waffle]) && $item[waffle].available_amount() > 0 ) {
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise($item[waffle].available_amount(), "waffle replacement monster", "waffle replacement monsters") + "", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__item waffle";
+	}
+	
+	
 	
 	string[int] dummy;
 	dummy[0] = "dummy entry";
