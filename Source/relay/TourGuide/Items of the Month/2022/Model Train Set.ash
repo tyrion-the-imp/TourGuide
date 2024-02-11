@@ -40,7 +40,7 @@ boolean statsConfiguredWhenNotNeeded() {
         (stationConfigured("brawn_silo") && my_primestat() == $stat[muscle]) ||
         (stationConfigured("brain_silo") && my_primestat() == $stat[mysticality]) ||
         (stationConfigured("groin_silo") && my_primestat() == $stat[moxie]);
-    boolean haveAllStatsNeeded = my_level() >= 13;
+    boolean haveAllStatsNeeded = my_level() >= 11;
     return  __misc_state["in run"] && statsConfigured && haveAllStatsNeeded;
 }
 
