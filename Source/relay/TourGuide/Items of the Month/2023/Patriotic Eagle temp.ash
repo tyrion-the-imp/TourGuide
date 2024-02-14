@@ -127,7 +127,7 @@ void IOTMPatrioticEagleGenerateTasksTEMP(ChecklistEntry [int] task_entries, Chec
 		string [int] description2;
 		if	( banishedPhylumStr != "" ) {
 			if	( get_property_int("screechCombats") > 0 ) {
-				description2.listAppend(HTMLGenerateSpanOfStyle(get_property_int("screechCombats")+" fights before Eagle can screech again.", "color:red"));
+				description2.listAppend(HTMLGenerateSpanOfStyle(get_property_int("screechCombats")+" fights with Eagle before it can screech again.", "color:red"));
 			} else {
 				description2.listAppend(HTMLGenerateSpanOfStyle("Eagle can screech again.", "color:green"));
 			}
@@ -146,7 +146,7 @@ void IOTMPatrioticEagleGenerateResourceTEMP(ChecklistEntry [int] resource_entrie
     string [int] description;
     
     if (screechRecharge > 0) {
-        title = (screechRecharge + " combats until Patriotic Eagle can screech again. (TEMP)");
+        title = (screechRecharge + " combats with Patriotic Eagle before it can screech again. (TEMP)");
     } else {
         //title = "Patriotic Eagle can screech and banish an entire phylum!";
         title = HTMLGenerateSpanFont("Patriotic ", "red") + HTMLGenerateSpanFont("Eagle ", "grey") + HTMLGenerateSpanFont("can screech.", "blue")+" (TEMP)";
