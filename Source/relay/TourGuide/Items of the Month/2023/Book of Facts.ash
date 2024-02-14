@@ -75,7 +75,19 @@ void IOTMBookofFactsGenerateResource(ChecklistEntry [int] resource_entries)
 		BOFAdropsDescription.listAppend("SC Standard: ");
 	}
 	if	( my_class().id == 2 ) {
-		BOFAdropsDescription.listAppend("ancient protector spirit (The Hidden Bowling Alley)|animated rustic nightstand|Black Crayon Frat Orc|fantasy bandit|filthy hippy Vegan chef|huge ghuol (cranny)|irate mariachi (SotB)|mayonnaise wasp (DD)|oil cartel|plaque of locusts (Arid)|screambat (bathole)|Thinknerd Moving Robot|Thinknerd Packing Robot|tree hugging hippy protestor (monorail station)|Victor the Insult Comic Hellhound (laugh floor)|War Hippy Homeopath|War Hippy Sky Captain|zombie waltzers (ballroom)");
+		BOFAdropsDescription.listAppend("TT Standard");
+	}
+	if	( my_class().id == 3 ) {
+		BOFAdropsDescription.listAppend("PM Standard");
+	}
+	if	( my_class().id == 4 ) {
+		BOFAdropsDescription.listAppend("SR Standard");
+	}
+	if	( my_class().id == 5 ) {
+		BOFAdropsDescription.listAppend("DB Standard");
+	}
+	if	( my_class().id == 6 ) {
+		BOFAdropsDescription.listAppend("AT Standard");
 	}
 	resource_entries.listAppend(ChecklistEntryMake("__item book of facts", "", ChecklistSubentryMake(("Miscellaneous valuable BOFA drops"), "", BOFAdropsDescription), 8).ChecklistEntrySetIDTag("bofa tatters"));
 }
