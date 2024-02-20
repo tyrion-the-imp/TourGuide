@@ -34,10 +34,11 @@ void QLevel11DesertInit()
     if ($item[ornate dowsing rod].equipped_amount() > 0)
         have_uv_compass_equipped = true;
     
-    state.state_boolean["Have UV-Compass eqipped"] = have_uv_compass_equipped;
+    state.state_boolean["Have UV-Compass equipped"] = have_uv_compass_equipped;
 
     __quest_state["Level 11 Desert"] = state;
 }
+
 
 void QLevel11DesertGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
@@ -77,7 +78,7 @@ void QLevel11DesertGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 
     int combats_remaining = exploration_remaining;
     combats_remaining = ceil(to_float(exploration_remaining) / exploration_per_turn);
-    subentry.entries.listAppend(exploration_remaining + "% exploration remaining. (" + pluralise(combats_remaining, "combat", "combats") + ")");
+    subentry.entries.listAppend(exploration_remaining + "% exploration remaining. (" + pluralise(combats_remaining, "combat", "combats") + " at "+exploration_per_turn+"% per turn.)");
     if ($effect[ultrahydrated].have_effect() == 0 && my_path().id != PATH_G_LOVER) {
         if (__last_adventure_location == $location[the arid, extra-dry desert]) {
             string [int] description;
@@ -187,56 +188,83 @@ void QLevel11DesertGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
         string milestonesPlural = $item[milestone].available_amount() == 1 ? "" : "s";
         subentry.entries.listAppend("Use your milestone" + mileStonesPlural + ". (+5% exploration each)");
     }
-    if (!base_quest_state.state_boolean["Have UV-Compass eqipped"] && __quest_state["Level 11 Desert"].state_int["Desert Exploration"] < 99) {
-        boolean should_output_compass_in_red = true;
+	
+	void appendGearLineToSubentries(string lineb, boolean usered, string line_extrab, string urlb) {
+		if (lineb != "") {
+            if (usered)
+                lineb = HTMLGenerateSpanFont(lineb, "red");
+            lineb += line_extrab;
+            subentry.entries.listAppend(lineb);
+        }
+		if	( urlb != "" ) {
+			url = urlb;
+		}
+		return;
+	}
+	
+	//!base_quest_state.state_boolean["Have UV-Compass equipped"] && 
+    if (__quest_state["Level 11 Desert"].state_int["Desert Exploration"] < 99) {
         string line = "";
         string line_extra = "";
         if ($item[ornate dowsing rod].available_amount() > 0) {
             line = "Equip the ornate dowsing rod.";
             url = "inventory.php?ftext=ornate+dowsing+rod";
-        } else {
-            if ($item[uv-resistant compass].available_amount() == 0 && !(my_path().id == PATH_LICENSE_TO_ADVENTURE && get_property_boolean("bondDesert")) && my_path().id != PATH_EXPLOSIONS) {
-                line = "Acquire";
-                if (have_blacklight_bulb || haveCamel) {
-                    line = "Possibly acquire";
-                    should_output_compass_in_red = false;
-                }
-                
-                line += " UV-resistant compass, equip for faster desert exploration. (shore vacation)";
-                if ($item[Shore Inc. Ship Trip Scrip].available_amount() > 0)
-                    url = "shop.php?whichshop=shore";
-              
-                if ($item[odd silver coin].available_amount() > 0 || $item[grimstone mask].available_amount() > 0 || get_property("grimstoneMaskPath") != "") { //FIXME check for the correct grimstoneMaskPath
-                    line_extra += "|Or acquire ornate dowsing rod from Paul's Boutique? (5 odd silver coins)";
-                }
-            
-            } else if ($item[uv-resistant compass].available_amount() > 0) {
-                line = "Equip the UV-resistant compass.";
-                url = "inventory.php?ftext=uv-resistant+compass";
-            }
+			appendGearLineToSubentries(line,true,line_extra,url);
+			line = "";
         }
+		if ($item[uv-resistant compass].available_amount() == 0 && !(my_path().id == PATH_LICENSE_TO_ADVENTURE && get_property_boolean("bondDesert")) && my_path().id != PATH_EXPLOSIONS) {
+			line = "Acquire";
+			if (have_blacklight_bulb || haveCamel) {
+				line = "Possibly acquire";
+			}
+			
+			line += " UV-resistant compass, equip for faster desert exploration. (shore vacation)";
+			if ($item[Shore Inc. Ship Trip Scrip].available_amount() > 0)
+				url = "shop.php?whichshop=shore";
+		  
+			if ($item[odd silver coin].available_amount() > 0 || $item[grimstone mask].available_amount() > 0 || get_property("grimstoneMaskPath") != "") { //FIXME check for the correct grimstoneMaskPath
+				line_extra += "|Or acquire ornate dowsing rod from Paul's Boutique? (5 odd silver coins)";
+			}
+			appendGearLineToSubentries(line,true,line_extra,url);
+			line = "";
+		}
+		if ($item[uv-resistant compass].available_amount() > 0 && $item[uv-resistant compass].equipped_amount() == 0) {
+			line = "Equip the UV-resistant compass.";
+			url = "inventory.php?ftext=uv-resistant+compass";
+			appendGearLineToSubentries(line,true,line_extra,url);
+			line = "";
+		}
+		if ($item[uv-resistant compass].available_amount() > 0 && $item[uv-resistant compass].equipped_amount() > 0) {
+			line = "UV-resistant compass is equipped.";
+			appendGearLineToSubentries(line,false,line_extra,url);
+			line = "";
+		}
         if (canCamel && !haveCamel) {
             if (line == "")
                 line += "Bring along Melodramedary.";
             else
                 line_extra += "|Or bring along Melodramedary.";
+			url = "familiar.php";
+			appendGearLineToSubentries(line,true,line_extra,url);
+			line = "";
         }
 		if ($item[survival knife].have() && ($item[survival knife].equipped_amount() == 0)) {
+			url = "inventory.php?ftext=survival+knife";
 			if (line == "")
-                line += "Equip your survival knife (only effective while Ultrahydrated)";
+                line += "<font color='red'>Equip your survival knife (only effective while Ultrahydrated)</font>";
             else
-                line_extra += "|Equip your survival knife (only effective while Ultrahydrated)";
+                line_extra += "|<font color='red'>Equip your survival knife (only effective while Ultrahydrated)</font>";
+			appendGearLineToSubentries(line,true,line_extra,url);
+			line = "";
 		}
-        if (line != "") {
-            if (should_output_compass_in_red)
-                line = HTMLGenerateSpanFont(line, "red");
-            line += line_extra;
-            subentry.entries.listAppend(line);
-        }
-    } else {
-        if (canCamel && !haveCamel) {
-            subentry.entries.listAppend("Could bring along Melodramedary.");
-        }
+		if ( $item[survival knife].equipped_amount() > 0 ) {
+			if (line == "")
+                line += "Survival knife is equipped. Gives +2% exploration (while Ultrahydrated)";
+            else
+                line_extra += "|Survival knife is equipped. Gives +2% exploration (while Ultrahydrated)";
+			appendGearLineToSubentries(line,false,line_extra,url);
+			line = "";
+		}
     }
     task_entries.listAppend(ChecklistEntryMake(base_quest_state.image_name, url, subentry, $locations[the arid\, extra-dry desert,the oasis]).ChecklistEntrySetIDTag("Council L11 quest desert exploration"));
 }
