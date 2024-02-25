@@ -541,7 +541,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
     }
     if ($item[Spooky VHS Tape].available_amount() > 0)
     {
-        copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise($item[Spooky VHS Tape].available_amount(), "Spooky VHS Tape", "Spooky VHS Tapes")+"<br><span style='color:gray; font-size:75%; font-weight:normal;'>(1 wandering copy, insta-killed & Y-rayed)</span>","",""));
+        copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise($item[Spooky VHS Tape].available_amount(), "Spooky VHS Tape", "Spooky VHS Tapes")+"<br><span style='color:gray; font-size:75%; font-weight:normal;'>(1 wanderer in 8 turns, insta-killed & Y-rayed)</span>","",""));
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__item Spooky VHS Tape";
     }
@@ -598,7 +598,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
 		if	( !get_property_boolean("kingLiberated") ) {
 			gf = min(gf,pw);
 		}
-		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(gf, "genie/wish fight", "genie/wish fights") + " available", "", ""));
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(gf, "genie/wish fight", "genie/wish fights") + " <span style='color:gray; font-size:75%; font-weight:bold;'>("+pw+" pocket wishes)</span>", "", ""));
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__item pocket wish";
     }
