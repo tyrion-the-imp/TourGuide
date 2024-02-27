@@ -1,4 +1,16 @@
 //Vampire Vintner
+/*
+vintnerCharge
+13
+vintnerWineEffect
+Wine-Fortified
+vintnerWineLevel
+11
+vintnerWineName
+1973 Milk Cellars Zinfandel
+vintnerWineType
+physical
+*/
 RegisterTaskGenerationFunction("IOTMVampireVintnerGenerateTasks");
 void IOTMVampireVintnerGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
@@ -7,7 +19,9 @@ void IOTMVampireVintnerGenerateTasks(ChecklistEntry [int] task_entries, Checklis
 	int vintnerFightsLeft = clampi(14 - get_property_int("vintnerCharge"), 0, 14);
 	int vintnerWineLevel = get_property_int("vintnerWineLevel");
 	string url = "familiar.php";
-	
+	//mafia doesn't recognize the wine as being in inventory b/c it's out of standard
+	//vintnerCharge is staying at 13 even after the wine drops, so vintnerFightsLeft == 1, and nag does not go away
+	//vintnerWineName is empty until 1st bottle drops, which can't be used, so remove the nags
 	string [int] description;
 	string [int] wineDescription;
 	string wineType = (get_property("vintnerWineType"));
@@ -39,11 +53,11 @@ void IOTMVampireVintnerGenerateTasks(ChecklistEntry [int] task_entries, Checklis
 		}
 	   task_entries.listAppend(ChecklistEntryMake("__item 1950 vampire vintner wine", url, ChecklistSubentryMake("Drink your vampire vintner wine", wineDescription),-10));
 	}
-	else if (vintnerFightsLeft > 1)
+	else if (vintnerFightsLeft > 1 && get_property("vintnerWineName") == "")
 	{
         optional_task_entries.listAppend(ChecklistEntryMake("__familiar vampire vintner", url, ChecklistSubentryMake(vintnerFightsLeft + " Vintner combats remaining", "", description)));
     }	
-	else if (vintnerFightsLeft == 1)
+	else if (vintnerFightsLeft == 1 && get_property("vintnerWineName") == "")
 	{
         description.listAppend(HTMLGenerateSpanFont("Vintner will make wine next combat.", "purple"));
 		task_entries.listAppend(ChecklistEntryMake("__familiar vampire vintner", url, ChecklistSubentryMake("Vintner wine soon", "", description), -11));
@@ -58,7 +72,7 @@ void IOTMVampireVintnerGenerateResource(ChecklistEntry [int] resource_entries)
 	string [int] wineDescription;
 	string url = "inventory.php?ftext=vintner+wine";
 	string wineType = (get_property("vintnerWineType"));
-	
+	//mafia doesn't recognize the wine as being in inventory b/c it's out of standard
 	if ($item[1950 vampire vintner wine].available_amount() == 1 && $item[1950 vampire vintner wine].item_is_usable())
 	{
 	   wineDescription.listAppend(HTMLGenerateSpanFont("Can't charge another vintner wine until you use this one.", "red"));
