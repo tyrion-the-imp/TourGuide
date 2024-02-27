@@ -16,7 +16,7 @@ void IOTMBookofFactsGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEn
 	{
         description.listAppend("Neaaaar, faaaaaaar, wherever you spaaaaaaar, I believe that the heart does go onnnnn.");
 		description.listAppend("Appears as a wandering monster in any zone. Try a place with few competing monsters"+eagleString);
-		optional_task_entries.listAppend(ChecklistEntryMake("__monster " + habitat_monster, "", ChecklistSubentryMake("Fight " + pluralise(fights_left, "more non-native " + habitat_monster, "more non-native " + habitat_monster + "s"), "", description), -4));
+		task_entries.listAppend(ChecklistEntryMake("__monster " + habitat_monster, "", ChecklistSubentryMake("Fight " + pluralise(fights_left, "more non-native " + habitat_monster, "more non-native " + habitat_monster + "s"), "", description), -11));
     }
 
 	// Moving priority on this down a tiny bit due to in-run mediocrity
