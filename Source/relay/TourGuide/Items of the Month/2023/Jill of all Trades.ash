@@ -50,6 +50,7 @@ void IOTMJillv2GenerateResource(ChecklistEntry [int] resource_entries)
 
 //Jill-of-All-Trades
 //....added 2023.12.04...from https://discord.com/channels/466605739838930955/711957790859460650/1178123877453410415 ... AR
+//_mapToACandyRichBlockDrops	1		_mapToACandyRichBlockUsed	false
 RegisterResourceGenerationFunction("IOTMJOATGenerateResource");
 void IOTMJOATGenerateResource(ChecklistEntry [int] resource_entries)
 {
