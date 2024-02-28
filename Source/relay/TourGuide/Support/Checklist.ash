@@ -609,7 +609,7 @@ buffer ChecklistGenerate(Checklist cl, boolean output_borders) {
 		if ( entry.tags.combination == "banish" ) { entry.importance_level = -30; }
 		if ( entry.tags.combination == "daily free fight" ) {
 			entry.importance_level = -40;
-			if	( turns_played() < 4 ) {
+			if	( turns_played() < 11 ) {
 				entry.importance_level = -99;
 			}
 		}
