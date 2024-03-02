@@ -146,10 +146,11 @@ import "relay/TourGuide/Items of the Month/2023/Book of Facts.ash";
 import "relay/TourGuide/Items of the Month/2023/Jill of all Trades.ash";
 import "relay/TourGuide/Items of the Month/2023/A Guide to Burning Leaves.ash";
 import "relay/TourGuide/Items of the Month/2023/candy cane sword cane beta.ash";
+//import "relay/TourGuide/Items of the Month/2023/Candy Cane Sword Cane.ash";
 
 // 2024
 //import "relay/TourGuide/Items of the Month/2024/Chest Mimic.ash";
 import "relay/TourGuide/Items of the Month/2024/Chest Mimic beta.ash";
 import "relay/TourGuide/Items of the Month/2024/Spring Shoes beta.ash";
 //import "relay/TourGuide/Items of the Month/2024/Spring Shoes.ash";
-import "relay/TourGuide/Items of the Month/2023/Candy Cane Sword Cane.ash";
+

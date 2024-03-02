@@ -1,3 +1,4 @@
+//NOT USED
 // Candy Cane Sword Cane
 RegisterTaskGenerationFunction("IOTMCandyCaneSwordGenerateTasks");
 void IOTMCandyCaneSwordGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)

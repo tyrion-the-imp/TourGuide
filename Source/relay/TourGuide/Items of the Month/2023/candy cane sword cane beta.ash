@@ -52,10 +52,11 @@ void IOTMCandyCaneSwordGenerateTasksBETA(ChecklistEntry [int] task_entries, Chec
 			task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("candy cane sword cane", "", description2), -11));
 			}
 		}
-		
-		if (($locations[A Mob of Zeppelin Protesters] contains selectedLocation)) {
-			options.listAppend(HTMLGenerateSpanOfClass("Alternate: ", "r_bold") + "Zeppelin Protesters: " + HTMLGenerateSpanFont("double Sleaze", "purple"));
-			task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("candy cane sword cane", "", description2), -11));
+		if (get_property_int("zeppelinProtestors") < 80) {
+				options.listAppend(HTMLGenerateSpanOfClass("Alternate: ", "r_bold") + "Zeppelin Protesters: " + HTMLGenerateSpanFont("double Sleaze", "purple"));
+			if (($locations[A Mob of Zeppelin Protesters] contains selectedLocation)) {
+				task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("candy cane sword cane", "", description2), -11));
+			}
 		}
 		
 		if (options.count() > 0) {
