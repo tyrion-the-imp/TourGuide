@@ -55,9 +55,13 @@ RegisterResourceGenerationFunction("IOTMJOATGenerateResource");
 void IOTMJOATGenerateResource(ChecklistEntry [int] resource_entries)
 {
     string [int] description;
-    //can only use the first one each day, though more of them can drop
-	if ($item[map to a candy-rich block].available_amount() > 0 && !get_property_boolean("_mapToACandyRichBlockUsed") && get_property_int("_mapToACandyRichBlockDrops") < 2 ) {
+    //can only use the first one each day, though more of them can drop, and _mapToACandyRichBlockUsed is never set true until you try
+	//to use one and fail? result: You already visited a candy-rich block today, don't be greedy.
+	//get_property_int("_mapToACandyRichBlockDrops") < 2
+	//also mafia removes the map from inventory when map use fails, though it remains in inventory
+	if ( $item[map to a candy-rich block].available_amount() > 0 && !get_property_boolean("_mapToACandyRichBlockUsed") ) {
         description.listAppend("Need to equip an outfit!");
+        description.listAppend("Use a 2nd map to mark this task complete.");
     resource_entries.listAppend(ChecklistEntryMake("__item map to a candy-rich block", "inventory.php?ftext=candy-rich", ChecklistSubentryMake("5 Candy-rich block fights available", description), -1).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("JOAT"));
     }
     else if (get_property_boolean("_mapToACandyRichBlockUsed") == true) {
