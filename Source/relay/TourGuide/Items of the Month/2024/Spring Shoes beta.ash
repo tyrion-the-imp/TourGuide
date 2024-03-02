@@ -15,7 +15,7 @@ void IOTMSpringShoesGenerateTasksBETA(ChecklistEntry [int] task_entries, Checkli
 			{
 				description.listAppend(HTMLGenerateSpanFont("Equip the spring shoes first.", "red"));
 			}
-			task_entries.listAppend(ChecklistEntryMake("__item spring shoes", url, ChecklistSubentryMake("Spring shoes runaway available! (TEMP)", "", description), importance));
+			task_entries.listAppend(ChecklistEntryMake("__item spring shoes", url, ChecklistSubentryMake("Free-run away with <b>Spring Away</b> skill! (TEMP)", "", description), importance));
 		}
 		//if ( $item[spring shoes].available_amount() > 0 && get_property("questL10Garbage").index_of("started") > -1 ) {
 		if ( get_property("questL10Garbage").index_of("started") > -1 ) {
@@ -26,4 +26,19 @@ void IOTMSpringShoesGenerateTasksBETA(ChecklistEntry [int] task_entries, Checkli
 			optional_task_entries.listAppend(ChecklistEntryMake("__item spring shoes", url, ChecklistSubentryMake("Beanstalk bonus!", "", description), -11));
 		}
 	}
+}
+
+RegisterResourceGenerationFunction("IOTMSpringShoesGenerateResourceTEMP");
+void IOTMSpringShoesGenerateResourceTEMP(ChecklistEntry [int] resource_entries)
+{
+	// Initialization. Do not generate iof you don't have spring shoes.
+	if (!__iotms_usable[lookupItem("spring shoes")]) return;
+
+	string [int] banishDescription;
+	banishDescription.listAppend("All day banish, doesn't end combat (TEMP)");
+	if (lookupItem("spring shoes").equipped_amount() == 0)
+	{
+		banishDescription.listAppend(HTMLGenerateSpanFont("Equip the spring shoes first.", "red"));
+	}
+	resource_entries.listAppend(ChecklistEntryMake("__skill spring shoes", "", ChecklistSubentryMake("Spring Kick", "", banishDescription)).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Spring shoes spring kick banish"));
 }
