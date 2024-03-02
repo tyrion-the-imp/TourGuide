@@ -174,8 +174,7 @@ void initialiseIOTMsUsable()
         __iotms_usable[lookupItem("Clan Carnival Game")] = true;
         __iotms_usable[$item[clan floundry]] = true;
     }
-    
-	//Can't use many things in G-Lover
+    //Can't use many things in G-Lover
     if (my_path().id == PATH_G_LOVER) //Path 33
     {
         __iotms_usable[lookupItem("Bird-a-Day calendar")] = false;
