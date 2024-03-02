@@ -606,12 +606,24 @@ buffer ChecklistGenerate(Checklist cl, boolean output_borders) {
         if (entry.container_div_attributes.count() > 0) continue;
         
         entry.importance_level -= 1; //combined entries gain a hack; a level above everything else
-		if ( entry.tags.combination == "banish" ) { entry.importance_level = -30; }
+		if ( entry.tags.combination == "banish" ) {
+			entry.importance_level = -30;
+		}
 		if ( entry.tags.combination == "daily free fight" ) {
 			entry.importance_level = -40;
 			if	( turns_played() < 11 ) {
 				entry.importance_level = -99;
 			}
+			//print(entry.url);
+			//this rank doesn't determine the order listed...only the order of which is listed FIRST
+			//trick or treat
+			if	( entry.url.index_of("candy-rich") > -1 ) { entry.importance_level -= 10; }
+			//burning leaves
+			if	( entry.url.index_of("burning") > -1 ) { entry.importance_level -= 9; }
+			//shadow fights
+			if	( entry.url.index_of("11169") > -1 ) { entry.importance_level -= 8; }
+			//cursed magnifying glass
+			if	( entry.url.index_of("magnifying") > -1 ) { entry.importance_level += 5; }
 		}
 
         if (!(combination_tag_entries contains entry.tags.combination)) {
