@@ -615,7 +615,14 @@ buffer ChecklistGenerate(Checklist cl, boolean output_borders) {
 				entry.importance_level = -99;
 			}
 			//print(entry.url);
-			//this rank doesn't determine the order listed...only the order of which is listed FIRST
+			//this rank doesn't determine the order listed...only the order of which one is listed FIRST..and therefore which URL is clickable
+			//in the tile (and which image is used)
+			//oliver's brawl
+			if	( entry.url.index_of("speakeasy") > -1 ) { entry.importance_level -= 13; }
+			//science tent tentacle
+			if ( entry.url.index_of("fv_scientistif") > -1 ) { entry.importance_level -= 12; }
+			//evoke eldritch horror tentacle
+			if	( entry.url.index_of("skillz.php") > -1 ) { entry.importance_level -= 11; }
 			//trick or treat
 			if	( entry.url.index_of("candy-rich") > -1 ) { entry.importance_level -= 10; }
 			//burning leaves
