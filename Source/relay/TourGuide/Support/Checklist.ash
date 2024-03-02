@@ -625,12 +625,12 @@ buffer ChecklistGenerate(Checklist cl, boolean output_borders) {
 			if	( entry.url.index_of("skillz.php") > -1 ) { entry.importance_level -= 11; }
 			//trick or treat
 			if	( entry.url.index_of("candy-rich") > -1 ) { entry.importance_level -= 10; }
-			//burning leaves
-			if	( entry.url.index_of("burning") > -1 ) { entry.importance_level -= 9; }
 			//shadow fights
-			if	( entry.url.index_of("11169") > -1 ) { entry.importance_level -= 8; }
+			if	( entry.url.index_of("11169") > -1 ) { entry.importance_level -= 9; }
+			//burning leaves
+			if	( entry.url.index_of("burning") > -1 ) { entry.importance_level -= 8; }
 			//cursed magnifying glass
-			if	( entry.url.index_of("magnifying") > -1 ) { entry.importance_level += 5; }
+			if	( entry.url.index_of("magnifying") > -1 ) { entry.importance_level += 15; }
 		}
 
         if (!(combination_tag_entries contains entry.tags.combination)) {

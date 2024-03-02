@@ -69,7 +69,7 @@ void IOTMBurningLeavesGenerateResource(ChecklistEntry [int] resource_entries)
     // Don't generate these tiles if they cannot actually use their leaves
     if (!__iotms_usable[$item[A Guide to Burning Leaves]]) return;
 
-    string url = "campground.php?preaction=burningleaves";
+    string url = "campground.php?preaction=leaves";
 
     // Make two tiles for spending leaves
     int leafCount = $item[inflammable leaf].item_amount();
