@@ -2,20 +2,23 @@
 RegisterTaskGenerationFunction("IOTMSpringShoesGenerateTasksBETA");
 void IOTMSpringShoesGenerateTasksBETA(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
-	if (__misc_state["in run"] && available_amount($item[spring shoes]) > 0 && my_path().id != PATH_COMMUNITY_SERVICE)
+	//if (__misc_state["in run"] && available_amount($item[spring shoes]) > 0 && my_path().id != PATH_COMMUNITY_SERVICE)
+	if ( __iotms_usable[lookupItem("spring shoes")] )
 	{
-		if ( __iotms_usable[lookupItem("spring shoes")] && $effect[everything looks green].have_effect() == 0 ) {
+		if ( $effect[everything looks green].have_effect() == 0 ) {
 			string [int] description;
 			string url = "inventory.php?ftext=spring+shoes";
+			int importance = -11;
+			if	( get_property_boolean("kingLiberated") ) { importance = -1; }
 			description.listAppend(HTMLGenerateSpanFont("Run away from your problems!", "green"));
 			if (lookupItem("spring shoes").equipped_amount() == 0)
 			{
 				description.listAppend(HTMLGenerateSpanFont("Equip the spring shoes first.", "red"));
 			}
-			task_entries.listAppend(ChecklistEntryMake("__item spring shoes", url, ChecklistSubentryMake("Spring shoes runaway available! (TEMP)", "", description), -11));
+			task_entries.listAppend(ChecklistEntryMake("__item spring shoes", url, ChecklistSubentryMake("Spring shoes runaway available! (TEMP)", "", description), importance));
 		}
 		//if ( $item[spring shoes].available_amount() > 0 && get_property("questL10Garbage").index_of("started") > -1 ) {
-		if ( __iotms_usable[lookupItem("spring shoes")] && get_property("questL10Garbage").index_of("started") > -1 ) {
+		if ( get_property("questL10Garbage").index_of("started") > -1 ) {
 			//questL10Garbage = 'step1' after stalk planted, so display while 'unstarted' or 'started'
 			string [int] description;
 			string url = "inventory.php?ftext=spring+shoes";
