@@ -618,21 +618,23 @@ buffer ChecklistGenerate(Checklist cl, boolean output_borders) {
 			//this rank doesn't determine the order listed...only the order of which one is listed FIRST..and therefore which URL is clickable
 			//in the tile (and which image is used)
 			//oliver's brawl
-			if	( entry.url.index_of("speakeasy") > -1 ) { entry.importance_level -= 13; }
+			if	( entry.url.index_of("speakeasy") > -1 ) { entry.importance_level -= 9; }
 			//science tent tentacle
-			if ( entry.url.index_of("fv_scientistif") > -1 ) { entry.importance_level -= 12; }
+			if ( entry.url.index_of("fv_scientist") > -1 ) { entry.importance_level -= 8; }
 			//evoke eldritch horror tentacle
-			if	( entry.url.index_of("skillz.php") > -1 ) { entry.importance_level -= 11; }
+			if	( entry.url.index_of("skillz.php") > -1 ) { entry.importance_level -= 7; }
 			//trick or treat
-			if	( entry.url.index_of("candy-rich") > -1 ) { entry.importance_level -= 10; }
+			if	( entry.url.index_of("candy-rich") > -1 ) { entry.importance_level -= 6; }
 			//shadow fights
-			if	( entry.url.index_of("11169") > -1 ) { entry.importance_level -= 9; }
+			if	( entry.url.index_of("11169") > -1 ) { entry.importance_level -= 5; }
 			//burning leaves
-			if	( entry.url.index_of("leaves") > -1 ) { entry.importance_level -= 8; }
+			if	( entry.url.index_of("leaves") > -1 ) { entry.importance_level -= 4; }
 			//cursed magnifying glass
 			if	( entry.url.index_of("magnifying") > -1 ) { entry.importance_level += 15; }
 		}
-
+		
+		print(entry.url+" = "+entry.importance_level);
+		
         if (!(combination_tag_entries contains entry.tags.combination)) {
             entry.tags.id = cl.title + "_" + entry.tags.combination;
             combination_tag_entries[entry.tags.combination] = entry;
