@@ -628,7 +628,7 @@ buffer ChecklistGenerate(Checklist cl, boolean output_borders) {
 			//shadow fights
 			if	( entry.url.index_of("11169") > -1 ) { entry.importance_level -= 9; }
 			//burning leaves
-			if	( entry.url.index_of("burning") > -1 ) { entry.importance_level -= 8; }
+			if	( entry.url.index_of("leaves") > -1 ) { entry.importance_level -= 8; }
 			//cursed magnifying glass
 			if	( entry.url.index_of("magnifying") > -1 ) { entry.importance_level += 15; }
 		}
