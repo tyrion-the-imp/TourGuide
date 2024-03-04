@@ -631,9 +631,8 @@ buffer ChecklistGenerate(Checklist cl, boolean output_borders) {
 			if	( entry.url.index_of("leaves") > -1 ) { entry.importance_level -= 4; }
 			//cursed magnifying glass
 			if	( entry.url.index_of("magnifying") > -1 ) { entry.importance_level += 15; }
+			//print(entry.url+" = "+entry.importance_level);
 		}
-		
-		print(entry.url+" = "+entry.importance_level);
 		
         if (!(combination_tag_entries contains entry.tags.combination)) {
             entry.tags.id = cl.title + "_" + entry.tags.combination;
@@ -671,7 +670,7 @@ buffer ChecklistGenerate(Checklist cl, boolean output_borders) {
                 master_entry.subentries.listAppend(subentry);
             }
         }
-
+		
         remove entries[key];
     }
 	

@@ -106,6 +106,9 @@ void IOTMPatrioticEagleGenerateTasksTEMP(ChecklistEntry [int] task_entries, Chec
 		//description.listAppend(HTMLGenerateSpanOfClass("+30% Item:", "r_bold") + " Haunted Library, Haunted Laundry");
 		//description.listAppend(HTMLGenerateSpanOfClass("+50% Meat:", "r_bold") + " Ninja Snowmen, Hidden Hospital");
 		description.listAppend(HTMLGenerateSpanOfStyle("=== Hover mouse for info ===", "font-size:0.8em;color:red"));
+		if	( have_effect($effect[Citizen of A Zone]) > 0 ) {
+			description.listAppend(HTMLGenerateSpanFont("Remove 'Citizen of Zone' effect first!","red"));
+		}
 		
 		
 		
