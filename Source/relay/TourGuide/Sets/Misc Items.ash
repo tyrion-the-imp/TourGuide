@@ -85,6 +85,7 @@ void SMiscItemsGenerateResource(ChecklistEntry [int] resource_entries)
 {
     int importance_level_item = 7;
     int importance_level_unimportant_item = 8;
+    int importance_level_super_important = -100;
     int meatgen_importance_level = importance_level_item;
 	if	( in_hardcore() ) { meatgen_importance_level = -50; }
     
@@ -714,8 +715,8 @@ void SMiscItemsGenerateResource(ChecklistEntry [int] resource_entries)
     if ($item[map to safety shelter grimace prime].available_amount() > 0) {
         string line = "Use for synthetic dog hair or distention pill.";
         if (__misc_state["in aftercore"])
-            line += "|Will disappear when you ascend.";
-        resource_entries.listAppend(ChecklistEntryMake("__item " + $item[map to safety shelter grimace prime], "inventory.php?ftext=map+to+safety+shelter+grimace+prime", ChecklistSubentryMake(pluralise($item[map to safety shelter grimace prime]), "", line), importance_level_unimportant_item).ChecklistEntrySetIDTag("Grimace shelter map resource"));
+            line += "|<span style='color:red; font-size:90%; font-weight:bold;'>Will disappear when you ascend.</span>";
+        resource_entries.listAppend(ChecklistEntryMake("__item " + $item[map to safety shelter grimace prime], "inventory.php?ftext=map+to+safety+shelter+grimace+prime", ChecklistSubentryMake("<span style='color:black; background-color:lightgray; font-size:100%; font-weight:bold;'>"+pluralise($item[map to safety shelter grimace prime])+"</span>", "", line), importance_level_super_important).ChecklistEntrySetIDTag("Grimace shelter map resource"));
     }
     if ($item[rusty hedge trimmers].available_amount() > 0 && __quest_state["Level 9"].state_int["twin peak progress"] != 15 && in_run) {
         string [int] description;
