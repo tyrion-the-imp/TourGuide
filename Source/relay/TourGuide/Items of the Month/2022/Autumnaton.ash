@@ -95,17 +95,17 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 			int xbog = ( get_property("sidequestNunsCompleted") == "none" ) ? 3 - item_amount($item[thin black candle]):0;
 			targets.listAppend(listMake("thin black candle (need "+xbog+")","Castle (Top Floor)"));
 		}
-		if (locationAvailable($location[twin peak]) == false && get_property_int("chasmBridgeProgress") < 30 && !qprop("questL09Topping"))
+		if ( locationAvailable($location[twin peak]) == false && get_property_int("chasmBridgeProgress") < 30 && !qprop("questL09Topping") && my_level() > 8 )
 		{
 			targets.listAppend(listMake("bridge parts", "The Smut Orc Logging Camp"));
 		}
-		if (get_property_int("hiddenBowlingAlleyProgress") + available_amount($item[bowling ball]) < 6)
+		if ( get_property_int("hiddenBowlingAlleyProgress") + available_amount($item[bowling ball]) < 6 && my_level() > 10 )
 		{
 			int ballsNeeded = ( get_property_int("hiddenBowlingAlleyProgress") < 2 ) ? ( 5 - $item[bowling ball].available_amount() ):( 5 - get_property_int("hiddenBowlingAlleyProgress") + 1 - $item[bowling ball].available_amount() );
 			ballsNeeded = max(ballsNeeded, 0);
 			targets.listAppend(listMake("bowling balls (need "+ballsNeeded+")","Hidden Bowling Alley"));
 		}
-		if (get_property_int("twinPeakProgress") < 14 && !qprop("questL09Topping") && !get_property_boolean("oilPeakLit"))
+		if ( get_property_int("twinPeakProgress") < 14 && !qprop("questL09Topping") && !get_property_boolean("oilPeakLit") && my_level() > 8 )
 		{
 			targets.listAppend(listMake("bubblin' crude", "Oil Peak"));
 		}
@@ -119,7 +119,7 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 		{
 			targets.listAppend(listMake("drum machine", "An Oasis"));
 		}
-		if (__quest_state["Level 11 Ron"].mafia_internal_step < 5)
+		if ( __quest_state["Level 11 Ron"].mafia_internal_step < 5 && my_level() > 10 )
 		{
 			targets.listAppend(listMake("glark cables", "The Red Zeppelin"));
 		}

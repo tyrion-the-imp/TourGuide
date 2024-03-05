@@ -90,6 +90,9 @@ void QLevel7GenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int
 	{
 		string property = evilness_properties[key];
 		int evilness = get_property_int(property);
+		if	( property == "cyrptCrannyEvilness" ) {
+			evilness -=  (11 * get_property_boolean("candyCaneSwordDefiledCranny").to_int());
+		}
 		string text;
 		if (evilness == 0)
 			text = "Finished";
