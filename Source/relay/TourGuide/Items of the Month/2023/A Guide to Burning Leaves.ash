@@ -282,6 +282,8 @@ void IOTMBurningLeavesGenerateResource(ChecklistEntry [int] resource_entries)
 
     if (fightsRemaining > 0) {
         
+		string currleaves = "You have "+item_amount($item[inflammable leaf])+" leaves";
+		
         if (leafCount >= 111*fightsRemaining) {
             description.listAppend("Have enough leaves for "+fightsRemaining+" flaming monstera");
         }
@@ -292,9 +294,10 @@ void IOTMBurningLeavesGenerateResource(ChecklistEntry [int] resource_entries)
             description.listAppend("Have enough leaves, if you let the leaflets drop their bounty!");
         }
         else {
-            description.listAppend(HTMLGenerateSpanFont("Can summon "+leafletsUserCanSummon+" of your "+fightsRemaining+" leaflets... get more leaves!", "orange"));
+            description.listAppend(HTMLGenerateSpanFont("Can summon "+leafletsUserCanSummon+" of your "+fightsRemaining+" leaflets.", "red"));
         }
-
+		
+		description.listAppend(HTMLGenerateSpanFont(currleaves, "purple"));
         subentries.listAppend(ChecklistSubentryMake(pluralise(fightsRemaining, "free flaming leaflet fight", "free flaming leaflet fights"), "", description));
         TagGroup tags;
         tags.id = "Burning Leaves free fights";
