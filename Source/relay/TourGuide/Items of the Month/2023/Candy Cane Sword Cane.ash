@@ -30,7 +30,8 @@ void IOTMCandyCaneSwordGenerateTasks(ChecklistEntry [int] task_entries, Checklis
 		if (!get_property_boolean("_candyCaneSwordLyle")) {
 			options.listAppend(HTMLGenerateSpanOfClass("Bonus:", "r_bold") + " Lyle's Monorail Buff (+40% init)");
 		}
-
+		
+		
 		// Added a check for if they are past black forest
 		if (!get_property_boolean("candyCaneSwordBlackForest") && __quest_state["Level 11"].mafia_internal_step < 2) {
 			options.listAppend(HTMLGenerateSpanOfClass("Bonus:", "r_bold") + " The Black Forest (+8 exploration)");

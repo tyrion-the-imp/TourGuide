@@ -16,11 +16,17 @@ void IOTMCandyCaneSwordGenerateTasksBETA(ChecklistEntry [int] task_entries, Chec
 		if (!get_property_boolean("_candyCaneSwordLyle")) {
 			options.listAppend(HTMLGenerateSpanOfClass("Bonus:", "r_bold") + " Lyle monorail +40% init buff");
 		}
+		if (!get_property_boolean("candyCaneSwordDefiledCranny") && get_property_int("cyrptCrannyEvilness") > 13) {
+			options.listAppend(HTMLGenerateSpanOfClass("Bonus:", "r_bold") + " Defiled Cranny -11 evil");
+			if (($locations[The Defiled Cranny] contains selectedLocation)) {
+			task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("candy cane sword cane", "", description2), -11));
+			}
+		}
 		if (!get_property_boolean("candyCaneSwordBlackForest")) {
 			options.listAppend(HTMLGenerateSpanOfClass("Bonus:", "r_bold") + " Black Forest +8 exploration");
 			if (($locations[The Black Forest] contains selectedLocation)) {
 			task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("candy cane sword cane", "", description2), -11));
-			}	
+			}
 		}
 		if (!get_property_boolean("candyCaneSwordDailyDungeon")) {
 			options.listAppend(HTMLGenerateSpanOfClass("Bonus:", "r_bold") + " Daily Dungeon +1 fat loot token");
