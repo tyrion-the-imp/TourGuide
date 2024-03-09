@@ -95,7 +95,7 @@ void IOTMAutumnatonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 			int xbog = ( get_property("sidequestNunsCompleted") == "none" ) ? 3 - item_amount($item[thin black candle]):0;
 			targets.listAppend(listMake("thin black candle (need "+xbog+")","Castle (Top Floor)"));
 		}
-		if ( locationAvailable($location[twin peak]) == false && get_property_int("chasmBridgeProgress") < 30 && !qprop("questL09Topping") && my_level() > 8 )
+		if ( !get_property_boolean("_tourguide_allBridgePartsGathered") && locationAvailable($location[twin peak]) == false && get_property_int("chasmBridgeProgress") < 30 && !qprop("questL09Topping") && my_level() > 8 )
 		{
 			targets.listAppend(listMake("bridge parts", "The Smut Orc Logging Camp"));
 		}
