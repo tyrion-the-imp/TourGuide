@@ -74,12 +74,12 @@ void IOTMCandyCaneSwordGenerateTasksBETA(ChecklistEntry [int] task_entries, Chec
 			}
 		}
 		//_candyCaneSwordHauntedBedroom
-		if (!get_property_boolean("_candyCaneSwordHauntedBedroom")) {
+		/* if (!get_property_boolean("_candyCaneSwordHauntedBedroom")) {
 				options.listAppend(HTMLGenerateSpanOfClass("Alternate: ", "r_bold") + "Bedroom: lucky-ish pill, 1s");
 			if (($locations[The Haunted Bedroom] contains selectedLocation)) {
 				task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("candy cane sword cane", "", description2), -11));
 			}
-		}
+		} */
 		
 		
 		
