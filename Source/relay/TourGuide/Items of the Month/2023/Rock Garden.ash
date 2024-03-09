@@ -3,6 +3,12 @@ string gravelMessage(int gravels)
     return HTMLGenerateSpanOfClass(gravels, "r_bold") + "x groveling gravel (free kill*)";
 }
 
+string gravelMessage2(int gravels)
+{
+	//HTMLGenerateSpanOfClass(gravels, "r_bold") + 
+    return "<span style='color:red; font-size:80%; font-weight:bold;'>Free kill but no items will drop.</span>";
+}
+
 string whetStoneMessage(int whetStones)
 {
     return HTMLGenerateSpanOfClass(whetStones, "r_bold") + "x whet stone (+1 adv on food)";
@@ -54,6 +60,7 @@ void IOTMRockGardenGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 RegisterResourceGenerationFunction("IOTMRockGardenGenerateResource");
 void IOTMRockGardenGenerateResource(ChecklistEntry [int] resource_entries) {
     string [int] description;
+    string [int] description2;
     string url = "campground.php";
 
     if (!get_property_boolean("_molehillMountainUsed") && available_amount($item[molehill mountain]) > 0)
@@ -76,6 +83,10 @@ void IOTMRockGardenGenerateResource(ChecklistEntry [int] resource_entries) {
     if (availableGravels > 0 && $item[groveling gravel].item_is_usable())
     {
         description.listAppend(gravelMessage(availableGravels));
+        description2.listAppend(gravelMessage2(availableGravels));
+		if	( count(description2) > 0 ) {
+			resource_entries.listAppend(ChecklistEntryMake("__item rock garden guide", url, ChecklistSubentryMake(availableGravels+" groveling gravel", "", description2)).ChecklistEntrySetCombinationTag("free instakill").ChecklistEntrySetIDTag("rock garden free kill"));
+		}
     }
 
     if (availableWhetStones > 0 && $item[whet stone].item_is_usable() && (__misc_state["can eat just about anything"]))

@@ -606,11 +606,19 @@ buffer ChecklistGenerate(Checklist cl, boolean output_borders) {
         if (entry.container_div_attributes.count() > 0) continue;
         
         entry.importance_level -= 1; //combined entries gain a hack; a level above everything else
+		
+		//entry.tags.combination == "free instakill"
+		if	( entry.tags.combination == "free instakill" ) {
+			entry.importance_level = -60;
+		}
 		if ( entry.tags.combination == "banish" ) {
 			entry.importance_level = -30;
 		}
+		
+		//-50 Copied Monsters.ash stuff
+		
 		if ( entry.tags.combination == "daily free fight" ) {
-			entry.importance_level = -40;
+			entry.importance_level = -70;
 			if	( turns_played() < 11 ) {
 				entry.importance_level = -99;
 			}
