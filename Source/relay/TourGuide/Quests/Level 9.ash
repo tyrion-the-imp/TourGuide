@@ -652,6 +652,7 @@ void QLevel9GenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int
             subentry.modifiers.listClear();
             subentry.entries.listClear();
             subentry.entries.listAppend("Build a bridge!");
+			set_property("_tourguide_allBridgePartsGathered", "true");
         }
 		if ($item[smut orc keepsake box].available_amount() > 0)
 			subentry.entries.listAppend("Open " + pluralise($item[smut orc keepsake box]) + ".");
