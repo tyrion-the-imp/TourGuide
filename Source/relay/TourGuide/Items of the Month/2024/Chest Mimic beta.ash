@@ -36,6 +36,7 @@ void IOTMChestMimicGenerateResourceBETA(ChecklistEntry [int] resource_entries)
 	chestCopiesAvailable = min(chestCopiesAvailable, mimicEggsLeft);
 	string fightsForNextEgg = pluralise(ceil(to_float(famExpNeededForNextEgg) / famExperienceGain), "fight", "fights");
 	string [int] description;
+	//DNA Bank: place.php?whichplace=town_right&action=townright_dna
 	string url = "familiar.php";
 	{
 		description.listAppend("Currently have " + HTMLGenerateSpanOfClass(chestExperience, "r_bold") + " experience, currently gain " + HTMLGenerateSpanOfClass(famExperienceGain, "r_bold") + " fam exp per fight.");
