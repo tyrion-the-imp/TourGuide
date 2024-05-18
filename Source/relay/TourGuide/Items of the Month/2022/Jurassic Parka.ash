@@ -5,13 +5,40 @@ void IOTMJurassicParkaGenerateTasks(ChecklistEntry [int] task_entries, Checklist
 {
 	//string url = "inventory.php?ftext=jurassic";
 	string url = "inventory.php?action=jparka";
+	// Task-based nag for using the parka. Instruct the user to swap modes or equip parka if needed.
+	if (!__iotms_usable[$item[Jurassic Parka]]) return;
+	// Fondeluge is the only skill strictly better than Jurassic acid; don't show this tile if you happen to have it
+	if (lookupSkill("Fondeluge").have_skill()) return;
 	string [int] description;
 	int spikos_left = clampi(5 - get_property_int("_spikolodonSpikeUses"), 0, 5);
 	string main_title = spikos_left + " Parka forced non-coms remaining";
 	
-	if	( spikos_left > 0 && __misc_state["in run"] ) {
+	if	( spikos_left > 0 && __misc_state["in run"] )
+	{
 		description.listAppend("cli: parka spikolodon|*- sk#7424 Launch spikolodon spikes|*- 35 dmg, +force non-com, 5x/day|*- Used: "+get_property_int("_spikolodonSpikeUses")+" / 5");
 		task_entries.listAppend(ChecklistEntryMake("__item jurassic parka", url, ChecklistSubentryMake(main_title, description), -9));
+	}
+    if (__misc_state["in run"] && available_amount($item[jurassic parka]) > 0 && my_path().id != PATH_COMMUNITY_SERVICE)
+	{
+		string [int] description;
+		url = "inventory.php?ftext=jurassic+parka";
+		
+		// TODO: Perhaps a centralized YR supernag would be better? Not sure, tbh.
+		if ($effect[everything looks yellow].have_effect() == 0) 
+		{
+			if (lookupItem("jurassic parka").equipped_amount() == 0)
+			{
+				description.listAppend(HTMLGenerateSpanFont("Equip your Jurassic Parka!", "red"));
+			}
+			else description.listAppend(HTMLGenerateSpanFont("Parka equipped.", "orange"));
+			if (get_property("parkaMode") != "dilophosaur")
+			{
+				description.listAppend(HTMLGenerateSpanFont("Change your parka to dilophosaur mode!", "red"));
+			}
+			else description.listAppend(HTMLGenerateSpanFont("Dilophosaur mode enabled.", "orange"));
+			
+			task_entries.listAppend(ChecklistEntryMake("__item jurassic parka", url, ChecklistSubentryMake("Parka yellow ray is ready; spit some acid!", "", description), -11));
+		}
 	}
 }
 
@@ -24,18 +51,18 @@ void IOTMJurassicParkaGenerateResource(ChecklistEntry [int] resource_entries)
     if (!__iotms_usable[$item[Jurassic Parka]]) return;
 	if (my_path().id == PATH_G_LOVER) return; // cannot use parka in g-lover
 
-    string url;
+	string url;
 	string parkaMode = get_property("parkaMode");
 	string parkaEnchant;
 	string [int] description;
 
-    url = invSearch("jurassic parka");
+	url = invSearch("jurassic parka");
 
 	int spikos_left = clampi(5 - get_property_int("_spikolodonSpikeUses"), 0, 5);
 	
-    // Title
-        string main_title = "Jurassic Parka";
-        description.listAppend("You're the dinosaur now, dawg.");
+	// Title
+		string main_title = "Jurassic Parka";
+		description.listAppend("You're the dinosaur now, dawg.");
 		
 		switch (get_property("parkaMode"))			
 		{
