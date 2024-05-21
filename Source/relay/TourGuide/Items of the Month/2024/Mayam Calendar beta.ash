@@ -1,6 +1,6 @@
 //Mayam calendar
-RegisterResourceGenerationFunction("IOTMMayamCalendarGenerateResource");
-void IOTMMayamCalendarGenerateResource(ChecklistEntry [int] resource_entries)
+RegisterResourceGenerationFunction("IOTMMayamCalendarGenerateResourceBeta");
+void IOTMMayamCalendarGenerateResourceBeta(ChecklistEntry [int] resource_entries)
 {
 	string [int] description;
 	if (__misc_state["in run"] && available_amount($item[mayam calendar]) > 0 && my_path().id != PATH_COMMUNITY_SERVICE)
