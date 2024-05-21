@@ -155,3 +155,4 @@ import "relay/TourGuide/Items of the Month/2024/Spring Shoes beta.ash";
 //import "relay/TourGuide/Items of the Month/2024/Spring Shoes.ash";
 import "relay/TourGuide/Items of the Month/2024/Everfull Dart Holster beta.ash";
 import "relay/TourGuide/Items of the Month/2024/Apriling Band Helmet beta.ash";
+import "relay/TourGuide/Items of the Month/2024/Mayam Calendar beta.ash";
