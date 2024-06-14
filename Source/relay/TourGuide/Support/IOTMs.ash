@@ -307,7 +307,8 @@ void initialiseIOTMsUsable()
     replicaCheck("August Scepter"); # handled in own tile
 
     // Swap parka to false if you aren't torso aware.
-    if (!__misc_state["Torso aware"]) 
+    //if (!__misc_state["Torso aware"]) 
+    if (!have_skill($skill[Torso Awareness])) 
     {
         __iotms_usable[lookupItem("Jurassic Parka")] = false;
     }

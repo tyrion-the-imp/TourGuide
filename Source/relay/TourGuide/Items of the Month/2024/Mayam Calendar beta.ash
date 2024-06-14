@@ -3,7 +3,8 @@ RegisterResourceGenerationFunction("IOTMMayamCalendarGenerateResourceBeta");
 void IOTMMayamCalendarGenerateResourceBeta(ChecklistEntry [int] resource_entries)
 {
 	string [int] description;
-	if (__misc_state["in run"] && available_amount($item[mayam calendar]) > 0 && my_path().id != PATH_COMMUNITY_SERVICE)
+	//__misc_state["in run"] && 
+	if (available_amount($item[mayam calendar]) > 0 && my_path().id != PATH_COMMUNITY_SERVICE)
 	{
 		string url = "inv_use.php?pwd=" + my_hash() + "&which=99&whichitem=11572";
 		int TempleResetAscension = get_property_int("lastTempleAdventures");

@@ -4,6 +4,7 @@ void IOTMAprilingBandHelmetGenerateResourceBeta(ChecklistEntry [int] resource_en
 {
 	string [int] description;
 	#if (__misc_state["in run"] && available_amount($item[apriling band helmet]) > 0 && my_path().id != PATH_COMMUNITY_SERVICE)
+	if (available_amount($item[apriling band helmet]) > 0 && my_path().id != PATH_COMMUNITY_SERVICE)
 	{
 		//battle of the bands
 		int aprilingBandConductorTimer = get_property_int("nextAprilBandTurn"); 
