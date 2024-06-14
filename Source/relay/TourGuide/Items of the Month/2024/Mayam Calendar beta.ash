@@ -93,7 +93,7 @@ void IOTMMayamCalendarGenerateResourceBeta(ChecklistEntry [int] resource_entries
 				description.listAppend(HTMLGenerateSpanFont("Temple reset available!", "r_bold") + "");
 			}
 			
-			resource_entries.listAppend(ChecklistEntryMake("__item mayam calendar", url, ChecklistSubentryMake("Mayam Calendar", "", description), 8));	
+			resource_entries.listAppend(ChecklistEntryMake("__item mayam calendar", url, ChecklistSubentryMake("Mayam Calendar", "", description), -12));
 		}	
 	}
 }
