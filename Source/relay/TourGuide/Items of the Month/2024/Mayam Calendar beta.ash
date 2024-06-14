@@ -10,7 +10,7 @@ void IOTMMayamCalendarGenerateResourceBeta(ChecklistEntry [int] resource_entries
 		int TempleResetAscension = get_property_int("lastTempleAdventures");
 		description.listAppend("Happy Mayam New Year!");
 		
-		if (!get_property("_mayamSymbolsUsed").contains_text("yam4") && !get_property("_mayamSymbolsUsed").contains_text("clock") && !get_property("_mayamSymbolsUsed").contains_text("explosion") && (my_ascensions() == TempleResetAscension))
+		if (true || (!get_property("_mayamSymbolsUsed").contains_text("yam4") && !get_property("_mayamSymbolsUsed").contains_text("clock") && !get_property("_mayamSymbolsUsed").contains_text("explosion") && (my_ascensions() == TempleResetAscension)))
 		{
 			description.listAppend(HTMLGenerateSpanOfClass("1st ring:", "r_bold") + "");
 			if (!get_property("_mayamSymbolsUsed").contains_text("yam1")) {
@@ -94,6 +94,6 @@ void IOTMMayamCalendarGenerateResourceBeta(ChecklistEntry [int] resource_entries
 			}
 			
 			resource_entries.listAppend(ChecklistEntryMake("__item mayam calendar", url, ChecklistSubentryMake("Mayam Calendar", "", description), -12));
-		}	
+		}
 	}
 }
