@@ -10,7 +10,7 @@ void IOTMSpringShoesGenerateTasksBETA(ChecklistEntry [int] task_entries, Checkli
 			string url = "inventory.php?ftext=spring+shoes";
 			int importance = -11;
 			if	( get_property_boolean("kingLiberated") ) { importance = -1; }
-			description.listAppend(HTMLGenerateSpanFont("Run away from your problems!", "green"));
+			description.listAppend(HTMLGenerateSpanFont("Run away from your problems! (+30 ELG)", "green"));
 			if (lookupItem("spring shoes").equipped_amount() == 0)
 			{
 				description.listAppend(HTMLGenerateSpanFont("Equip the spring shoes first.", "red"));
