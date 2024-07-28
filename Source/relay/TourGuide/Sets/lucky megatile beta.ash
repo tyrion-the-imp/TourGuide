@@ -1,6 +1,6 @@
 //lucky megatile
-RegisterResourceGenerationFunction("LuckyMegatileGenerateResource");
-void LuckyMegatileGenerateResource(ChecklistEntry [int] resource_entries)
+RegisterResourceGenerationFunction("LuckyMegatileGenerateResourceTEMP");
+void LuckyMegatileGenerateResourceTEMP(ChecklistEntry [int] resource_entries)
 {
 	string url;
 	string [int] description;
