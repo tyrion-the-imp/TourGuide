@@ -22,7 +22,11 @@ void IOTMEverfullDartsGenerateTasksBeta(ChecklistEntry [int] task_entries, Check
                 description.listAppend(HTMLGenerateSpanFont("Equip the dart holster first.", "red"));
             }
             else description.listAppend(HTMLGenerateSpanFont("dart holster equipped", "blue"));
-            task_entries.listAppend(ChecklistEntryMake("__item everfull dart holster", url, ChecklistSubentryMake("Everfull Darts free kill available!", "", description), -11));
+			if (!get_property_boolean("kingLiberated")) {
+				task_entries.listAppend(ChecklistEntryMake("__item everfull dart holster", url, ChecklistSubentryMake("Everfull Darts free kill available!", "", description), -11));
+			} else {
+				optional_task_entries.listAppend(ChecklistEntryMake("__item everfull dart holster", url, ChecklistSubentryMake("Everfull Darts free kill available!", "", description), -11));
+			}
         }
     }
 }

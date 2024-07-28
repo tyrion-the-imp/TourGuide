@@ -19,7 +19,12 @@ void IOTMRomanCandelabraGenerateTasksTEMP(ChecklistEntry [int] task_entries, Che
         else {
             description.listAppend(HTMLGenerateSpanFont("Candelbra equipped", "green"));
         }
-        task_entries.listAppend(ChecklistEntryMake("__item Roman Candelabra", url, ChecklistSubentryMake("Roman Candelabra runaway available!", "", description), -11));
+		
+		if (get_property_boolean("kingLiberated")) {
+			optional_task_entries.listAppend(ChecklistEntryMake("__item Roman Candelabra", url, ChecklistSubentryMake("Roman Candelabra runaway available!", "", description), -11));
+		} else {
+			task_entries.listAppend(ChecklistEntryMake("__item Roman Candelabra", url, ChecklistSubentryMake("Roman Candelabra runaway available!", "", description), -11));
+		}
     }
 
     // Purple people beater
@@ -35,7 +40,13 @@ void IOTMRomanCandelabraGenerateTasksTEMP(ChecklistEntry [int] task_entries, Che
         {
             description.listAppend(HTMLGenerateSpanFont("Candelbra equipped", "green"));
         }
-        task_entries.listAppend(ChecklistEntryMake("__item Roman Candelabra", url, ChecklistSubentryMake("Roman Candelabra chained copy fight ready!", "", description), -11));
+		
+		if (get_property_boolean("kingLiberated")) {
+			optional_task_entries.listAppend(ChecklistEntryMake("__item Roman Candelabra", url, ChecklistSubentryMake("Roman Candelabra chained copy fight ready!", "", description), -11));
+		} else {
+			task_entries.listAppend(ChecklistEntryMake("__item Roman Candelabra", url, ChecklistSubentryMake("Roman Candelabra chained copy fight ready!", "", description), -11));
+		
+		}
     }
 	
     {
