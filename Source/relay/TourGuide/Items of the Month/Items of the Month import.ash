@@ -157,4 +157,6 @@ import "relay/TourGuide/Items of the Month/2024/Mayam Calendar beta.ash";
 import "relay/TourGuide/Items of the Month/2024/Roman Candelabra beta.ash";
 import "relay/TourGuide/Items of the Month/2024/Chest Mimic.ash";
 import "relay/TourGuide/Items of the Month/2024/Spring Shoes.ash";
+import "relay/TourGuide/Items of the Month/2024/Apriling Band Helmet.ash";
+import "relay/TourGuide/Items of the Month/2024/Mayam Calendar.ash";
 import "relay/TourGuide/Items of the Month/2024/Roman Candelabra.ash";
