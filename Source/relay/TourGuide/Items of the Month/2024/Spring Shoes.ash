@@ -35,7 +35,7 @@ void IOTMSpringShoesGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEn
 
 void IOTMSpringShoesGenerateResource(ChecklistEntry [int] resource_entries)
 {
-	// Initialization. Do not generate iof you don't have spring shoes.
+	// Initialization. Do not generate if you don't have spring shoes.
 	if (!__iotms_usable[lookupItem("spring shoes")]) return;
 
 	string [int] banishDescription;
@@ -44,5 +44,5 @@ void IOTMSpringShoesGenerateResource(ChecklistEntry [int] resource_entries)
 	{
 		banishDescription.listAppend(HTMLGenerateSpanFont("Equip the spring shoes first.", "red"));
 	}
-	resource_entries.listAppend(ChecklistEntryMake("__skill spring shoes", "", ChecklistSubentryMake("Spring Kick", "", banishDescription)).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Spring shoes spring kick banish"));
+	resource_entries.listAppend(ChecklistEntryMake("__skill spring shoes", "", ChecklistSubentryMake("Spring Kick", "", banishDescription), 0).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Spring shoes spring kick banish"));
 }
