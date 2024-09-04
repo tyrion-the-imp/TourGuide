@@ -622,6 +622,9 @@ buffer ChecklistGenerate(Checklist cl, boolean output_borders) {
 			if	( turns_played() < 11 ) {
 				entry.importance_level = -99;
 			}
+			if	( my_daycount() > 1 ) {
+				entry.importance_level = -20;
+			}
 			//print(entry.url);
 			//this rank doesn't determine the order listed...only the order of which one is listed FIRST..and therefore which URL is clickable
 			//in the tile (and which image is used)
