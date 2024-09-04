@@ -54,9 +54,16 @@ void IOTMCandyCaneSwordGenerateTasksBETA(ChecklistEntry [int] task_entries, Chec
 			}
 		}
 		//candyCaneSwordWarHippyBait		candyCaneSwordWarHippyLine
-		if (locationAvailable($location[The Battlefield (Frat Uniform)]) == false) {
+		if (!get_property_boolean("candyCaneSwordWarHippyBait") && !get_property_boolean("candyCaneSwordWarHippyLine")) {
 			options.listAppend(HTMLGenerateSpanOfClass("Alternate:", "r_bold") + " Hippy Camp: Redirect to war start");
-			if (($locations[Wartime Hippy Camp,Wartime Frat House] contains selectedLocation)) {
+			if (($locations[Wartime Hippy Camp (Frat Disguise)] contains selectedLocation)) {
+			task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("candy cane sword cane", "", description2), -11));
+			}
+		}
+		//candyCaneSwordWarFratZetas		candyCaneSwordWarFratRoom
+		if (!get_property_boolean("candyCaneSwordWarFratRoom") && !get_property_boolean("candyCaneSwordWarFratZetas")) {
+			options.listAppend(HTMLGenerateSpanOfClass("Alternate:", "r_bold") + " Frat Camp: Redirect to war start");
+			if (($locations[Wartime Frat House (Hippy Disguise)] contains selectedLocation)) {
 			task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("candy cane sword cane", "", description2), -11));
 			}
 		}
