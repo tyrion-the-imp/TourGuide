@@ -1,5 +1,4 @@
-//2024	not used
-//Chest Mimic
+//Chest Mimic DISCARDED
 RegisterResourceGenerationFunction("IOTMChestMimicGenerateResource");
 void IOTMChestMimicGenerateResource(ChecklistEntry [int] resource_entries)
 {
@@ -24,7 +23,7 @@ void IOTMChestMimicGenerateResource(ChecklistEntry [int] resource_entries)
 	description.listAppend(`Need {HTMLGenerateSpanOfClass(famExpNeededForNextEgg, "r_bold")} more famxp for next egg. ({fightsForNextEgg})`);
 	description.listAppend(`Can lay {HTMLGenerateSpanOfClass(mimicEggsLeft, "r_bold")} more eggs today.`);
 
-	resource_entries.listAppend(ChecklistEntryMake("__familiar chest mimic", url, ChecklistSubentryMake("Chest mimic fxp", "", description), -49));
+	//resource_entries.listAppend(ChecklistEntryMake("__familiar chest mimic", url, ChecklistSubentryMake("Chest mimic fxp", "", description), -49));
 	if ($item[mimic egg].available_amount() > 0) {
 		string header = $item[mimic egg].pluralise().capitaliseFirstLetter();
 		string url = `inv_use.php?pwd={my_hash()}&whichitem=11542`;

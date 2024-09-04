@@ -29,20 +29,65 @@ string getShadowBrickLocationTooltip() {
     ShadowBrickLocation [int] shadowBrickLocations = {
         new ShadowBrickLocation(
             "Cemetary",
-            "(also has bread, stick)",
+            "brick, bread, stick",
             can_adventure($location[Shadow Rift (The Misspelled Cemetary)])
         ),
         new ShadowBrickLocation(
             "Hidden City",
-            "(also has sinew, nectar)",
+            "brick, sinew, nectar",
             can_adventure($location[Shadow Rift (The Hidden City)])
         ),
         new ShadowBrickLocation(
             "Pyramid",
-            "(also has sausage, sinew)",
+            "brick, sausage, sinew",
             can_adventure($location[Shadow Rift (The Ancient Buried Pyramid)])
+        ),
+        new ShadowBrickLocation(
+            "Forest Village",
+            "bread, ice, venom",
+            can_adventure($location[Shadow Rift (Forest Village)])
+        ),
+        new ShadowBrickLocation(
+            "The Distant Woods",
+            "flame, nectar, stick",
+            can_adventure($location[Shadow Rift (The Distant Woods)])
+        ),
+        new ShadowBrickLocation(
+            "Desert Beach",
+            "flame, fluid, sinew",
+            can_adventure($location[Shadow Rift (Desert Beach)])
+        ),
+        new ShadowBrickLocation(
+            "Castle",
+            "sausage, bread, fluid",
+            can_adventure($location[Shadow Rift (The Castle in the Clouds in the Sky)])
+        ),
+        new ShadowBrickLocation(
+            "Manor 3",
+            "sausage, flame, venom",
+            can_adventure($location[Shadow Rift (Spookyraven Manor Third Floor)])
+        ),
+        new ShadowBrickLocation(
+            "8-Bit Realm",
+            "ice, fluid, glass",
+            can_adventure($location[Shadow Rift (The 8-Bit Realm)])
+        ),
+        new ShadowBrickLocation(
+            "Beanstalk",
+            "fluid, glass, nectar",
+            can_adventure($location[Shadow Rift (Somewhere Over the Beanstalk)])
+        ),
+        new ShadowBrickLocation(
+            "McLargeHuge",
+            "skin, ice, stick",
+            can_adventure($location[Shadow Rift (Mt. McLargeHuge)])
+        ),
+        new ShadowBrickLocation(
+            "Items",
+            "<b>bread</b> <span style='color:blue; font-size:65%;'>(3F, aws)</span><br><b>brick</b> <span style='color:blue; font-size:65%;'>(kill, 13x/day)</span><br><b>flame</b> <span style='color:blue; font-size:65%;'>(+3 c.sp.res 100a)</span><br><b>fluid</b> <span style='color:blue; font-size:65%;'>(3D, aws)</span><br><b>glass</b> <span style='color:blue; font-size:65%;'>(ci, +30 pr.dmg)</span><br><b>ice</b> <span style='color:blue; font-size:65%;'>(10+ rnd stun)</span><br><b>nectar</b> <span style='color:blue; font-size:65%;'>(13S, 1000 m3)</span><br><b>sinew</b> <span style='color:blue; font-size:65%;'>(ci, 1K dlvl, stagger)</span><br><b>stick</b> <span style='color:blue; font-size:65%;'>(1h.club 13 c.sp.dmg.dlvl)</span><br><b>sausage</b> <span style='color:blue; font-size:65%;'>(3F, aws)</span><br><b>skin</b> <span style='color:blue; font-size:65%;'>(back, +3 c.sp.res)</span><br><b>venom</b> <span style='color:blue; font-size:65%;'>(3D, aws)</span>",
+            can_adventure($location[The Haunted Pantry])
         )
-    };
+};
 
     string [int][int] shadowBricksTable;
     foreach index, brickLocation in shadowBrickLocations {
@@ -122,8 +167,10 @@ void IOTMClosedCircuitPayPhoneGenerateTasks(ChecklistEntry [int] task_entries, C
         int riftAdvsUntilNC = get_property_int("encountersUntilSRChoice");
         string [int] affinityDescription;
         affinityDescription.listAppend(HTMLGenerateSpanFont("Shadow Rift fights are free!", "purple"));
+        affinityDescription.listAppend("<a href='https://kol.coldfront.net/thekolwiki/index.php/Shadow_Rifts#Loot' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Rifts Loot Table</span></a>");
         affinityDescription.listAppend(HTMLGenerateSpanFont(riftAdvsUntilNC + " encounters until NC/boss.", "black"));
         affinityDescription.listAppend(HTMLGenerateSpanFont("(don't use other free kills in there)", "black"));
+        affinityDescription.listAppend(getShadowBrickLocationTooltip());
         task_entries.listAppend(ChecklistEntryMake("__effect Shadow Affinity", url, ChecklistSubentryMake(shadowRiftFightsDoableRightNow + " Shadow Rift free fights", "", affinityDescription), -11));
     }
 }

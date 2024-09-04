@@ -22,7 +22,8 @@ void IOTMEverfullDartsGenerateTasks(ChecklistEntry [int] task_entries, Checklist
         else {
             description.listAppend(HTMLGenerateSpanFont("Dart holster equipped", "blue"));
         }
-        task_entries.listAppend(ChecklistEntryMake("__item everfull dart holster", url, ChecklistSubentryMake("Everfull Darts free kill available!", "", description), -11));
+        //see beta version for this
+		//task_entries.listAppend(ChecklistEntryMake("__item everfull dart holster", url, ChecklistSubentryMake("Everfull Darts free kill available!", "", description), -11));
     }
 }
 

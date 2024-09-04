@@ -1,5 +1,4 @@
-//NOT USED
-//Spring shoes
+//Spring shoes DISCARDED
 RegisterTaskGenerationFunction("IOTMSpringShoesGenerateTasks");
 RegisterResourceGenerationFunction("IOTMSpringShoesGenerateResource");
 
@@ -28,7 +27,7 @@ void IOTMSpringShoesGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEn
 			{
 				description.listAppend(HTMLGenerateSpanFont("Equip the spring shoes first.", "red"));
 			}
-			task_entries.listAppend(ChecklistEntryMake("__item spring shoes", url, ChecklistSubentryMake("Spring shoes runaway available!", "", description), -11));
+			//task_entries.listAppend(ChecklistEntryMake("__item spring shoes", url, ChecklistSubentryMake("Spring shoes runaway available!", "", description), -11));
 		}
 	}
 }

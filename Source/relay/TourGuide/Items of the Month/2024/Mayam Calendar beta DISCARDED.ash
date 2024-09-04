@@ -7,7 +7,8 @@ void IOTMMayamCalendarGenerateResourceBeta(ChecklistEntry [int] resource_entries
 	if (available_amount($item[mayam calendar]) > 0 && my_path().id != PATH_COMMUNITY_SERVICE)
 	{
 		string url = "inv_use.php?pwd=" + my_hash() + "&which=99&whichitem=11572";
-		int TempleResetAscension = get_property_int("lastTempleAdventures");
+		//int TempleResetAscension = get_property_int("lastTempleAdventures");
+		int TempleResetAscension = get_property_int("lastTempleUnlock");
 		description.listAppend("Happy Mayam New Year!");
 		
 		if (true || (!get_property("_mayamSymbolsUsed").contains_text("yam4") && !get_property("_mayamSymbolsUsed").contains_text("clock") && !get_property("_mayamSymbolsUsed").contains_text("explosion") && (my_ascensions() == TempleResetAscension)))

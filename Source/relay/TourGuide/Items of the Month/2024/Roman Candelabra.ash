@@ -1,4 +1,4 @@
-//Roman Candelabra
+//Roman Candelabra DISCARDED
 RegisterTaskGenerationFunction("IOTMRomanCandelabraGenerateTasks");
 void IOTMRomanCandelabraGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {

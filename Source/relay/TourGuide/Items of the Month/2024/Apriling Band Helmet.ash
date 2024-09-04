@@ -1,4 +1,4 @@
-// Apriling band helmet
+// Apriling band helmet DISCARDED
 RegisterResourceGenerationFunction("IOTMAprilingBandHelmetGenerateResource");
 void IOTMAprilingBandHelmetGenerateResource(ChecklistEntry [int] resource_entries)
 {
@@ -32,7 +32,7 @@ void IOTMAprilingBandHelmetGenerateResource(ChecklistEntry [int] resource_entrie
     else {
         description.listAppend((aprilingBandConductorTimer - total_turns_played()) + " adventures until you can change your tune.");
     }
-    resource_entries.listAppend(ChecklistEntryMake("__item apriling band helmet", url, ChecklistSubentryMake("Apriling band helmet buff", "", description), 8));
+    //resource_entries.listAppend(ChecklistEntryMake("__item apriling band helmet", url, ChecklistSubentryMake("Apriling band helmet buff", "", description), 8));
 
     int aprilingBandSaxUsesLeft = clampi(3 - get_property_int("_aprilBandSaxophoneUses"), 0, 3);
     int aprilingBandQuadTomUsesLeft = clampi(3 - get_property_int("_aprilBandTomUses"), 0, 3);
@@ -64,6 +64,6 @@ void IOTMAprilingBandHelmetGenerateResource(ChecklistEntry [int] resource_entrie
         if (aprilingBandPiccoloUsesLeft > 0 && available_amount($item[apriling band piccolo]) > 0) {
             instrumentDescription.listAppend(`Can play the Piccolo {aprilingBandPiccoloUsesLeft} more times. {HTMLGenerateSpanFont("+40 fxp", "purple")}`);
         }
-        resource_entries.listAppend(ChecklistEntryMake("__item apriling band helmet", url, ChecklistSubentryMake("Apriling band instruments", "", instrumentDescription), 8));
+        //resource_entries.listAppend(ChecklistEntryMake("__item apriling band helmet", url, ChecklistSubentryMake("Apriling band instruments", "", instrumentDescription), 8));
     }
 }

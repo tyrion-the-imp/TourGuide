@@ -53,14 +53,15 @@ void IOTMMayamCalendarGenerateResource(ChecklistEntry [int] resource_entries)
 
     string [int] description, hoverDescription;
 
-    int templeResetAscension = get_property_int("lastTempleAdventures");
+    //int templeResetAscension = get_property_int("lastTempleAdventures");
+	int TempleResetAscension = get_property_int("lastTempleUnlock");
     addToBothDescriptions(description, hoverDescription, "Happy Mayam New Year!");
 
     ChecklistEntry entry;
     entry.url = "inv_use.php?pwd=" + my_hash() + "&which=99&whichitem=11572";
     entry.image_lookup_name = "mayam calendar";
     entry.tags.id = "Mayam Calendar";
-    entry.importance_level = 8;
+    entry.importance_level = -12;
 
     if (!get_property("_mayamSymbolsUsed").contains_text("yam4") ||
         !get_property("_mayamSymbolsUsed").contains_text("clock") ||
