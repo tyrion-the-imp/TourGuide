@@ -134,7 +134,7 @@ void IOTMPatrioticEagleGenerateTasksTEMP(ChecklistEntry [int] task_entries, Chec
 			} else {
 				description2.listAppend(HTMLGenerateSpanOfStyle("Eagle can screech again.", "color:green"));
 			}
-			task_entries.listAppend(ChecklistEntryMake("__skill Singer's Faithful Ocelot", "familiar.php", ChecklistSubentryMake("Banned phylum: "+ HTMLGenerateSpanOfStyle(banishedPhylumStr, "color:red"), "", description2), -10).ChecklistEntrySetIDTag("Banned Phyla"));
+			task_entries.listAppend(ChecklistEntryMake("__familiar Patriotic Eagle", "familiar.php", ChecklistSubentryMake("Banned phylum: "+ HTMLGenerateSpanOfStyle(banishedPhylumStr, "color:red"), "", description2), -10).ChecklistEntrySetIDTag("Banned Phyla"));
 		//__item ketchup hound
 		}
 	}
