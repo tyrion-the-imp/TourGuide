@@ -23,7 +23,7 @@ void IOTMRomanCandelabraGenerateTasksTEMP(ChecklistEntry [int] task_entries, Che
 		if (get_property_boolean("kingLiberated")) {
 			optional_task_entries.listAppend(ChecklistEntryMake("__item Roman Candelabra", url, ChecklistSubentryMake("Roman Candelabra runaway available!", "", description), -11));
 		} else {
-			task_entries.listAppend(ChecklistEntryMake("__item Roman Candelabra", url, ChecklistSubentryMake("Roman Candelabra runaway available!", "", description), -11));
+			task_entries.listAppend(ChecklistEntryMake("__item Roman Candelabra", url, ChecklistSubentryMake("Roman Candelabra runaway available!", "", description), -10));
 		}
     }
 
@@ -44,7 +44,7 @@ void IOTMRomanCandelabraGenerateTasksTEMP(ChecklistEntry [int] task_entries, Che
 		if (get_property_boolean("kingLiberated")) {
 			optional_task_entries.listAppend(ChecklistEntryMake("__item Roman Candelabra", url, ChecklistSubentryMake("Roman Candelabra chained copy fight ready!", "", description), -11));
 		} else {
-			task_entries.listAppend(ChecklistEntryMake("__item Roman Candelabra", url, ChecklistSubentryMake("Roman Candelabra chained copy fight ready!", "", description), -11));
+			task_entries.listAppend(ChecklistEntryMake("__item Roman Candelabra", url, ChecklistSubentryMake("Roman Candelabra chained copy fight ready!", "", description), -10));
 		
 		}
     }

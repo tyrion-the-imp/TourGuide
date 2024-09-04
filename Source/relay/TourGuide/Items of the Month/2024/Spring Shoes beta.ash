@@ -8,7 +8,7 @@ void IOTMSpringShoesGenerateTasksBETA(ChecklistEntry [int] task_entries, Checkli
 		if ( $effect[everything looks green].have_effect() == 0 ) {
 			string [int] description;
 			string url = "inventory.php?ftext=spring+shoes";
-			int importance = -11;
+			int importance = -10;
 			if	( get_property_boolean("kingLiberated") ) { importance = -1; }
 			description.listAppend(HTMLGenerateSpanFont("Run away from your problems! (+30 ELG)", "green"));
 			if (lookupItem("spring shoes").equipped_amount() == 0)
