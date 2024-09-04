@@ -37,7 +37,7 @@ void IOTMJurassicParkaGenerateTasks(ChecklistEntry [int] task_entries, Checklist
 			}
 			else description.listAppend(HTMLGenerateSpanFont("Dilophosaur mode enabled.", "orange"));
 			
-			task_entries.listAppend(ChecklistEntryMake("__item jurassic parka", url, ChecklistSubentryMake("Parka yellow ray is ready; spit some acid!", "", description), -11));
+			task_entries.listAppend(ChecklistEntryMake("__item jurassic parka", url, ChecklistSubentryMake("Parka yellow ray is ready; spit some acid!", "", description), -10));
 		}
 	}
 }
