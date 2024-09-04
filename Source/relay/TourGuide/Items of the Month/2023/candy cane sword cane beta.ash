@@ -20,36 +20,42 @@ void IOTMCandyCaneSwordGenerateTasksBETA(ChecklistEntry [int] task_entries, Chec
 		if (!get_property_boolean("candyCaneSwordDefiledCranny") && get_property_int("cyrptCrannyEvilness") > 13) {
 			options.listAppend(HTMLGenerateSpanOfClass("Bonus:", "r_bold") + " Defiled Cranny -11 evil");
 			if (($locations[The Defiled Cranny] contains selectedLocation)) {
+			description2[count(description2)] = "-11 evil";
 			task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("candy cane sword cane", "", description2), -11));
 			}
 		}
 		if (!get_property_boolean("candyCaneSwordBlackForest")) {
 			options.listAppend(HTMLGenerateSpanOfClass("Bonus:", "r_bold") + " Black Forest +8 exploration");
 			if (($locations[The Black Forest] contains selectedLocation)) {
+			description2[count(description2)] = "+8 exploration";
 			task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("candy cane sword cane", "", description2), -11));
 			}
 		}
 		if (!get_property_boolean("candyCaneSwordDailyDungeon")) {
 			options.listAppend(HTMLGenerateSpanOfClass("Bonus:", "r_bold") + " Daily Dungeon +1 fat loot token");
 			if (($locations[The Daily Dungeon] contains selectedLocation)) {
+			description2[count(description2)] = "complete traps +1 loot token";
 			task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("candy cane sword cane", "", description2), -11));
 			}
 		}
 		if (!get_property_boolean("candyCaneSwordApartmentBuilding")) {
 			options.listAppend(HTMLGenerateSpanOfClass("Bonus:", "r_bold") + " Hidden Apartment +1 Curse");
 			if (($locations[The Hidden Apartment Building] contains selectedLocation)) {
+			description2[count(description2)] = "+1 level of Cursed";
 			task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("candy cane sword cane", "", description2), -11));
 			}
 		}
 		if (!get_property_boolean("candyCaneSwordBowlingAlley")) {
 			options.listAppend(HTMLGenerateSpanOfClass("Bonus:", "r_bold") + " Hidden Bowling Alley +1 bowlo");
 			if (($locations[The Hidden Bowling Alley] contains selectedLocation)) {
+			description2[count(description2)] = "-1 bowling ball needed";
 			task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("candy cane sword cane", "", description2), -11));
 			}
 		}
 		if (!get_property_boolean("candyCaneSwordShore")) {
 			options.listAppend(HTMLGenerateSpanOfClass("Alternate:", "r_bold") + " Shore: +2 scrips");
 			if (($locations[The Shore\, Inc. Travel Agency] contains selectedLocation)) {
+			description2[count(description2)] = "2 Shore Inc. Ship Trip Scrip, all stats, 100 turns of Martially-Minded";
 			task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("candy cane sword cane", "", description2), -11));
 			}
 		}
@@ -59,6 +65,7 @@ void IOTMCandyCaneSwordGenerateTasksBETA(ChecklistEntry [int] task_entries, Chec
 			if (!get_property_boolean("candyCaneSwordWarHippyBait") && !get_property_boolean("candyCaneSwordWarHippyLine")) {
 				options.listAppend(HTMLGenerateSpanOfClass("Alternate:", "r_bold") + " Hippy Camp: Redirect to war start");
 				if (($locations[Wartime Hippy Camp (Frat Disguise)] contains selectedLocation)) {
+				description2[count(description2)] = "choice adventures redirect to war start";
 				task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("candy cane sword cane", "", description2), -11));
 				}
 			}
@@ -66,6 +73,7 @@ void IOTMCandyCaneSwordGenerateTasksBETA(ChecklistEntry [int] task_entries, Chec
 			if (!get_property_boolean("candyCaneSwordWarFratRoom") && !get_property_boolean("candyCaneSwordWarFratZetas")) {
 				options.listAppend(HTMLGenerateSpanOfClass("Alternate:", "r_bold") + " Frat Camp: Redirect to war start");
 				if (($locations[Wartime Frat House (Hippy Disguise)] contains selectedLocation)) {
+				description2[count(description2)] = "choice adventures redirect to war start";
 				task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("candy cane sword cane", "", description2), -11));
 				}
 			}
@@ -74,6 +82,7 @@ void IOTMCandyCaneSwordGenerateTasksBETA(ChecklistEntry [int] task_entries, Chec
 		if (get_property_int("zeppelinProtestors") < 80) {
 				options.listAppend(HTMLGenerateSpanOfClass("Alternate: ", "r_bold") + "Zeppelin Protesters: x2 protestor removal, repeatable");
 			if (($locations[A Mob of Zeppelin Protesters] contains selectedLocation)) {
+				description2[count(description2)] = "x2 protestor removal, repeatable";
 				task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("candy cane sword cane", "", description2), -11));
 			}
 		}
@@ -81,6 +90,8 @@ void IOTMCandyCaneSwordGenerateTasksBETA(ChecklistEntry [int] task_entries, Chec
 		if (!get_property_boolean("candyCaneSwordCopperheadClub")) {
 				options.listAppend(HTMLGenerateSpanOfClass("Alternate: ", "r_bold") + "Copperhead: get priceless diamond");
 			if (($locations[The Copperhead Club] contains selectedLocation)) {
+				description2[count(description2)] = "get priceless diamond";
+				description2[count(description2)] = "(still need waiter disguise for noncom)";
 				task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("candy cane sword cane", "", description2), -11));
 			}
 		}
