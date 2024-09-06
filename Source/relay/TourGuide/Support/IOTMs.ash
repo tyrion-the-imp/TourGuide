@@ -182,6 +182,9 @@ void initialiseIOTMsUsable()
         __iotms_usable[$item[clan floundry]] = true;
     }
 
+    if (lookupItem("august scepter").available_amount() > 0) //Aug 2023
+        __iotms_usable[lookupItem("august scepter")] = true;
+		
     if (lookupItem("candy cane sword cane").available_amount() > 0) //Dec 2023
         __iotms_usable[lookupItem("candy cane sword cane")] = true;
 

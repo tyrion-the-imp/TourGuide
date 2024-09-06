@@ -16,7 +16,6 @@ void LuckyMegatileGenerateResourceTEMP(ChecklistEntry [int] resource_entries)
 		boolean HotDoggo = get_property_boolean("_fancyHotDogEaten");
 		
 			description.listAppend(HTMLGenerateSpanFont("Prepare a Lucky adventure!", "green"));
-			print(Saxos);
 			if (Saxos > 0 && ( available_amount($item[apriling band saxophone]) > 0 || ( get_property_int("_aprilBandInstruments") < 2 && __iotms_usable[$item[apriling band helmet]] ) ) ) {
 				Luckos += Saxos;
 				description.listAppend(HTMLGenerateSpanOfClass(Saxos, "r_bold") + "x Apriling Sax plays");
@@ -41,11 +40,11 @@ void LuckyMegatileGenerateResourceTEMP(ChecklistEntry [int] resource_entries)
 				}
 				description.listAppend(HTMLGenerateSpanOfClass("1", "r_bold") + "x free pill keeper pill");
 			}
-			if (Lindos > 0 && available_amount($item[Clan VIP Lounge key]) > 0) {
+			if (Lindos > 0 && available_amount($item[Clan VIP Lounge key]) > 0 && is_unrestricted("Clan Speakeasy")) {
 				Luckos += Lindos;
 				description.listAppend(HTMLGenerateSpanOfClass(Lindos, "r_bold") + "x Lucky Lindys (6 drunk)");
 			}
-			if (!HotDoggo && available_amount($item[Clan VIP Lounge key]) > 0) {
+			if (!HotDoggo && available_amount($item[Clan VIP Lounge key]) > 0 && is_unrestricted("Clan Hot Dog Stand")) {
 				if (!get_property_boolean("_fancyHotDogEaten")) {
 					Luckos += 1;
 				}
