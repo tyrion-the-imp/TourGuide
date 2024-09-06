@@ -108,6 +108,23 @@ void SocialDistanceGenerator(ChecklistEntry [int] resource_entries)
         return final;
     }
     
+	//Apriling band tuba		_aprilBandTubaUses
+    SneakSource getTubos() {
+        SneakSource final;
+
+        final.sourceName = `tuba plays`;
+        final.url = 'inventory.php?iid=11566&action=aprilplay&pwd='+my_hash();
+        final.imageLookupName = "__item Apriling band tuba";
+		
+		int tubosLeft = clampi(3 - get_property_int("_aprilBandTubaUses"), 0, 3);
+
+        final.sneakCondition = $item[Apriling band tuba].available_amount() > 0 && get_property_int("_aprilBandTubaUses") < 3;
+        final.sneakCount = tubosLeft; 
+        final.tileDescription = `<b>{final.sneakCount}x tuba plays</b> left`;
+
+        return final;
+    }
+	
     SneakSource getCinchos() {
         SneakSource final;
 
@@ -158,9 +175,10 @@ void SocialDistanceGenerator(ChecklistEntry [int] resource_entries)
     sneakSources["jello"] = getStenchJellies();
     sneakSources["pillo"] = getSneakisol();
     sneakSources["claro"] = getClaras();
+    sneakSources["tubo"] = getTubos();
 
     // Making it use the order we want; almost most recent to oldest, but pills on the bottom.
-    string [int] sneakOrder = listMake("cinco","spiko","jello","claro","pillo");
+    string [int] sneakOrder = listMake("tubo","cinco","spiko","jello","claro","pillo");
 
     ChecklistEntry entry;
     

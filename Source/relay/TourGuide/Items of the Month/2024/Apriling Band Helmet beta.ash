@@ -66,7 +66,7 @@ void IOTMAprilingBandHelmetGenerateResourceBETA(ChecklistEntry [int] resource_en
     if (instrumentUses < 6) {
         string url = "inventory.php?ftext=apriling";
         if (aprilingBandSaxUsesLeft > 0) {
-            instrumentDescription.listAppend(`Can play the Sax {aprilingBandSaxUsesLeft} more times. {HTMLGenerateSpanFont("LUCKY!", "green")}`);
+            instrumentDescription.listAppend(`Can play the Sax {aprilingBandSaxUsesLeft} more times. {HTMLGenerateSpanFont("LUCKY!", "green")}<br><span style='color:fuchsia; font-size:75%; font-weight:bold;'>(Summoning 2 of these still only gives 3 charges)</span>`);
         }
         if (aprilingBandQuadTomUsesLeft > 0) {
             instrumentDescription.listAppend(`Can play the Quad Toms {aprilingBandQuadTomUsesLeft} more times. {HTMLGenerateSpanFont("Sandworm!", "orange")}`);

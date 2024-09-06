@@ -83,8 +83,18 @@ string getShadowBrickLocationTooltip() {
             can_adventure($location[Shadow Rift (Mt. McLargeHuge)])
         ),
         new ShadowBrickLocation(
+            "Nearby Plains",
+            "sausage, skin, venom",
+            can_adventure($location[Shadow Rift (The Nearby Plains)])
+        ),
+        new ShadowBrickLocation(
+            "Town Right",
+            "skin, bread, glass",
+            can_adventure($location[Shadow Rift (The Right Side of the Tracks)])
+        ),
+        new ShadowBrickLocation(
             "Items",
-            "<b>bread</b> <span style='color:blue; font-size:65%;'>(3F, aws)</span><br><b>brick</b> <span style='color:blue; font-size:65%;'>(kill, 13x/day)</span><br><b>flame</b> <span style='color:blue; font-size:65%;'>(+3 c.sp.res 100a)</span><br><b>fluid</b> <span style='color:blue; font-size:65%;'>(3D, aws)</span><br><b>glass</b> <span style='color:blue; font-size:65%;'>(ci, +30 pr.dmg)</span><br><b>ice</b> <span style='color:blue; font-size:65%;'>(10+ rnd stun)</span><br><b>nectar</b> <span style='color:blue; font-size:65%;'>(13S, 1000 m3)</span><br><b>sinew</b> <span style='color:blue; font-size:65%;'>(ci, 1K dlvl, stagger)</span><br><b>stick</b> <span style='color:blue; font-size:65%;'>(1h.club 13 c.sp.dmg.dlvl)</span><br><b>sausage</b> <span style='color:blue; font-size:65%;'>(3F, aws)</span><br><b>skin</b> <span style='color:blue; font-size:65%;'>(back, +3 c.sp.res)</span><br><b>venom</b> <span style='color:blue; font-size:65%;'>(3D, aws)</span>",
+            "<b>bread</b> <span style='color:blue; font-size:65%;'>(3F, aws)</span><br><b>brick</b> <span style='color:blue; font-size:65%;'>(kill, 13x/day)</span><br><b>flame</b> <span style='color:blue; font-size:65%;'>(+3 c.sp.res 100a)</span><br><b>fluid</b> <span style='color:blue; font-size:65%;'>(3D, aws)</span><br><b>glass</b> <span style='color:blue; font-size:65%;'>(ci, +30 pr.dmg)</span><br><b>ice</b> <span style='color:blue; font-size:65%;'>(10+ rnd stun)</span><br><b>nectar</b> <span style='color:blue; font-size:65%;'>(L13, 13S, 1000 m3)</span><br><b>sinew</b> <span style='color:blue; font-size:65%;'>(ci, 1K dlvl, stagger)</span><br><b>stick</b> <span style='color:blue; font-size:65%;'>(1h.club 13 c.sp.dmg.dlvl)</span><br><b>sausage</b> <span style='color:blue; font-size:65%;'>(3F, aws)</span><br><b>skin</b> <span style='color:blue; font-size:65%;'>(back, +3 c.sp.res)</span><br><b>venom</b> <span style='color:blue; font-size:65%;'>(3D, aws)</span>",
             can_adventure($location[The Haunted Pantry])
         )
 };
