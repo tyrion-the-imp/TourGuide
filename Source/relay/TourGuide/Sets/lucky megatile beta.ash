@@ -7,7 +7,7 @@ void LuckyMegatileGenerateResourceTEMP(ChecklistEntry [int] resource_entries)
 	{
 		int Luckos;
 		
-		int Saxos = clampi(3 - get_property_int("_aprilBandSaxUses"), 0, 3);
+		int Saxos = clampi(3 - get_property_int("_aprilBandSaxophoneUses"), 0, 3);
 		boolean Scepto = get_property_boolean("_aug2Cast");
 		int AEDos = available_amount($item[[10883]astral energy drink]);
 		int Clovos = available_amount($item[11-leaf clover]);
@@ -16,6 +16,7 @@ void LuckyMegatileGenerateResourceTEMP(ChecklistEntry [int] resource_entries)
 		boolean HotDoggo = get_property_boolean("_fancyHotDogEaten");
 		
 			description.listAppend(HTMLGenerateSpanFont("Prepare a Lucky adventure!", "green"));
+			print(Saxos);
 			if (Saxos > 0 && ( available_amount($item[apriling band saxophone]) > 0 || ( get_property_int("_aprilBandInstruments") < 2 && __iotms_usable[$item[apriling band helmet]] ) ) ) {
 				Luckos += Saxos;
 				description.listAppend(HTMLGenerateSpanOfClass(Saxos, "r_bold") + "x Apriling Sax plays");

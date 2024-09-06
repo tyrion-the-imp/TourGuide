@@ -113,7 +113,7 @@ void SocialDistanceGenerator(ChecklistEntry [int] resource_entries)
         SneakSource final;
 
         final.sourceName = `tuba plays`;
-        final.url = 'inventory.php?iid=11566&action=aprilplay&pwd='+my_hash();
+        final.url = 'inventory.php?iid=11568&action=aprilplay&pwd='+my_hash();
         final.imageLookupName = "__item Apriling band tuba";
 		
 		int tubosLeft = clampi(3 - get_property_int("_aprilBandTubaUses"), 0, 3);
@@ -129,7 +129,7 @@ void SocialDistanceGenerator(ChecklistEntry [int] resource_entries)
         SneakSource final;
 
         final.sourceName = `fiesta exits`;
-        final.url = '';
+        final.url = 'skillz.php';
         final.imageLookupName = "__skill Cincho: Fiesta Exit";
         final.sneakCondition = __iotms_usable[$item[Cincho de Mayo]];
 
@@ -197,8 +197,8 @@ void SocialDistanceGenerator(ChecklistEntry [int] resource_entries)
         SneakSource sneaker = sneakSources[sneakType];
         if (sneaker.sneakCount > 0 && sneaker.sneakCondition) {
             totalSneaks += sneaker.sneakCount;
-            entry.url = sneaker.url;
-
+            //use the link for the 1st availaable sneak of sneakOrder
+			if (entry.url == "") { entry.url = sneaker.url; }
             line += "|*"+sneaker.tileDescription;
         }
 
