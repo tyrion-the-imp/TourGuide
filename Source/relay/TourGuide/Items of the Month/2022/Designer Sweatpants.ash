@@ -2,6 +2,8 @@
 RegisterTaskGenerationFunction("IOTMDesignerSweatpantsTasks");
 void IOTMDesignerSweatpantsTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
+	if	( !have_usable_item($item[designer sweatpants]) ) { return; }
+	if (!__iotms_usable[$item[designer sweatpants]]) { return; }
 	int sweat_o_meter = get_property_int("sweat");
 	int booze_sweats_left = clampi(3 - get_property_int("_sweatOutSomeBoozeUsed"), 0, 3);
 	string title = "Repair Liver & Destroy It Again";

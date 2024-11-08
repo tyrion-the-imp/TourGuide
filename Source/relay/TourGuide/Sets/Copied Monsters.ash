@@ -646,7 +646,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
             //copy_source_entry.image_lookup_name = "__skill Recall Facts: Monster Habitats";
 	}
 	//habitat recalls, book of facts, Just the Facts
-	if	( is_unrestricted($skill[Just the Facts]) && get_property_int("_monsterHabitatsRecalled") < 3 ) {
+	if	(skill_is_usable($skill[Just the Facts]) && get_property_int("_monsterHabitatsRecalled") < 3 ) {
 		int jtfCastsLeft = 3 - get_property_int("_monsterHabitatsRecalled");
 		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(jtfCastsLeft, "cast of habitat recall", "casts of habitat recall") + "&nbsp;&nbsp;(6 wandering copies)", "", ""));
         if (copy_source_entry.image_lookup_name == "")

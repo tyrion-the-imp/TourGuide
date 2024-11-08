@@ -96,6 +96,19 @@ boolean item_is_usable(item it)
 	return true;
 }
 
+boolean have_usable_item(item it)
+{
+    if (!it.is_unrestricted())
+        return false;
+    if (it.available_amount() < 1)
+        return false;
+    if (my_path().id == PATH_G_LOVER && !it.contains_text("g") && !it.contains_text("G"))
+        return false;
+    if (my_path().id == PATH_BEES_HATE_YOU && (it.contains_text("b") || it.contains_text("B")))
+    	return false;
+	return true;
+}
+
 //available_amount() except it tests against item_is_usable()
 int usable_amount(item it)
 {

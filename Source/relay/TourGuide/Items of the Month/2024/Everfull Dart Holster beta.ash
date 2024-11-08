@@ -2,7 +2,7 @@
 RegisterTaskGenerationFunction("IOTMEverfullDartsGenerateTasksBeta");
 void IOTMEverfullDartsGenerateTasksBeta(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
-    #if (__misc_state["in run"] && available_amount($item[everfull dart holster]) > 0 && my_path().id != PATH_COMMUNITY_SERVICE)
+    if (item_is_usable($item[everfull dart holster]) && available_amount($item[everfull dart holster]) > 0 && my_path().id != PATH_COMMUNITY_SERVICE)
     {
         string [int] description;
         string url = "inventory.php?ftext=everfull+dart_holster";
