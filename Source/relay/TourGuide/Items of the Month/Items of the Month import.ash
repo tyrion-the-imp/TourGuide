@@ -3,6 +3,7 @@ import "relay/TourGuide/Items of the Month/Misc/Gardens.ash";
 import "relay/TourGuide/Items of the Month/Misc/Horsery.ash";
 import "relay/TourGuide/Items of the Month/Misc/Libram.ash";
 import "relay/TourGuide/Items of the Month/Misc/Tomes.ash";
+import "relay/TourGuide/Items of the Month/Misc/glaciest_tasks.ash";
 
 // Time-Twitching Tower
 import "relay/TourGuide/Items of the Month/Time-Twitching Tower/Tea Tree.ash";
