@@ -21,10 +21,10 @@ void IOTMBatWingsGenerateResource(ChecklistEntry [int] resource_entries)
 	}
 	else
 	{
-		description.listAppend(HTMLGenerateSpanFont("Nanananananananana Battyman!", "purple"));
+		description.listAppend(HTMLGenerateSpanFont("Bat Wings are equipped", "green"));
 	}
 	if (!$location[The Castle in the Clouds in the Sky (Basement)].locationAvailable()) {
-        description.listAppend(HTMLGenerateSpanFont("This saves turns in the Airshit!", "blue"));
+        description.listAppend(HTMLGenerateSpanFont("This saves turns in the Airship!", "blue"));
 	}
 	if (batWingSwoopsLeft == 0)
 	{
@@ -70,5 +70,5 @@ void IOTMBatWingsGenerateResource(ChecklistEntry [int] resource_entries)
 		description.listAppend("Visit the Bat Hole zones to unlock the Beanbat Chamber and get a bean");
 	}
 
-	resource_entries.listAppend(ChecklistEntryMake("__item bat wings", url, ChecklistSubentryMake("Bat Wings functions", "", Description), -500));
+	resource_entries.listAppend(ChecklistEntryMake("__item bat wings", url, ChecklistSubentryMake("Bat Wings functions", "", description), -500));
 }

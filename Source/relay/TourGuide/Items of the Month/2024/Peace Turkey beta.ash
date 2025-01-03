@@ -10,6 +10,7 @@ void IOTMPeaceTurkeyGenerateResourceBETA(ChecklistEntry [int] resource_entries)
     string url = "familiar.php";
     {
         description.listAppend("" + PeasCount/2 + " peabanishers available (paste peas + peas)");
-        resource_entries.listAppend(ChecklistEntryMake("__familiar peace turkey", url, ChecklistSubentryMake(HTMLGenerateSpanFont(turkeyProc +"% Peace Turkey", "black"), "", description), -500));
+        description.listAppend("percentage is Peace Turkey post-combat activation rate");
+        resource_entries.listAppend(ChecklistEntryMake("__familiar peace turkey", url, ChecklistSubentryMake(HTMLGenerateSpanFont("A "+turkeyProc +"% active Peace Turkey", "black"), "", description), -502));
     }
 }

@@ -2,7 +2,7 @@
 RegisterResourceGenerationFunction("IOTMSeptemberSeptemberCenserGenerateResourceBeta");
 void IOTMSeptemberSeptemberCenserGenerateResourceBeta(ChecklistEntry [int] resource_entries)
 {
-  if ($item[Sept-Ember Censer].available_amount() == 0) return;
+	if ($item[Sept-Ember Censer].available_amount() == 0) return;
 	
 	int SeptEmbers = get_property_int("availableSeptEmbers");
 	string [int] description;
@@ -35,5 +35,5 @@ void IOTMSeptemberSeptemberCenserGenerateResourceBeta(ChecklistEntry [int] resou
 	}
 	description.listAppend("(You have " + (HTMLGenerateSpanFont(hunkCount, "red")) + " hunks)");
 
-	resource_entries.listAppend(ChecklistEntryMake("__item sept-ember censer", url, ChecklistSubentryMake(title, "", description), -500));
+	resource_entries.listAppend(ChecklistEntryMake("__item sept-ember censer", url, ChecklistSubentryMake(title, "", description), -501));
 }
