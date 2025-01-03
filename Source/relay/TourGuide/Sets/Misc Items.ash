@@ -213,6 +213,7 @@ void SMiscItemsGenerateResource(ChecklistEntry [int] resource_entries)
         if (subentry.entries.count() > 0) {
             ChecklistEntry entry = ChecklistEntryMake("__item pantsgiving", url, subentry);
             entry.tags.id = "Pantsgiving resource";
+            entry.importance_level = -40;
             entry.should_indent_after_first_subentry = true;
             resource_entries.listAppend(entry);
         }

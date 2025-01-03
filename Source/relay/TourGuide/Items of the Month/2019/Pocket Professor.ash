@@ -112,6 +112,7 @@ void IOTMPocketProfessorResource(ChecklistEntry [int] resource_entries)
     ChecklistEntry entry;
     entry.image_lookup_name = "__familiar pocket professor";
     entry.tags.id = "Pocket professor familiar resource";
+	entry.importance_level = -79;
 
     ChecklistSubentry lectures = getLecture();
     if (lectures.entries.count() > 0) {

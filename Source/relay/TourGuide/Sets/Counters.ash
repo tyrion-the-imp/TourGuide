@@ -314,7 +314,7 @@ void SCountersGenerateEntry(ChecklistEntry [int] task_entries, ChecklistEntry [i
         if (window_image_names contains window_name)
             image_name = window_image_names[window_name];
         
-        int importance = 10;
+        int importance = -79;
         if (very_important)
             importance = -11;
         ChecklistEntry entry = ChecklistEntryMake(image_name, url, subentry, importance);

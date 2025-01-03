@@ -43,5 +43,5 @@ void IOTMDesignerSweatpantsResource(ChecklistEntry [int] resource_entries)
 	description.listAppend(HTMLGenerateSpanOfClass("Make Sweat-Ade (50% sweat):", "r_bold") + " make a PvP Fight spleen item");
     if (booze_sweats_left > 0)
         description.listAppend(HTMLGenerateSpanOfClass("Sweat Out Some Booze (25% sweat):", "r_bold") + HTMLGenerateSpanFont(" -1 Drunkenness. " + booze_sweats_left + " uses left for today.", "orange"));
-    resource_entries.listAppend(ChecklistEntryMake("__item designer sweatpants", url, ChecklistSubentryMake(title, description), 1).ChecklistEntrySetIDTag("designer sweatpants resource"));
+    resource_entries.listAppend(ChecklistEntryMake("__item designer sweatpants", url, ChecklistSubentryMake(title, description), -40).ChecklistEntrySetIDTag("designer sweatpants resource"));
 }
