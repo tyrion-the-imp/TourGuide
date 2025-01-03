@@ -10,7 +10,7 @@ void IOTMTearawayPantsGenerateTaskBeta(ChecklistEntry [int] optional_task_entrie
 
     // I can't believe I'm doing this. I have truly lost control of my life.
     QuestState base_quest_state = __quest_state["Guild"];
-	if (base_quest_state.finished || !base_quest_state.startable || base_quest_state.mafia_internal_step == 2) return;
+	//if (base_quest_state.finished || !base_quest_state.startable || base_quest_state.mafia_internal_step == 2) return;
 
     // Do you have the stupid pants equipped?
     boolean havePantsEquipped = $slot[pants].equipped_item() == $item[tearaway pants];
@@ -19,7 +19,7 @@ void IOTMTearawayPantsGenerateTaskBeta(ChecklistEntry [int] optional_task_entrie
 
     // If equipped, send user to the guild. If not, send them to the inventory.
 	string url = havePantsEquipped ? "guild.php" : "inventory.php?ftext=tearaway+pants";
-	string header = "Tear away your tearaway pants!";
+	string header = "Tear away your tearaway pants! BETA";
 
     if (havePantsEquipped) description.listAppend(`Visit the Department of Shadowy Arts and Crafts to unlock the guild!`);
     if (!havePantsEquipped) description.listAppend(`Visit the Department of Shadowy Arts and Crafts with your pants equipped to unlock the guild!`);

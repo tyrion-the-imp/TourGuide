@@ -1,6 +1,6 @@
 //Sept-Ember Censer
-RegisterResourceGenerationFunction("IOTMSeptemberSeptemberCenserGenerateResourceBeta");
-void IOTMSeptemberSeptemberCenserGenerateResourceBeta(ChecklistEntry [int] resource_entries)
+RegisterResourceGenerationFunction("IOTMSeptemberCenserGenerateResourceBeta");
+void IOTMSeptemberCenserGenerateResourceBeta(ChecklistEntry [int] resource_entries)
 {
 	if ($item[Sept-Ember Censer].available_amount() == 0) return;
 	
@@ -24,13 +24,13 @@ void IOTMSeptemberSeptemberCenserGenerateResourceBeta(ChecklistEntry [int] resou
 	if (structureUsed) {
 		description.listAppend((HTMLGenerateSpanFont("Already used structural ember today", "red")));
 	}
-	if (structureUsed == false) {
+	else {
 		description.listAppend("4 embers: +5/5 bridge parts (1/day).");
 	}
 	if (hulkFought) {
 		description.listAppend((HTMLGenerateSpanFont("Already fought embering hulk today", "red")));
 	}
-	if (hulkFought == false) {
+	else {
 		description.listAppend("6 embers: embering hulk (1/day)");
 	}
 	description.listAppend("(You have " + (HTMLGenerateSpanFont(hunkCount, "red")) + " hunks)");

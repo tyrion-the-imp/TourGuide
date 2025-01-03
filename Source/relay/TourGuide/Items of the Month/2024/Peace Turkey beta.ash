@@ -1,5 +1,5 @@
 RegisterResourceGenerationFunction("IOTMPeaceTurkeyGenerateResourceBeta");
-void IOTMPeaceTurkeyGenerateResourceBETA(ChecklistEntry [int] resource_entries)
+void IOTMPeaceTurkeyGenerateResourceBeta(ChecklistEntry [int] resource_entries)
 {
     if (!lookupFamiliar("Peace Turkey").familiar_is_usable()) return;
 

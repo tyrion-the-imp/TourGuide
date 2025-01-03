@@ -10,7 +10,7 @@ void IOTMTearawayPantsGenerateTask(ChecklistEntry [int] optional_task_entries)
 
     // I can't believe I'm doing this. I have truly lost control of my life.
     QuestState base_quest_state = __quest_state["Guild"];
-	if (base_quest_state.finished || !base_quest_state.startable || base_quest_state.mafia_internal_step == 2) return;
+	//if (base_quest_state.finished || !base_quest_state.startable || base_quest_state.mafia_internal_step == 2) return;
 
     // Do you have the stupid pants equipped?
     boolean havePantsEquipped = $slot[pants].equipped_item() == $item[tearaway pants];

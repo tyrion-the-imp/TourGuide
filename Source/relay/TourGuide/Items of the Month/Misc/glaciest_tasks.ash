@@ -1,6 +1,6 @@
 //glaciest tasks
-RegisterTaskGenerationFunction("IOTMGlaciestGenerateTasks");
-void IOTMGlaciestGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
+RegisterTaskGenerationFunction("IOTMGlaciestGenerateTasksbeta");
+void IOTMGlaciestGenerateTasksbeta(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
     if (!__misc_state["cold airport available"])
         return;

@@ -171,7 +171,7 @@ import "relay/TourGuide/Items of the Month/2024/Mini Kiwi.ash";
 //import "relay/TourGuide/Items of the Month/2024/Roman Candelabra.ash";
 import "relay/TourGuide/Items of the Month/2024/Roman Candelabra beta.ash";
 
-import "relay/TourGuide/Items of the Month/2024/Tearaway Pants.ash";
+//import "relay/TourGuide/Items of the Month/2024/Tearaway Pants.ash";
 import "relay/TourGuide/Items of the Month/2024/Tearaway Pants beta.ash";
 
 import "relay/TourGuide/Items of the Month/2024/Peace Turkey beta.ash";
