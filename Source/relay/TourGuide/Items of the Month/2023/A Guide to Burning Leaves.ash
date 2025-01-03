@@ -196,7 +196,7 @@ void IOTMBurningLeavesGenerateResource(ChecklistEntry [int] resource_entries)
             summonOptions.listAppend(option);
         }
         itemsDescription.listAppend(HTMLGenerateSimpleTableLines(summonOptions));
-        resource_entries.listAppend(ChecklistEntryMake("__item inflammable leaf", url, ChecklistSubentryMake(pluralise(leafCount, "leaf to burn for items", "leaves to burn for items"), "", itemsDescription), 14).ChecklistEntrySetIDTag("Burning leaf item summons"));
+        resource_entries.listAppend(ChecklistEntryMake("__item inflammable leaf", url, ChecklistSubentryMake(pluralise(leafCount, "leaf to burn for items", "leaves to burn for items"), "", itemsDescription), -30).ChecklistEntrySetIDTag("Burning leaf item summons"));
 
         // With item summons done, make a seal-esque fights tile
         

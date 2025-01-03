@@ -176,5 +176,5 @@ void IOTMComprehensiveCartographyGenerateResource(ChecklistEntry [int] resource_
 	description.listAppend("<a href='https://kol.coldfront.net/thekolwiki/index.php/Comprehensive_Cartography#Notes' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Table of Special Advs</span></a>");
 	description.listAppendList(location_list);
 	
-	resource_entries.listAppend(ChecklistEntryMake("__skill Map the Monsters", url, ChecklistSubentryMake(casts_remaining.pluralise(" monster mapping", " monster mappings") + " remaining", "", description), -10).ChecklistEntrySetIDTag("Cartography skill map resource"));
+	resource_entries.listAppend(ChecklistEntryMake("__skill Map the Monsters", url, ChecklistSubentryMake(casts_remaining.pluralise(" monster mapping", " monster mappings") + " remaining", "", description), -79).ChecklistEntrySetIDTag("Cartography skill map resource"));
 }

@@ -24,6 +24,6 @@ void IOTMTearawayPantsGenerateTaskBeta(ChecklistEntry [int] optional_task_entrie
     if (havePantsEquipped) description.listAppend(`Visit the Department of Shadowy Arts and Crafts to unlock the guild!`);
     if (!havePantsEquipped) description.listAppend(`Visit the Department of Shadowy Arts and Crafts with your pants equipped to unlock the guild!`);
 
-	optional_task_entries.listAppend(ChecklistEntryMake("__item tearaway pants", url, ChecklistSubentryMake(header, "", description), 0));
+	optional_task_entries.listAppend(ChecklistEntryMake("__item tearaway pants", url, ChecklistSubentryMake(header, "", description), -40));
 
 }

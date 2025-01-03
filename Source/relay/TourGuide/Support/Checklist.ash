@@ -612,18 +612,18 @@ buffer ChecklistGenerate(Checklist cl, boolean output_borders) {
 			entry.importance_level = -60;
 		}
 		if ( entry.tags.combination == "banish" ) {
-			entry.importance_level = -30;
+			entry.importance_level = -69;
 		}
 		
 		//-50 Copied Monsters.ash stuff
 		
 		if ( entry.tags.combination == "daily free fight" ) {
-			entry.importance_level = -70;
+			entry.importance_level = -60;
 			if	( turns_played() < 11 ) {
 				entry.importance_level = -99;
 			}
 			if	( my_daycount() > 1 ) {
-				entry.importance_level = -20;
+				//entry.importance_level = -20;
 			}
 			//print(entry.url);
 			//this rank doesn't determine the order listed...only the order of which one is listed FIRST..and therefore which URL is clickable

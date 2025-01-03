@@ -35,5 +35,5 @@ void IOTMSeptemberCenserGenerateResourceBeta(ChecklistEntry [int] resource_entri
 	}
 	description.listAppend("(You have " + (HTMLGenerateSpanFont(hunkCount, "red")) + " hunks)");
 
-	resource_entries.listAppend(ChecklistEntryMake("__item sept-ember censer", url, ChecklistSubentryMake(title, "", description), -501));
+	resource_entries.listAppend(ChecklistEntryMake("__item sept-ember censer", url, ChecklistSubentryMake(title, "", description), -30));
 }

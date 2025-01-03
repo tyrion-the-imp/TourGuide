@@ -185,7 +185,7 @@ void SocialDistanceGenerator(ChecklistEntry [int] resource_entries)
 	entry.url = "";
 	entry.image_lookup_name = "__effect Feeling Sneaky";
     entry.tags.id = "Sneak sources available";
-    entry.importance_level = -11;
+    entry.importance_level = -70;
 
     string [int] description;
     int totalSneaks = 0;
@@ -405,7 +405,7 @@ void SneakActiveTask(ChecklistEntry [int] task_entries, ChecklistEntry [int] opt
 	entry.url = "";
 	entry.image_lookup_name = "__effect Feeling Sneaky";
     entry.tags.id = "Active sneak reminder";
-    entry.importance_level = -11;
+    entry.importance_level = -70;
 
     entry.subentries.listAppend(ChecklistSubentryMake("Noncombat up next","","You're feeling sneaky; a noncombat will occur in the next zone where an NC is available. Don't waste it!")); 
 

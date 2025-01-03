@@ -10,7 +10,7 @@ void IOTMAprilingBandHelmetGenerateResourceBETA(ChecklistEntry [int] resource_en
     //battle of the bands
     int aprilingBandConductorTimer = get_property_int("nextAprilBandTurn");
     string url = "inventory.php?pwd=" + my_hash() + "&action=apriling";
-	int resrc_importance = -150;
+	int resrc_importance = -40;
 
     foreach e in $effects[Apriling Band Patrol Beat,Apriling Band Battle Cadence,Apriling Band Celebration Bop,] {
 		if	( have_effect(e) > 0 ) {

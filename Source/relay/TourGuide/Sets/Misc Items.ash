@@ -85,7 +85,7 @@ void SMiscItemsGenerateResource(ChecklistEntry [int] resource_entries)
 {
     int importance_level_item = 7;
     int importance_level_unimportant_item = 8;
-    int importance_level_super_important = -100;
+    int importance_level_super_important = -31;
     int meatgen_importance_level = importance_level_item;
 	if	( in_hardcore() ) { meatgen_importance_level = -50; }
     

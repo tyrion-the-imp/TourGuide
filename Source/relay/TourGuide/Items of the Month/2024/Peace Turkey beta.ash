@@ -11,6 +11,6 @@ void IOTMPeaceTurkeyGenerateResourceBeta(ChecklistEntry [int] resource_entries)
     {
         description.listAppend("" + PeasCount/2 + " peabanishers available (paste peas + peas)");
         description.listAppend("percentage is Peace Turkey post-combat activation rate");
-        resource_entries.listAppend(ChecklistEntryMake("__familiar peace turkey", url, ChecklistSubentryMake(HTMLGenerateSpanFont("A "+turkeyProc +"% active Peace Turkey", "black"), "", description), -502));
+        resource_entries.listAppend(ChecklistEntryMake("__familiar peace turkey", url, ChecklistSubentryMake(HTMLGenerateSpanFont("A "+turkeyProc +"% active Peace Turkey", "black"), "", description), -50));
     }
 }

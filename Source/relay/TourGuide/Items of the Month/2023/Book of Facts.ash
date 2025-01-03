@@ -66,7 +66,7 @@ void IOTMBookofFactsGenerateResource(ChecklistEntry [int] resource_entries)
     if (get_property_int("_monsterHabitatsRecalled") < 3) {
         description.listAppend("Good targets include monsters you want 6 of:");
 		description.listAppend("Fantasy bandit, eldritch tentacle, black crayon monsters, halloween monsters.");
-        resource_entries.listAppend(ChecklistEntryMake("__item hey deze map", "", ChecklistSubentryMake(pluralise(habitatRecallsLeft, "Habitat recall", "Habitat recalls"), "", description), -50).ChecklistEntrySetIDTag("habitat recalls"));
+        resource_entries.listAppend(ChecklistEntryMake("__item hey deze map", "", ChecklistSubentryMake(pluralise(habitatRecallsLeft, "Habitat recall", "Habitat recalls"), "", description), -79).ChecklistEntrySetIDTag("habitat recalls"));
     }
 
 	// TODO: Once mt_rand is exposed, show on-path wishes. Not really doable yet lol
