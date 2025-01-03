@@ -173,3 +173,7 @@ import "relay/TourGuide/Items of the Month/2024/Roman Candelabra beta.ash";
 
 import "relay/TourGuide/Items of the Month/2024/Tearaway Pants.ash";
 import "relay/TourGuide/Items of the Month/2024/Tearaway Pants beta.ash";
+
+import "relay/TourGuide/Items of the Month/2024/Peace Turkey beta.ash";
+import "relay/TourGuide/Items of the Month/2024/Sept-Ember Censer beta.ash";
+import "relay/TourGuide/Items of the Month/2024/Bat Wings beta.ash";

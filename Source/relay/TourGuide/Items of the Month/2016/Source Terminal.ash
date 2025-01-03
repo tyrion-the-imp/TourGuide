@@ -6,7 +6,7 @@ void IOTMSourceTerminalGenerateDigitiseTargets(string [int] description)
             potential_targets.listAppend("lobsterfrogman");
         if (__quest_state["Level 7"].state_int["alcove evilness"] > 31)
             potential_targets.listAppend("modern zmobie");
-        if (!__quest_state["Level 8"].state_boolean["Mountain climbed"] && $items[ninja rope,ninja carabiner,ninja crampons].available_amount() == 0 && !have_outfit_components("eXtreme Cold-Weather Gear"))
+        if (!__quest_state["Level 8"].state_boolean["Mountain climbed"] && $items[frayed ninja rope,loose ninja carabiner,dull ninja crampons].available_amount() == 0 && !have_outfit_components("eXtreme Cold-Weather Gear"))
             potential_targets.listAppend("ninja assassin");
     }
     //FIXME witchess bishop or knight

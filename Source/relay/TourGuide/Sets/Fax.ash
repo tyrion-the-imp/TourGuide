@@ -69,7 +69,7 @@ string [int] SFaxGeneratePotentialFaxes(boolean suggest_less_powerful_faxes, boo
         //ninja snowman assassin (copy only)
         if (!__quest_state["Level 8"].state_boolean["Mountain climbed"] && !blocked_monsters[$monster[ninja snowman assassin]])
         {
-            int equipment_missing_count = $items[ninja carabiner,ninja crampons,ninja rope].items_missing().count();
+            int equipment_missing_count = $items[loose ninja carabiner,dull ninja crampons,frayed ninja rope].items_missing().count();
             if (equipment_missing_count > 0)
             {
                 string fax = "";

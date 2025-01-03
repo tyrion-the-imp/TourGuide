@@ -61,7 +61,7 @@ void CopiedMonstersGenerateDescriptionForMonster(string monster_name, string [in
 	if (monster_name == "ninja snowman assassin")
 	{
 		description.listAppend(generateNinjaSafetyGuide(show_details));
-        int components_missing = $items[ninja rope,ninja carabiner,ninja crampons].items_missing().count();
+        int components_missing = $items[frayed ninja rope,loose ninja carabiner,dull ninja crampons].items_missing().count();
         if (components_missing > 0)
             description.listAppend("Need to fight " + components_missing.int_to_wordy() + " more.");
         else
@@ -360,7 +360,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
             potential_copies.listAppend("Swarm of ghuol whelps.");
         if (__quest_state["Level 7"].state_boolean["alcove needs speed tricks"])
             potential_copies.listAppend("Modern zmobies.");
-        if (!__quest_state["Level 8"].state_boolean["Mountain climbed"] && $items[ninja rope,ninja carabiner,ninja crampons].available_amount() == 0 && !have_outfit_components("eXtreme Cold-Weather Gear"))
+        if (!__quest_state["Level 8"].state_boolean["Mountain climbed"] && $items[frayed ninja rope,loose ninja carabiner,dull ninja crampons].available_amount() == 0 && !have_outfit_components("eXtreme Cold-Weather Gear"))
             potential_copies.listAppend("Ninja assassin.");
 		
         if	( $item[Richard's star key].available_amount() == 0 && __misc_state["in run"] ) {
