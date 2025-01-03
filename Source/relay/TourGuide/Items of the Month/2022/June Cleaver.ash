@@ -124,5 +124,5 @@ void IOTMJuneCleaverGenerateResource(ChecklistEntry [int] resource_entries)
 	if (possibleDreams.count() > 0)
 	description.listAppend(HTMLGenerateSpanOfClass("Possible dreams (not in any order):", "r_bold") + "|*" + possibleDreams.listJoinComponents("|*"));
 	
-	resource_entries.listAppend(ChecklistEntryMake("__item June Cleaver", url, ChecklistSubentryMake(main_title, description)).ChecklistEntrySetIDTag("June cleaver dreams"));
+	resource_entries.listAppend(ChecklistEntryMake("__item June Cleaver", url, ChecklistSubentryMake(main_title, description),-40).ChecklistEntrySetIDTag("June cleaver dreams"));
 }

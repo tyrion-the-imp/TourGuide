@@ -121,7 +121,7 @@ void SMiscItemsGenerateResource(ChecklistEntry [int] resource_entries)
         
         string [int] description;
         description.listAppend(navel_percent_chance_of_runaway + "% chance of free runaway.");
-        resource_entries.listAppend(ChecklistEntryMake("__item navel ring of navel gazing", url, ChecklistSubentryMake(name, "", description)).ChecklistEntrySetIDTag("Navel ring of navel gazing"));
+        resource_entries.listAppend(ChecklistEntryMake("__item navel ring of navel gazing", url, ChecklistSubentryMake(name, "", description), -55).ChecklistEntrySetIDTag("Navel ring of navel gazing"));
     }
     if (__iotms_usable[lookupItem("Greatest American Pants")]) {
         have_navel_type_equipment = true;
@@ -660,7 +660,7 @@ void SMiscItemsGenerateResource(ChecklistEntry [int] resource_entries)
     if ($item[mayfly bait necklace].available_amount() > 0 && get_property_int("_mayflySummons") < 30) {
         int uses_remaining = 30 - get_property_int("_mayflySummons");
         string url = $item[mayfly bait necklace].equipped() ? "" : "inventory.php?ftext=mayfly+bait+necklace";
-        resource_entries.listAppend(ChecklistEntryMake("__item mayfly bait necklace", url, ChecklistSubentryMake(pluralise(uses_remaining, "mayfly summon available", "mayfly summons available"), "This probably does something useful", $item[mayfly bait necklace].equipped() ? "" : "Equip the necklace first."), importance_level_unimportant_item).ChecklistEntrySetIDTag("Mayfly bait necklace"));
+        resource_entries.listAppend(ChecklistEntryMake("__item mayfly bait necklace", url, ChecklistSubentryMake(pluralise(uses_remaining, "mayfly summon available", "mayfly summons available"), "This probably does something useful", $item[mayfly bait necklace].equipped() ? "" : "Equip the necklace first."), -40).ChecklistEntrySetIDTag("Mayfly bait necklace"));
     }
     
     if (in_run) {
@@ -1083,7 +1083,7 @@ void SMiscItemsGenerateResource(ChecklistEntry [int] resource_entries)
             }
             description.listAppend("Land critical hits for chance of getting adventures.");
             description.listAppend("Also a pseudopickpocket.");
-            resource_entries.listAppend(ChecklistEntryMake("__item V for Vivala mask", url, ChecklistSubentryMake(pluralise(critAdvs_remaining, "V for Vivala mask adventure available", "V for Vivala mask adventures available"), "+critical%", description), importance_level_item).ChecklistEntrySetIDTag("Vivala mask resource"));
+            resource_entries.listAppend(ChecklistEntryMake("__item V for Vivala mask", url, ChecklistSubentryMake(pluralise(critAdvs_remaining, "V for Vivala mask adventure available", "V for Vivala mask adventures available"), "+critical%", description), -40).ChecklistEntrySetIDTag("Vivala mask resource"));
         }
     }
     

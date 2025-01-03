@@ -121,6 +121,7 @@ void IOTMBirdADayCalendar(ChecklistEntry [int] resource_entries)
     entry.image_lookup_name = "__effect Blessing of the Bird";
     entry.url = "skillz.php";
     entry.tags.id = "Bird-a-day cast";
+	entry.importance_level = -30;
 
     ChecklistSubentry birdMods = getBirdMods();
     if (birdMods.entries.count() > 0) {

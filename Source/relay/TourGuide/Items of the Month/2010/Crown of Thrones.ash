@@ -312,5 +312,5 @@ void IOTMCOTGenerateResource(ChecklistEntry [int] resource_entries)
         header = available_sources.listJoinComponents(", ", "and");
         
     if (description.count() > 0)
-        resource_entries.listAppend(ChecklistEntryMake(image_name, url, ChecklistSubentryMake(header, "", description), 8).ChecklistEntrySetIDTag("Crown of Bjorn/Buddy thrones resource"));
+        resource_entries.listAppend(ChecklistEntryMake(image_name, url, ChecklistSubentryMake(header, "", description), -41).ChecklistEntrySetIDTag("Crown of Bjorn/Buddy thrones resource"));
 }

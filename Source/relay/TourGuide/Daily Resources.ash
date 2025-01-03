@@ -324,7 +324,7 @@ void generateDailyResources(Checklist [int] checklists)
             }
 
 
-            resource_entries.listAppend(ChecklistEntryMake("__item 7-Foot Dwarven mattock", url, ChecklistSubentryMake( free_digs_available + " free minings", "", description), 5).ChecklistEntrySetIDTag("Unaccompanied miner resource"));
+            resource_entries.listAppend(ChecklistEntryMake("__item 7-Foot Dwarven mattock", url, ChecklistSubentryMake( free_digs_available + " free minings", "", description), -30).ChecklistEntrySetIDTag("Unaccompanied miner resource"));
         }
     }
 

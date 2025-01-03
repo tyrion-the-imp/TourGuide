@@ -34,13 +34,14 @@ void IOTMLatteGenerateResource(ChecklistEntry [int] resource_entries)
             description.listAppend("Free run/banish");
         }
 
-        resource_entries.listAppend(ChecklistEntryMake("__item latte lovers member's mug", banish_url, ChecklistSubentryMake(pluralise(banishes_available, "latte banish", "latte banishes"), "", description), 0).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Latte lovers mug throw banish"));
+        resource_entries.listAppend(ChecklistEntryMake("__item latte lovers member's mug", banish_url, ChecklistSubentryMake(pluralise(banishes_available, "latte banish", "latte banishes"), "", description), -69).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Latte lovers mug throw banish"));
     }
     
     ChecklistEntry entry;
     entry.image_lookup_name = "__item latte lovers member's mug";
     entry.url = "main.php?latte=1";
     entry.tags.id = "Latte lovers mug resource";
+	entry.importance_level = -40;
     
     if (refills_remaining > 0)
     {

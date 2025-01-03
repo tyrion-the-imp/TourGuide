@@ -52,7 +52,7 @@ void IOTMUndergroundFireworksShopGenerateResource(ChecklistEntry [int] resource_
 			description.listAppend("Catherine Wheel: +3 exp back item");
 			description.listAppend("Oversized sparkler: +20% item drop club");
 			description.listAppend("Rocket boots: +100% initiative accessory");
-			resource_entries.listAppend(ChecklistEntryMake("__item oversized sparkler", "clan_viplounge.php?action=fwshop&whichfloor=2", ChecklistSubentryMake("Explosive equipment", description), 8).ChecklistEntrySetIDTag("Clan fireworks equipment resource"));
+			resource_entries.listAppend(ChecklistEntryMake("__item oversized sparkler", "clan_viplounge.php?action=fwshop&whichfloor=2", ChecklistSubentryMake("Explosive equipment", description), -40).ChecklistEntrySetIDTag("Clan fireworks equipment resource"));
 		}
 	if (!get_property_boolean("_fireworksShopHatBought") && available_amount($item[Clan VIP Lounge key]) > 0 && get_property("_fireworksShop").to_boolean() && my_path() != $path[Legacy of Loathing])
 		{
@@ -61,6 +61,6 @@ void IOTMUndergroundFireworksShopGenerateResource(ChecklistEntry [int] resource_
 			description.listAppend("Fedora-mounted fountain: +20 ML hat");
 			description.listAppend("Sombrero-mounted sparkler: +5% combat hat");
 			description.listAppend("Porkpie-mounted popper: -5% combat hat");
-			resource_entries.listAppend(ChecklistEntryMake("__item fedora-mounted fountain", "clan_viplounge.php?action=fwshop&whichfloor=2", ChecklistSubentryMake("Dangerous hats", description), 8).ChecklistEntrySetIDTag("Clan fireworks hat resource"));
+			resource_entries.listAppend(ChecklistEntryMake("__item fedora-mounted fountain", "clan_viplounge.php?action=fwshop&whichfloor=2", ChecklistSubentryMake("Dangerous hats", description), -40).ChecklistEntrySetIDTag("Clan fireworks hat resource"));
 		}
 }

@@ -59,7 +59,7 @@ void IOTMBookofFactsGenerateResource(ChecklistEntry [int] resource_entries)
 	if (!get_property_boolean("_circadianRhythmsRecalled")) {
         circadianDescription.listAppend("Can recall Circadian Rhythms to get +11 RO adv.");
 		circadianDescription.listAppend("Good targets: construct (nightstands"+constructDescriptor+"), dudes (pygmies"+dudeDescriptor+"), horrors (copied tentacles"+horrorDescriptor+")");
-        resource_entries.listAppend(ChecklistEntryMake("__item cheap wind-up clock", "", ChecklistSubentryMake("Circadian Rhythms turngen", circadianDescription), 11).ChecklistEntrySetIDTag("Circadian Rhythms turngen"));
+        resource_entries.listAppend(ChecklistEntryMake("__item cheap wind-up clock", "", ChecklistSubentryMake("Circadian Rhythms turngen", circadianDescription), -30).ChecklistEntrySetIDTag("Circadian Rhythms turngen"));
     }
 	
 	int habitatRecallsLeft = clampi(3 - get_property_int("_monsterHabitatsRecalled"), 0, 3);
@@ -73,7 +73,7 @@ void IOTMBookofFactsGenerateResource(ChecklistEntry [int] resource_entries)
 	string [int] BOFAdropsDescription;
 	int BOFApocketwishes = clampi(3 - get_property_int("_bookOfFactsWishes"), 0, 3);
 	if (get_property_int("_bookOfFactsWishes") < 3) {
-        BOFAdropsDescription.listAppend("" + BOFApocketwishes + " BOFA wishes available.");
+        BOFAdropsDescription.listAppend("" + BOFApocketwishes + " BOFA pocket wishes possible.");
     }
 	// Not going to remove this because I think it's valid right now but once mt_rand is 
 	//   properly exposed it would be good to hide this if the user is in a seed where 
@@ -83,8 +83,8 @@ void IOTMBookofFactsGenerateResource(ChecklistEntry [int] resource_entries)
         BOFAdropsDescription.listAppend("" + BOFAtatters + " BOFA tatters available.");
 	}
 	BOFAdropsDescription.listAppend("<a href='https://bofa.loathers.net/' target='_blank'><span style='color:blue;'>Loathers seed tool</span></a>&nbsp;");
-	BOFAdropsDescription.listAppend(" === pocket wishes, <span style='color:red; font-weight:bold;'>"+my_class()+"</span> standard === ");
-	if	( my_class().id == 1 ) {
+	//BOFAdropsDescription.listAppend(" === pocket wishes, <span style='color:red; font-weight:bold;'>"+my_class()+"</span> standard === ");
+	/* if	( my_class().id == 1 ) {
 		BOFAdropsDescription.listAppend("SC Standard: ");
 	}
 	if	( my_class().id == 2 ) {
@@ -101,7 +101,7 @@ void IOTMBookofFactsGenerateResource(ChecklistEntry [int] resource_entries)
 	}
 	if	( my_class().id == 6 ) {
 		BOFAdropsDescription.listAppend("AT Standard");
-	}
+	} */
 	// NOTE: Altering as of 2024 ELG change, as tatters are 40 turns vs the 30 of spring shoes. 
 	//   There is a remote chance in some future standard context tatters will be the best option
 	//   for a user with some odd IOTM configurations, which is why I didn't entirely extract
@@ -111,7 +111,7 @@ void IOTMBookofFactsGenerateResource(ChecklistEntry [int] resource_entries)
 		int BOFAtatters = clampi(11 - get_property_int("_bookOfFactsTatters"), 0, 11);
 		if (get_property_int("_bookOfFactsTatters") < 11) {
 			BOFAdropsDescription.listAppend("" + BOFAtatters + " BOFA tatters available.");
-		}	
+		}
 	}
-	resource_entries.listAppend(ChecklistEntryMake("__item book of facts", "", ChecklistSubentryMake(("Miscellaneous valuable BOFA drops"), "", BOFAdropsDescription), 8).ChecklistEntrySetIDTag("bofa tatters"));
+	resource_entries.listAppend(ChecklistEntryMake("__item book of facts", "", ChecklistSubentryMake(("Miscellaneous valuable BOFA drops"), "", BOFAdropsDescription), -30).ChecklistEntrySetIDTag("bofa tatters"));
 }

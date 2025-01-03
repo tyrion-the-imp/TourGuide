@@ -29,6 +29,6 @@ void IOTMMiniKiwiGenerateResource(ChecklistEntry [int] resource_entries)
         description.listAppend('|*Consider purchasing mini kiwi bikinis, for the Zeppelin sleaze test.');
     } 
 
-	resource_entries.listAppend(ChecklistEntryMake("__familiar mini kiwi", url, ChecklistSubentryMake(header, "", description), 10));
+	resource_entries.listAppend(ChecklistEntryMake("__familiar mini kiwi", url, ChecklistSubentryMake(header, "", description), -50));
 
 }

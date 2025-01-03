@@ -92,6 +92,7 @@ ChecklistSubentry [int] listMake(ChecklistSubentry e1)
 }
 
 
+//combo tags combination tags
 record TagGroup
 {
     string id; //For the "minimize" feature to keep track of the entries. Uses 'combination' instead if present. Uses the first entry's header if empty.

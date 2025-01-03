@@ -18,7 +18,7 @@ void IOTMPowerPlantGenerateResource(ChecklistEntry [int] resource_entries)
     string main_title = "Power plant batteries";
     string [int] harvest;
     harvest.listAppend("Harvest your potted power plant batteries.");
-    resource_entries.listAppend(ChecklistEntryMake("__item potted power plant", "inv_use.php?pwd=" + my_hash() + "&whichitem=10738", ChecklistSubentryMake(main_title, "", harvest), 1));
+    resource_entries.listAppend(ChecklistEntryMake("__item potted power plant", "inv_use.php?pwd=" + my_hash() + "&whichitem=10738", ChecklistSubentryMake(main_title, "", harvest), -29));
   }
 
   int batteryTotalCharge;
@@ -47,11 +47,11 @@ void IOTMPowerPlantGenerateResource(ChecklistEntry [int] resource_entries)
     title = HTMLGenerateSpanFont((get_property_int("shockingLickCharges")) + " Shocking Licks available", "orange");
     description.listAppend(HTMLGenerateSpanFont("This free kill is also a yellow ray!", "orange"));
     description.listAppend("Still have " + HTMLGenerateSpanOfClass(batteryTotalCharge, "r_bold") + " charge worth of batteries.");
-    resource_entries.listAppend(ChecklistEntryMake("__item eternal car battery", url, ChecklistSubentryMake(title, "", description), 0).ChecklistEntrySetCombinationTag("batteries available").ChecklistEntrySetIDTag("Shocking lick free kill"));
+    resource_entries.listAppend(ChecklistEntryMake("__item eternal car battery", url, ChecklistSubentryMake(title, "", description), -59).ChecklistEntrySetCombinationTag("batteries available").ChecklistEntrySetIDTag("Shocking lick free kill"));
   }
   else if (shockingLicksAvailable == 0 && batteryTotalCharge > 0)
   {
-    resource_entries.listAppend(ChecklistEntryMake("__item battery (aaa)", url, ChecklistSubentryMake("Power plant battery charge: " + (batteryTotalCharge), "", description), 0).ChecklistEntrySetCombinationTag("batteries available").ChecklistEntrySetIDTag("Shocking lick free kill"));
+    resource_entries.listAppend(ChecklistEntryMake("__item battery (aaa)", url, ChecklistSubentryMake("Power plant battery charge: " + (batteryTotalCharge), "", description), -29).ChecklistEntrySetCombinationTag("batteries available").ChecklistEntrySetIDTag("Shocking lick free kill"));
   }
 
 }

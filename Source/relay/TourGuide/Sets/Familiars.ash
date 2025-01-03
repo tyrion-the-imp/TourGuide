@@ -82,6 +82,8 @@ void SFamiliarsGenerateEntry(ChecklistEntry [int] task_entries, ChecklistEntry [
     }
 }
 
+
+int implev = -41;
 void SFamiliarsPuckGenerateResource(ChecklistEntry [int] resource_entries)
 {
     if (!__misc_state["in run"]) return;
@@ -122,7 +124,7 @@ void SFamiliarsPuckGenerateResource(ChecklistEntry [int] resource_entries)
                 else
                     header += " (" + power_pill_uses_left + " usable today)";
             }
-            resource_entries.listAppend(ChecklistEntryMake("__item power pill", "", ChecklistSubentryMake(header, "", "Use in combat to instakill without costing a turn.")).ChecklistEntrySetCombinationTag("free instakill").ChecklistEntrySetIDTag("Puck man familiar power pill free kill"));
+            resource_entries.listAppend(ChecklistEntryMake("__item power pill", "", ChecklistSubentryMake(header, "", "Use in combat to instakill without costing a turn."),implev).ChecklistEntrySetCombinationTag("free instakill").ChecklistEntrySetIDTag("Puck man familiar power pill free kill"));
         }
     }
     if (yellow_pixel != $item[none] && yellow_pixel.available_amount() > 0 && in_ronin())
@@ -196,12 +198,12 @@ void SFamiliarsPuckGenerateResource(ChecklistEntry [int] resource_entries)
                 line = HTMLGenerateSpanFont(line, "grey");
             description.listAppend(line);
         }
-        int importance = 9;
+        int importance = implev;
         puck_subentries.listAppend(ChecklistSubentryMake(title, "", description));
     }
     if (puck_subentries.count() > 0)
     {
-        resource_entries.listAppend(ChecklistEntryMake("__familiar " + relevant_familiar, url, puck_subentries, 9).ChecklistEntrySetIDTag("Puck man familiar resource"));
+        resource_entries.listAppend(ChecklistEntryMake("__familiar " + relevant_familiar, url, puck_subentries, implev).ChecklistEntrySetIDTag("Puck man familiar resource"));
     }
 
 }
@@ -214,8 +216,8 @@ void SFamiliarsGenerateResource(ChecklistEntry [int] resource_entries)
 		string name = runaways_used + " familiar runaways used";
 		string [int] description;
 		string image_name = "";
-        
         string url = "";
+		implev = -55;
 		
 		if ($familiar[Frumious Bandersnatch].familiar_is_usable() && $skill[the ode to booze].skill_is_usable())
 		{
@@ -242,7 +244,7 @@ void SFamiliarsGenerateResource(ChecklistEntry [int] resource_entries)
                 description.listAppend("Sugar shield available (+2 runs)");
         }
 			
-		resource_entries.listAppend(ChecklistEntryMake(image_name, url, ChecklistSubentryMake(name, "", description)).ChecklistEntrySetIDTag("Bander-like familiar free run"));
+		resource_entries.listAppend(ChecklistEntryMake(image_name, url, ChecklistSubentryMake(name, "", description),implev).ChecklistEntrySetIDTag("Bander-like familiar free run"));
 	}
 	
 	if (true)
@@ -251,6 +253,7 @@ void SFamiliarsGenerateResource(ChecklistEntry [int] resource_entries)
 			
 		if (($familiar[artistic goth kid].familiar_is_usable() || $familiar[Mini-Hipster].familiar_is_usable()) && hipster_fights_available > 0 && my_path().id != PATH_LIVE_ASCEND_REPEAT && my_path().id != PATH_G_LOVER)
 		{
+			implev = -60;
 			string name = "";
 			string [int] description;
             string hipster_image = __misc_state_string["hipster name"];
@@ -278,9 +281,9 @@ void SFamiliarsGenerateResource(ChecklistEntry [int] resource_entries)
                 url = "familiar.php";
 			
 			description.listAppend(hipster_chances[hipster_fights_available] + "% chance of appearing.");
-			int importance = 0;
+			int importance = implev;
             if (!__misc_state["in run"])
-                importance = 6;
+                importance = implev;
 			resource_entries.listAppend(ChecklistEntryMake(hipster_image, url, ChecklistSubentryMake(name, "", description), importance).ChecklistEntrySetIDTag("Hipster-like familiar hipster fights"));
 		}
 	}
@@ -290,7 +293,7 @@ void SFamiliarsGenerateResource(ChecklistEntry [int] resource_entries)
 	{
 		ChecklistSubentry [int] subentries;
 		string [int] description_banish;
-		
+		implev = 0;
         string url = "";
         
         if (my_familiar() != $familiar[nanorhino])
@@ -306,7 +309,7 @@ void SFamiliarsGenerateResource(ChecklistEntry [int] resource_entries)
 		if (__misc_state["have muscle class combat skill"])
         {
         	if (tag_with_banish_tag)
-            	resource_entries.listAppend(ChecklistEntryMake("__familiar nanorhino", "", ChecklistSubentryMake("Nanorhino Banish", "", description_banish), 0).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Nanorhino familiar banish"));
+            	resource_entries.listAppend(ChecklistEntryMake("__familiar nanorhino", "", ChecklistSubentryMake("Nanorhino Banish", "", description_banish), implev).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Nanorhino familiar banish"));
             else
 				subentries.listAppend(ChecklistSubentryMake("Nanorhino Banish", "", description_banish));
         }
@@ -320,11 +323,12 @@ void SFamiliarsGenerateResource(ChecklistEntry [int] resource_entries)
                 subentries.listAppend(ChecklistSubentryMake("Nanorhino Yellow Ray", "", "Cast moxie combat skill."));
         }
 		if (subentries.count() > 0)
-			resource_entries.listAppend(ChecklistEntryMake("__familiar nanorhino", url, subentries, 5).ChecklistEntrySetIDTag("Nanorhino familiar use charge"));
+			resource_entries.listAppend(ChecklistEntryMake("__familiar nanorhino", url, subentries, implev).ChecklistEntrySetIDTag("Nanorhino familiar use charge"));
 	}
 	if (__misc_state["yellow ray available"] && !__misc_state["in run"]) //in-run version in Misc Tasks.ash
     {
-        resource_entries.listAppend(ChecklistEntryMake(__misc_state_string["yellow ray image name"], "", ChecklistSubentryMake("Yellow ray available", "", "From " + __misc_state_string["yellow ray source"] + "."), 6).ChecklistEntrySetIDTag("Yellow-ray resource"));
+        implev = -35;
+		resource_entries.listAppend(ChecklistEntryMake(__misc_state_string["yellow ray image name"], "", ChecklistSubentryMake("Yellow ray available", "", "From " + __misc_state_string["yellow ray source"] + "."), implev).ChecklistEntrySetIDTag("Yellow-ray resource"));
     }
     
     if (my_familiar() == $familiar[happy medium] || $familiar[happy medium].charges > 0 && $familiar[happy medium].familiar_is_usable()) //|| stuff
@@ -332,6 +336,7 @@ void SFamiliarsGenerateResource(ChecklistEntry [int] resource_entries)
         //FIXME request support for tracking medium combats.
         string title;
         string [int] description;
+		implev = -50;
         
         int charges = $familiar[happy medium].charges;
         int siphons = get_property_int("_mediumSiphons");
@@ -364,15 +369,16 @@ void SFamiliarsGenerateResource(ChecklistEntry [int] resource_entries)
         if (my_familiar() != $familiar[happy medium])
             url = "familiar.php";
         
-        int importance = 6;
+        int importance = implev;
         if (my_familiar() == $familiar[happy medium] || charges > 0)
-            importance = 0;
+            importance = implev;
         resource_entries.listAppend(ChecklistEntryMake("__familiar happy medium", url, ChecklistSubentryMake(title, "", description), importance).ChecklistEntrySetIDTag("Happy medium familiar siphon"));
     }
     if (my_familiar() == $familiar[steam-powered cheerleader] || $familiar[steam-powered cheerleader].familiar_is_usable() && get_property_int("_cheerleaderSteam") < 200)
     {
         string title;
         string [int] description;
+		implev = -50;
         
         int steam_remaining = get_property_int("_cheerleaderSteam");
         float multiplier = 1.0;
@@ -419,9 +425,9 @@ void SFamiliarsGenerateResource(ChecklistEntry [int] resource_entries)
         if (turns_remaining_at_this_level > 0)
             description.listAppend(pluralise(turns_remaining_at_this_level, "turn remains", "turns remain") + " until " + next_multiplier_level + "x.");
         
-        int importance = 6;
+        int importance = implev;
         if (my_familiar() == $familiar[steam-powered cheerleader])
-            importance = 0;
+            importance = implev;
         
     
         string url;
@@ -437,11 +443,12 @@ void SFamiliarsGenerateResource(ChecklistEntry [int] resource_entries)
         string title;
         string [int] description;
         string url = "familiar.php?action=chatgrim&amp;pwd=" + my_hash();
-        
+        implev = -50;
+		
         title = "Chat with grim brother";
         
         description.listAppend("30 turns of +20% init or +HP/MP or +damage.");
-        int importance = 9;
+        int importance = implev;
         resource_entries.listAppend(ChecklistEntryMake("__familiar grim brother", url, ChecklistSubentryMake(title, "", description), importance).ChecklistEntrySetIDTag("Grim brother familiar buff"));
     }
     
