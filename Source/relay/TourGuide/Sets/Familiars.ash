@@ -284,7 +284,7 @@ void SFamiliarsGenerateResource(ChecklistEntry [int] resource_entries)
 			int importance = implev;
             if (!__misc_state["in run"])
                 importance = implev;
-			resource_entries.listAppend(ChecklistEntryMake(hipster_image, url, ChecklistSubentryMake(name, "", description), importance).ChecklistEntrySetIDTag("Hipster-like familiar hipster fights"));
+			resource_entries.listAppend(ChecklistEntryMake(hipster_image, url, ChecklistSubentryMake(name, "", description), importance).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("Hipster-like familiar hipster fights"));
 		}
 	}
 	

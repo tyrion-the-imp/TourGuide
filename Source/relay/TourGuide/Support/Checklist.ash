@@ -598,6 +598,7 @@ buffer ChecklistGenerate(Checklist cl, boolean output_borders) {
 	ChecklistEntry [int] entries = cl.entries;
 	
 	//Combine entries with identical combination tags:
+	//combo tags combination tags
 	ChecklistEntry [string] combination_tag_entries;
 	foreach key, entry in entries {
 		if (entry.tags.combination == "") continue;
@@ -637,12 +638,12 @@ buffer ChecklistGenerate(Checklist cl, boolean output_borders) {
 			if	( entry.url.index_of("skillz.php") > -1 ) { entry.importance_level -= 7; }
 			//trick or treat
 			if	( entry.url.index_of("candy-rich") > -1 ) { entry.importance_level -= 6; }
-			//shadow fights
-			if	( entry.url.index_of("11169") > -1 ) { entry.importance_level -= 5; }
-			//burning leaves
-			if	( entry.url.index_of("leaves") > -1 ) { entry.importance_level -= 4; }
 			//cursed magnifying glass
-			if	( entry.url.index_of("magnifying") > -1 ) { entry.importance_level += 15; }
+			if	( entry.url.index_of("magnifying") > -1 ) { entry.importance_level -= 5; }
+			//shadow fights
+			if	( entry.url.index_of("11169") > -1 ) { entry.importance_level -= 4; }
+			//burning leaves
+			if	( entry.url.index_of("leaves") > -1 ) { entry.importance_level -= 3; }
 			//print(entry.url+" = "+entry.importance_level);
 		}
 		

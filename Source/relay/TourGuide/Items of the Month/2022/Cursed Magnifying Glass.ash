@@ -73,6 +73,7 @@ void IOTYCursedMagnifyingGlassGenerateResource(ChecklistEntry [int] resource_ent
         url = invSearch("cursed magnifying glass");
 		description.listAppend((13 - cursedGlassCounter).pluralise("combat", "combats") + " until next void fight.");
 		
-		resource_entries.listAppend(ChecklistEntryMake("__item void stone", url, ChecklistSubentryMake(pluralise(free_void_fights_left, "void glass monster", "void glass monsters"), "", description), 8).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("Cursed magnifying glass free fight"));
+		//importance level is set in Checklist.ash (combo tags)
+		resource_entries.listAppend(ChecklistEntryMake("__item void stone", url, ChecklistSubentryMake(pluralise(free_void_fights_left, "void glass monster", "void glass monsters"), "", description)).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("Cursed magnifying glass free fight"));
     }
 }

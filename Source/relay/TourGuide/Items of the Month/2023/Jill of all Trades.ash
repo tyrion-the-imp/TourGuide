@@ -66,6 +66,7 @@ void IOTMJOATGenerateResource(ChecklistEntry [int] resource_entries)
     }
     else if (get_property_boolean("_mapToACandyRichBlockUsed") == true) {
         description.listAppend("Trick-or-Treat!");
-    resource_entries.listAppend(ChecklistEntryMake("__familiar Jill-of-All-Trades", "place.php?whichplace=town&action=town_trickortreat", ChecklistSubentryMake("Candy-rich block available", description),-60).ChecklistEntrySetCombinationTag("JOAT resources").ChecklistEntrySetIDTag("JOAT"));
+    //resource_entries.listAppend(ChecklistEntryMake("__familiar Jill-of-All-Trades", "place.php?whichplace=town&action=town_trickortreat", ChecklistSubentryMake("Candy-rich block available", description),-60).ChecklistEntrySetCombinationTag("JOAT resources").ChecklistEntrySetIDTag("JOAT"));
+    resource_entries.listAppend(ChecklistEntryMake("__familiar Jill-of-All-Trades", "place.php?whichplace=town&action=town_trickortreat", ChecklistSubentryMake("Candy-rich block available", description),-60).ChecklistEntrySetCombinationTag("daily free fight"));
     }
 }
