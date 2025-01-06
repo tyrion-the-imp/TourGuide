@@ -52,7 +52,7 @@ void LuckyMegatileGenerateResourceTEMP(ChecklistEntry [int] resource_entries)
 			}
 		
 		if (Luckos > 0) {	
-			resource_entries.listAppend(ChecklistEntryMake("__item 11-leaf clover", "", ChecklistSubentryMake(Luckos + "x Lucky adventures possible", "", description), -200));
+			resource_entries.listAppend(ChecklistEntryMake("__item 11-leaf clover", "", ChecklistSubentryMake(Luckos + "x Lucky adventures possible", "", description), -999));
 		}
 	}
 }
