@@ -1,6 +1,6 @@
 // Bat Wings
-RegisterResourceGenerationFunction("IOTMBatWingsGenerateResource");
-void IOTMBatWingsGenerateResource(ChecklistEntry [int] resource_entries)
+RegisterResourceGenerationFunction("IOTMBatWingsGenerateResourceBeta");
+void IOTMBatWingsGenerateResourceBeta(ChecklistEntry [int] resource_entries)
 {
     if (available_amount($item[bat wings]) < 1)
         return;
