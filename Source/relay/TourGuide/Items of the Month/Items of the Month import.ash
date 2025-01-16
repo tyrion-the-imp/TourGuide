@@ -168,12 +168,22 @@ import "relay/TourGuide/Items of the Month/2024/Mayam Calendar.ash";
 import "relay/TourGuide/Items of the Month/2024/Mini Kiwi.ash";
 //no beta
 
-//import "relay/TourGuide/Items of the Month/2024/Roman Candelabra.ash";
+//2024.07 import "relay/TourGuide/Items of the Month/2024/Roman Candelabra.ash";
 import "relay/TourGuide/Items of the Month/2024/Roman Candelabra beta.ash";
 
-//import "relay/TourGuide/Items of the Month/2024/Tearaway Pants.ash";
+//2024.08 import "relay/TourGuide/Items of the Month/2024/Tearaway Pants.ash";
 import "relay/TourGuide/Items of the Month/2024/Tearaway Pants beta.ash";
 
-import "relay/TourGuide/Items of the Month/2024/Peace Turkey beta.ash";
+//2024.09
 import "relay/TourGuide/Items of the Month/2024/Sept-Ember Censer beta.ash";
+
+//2024.10
 import "relay/TourGuide/Items of the Month/2024/Bat Wings beta.ash";
+
+//2024.11
+import "relay/TourGuide/Items of the Month/2024/Peace Turkey beta.ash";
+
+//2024.12		TakerSpace		shed		https://kol.coldfront.net/thekolwiki/index.php/TakerSpace#Items
+
+//2025 IotY		Server Room							https://kol.coldfront.net/thekolwiki/index.php/Server_Room
+//2025.01 IotM	McHugeLarge duffel bag	i#11783	https://kol.coldfront.net/thekolwiki/index.php/McHugeLarge_duffel_bag#Notes

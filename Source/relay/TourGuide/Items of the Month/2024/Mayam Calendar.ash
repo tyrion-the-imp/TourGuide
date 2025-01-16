@@ -63,10 +63,10 @@ void IOTMMayamCalendarGenerateResource(ChecklistEntry [int] resource_entries)
     entry.tags.id = "Mayam Calendar";
     entry.importance_level = -12;
 
-    if (!get_property("_mayamSymbolsUsed").contains_text("yam4") ||
+    /* if (!get_property("_mayamSymbolsUsed").contains_text("yam4") ||
         !get_property("_mayamSymbolsUsed").contains_text("clock") ||
         !get_property("_mayamSymbolsUsed").contains_text("explosion") ||
-        my_ascensions() > templeResetAscension)
+        my_ascensions() > templeResetAscension) */
     {
         description.listAppend(HTMLGenerateSpanFont(" ", "r_bold") + "");
         hoverDescription.listAppend(HTMLGenerateSpanFont(" ", "r_bold") + "");
