@@ -76,11 +76,11 @@ void CopiedMonstersGenerateDescriptionForMonster(string monster_name, string [in
         }
 	}
 	//mimic egg, is list of monsters which mafia is not aware of yet
-	else if (monster_name == "dummy monster")
+	else if (monster_name == "dummymonster")
 	{
 		string line;
 		boolean requirements_met = false;
-		if ( available_amount($item[mimic egg]) > 0 ) {
+		if ( available_amount($item[mimic egg]) > 0 && get_property("mimicEggMonsters") != "" ) {
 			line += "<a href='inv_use.php?pwd="+my_hash()+"&which=99&whichitem=11542' target='mainpane'><span style='color:blue; font-size:100%; font-weight:normal;'>Click here:</span></a> to view the list of monsters the egg contains.";
 			requirements_met = true;
 		}
@@ -286,8 +286,8 @@ void SCopiedMonstersGenerateResourceForCopyType(ChecklistEntry [int] resource_en
     string url = "inventory.php?ftext=" + shaking_object;
 	
 	string [int] monster_description;
-	string monster_name = "dummy monster";
-	if	( monster_name_property_name != "dummy monster" ) {
+	string monster_name = "fakemonster";
+	if	( monster_name_property_name.index_of("dummy") == -1 ) {
 		//dummy monster b/c mimic egg can actually hold a list of monsters
 		monster_name = get_property(monster_name_property_name).HTMLEscapeString();
 	}
@@ -304,7 +304,7 @@ void SCopiedMonstersGenerateResourceForCopyType(ChecklistEntry [int] resource_en
 	
 	//string line = monster_name.capitaliseFirstLetter() + HTMLGenerateIndentedText(monster_description);
 	string line = "";
-	if	( monster_name != "dummy monster" ) {
+	if	( monster_name_property_name.index_of("dummy") == -1 ) {
 		line = HTMLGenerateSpanOfClass(monster_name.capitaliseFirstLetter(), "r_bold");
 	}
 	if (shaking_shorthand_name == "spooky vhs wanderer") {
@@ -315,9 +315,12 @@ void SCopiedMonstersGenerateResourceForCopyType(ChecklistEntry [int] resource_en
         line += "<hr>" + monster_description.listJoinComponents("|");
     
     string image_name = "__item " + shaking_object;
-	string additional_info = " monster trapped!";
-	if	( monster_name == "dummy monster" ) {
-		additional_info = " monster(s) trapped!";
+	string additional_info = "";
+	if	( monster_name_property_name == "dummymonster" ) {
+		additional_info = " monster(s) trapped!&nbsp;<a href='http://127.0.0.1:60080/inv_use.php?pwd=8b7c2b113492cdfdd636b7cb4548d5bf&which=99&whichitem=11542' target='mainpane'><span style='color:blue; font-size:100%; font-weight:normal;'>Here</span></a>";
+	}
+	if	( monster_name_property_name == "dummy2monster" ) {
+		additional_info = " (chained copy)";
 	}
     if (shaking_shorthand_name == "chateau painting")
     {
@@ -628,7 +631,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__item cargo cultist shorts";
     }
-	//chest mimic
+	//chest mimic / mimic egg
 	if	( $familiar[chest mimic].familiar_is_usable() && $familiar[chest mimic].experience > 50 ) {
 		int chestCopiesAvailable = ($familiar[chest mimic].experience.to_float() / 50.0).to_int();
 		int chestCopiesLimit = 11 - get_property_int("_mimicEggsObtained");
@@ -660,6 +663,11 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
             copy_source_entry.image_lookup_name = "__item waffle";
 	}
 	
+	if	( have_effect($effect[Everything Looks Purple]) < 1 && __iotms_usable[$item[Roman candelabra]]) {
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise($item[roman candelabra].available_amount(), "chained candelabra purple ray copy", "chained candelabra purple ray copies") + "", "", ""));
+		if (copy_source_entry.image_lookup_name == "")
+			copy_source_entry.image_lookup_name = "__item roman candelabra";
+	}
 	
 	
 	string[int] dummy;
@@ -699,7 +707,9 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
     SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[wax bugbear], "wax bugbear", "waxMonster");
     SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[crude monster sculpture], "crude sculpture", "crudeMonster");
     SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[screencapped monster], "screencapped", "screencappedMonster");
-    SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[mimic egg], "mimic egg", "dummy monster");
+    if	( get_property("mimicEggMonsters") != "" ) {
+		SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[mimic egg], "mimic egg", "dummymonster");
+	}
     SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[Spooky VHS Tape], "spooky vhs wanderer", "spookyVHSTapeMonster");
 }
 
