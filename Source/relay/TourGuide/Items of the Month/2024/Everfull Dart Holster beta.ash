@@ -49,7 +49,7 @@ void IOTMEverfullDartsGenerateResourceBeta(ChecklistEntry [int] resource_entries
             description.listAppend(HTMLGenerateSpanFont("Equip the dart holster first.", "red"));
         }
         else description.listAppend(HTMLGenerateSpanFont("dart holster equipped", "blue"));
-        //see official version for this
-		//resource_entries.listAppend(ChecklistEntryMake("__item everfull dart holster", url, ChecklistSubentryMake("Everfull Dart Holster charging", "", description), 11));
+		
+		resource_entries.listAppend(ChecklistEntryMake("__item everfull dart holster", url, ChecklistSubentryMake("Everfull Dart Holster charging", "", description), -40));
     }
 }

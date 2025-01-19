@@ -1,4 +1,4 @@
-//Everfull Dart Holster via TES
+//NOT USED Everfull Dart Holster via TES
 RegisterTaskGenerationFunction("IOTMEverfullDartsGenerateTasks");
 void IOTMEverfullDartsGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
@@ -27,6 +27,7 @@ void IOTMEverfullDartsGenerateTasks(ChecklistEntry [int] task_entries, Checklist
     }
 }
 
+//NOT USED
 RegisterResourceGenerationFunction("IOTMEverfullDartsGenerateResource");
 void IOTMEverfullDartsGenerateResource(ChecklistEntry [int] resource_entries)
 {

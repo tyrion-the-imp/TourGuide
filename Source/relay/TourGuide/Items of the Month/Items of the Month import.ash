@@ -156,7 +156,7 @@ import "relay/TourGuide/Items of the Month/2024/Chest Mimic beta.ash";
 //import "relay/TourGuide/Items of the Month/2024/Spring Shoes.ash";
 import "relay/TourGuide/Items of the Month/2024/Spring Shoes beta.ash";
 
-import "relay/TourGuide/Items of the Month/2024/Everfull Dart Holster.ash";
+//import "relay/TourGuide/Items of the Month/2024/Everfull Dart Holster.ash";
 import "relay/TourGuide/Items of the Month/2024/Everfull Dart Holster beta.ash";
 
 //import "relay/TourGuide/Items of the Month/2024/Apriling Band Helmet.ash";
