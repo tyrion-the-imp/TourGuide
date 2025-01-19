@@ -6,6 +6,8 @@ void SOlfactionGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [
     //   taking out the actual creating-the-tile shit until we refactor to the new olfaction limit 
     //   and turn this into a resource thing rather than a highlighted task.
 	string [int] description;
+	item MCLP = $item[McHugeLarge left pole];
+	
     if (!$skill[Transcendent Olfaction].skill_is_usable()) {
         //return;
 		description.listAppend("No olfaction skill??");
@@ -27,9 +29,12 @@ void SOlfactionGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [
 		description.listAppend("|*Currently tracking: "+get_property("olfactedMonster"));
 	}
 	//+3 copies to queue
-	item MCLP = $item[McHugeLarge left pole];
+	//$item[McHugeLarge left pole];
 	if	( __iotms_usable[lookupItem(MCLP)] ) {
 		description.listAppend("<span style='color:red; font-weight:bold;'>"+(3 - get_property_int("_mcHugeLargeSlashUses")).to_string()+"</span> MHL left pole slash uses available.");
+		string indicatorMCLP = "green";
+		indicatorMCLP = (have_equipped(MCLP)) ? "<span style='color:green; font-weight:bold;'>YES</span>":"<span style='color:red; font-weight:bold;'>NO</span>";
+		description.listAppend("|*Equipped? "+indicatorMCLP);
 		totalsniffs += (3 - get_property_int("_mcHugeLargeSlashUses"));
 	}
     
