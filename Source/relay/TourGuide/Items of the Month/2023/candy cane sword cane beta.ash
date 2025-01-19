@@ -11,6 +11,9 @@ void IOTMCandyCaneSwordGenerateTasksBETA(ChecklistEntry [int] task_entries, Chec
 		string url = "inventory.php?ftext=candy+cane+sword+cane";
 		location selectedLocation = get_property_location("nextAdventure");
 		description2.listAppend(HTMLGenerateSpanFont("candy", "red") + " " + HTMLGenerateSpanFont("cane", "green") + " " + HTMLGenerateSpanFont("sword", "red") + " " + HTMLGenerateSpanFont("cane", "green") + " " + HTMLGenerateSpanFont("noncom", "red") + " " + HTMLGenerateSpanFont("zone!", "green"));
+		
+		
+		
 		//this supernag will only appear while lastadv is in a cane zone AND the option has not been taken already
 		//candy cane advs
 		if (!get_property_boolean("_candyCaneSwordLyle")) {
@@ -96,12 +99,12 @@ void IOTMCandyCaneSwordGenerateTasksBETA(ChecklistEntry [int] task_entries, Chec
 			}
 		}
 		//_candyCaneSwordHauntedBedroom
-		/* if (!get_property_boolean("_candyCaneSwordHauntedBedroom")) {
-				options.listAppend(HTMLGenerateSpanOfClass("Alternate: ", "r_bold") + "Bedroom: lucky-ish pill, 1s");
+		if (!get_property_boolean("_candyCaneSwordHauntedBedroom")) {
+				options.listAppend(HTMLGenerateSpanOfClass("Alternate: ", "r_bold") + "Bedroom: lucky-ish pill, 1s (gives disassembled clover, not Lucky!)");
 			if (($locations[The Haunted Bedroom] contains selectedLocation)) {
 				task_entries.listAppend(ChecklistEntryMake("__item candy cane sword cane", url, ChecklistSubentryMake("candy cane sword cane", "", description2), -11));
 			}
-		} */
+		}
 		
 		
 		
@@ -116,6 +119,13 @@ void IOTMCandyCaneSwordGenerateTasksBETA(ChecklistEntry [int] task_entries, Chec
 			description.listAppend(HTMLGenerateSpanFont("Candy cane sword cane is equipped", "green"));
 			description2.listAppend(HTMLGenerateSpanFont("Candy cane sword cane is equipped", "green"));
 		}
-	optional_task_entries.listAppend(ChecklistEntryMake("__item Candy cane sword cane", url, ChecklistSubentryMake("Candy cane sword cane noncombats (TEMP)", description)).ChecklistEntrySetCombinationTag("CCSC tasks").ChecklistEntrySetIDTag("CCSC"));
+		
+		description.listAppend("<a href='https://kol.coldfront.net/thekolwiki/index.php/Candy_cane_sword_cane#Notes' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Table of Noncoms</span></a>");
+		description2.listAppend("<a href='https://kol.coldfront.net/thekolwiki/index.php/Candy_cane_sword_cane#Notes' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Table of Noncoms</span></a>");
+		
+		int importanceLvl = 0;
+		if	( !get_property_boolean("kingLiberated") ) { importanceLvl = -100; }
+		
+	optional_task_entries.listAppend(ChecklistEntryMake("__item Candy cane sword cane", url, ChecklistSubentryMake("Candy cane sword cane noncombats (TEMP)", description),importanceLvl).ChecklistEntrySetCombinationTag("CCSC tasks").ChecklistEntrySetIDTag("CCSC"));
 	}
 }

@@ -69,6 +69,6 @@ void IOTMBatWingsGenerateResourceBeta(ChecklistEntry [int] resource_entries)
 	if (!get_property_boolean("batWingsGuanoJunction")) {
 		description.listAppend("Visit the Bat Hole zones to unlock the Beanbat Chamber and get a bean");
 	}
-
+	//place.php?whichplace=orc_chasm&action=bridge_jump  --> link appears above bridge at 25/30 completion		chasmBridgeProgress
 	resource_entries.listAppend(ChecklistEntryMake("__item bat wings", url, ChecklistSubentryMake("Bat Wings functions", "", description), -40));
 }

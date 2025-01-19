@@ -26,16 +26,16 @@ void IOTMJillv2GenerateResource(ChecklistEntry [int] resource_entries)
 
     string [int] description;
     if (mapsDropped == 0) {
-        description.listAppend("You haven't gotten a map to halloween town yet! Try using your Jill for a map at ~"+round(estimatedMapProbability)+"% chance, or approximately "+round(turnsToMap,1)+" turns.");
+        description.listAppend("You haven't gotten a map to halloween town yet! Try using your Jill for a map at ~"+round(estimatedMapProbability)+"% chance, or approximately "+round(turnsToMap,1)+" turns. <a href='place.php?whichplace=town&action=town_trickortreat' target='mainpane'><span style='color:blue; font-size:100%; font-weight:normal;'>Go!</span></a>");
     }
     else if (mapsDropped < 2) { // The third map drop chance is less than 1 in a thousand - not something that is particularly useful to hunt for
-        description.listAppend("You have a map; the next map is at a ~"+round(estimatedMapProbability)+"% chance, or approximately "+round(turnsToMap,1)+" turns.");
+        description.listAppend("You have a map; the next map is at a ~"+round(estimatedMapProbability)+"% chance, or approximately "+round(turnsToMap,1)+" turns. <a href='place.php?whichplace=town&action=town_trickortreat' target='mainpane'><span style='color:blue; font-size:100%; font-weight:normal;'>Go!</span></a>");
     }
     
 	int habitatRecallsLeft = clampi(3 - get_property_int("_monsterHabitatsRecalled"), 0, 3);
     if (!lookupSkill("Just the Facts").have_skill() && !__iotms_usable[$item[book of facts (dog-eared)]]) habitatRecallsLeft = 0;
     if (habitatRecallsLeft > 0)
-		description.listAppend("Halloween monsters make excellent targets for <b>Recall Habitat</b> from BoFA.");
+		description.listAppend("Halloween monsters make excellent targets for <b>Recall Habitat</b> from BoFA. <a href='place.php?whichplace=town&action=town_trickortreat' target='mainpane'><span style='color:blue; font-size:100%; font-weight:normal;'>Go!</span></a>");
 
     // Adding a small exception here to not generate this if they weirdly acquired LED through other means (like casual or a pull or something)
     if (!get_property_boolean("ledCandleDropped") && $item[LED Candle].item_amount() < 1) {
@@ -45,7 +45,7 @@ void IOTMJillv2GenerateResource(ChecklistEntry [int] resource_entries)
     // If we have nothing to say, do not display the tile
     if (count(description) == 0) return;
 	
-    resource_entries.listAppend(ChecklistEntryMake("__familiar jill-of-all-trades", url, ChecklistSubentryMake("Celebrating the Jillenium", "", description)).ChecklistEntrySetIDTag("Jill of All Trades tile"));
+    resource_entries.listAppend(ChecklistEntryMake("__familiar jill-of-all-trades", url, ChecklistSubentryMake("Jill of All Trades", "", description)).ChecklistEntrySetIDTag("Jill of All Trades tile"));
 }
 
 //Jill-of-All-Trades
@@ -67,6 +67,6 @@ void IOTMJOATGenerateResource(ChecklistEntry [int] resource_entries)
     else if (get_property_boolean("_mapToACandyRichBlockUsed") == true) {
         description.listAppend("Trick-or-Treat!");
     //resource_entries.listAppend(ChecklistEntryMake("__familiar Jill-of-All-Trades", "place.php?whichplace=town&action=town_trickortreat", ChecklistSubentryMake("Candy-rich block available", description),-60).ChecklistEntrySetCombinationTag("JOAT resources").ChecklistEntrySetIDTag("JOAT"));
-    resource_entries.listAppend(ChecklistEntryMake("__familiar Jill-of-All-Trades", "place.php?whichplace=town&action=town_trickortreat", ChecklistSubentryMake("Candy-rich block available", description),-60).ChecklistEntrySetCombinationTag("daily free fight"));
+    resource_entries.listAppend(ChecklistEntryMake("__familiar Jill-of-All-Trades", "place.php?whichplace=town&action=town_trickortreat", ChecklistSubentryMake("Candy-rich block available <a href='place.php?whichplace=town&action=town_trickortreat' target='mainpane'><span style='color:blue; font-size:100%; font-weight:normal;'>Go!</span></a>", description),-60).ChecklistEntrySetCombinationTag("daily free fight"));
     }
 }

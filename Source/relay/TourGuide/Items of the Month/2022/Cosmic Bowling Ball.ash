@@ -6,6 +6,7 @@ void IOTMCosmicBowlingBallGenerateTasks(ChecklistEntry [int] task_entries, Check
 		return;
 	if (my_path() == $path[Legacy of Loathing]) return;
 	if (my_path().id == PATH_G_LOVER) return; // you can technically use it to bank buffs but the buffs don't work
+	//if	( !is_unrestricted($item[cosmic bowling ball]) ) { return; } //2025.01.19 appears to still be working
 
 	int bowlingUses = get_property_int("_cosmicBowlingSkillsUsed");
 	int bowlingCooldown2 = bowlingUses * 2 + 5;
