@@ -25,7 +25,7 @@ void QLevel11CopperheadInit()
         QuestState state;
         QuestStateParseMafiaQuestProperty(state, "questL11Shen");
         if (my_path().id == PATH_COMMUNITY_SERVICE || my_path().id == PATH_GREY_GOO) QuestStateParseMafiaQuestPropertyValue(state, "finished");
-        state.quest_name = "Copperhead Club Quest (<span style='color:blue; font-size:100%; font-weight:bold;'>Shen Info</span>)"; //"Of Mice and Shen";
+        state.quest_name = "Copperhead Club Quest"; //"Of Mice and Shen";
         state.image_name = "__item copperhead charm"; //"__effect Ancient Annoying Serpent Poison";
         
         state.state_boolean["should output"] = state.in_progress && __quest_state["Level 11"].state_boolean["have diary"] && (__misc_state["in run"] || $location[the copperhead club].turns_spent > 0);
@@ -297,7 +297,7 @@ void QLevel11ShenGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry
     
     
     if (base_quest_state.mafia_internal_step <= 1) { //Need to meet shen for the first time.
-        subentry.entries.listAppend("Adventure in the Copperhead Club and meet Shen.");
+        subentry.entries.listAppend("Adventure in the Copperhead Club and meet Shen. (<a href='https://kol.coldfront.net/thekolwiki/index.php/Shen_Copperhead,_Nightclub_Owner#Notes' target='_blank'><span style='color:blue; font-size:100%; font-weight:bold;'>Shen Info</span></a>) for day "+my_daycount());
         subentry.entries.listAppend("This will give you unremovable -5 stat poison.");
         if (my_path().id == PATH_EXPLOSIONS)
             subentry.entries.listAppend("On this path, he'll always ask for: |*• " + current_assignments.shenAssignmentsJoinLocations().listJoinComponents("|*• "));
