@@ -1,3 +1,4 @@
+boolean shouldNag();
 string [string, string] stationDescriptions;
 
 int trainSetReconfigurableIn() {
@@ -65,12 +66,16 @@ void IOTMModelTrainSetGenerateTasks(ChecklistEntry [int] task_entries, Checklist
     int trainPosition = get_property_int("trainsetPosition");
     int whenTrainsetWasConfigured = get_property_int("lastTrainsetConfiguration");
     string[int] stations = split_string(get_property("trainsetConfiguration"), ",");
+	int importance = (get_property_boolean("kingLiberated") ? 11:-11);
+	boolean thisTileEnabled = (get_campground() contains $item[model train set]) ? true:false;
 
-    if (count(stations) < 8) {
+    if (thisTileEnabled && count(stations) < 8) {
         description.listAppend("We can't tell how your trainset is configured. Click this tile to fix.");
-        task_entries.listAppend(ChecklistEntryMake("__item toy crazy train", url, ChecklistSubentryMake(main_title, description), -11).ChecklistEntrySetIDTag("Model train set"));
+        task_entries.listAppend(ChecklistEntryMake("__item toy crazy train", url, ChecklistSubentryMake(main_title, description), importance).ChecklistEntrySetIDTag("Model train set"));
         return;
-    }
+    } else if ( !thisTileEnabled ) {
+		return;
+	}
 
     if (oreConfiguredWhenNotNeeded()) {
         description.listAppend(HTMLGenerateSpanFont("Have ore configured when it's not needed!", "red"));

@@ -611,16 +611,16 @@ buffer ChecklistGenerate(Checklist cl, boolean output_borders) {
 		
 		//entry.tags.combination == "free instakill"
 		if	( entry.tags.combination == "free instakill" ) {
-			entry.importance_level = -60;
+			entry.importance_level = -59;
 		}
 		if ( entry.tags.combination == "banish" ) {
-			entry.importance_level = -69;
+			entry.importance_level = -68;
 		}
 		
 		//-50 Copied Monsters.ash stuff
 		
 		if ( entry.tags.combination == "daily free fight" ) {
-			entry.importance_level = -60;
+			entry.importance_level = -64;
 			if	( turns_played() < 11 ) {
 				entry.importance_level = -99;
 			}

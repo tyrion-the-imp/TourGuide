@@ -62,6 +62,6 @@ void IOTMMayDayContractGenerateResource(ChecklistEntry [int] resource_entries)
 			description.listAppend(" <span style='color:purple;'>"+$item[cool mint precipice bar].available_amount()+"</span> <b>cool mint precipice bar</b>. <span style='font-size:"+subnotesSizePercent+"%;'>(<span style='color:green;'>good</span>, 1F, 3a, <span style='color:gray;'>+10 stats/fight +15% Mu/My/Mx for 30a</span>)</span>");
 		if ($item[carrot cake precipice bar].available_amount() > 0)
 			description.listAppend(" <span style='color:purple;'>"+$item[carrot cake precipice bar].available_amount()+"</span> <b>carrot cake precipice bar</b>. <span style='font-size:"+subnotesSizePercent+"%;'>(<span style='color:green;'>good</span>, 1F, 3a, <span style='color:gray;'>+10% items +20% meat +15% Mu/My/Mx for 30a</span>)</span>");
-		resource_entries.listAppend(ChecklistEntryMake("__item MayDay&trade; supply package", "", ChecklistSubentryMake(pluralise($item[MayDay&trade; supply package]), "", description)));
+		resource_entries.listAppend(ChecklistEntryMake("__item MayDay&trade; supply package", "", ChecklistSubentryMake(pluralise($item[MayDay&trade; supply package]), "", description), -30));
     }
 }

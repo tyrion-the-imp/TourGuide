@@ -14,7 +14,7 @@ void IOTMSkiSetGenerateResourceBeta(ChecklistEntry [int] resource_entries)
         
 	if ($item[McHugeLarge duffel bag].available_amount() > 0 && $item[McHugeLarge right ski].available_amount() == 0)
 	{
-		resource_entries.listAppend(ChecklistEntryMake("__item McHugeLarge duffel bag", "inventory.php?ftext=McHugeLarge+duffel+bag", ChecklistSubentryMake("McHugeLarge duffel bag", "", "Open it!"), 0).ChecklistEntrySetIDTag("McHugeLarge duffel bag resource"));
+		resource_entries.listAppend(ChecklistEntryMake("__item McHugeLarge duffel bag", "inventory.php?ftext=McHugeLarge+duffel+bag", ChecklistSubentryMake("McHugeLarge duffel bag", "", "Open it!"), -999).ChecklistEntrySetIDTag("McHugeLarge duffel bag resource"));
     }
 	
 	int skiAvalanchesLeft = clampi(3 - get_property_int("_mcHugeLargeAvalancheUses"), 0, 3);
@@ -49,5 +49,5 @@ void IOTMSkiSetGenerateResourceBeta(ChecklistEntry [int] resource_entries)
 			description.listAppend(HTMLGenerateSpanFont("Equip the LEFT POLE first. (offhand, slash = olfact)", "red"));
 		}
 	}
-	resource_entries.listAppend(ChecklistEntryMake("__item McHugeLarge duffel bag", url, ChecklistSubentryMake("McHugeLarge ski set skills BETA", description), 1));
+	resource_entries.listAppend(ChecklistEntryMake("__item McHugeLarge duffel bag", url, ChecklistSubentryMake("McHugeLarge ski set skills BETA", description), -42));
 }

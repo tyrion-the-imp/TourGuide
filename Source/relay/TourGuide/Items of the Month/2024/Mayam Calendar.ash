@@ -61,7 +61,7 @@ void IOTMMayamCalendarGenerateResource(ChecklistEntry [int] resource_entries)
     entry.url = "inv_use.php?pwd=" + my_hash() + "&which=99&whichitem=11572";
     entry.image_lookup_name = "mayam calendar";
     entry.tags.id = "Mayam Calendar";
-    entry.importance_level = -12;
+    entry.importance_level = -31;
 
     /* if (!get_property("_mayamSymbolsUsed").contains_text("yam4") ||
         !get_property("_mayamSymbolsUsed").contains_text("clock") ||

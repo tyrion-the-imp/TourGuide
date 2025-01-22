@@ -184,7 +184,7 @@ import "relay/TourGuide/Items of the Month/2024/VIP Photobooth beta.ash";
 //2024.11
 import "relay/TourGuide/Items of the Month/2024/Peace Turkey beta.ash";
 
-//2024.12		TakerSpace		shed		https://kol.coldfront.net/thekolwiki/index.php/TakerSpace#Items
+//2024.12			TakerSpace		shed					https://kol.coldfront.net/thekolwiki/index.php/TakerSpace#Items  hep
 
 //2025 IotY		Server Room							https://kol.coldfront.net/thekolwiki/index.php/Server_Room
 //2025.01 IotM	McHugeLarge duffel bag	i#11783	https://kol.coldfront.net/thekolwiki/index.php/McHugeLarge_duffel_bag#Notes

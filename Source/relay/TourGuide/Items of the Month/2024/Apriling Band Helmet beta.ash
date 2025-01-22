@@ -51,9 +51,11 @@ void IOTMAprilingBandHelmetGenerateResourceBETA(ChecklistEntry [int] resource_en
     int aprilingBandQuadTomUsesLeft = clampi(3 - get_property_int("_aprilBandTomUses"), 0, 3);
     int aprilingBandTubaUsesLeft = clampi(3 - get_property_int("_aprilBandTubaUses"), 0, 3);
     int aprilingBandPiccoloUsesLeft = clampi(3 - get_property_int("_aprilBandPiccoloUses"), 0, 3);
+    int aprilingBandStaffUsesLeft = clampi(3 - get_property_int("_aprilBandStaffUses"), 0, 3);
     int instrumentUses = get_property_int("_aprilBandSaxophoneUses") +
         get_property_int("_aprilBandTomUses") +
         get_property_int("_aprilBandTubaUses") +
+        get_property_int("_aprilBandStaffUses") +
         get_property_int("_aprilBandPiccoloUses");
 
     string [int] instrumentDescription;
@@ -69,28 +71,34 @@ void IOTMAprilingBandHelmetGenerateResourceBETA(ChecklistEntry [int] resource_en
             instrumentDescription.listAppend(`Can play the Sax {aprilingBandSaxUsesLeft} more times. {HTMLGenerateSpanFont("LUCKY!", "green")}<br><span style='color:fuchsia; font-size:75%; font-weight:bold;'>(Summoning 2 of these still only gives 3 charges)</span>`);
         }
         if (aprilingBandQuadTomUsesLeft > 0) {
-            instrumentDescription.listAppend(`Can play the Quad Toms {aprilingBandQuadTomUsesLeft} more times. {HTMLGenerateSpanFont("Sandworm!", "orange")}`);
+            instrumentDescription.listAppend(`Can play the Quad Toms {aprilingBandQuadTomUsesLeft} more times. {HTMLGenerateSpanFont("Sandworm! or +30% exploration.", "orange")}`);
         }
         if (aprilingBandTubaUsesLeft > 0) {
             instrumentDescription.listAppend(`Can play the Tuba {aprilingBandTubaUsesLeft} more times. {HTMLGenerateSpanFont("SNEAK!", "grey")}`);
         }
         if (aprilingBandPiccoloUsesLeft > 0) {
-            instrumentDescription.listAppend(`Can play the Piccolo {aprilingBandPiccoloUsesLeft} more times. {HTMLGenerateSpanFont("+40 fxp", "purple")}`);
+            instrumentDescription.listAppend(`Can play the Piccolo {aprilingBandPiccoloUsesLeft} more times. {HTMLGenerateSpanFont("+40 fxp & +10lb fameq", "purple")}`);
         }
-		foreach i in $items[apriling band saxophone,apriling band quad tom,apriling band tuba,apriling band piccolo] {
+        if (aprilingBandStaffUsesLeft > 0) {
+            instrumentDescription.listAppend(`Can twirl the Staff {aprilingBandStaffUsesLeft} more times. {HTMLGenerateSpanFont("25a random fx", "blue")}`);
+        }
+		foreach i in $items[apriling band saxophone,apriling band quad tom,apriling band tuba,apriling band piccolo,apriling band staff] {
 			if	( available_amount(i) > 0 ) {
 				instrumentDescription.listAppend("You currently have an: "+i);
 				if	( i.contains_text("sax") ) {
-					instrumentDescription.listAppend("You have used it: "+get_property("_aprilBandSaxophoneUses")+" of 3 times");
+					instrumentDescription.listAppend("You have used it: "+get_property("_aprilBandSaxophoneUses")+" of 3 times max");
 				}
 				if	( i.contains_text("quad") ) {
-					instrumentDescription.listAppend("You have used it: "+get_property("_aprilBandTomUses")+" of 3 times");
+					instrumentDescription.listAppend("You have used it: "+get_property("_aprilBandTomUses")+" of 3 times max");
 				}
 				if	( i.contains_text("tuba") ) {
-					instrumentDescription.listAppend("You have used it: "+get_property("_aprilBandTubaUses")+" of 3 times");
+					instrumentDescription.listAppend("You have used it: "+get_property("_aprilBandTubaUses")+" of 3 times max");
 				}
 				if	( i.contains_text("picc") ) {
-					instrumentDescription.listAppend("You have used it: "+get_property("_aprilBandPiccoloUses")+" of 3 times");
+					instrumentDescription.listAppend("You have used it: "+get_property("_aprilBandPiccoloUses")+" of 3 times max");
+				}
+				if	( i.contains_text("staff") ) {
+					instrumentDescription.listAppend("You have used it: "+get_property("_aprilBandStaffUses")+" of 3 times max");
 				}
 			}
 		}

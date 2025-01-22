@@ -1,0 +1,14 @@
+Importance Level			Tile type
+-999						Lucky!
+-100						Grimace Maps
+-79							copies
+-70							sneaks
+-69							banish(es|ers)
+-65							free fights
+-60							yellow rays & instakills
+-55							runaways
+-50							familiars
+-46							combat items
+-41							faamiliar gear
+-40							gear
+-30							misc things to use....skills, items, weird, whatever

@@ -45,7 +45,7 @@ void IOTMJillv2GenerateResource(ChecklistEntry [int] resource_entries)
     // If we have nothing to say, do not display the tile
     if (count(description) == 0) return;
 	
-    resource_entries.listAppend(ChecklistEntryMake("__familiar jill-of-all-trades", url, ChecklistSubentryMake("Jill of All Trades", "", description)).ChecklistEntrySetIDTag("Jill of All Trades tile"));
+    resource_entries.listAppend(ChecklistEntryMake("__familiar jill-of-all-trades", url, ChecklistSubentryMake("Jill of All Trades", "", description), -50).ChecklistEntrySetIDTag("Jill of All Trades tile"));
 }
 
 //Jill-of-All-Trades
@@ -55,6 +55,8 @@ RegisterResourceGenerationFunction("IOTMJOATGenerateResource");
 void IOTMJOATGenerateResource(ChecklistEntry [int] resource_entries)
 {
     string [int] description;
+	description.listAppend("_mapToACandyRichBlockUsed = "+get_property("_mapToACandyRichBlockUsed"));
+	description.listAppend("_trickOrTreatBlock = "+get_property("_trickOrTreatBlock"));
     //can only use the first one each day, though more of them can drop, and _mapToACandyRichBlockUsed is never set true until you try
 	//to use one and fail? result: You already visited a candy-rich block today, don't be greedy.
 	//get_property_int("_mapToACandyRichBlockDrops") < 2
@@ -62,7 +64,7 @@ void IOTMJOATGenerateResource(ChecklistEntry [int] resource_entries)
 	if ( $item[map to a candy-rich block].available_amount() > 0 && !get_property_boolean("_mapToACandyRichBlockUsed") ) {
         description.listAppend("Need to equip an outfit!");
         description.listAppend("Use a 2nd map to mark this task complete.");
-    resource_entries.listAppend(ChecklistEntryMake("__item map to a candy-rich block", "inventory.php?ftext=candy-rich", ChecklistSubentryMake("5 Candy-rich block fights available", description), -1).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("JOAT"));
+    resource_entries.listAppend(ChecklistEntryMake("__item map to a candy-rich block", "inventory.php?ftext=candy-rich", ChecklistSubentryMake("5 Candy-rich block fights available", description), -50).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("JOAT"));
     }
     else if (get_property_boolean("_mapToACandyRichBlockUsed") == true) {
         description.listAppend("Trick-or-Treat!");

@@ -2,8 +2,9 @@
 RegisterTaskGenerationFunction("IOTMBoomBoxGenerateTasks");
 void IOTMBoomBoxGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
+	int importance = (get_property_boolean("kingLiberated")) ? 11:-11;
+	
 	if (lookupItem("SongBoom&trade; BoomBox").available_amount() == 0) return;
-		 
  
 	string song = get_property("boomBoxSong");
 	int changes_left = get_property_int("_boomBoxSongsLeft"); //the boys are back in town, eleven times. everyone will love it
@@ -19,12 +20,12 @@ void IOTMBoomBoxGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry 
         }	
 		if (boomboxProgress == 9)
 		{
-            task_entries.listAppend(ChecklistEntryMake("__item SongBoom&trade; BoomBox", "inv_use.php?pwd=" + my_hash() + "&whichitem=9919", ChecklistSubentryMake("Boombox drop in 2 fights", "", description), -11));
+            task_entries.listAppend(ChecklistEntryMake("__item SongBoom&trade; BoomBox", "inv_use.php?pwd=" + my_hash() + "&whichitem=9919", ChecklistSubentryMake("Boombox drop in 2 fights", "", description), importance));
         }	
 		
 		if (boomboxProgress == 10)
         {
-            task_entries.listAppend(ChecklistEntryMake("__item SongBoom&trade; BoomBox", "inv_use.php?pwd=" + my_hash() + "&whichitem=9919", ChecklistSubentryMake("Boombox drop this fight", "", description), -11));
+            task_entries.listAppend(ChecklistEntryMake("__item SongBoom&trade; BoomBox", "inv_use.php?pwd=" + my_hash() + "&whichitem=9919", ChecklistSubentryMake("Boombox drop this fight", "", description), importance));
         }
 	}	
  
