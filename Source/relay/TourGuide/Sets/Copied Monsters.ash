@@ -438,9 +438,9 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
         //if (__misc_state["in run"])
         {
             if ($item[alpine watercolor set].available_amount() == 0)
-                description.listAppend("Acquire an alpine watercolor set to copy something else.");
+                description.listAppend("Acquire an alpine watercolor set ("+available_amount($item[alpine watercolor set])+") to copy something.");
             else
-                description.listAppend("Copy something else with alpine watercolor set.");
+                description.listAppend("Copy something w alpine watercolor set ("+available_amount($item[alpine watercolor set])+").");
             /*string line;
             if (current_monster == $monster[none])
                 line += "Options:";
