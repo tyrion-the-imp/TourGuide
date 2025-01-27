@@ -435,7 +435,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
         else
             header += " fightable";
         
-        if (__misc_state["in run"])
+        //if (__misc_state["in run"])
         {
             if ($item[alpine watercolor set].available_amount() == 0)
                 description.listAppend("Acquire an alpine watercolor set to copy something else.");
