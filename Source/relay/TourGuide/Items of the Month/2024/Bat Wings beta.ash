@@ -72,3 +72,20 @@ void IOTMBatWingsGenerateResourceBeta(ChecklistEntry [int] resource_entries)
 	//place.php?whichplace=orc_chasm&action=bridge_jump  --> link appears above bridge at 25/30 completion		chasmBridgeProgress
 	resource_entries.listAppend(ChecklistEntryMake("__item bat wings", url, ChecklistSubentryMake("Bat Wings functions", "", description), -40));
 }
+
+
+RegisterTaskGenerationFunction("IOTYCyberRealmGenerateTasksBeta");
+void IOTYCyberRealmGenerateTasksBeta(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries) {
+	if (!__iotms_usable[lookupItem("bat wings")]) { return; } 
+	string [int] description;
+	string url = "inventory.php?ftext=bat+wings";
+	string image_name = "__skill Rest upside down";
+	skill rud = $skill[Rest upside down];
+	int batWingRestsLeft = clampi(11 - get_property_int("_batWingsRestUsed"), 0, 11);
+	
+	if	( __iotms_usable[lookupItem("bat wings")] && batWingRestsLeft > 0 ) {
+		description.listAppend("Bat Wings heal|*Rest +1000 HP/MP|*" + (HTMLGenerateSpanOfClass(batWingRestsLeft, "r_bold")) + " use(s) left.");
+		optional_task_entries.listAppend(ChecklistEntryMake(image_name, url, ChecklistSubentryMake(rud, "", description), -201));
+	}
+
+}

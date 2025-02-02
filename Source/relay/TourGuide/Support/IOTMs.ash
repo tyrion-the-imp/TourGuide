@@ -208,7 +208,11 @@ void initialiseIOTMsUsable()
 	
     if (lookupItem("McHugeLarge left pole").available_amount() > 0) //Jan 2025
         __iotms_usable[lookupItem("McHugeLarge left pole")] = true;
-    //Can't use many things in G-Lover
+    if (lookupItem("bat wings").available_amount() > 0) //Dec 2023
+        __iotms_usable[lookupItem("bat wings")] = true;
+    
+	
+	//Can't use many things in G-Lover
     if (my_path().id == PATH_G_LOVER) //Path 33
     {
         __iotms_usable[lookupItem("Bird-a-Day calendar")] = false;
