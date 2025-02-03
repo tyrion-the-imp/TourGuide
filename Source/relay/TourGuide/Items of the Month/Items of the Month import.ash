@@ -185,6 +185,7 @@ import "relay/TourGuide/Items of the Month/2024/VIP Photobooth beta.ash";
 import "relay/TourGuide/Items of the Month/2024/Peace Turkey beta.ash";
 
 //2024.12			TakerSpace		shed					https://kol.coldfront.net/thekolwiki/index.php/TakerSpace#Items  hep
+import "relay/TourGuide/Items of the Month/2024/TakerSpaceBeta.ash";
 
 //2025 IotY		Server Room							https://kol.coldfront.net/thekolwiki/index.php/Server_Room		CyberRealmBeta
 import "relay/TourGuide/Items of the Month/2025/CyberRealmBeta.ash";

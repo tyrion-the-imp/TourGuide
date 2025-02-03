@@ -78,7 +78,10 @@ RegisterTaskGenerationFunction("IOTYCyberRealmGenerateTasksBeta");
 void IOTYCyberRealmGenerateTasksBeta(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries) {
 	if (!__iotms_usable[lookupItem("bat wings")]) { return; } 
 	string [int] description;
-	string url = "inventory.php?ftext=bat+wings";
+	//string url = "inventory.php?ftext=bat+wings";
+	//string url = "skillz.php";
+	//GET
+	string url = "runskillz.php?action=Skillz&whichskill=7528&targetplayer=580686&quantity=1&pwd="+my_hash();
 	string image_name = "__skill Rest upside down";
 	skill rud = $skill[Rest upside down];
 	int batWingRestsLeft = clampi(11 - get_property_int("_batWingsRestUsed"), 0, 11);
