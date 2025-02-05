@@ -1,3 +1,4 @@
+import "relay/TourGuide/Support/IOTMs.ash"
 
 void QLevel9Init()
 {
@@ -33,6 +34,10 @@ void QLevel9Init()
             fasteners_have += 15;
             lumber_have += 15;
         }
+		if	( __iotms_usable[lookupItem("bat wings")] ) {
+			fasteners_have += 5;
+			lumber_have += 5;
+		}
 		
 		int fasteners_needed = MAX(0, 30 - fasteners_have);
 		int lumber_needed = MAX(0, 30 - lumber_have);

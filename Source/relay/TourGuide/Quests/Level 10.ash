@@ -162,6 +162,13 @@ void QLevel10GenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [in
                 subentry.entries.listAppend("25 total turns of delay.");
             else if (turns_spent < 25)
                 subentry.entries.listAppend(pluralise(25 - turns_spent, "turn", "turns") + " total delay remaining.");
+			if	( __iotms_usable[lookupItem("candy cane sword cane")] ) {
+				if	( !have_equipped(lookupItem("candy cane sword cane")) ) {
+					subentry.entries.listAppend("<span style='color:red; font-size:105%;'>Equip candy cane sword cane? (Adds repeatable option for a chest + more items.)</span>");
+				} else {
+					subentry.entries.listAppend("<span style='color:green; font-size:85%;'>Candy cane sword cane is equipped. (Adds repeatable option for a chest + more items.)</span>");
+				}
+			}
             if ($skill[Transcendent Olfaction].skill_is_usable() && !(get_property("olfactedMonster") == "Quiet Healer") && !have_more_than_enough_sgeeas)
                 subentry.entries.listAppend("Potentially olfact quiet healer for SGEEAs");
             

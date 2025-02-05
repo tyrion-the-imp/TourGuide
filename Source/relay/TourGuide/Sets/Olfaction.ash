@@ -7,6 +7,8 @@ void SOlfactionGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [
     //   and turn this into a resource thing rather than a highlighted task.
 	string [int] description;
 	item MCLP = $item[McHugeLarge left pole];
+	item CMPAW = $item[cursed monkey's paw];
+	skill MPPOINT = $skill[Monkey Point];
 	
     if (!$skill[Transcendent Olfaction].skill_is_usable()) {
         //return;
@@ -26,18 +28,40 @@ void SOlfactionGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [
 	totalsniffs += (3 - get_property_int("_olfactionsUsed"));
 	if	( (3 - get_property_int("_olfactionsUsed")) > 0 ) {
 		description.listAppend("<span style='color:red; font-weight:bold;'>"+(3 - get_property_int("_olfactionsUsed")).to_string()+"</span> Olfaction uses available.");
+		description.listAppend("|*<span style='color:blue; font-weight:bold; font-size:75%;'>+3 copies to queue</span>");
 		description.listAppend("|*Currently tracking: "+get_property("olfactedMonster"));
 	}
 	//+3 copies to queue
 	//$item[McHugeLarge left pole];
+	//Preference trackedMonsters changed from writing desk:Transcendent Olfaction:46 to writing desk:Transcendent Olfaction:46:dirty old lihc:McHugeLarge Slash:87
 	if	( __iotms_usable[lookupItem(MCLP)] ) {
 		description.listAppend("<span style='color:red; font-weight:bold;'>"+(3 - get_property_int("_mcHugeLargeSlashUses")).to_string()+"</span> MHL left pole slash uses available.");
+		description.listAppend("|*<span style='color:blue; font-weight:bold; font-size:75%;'>+3 copies to queue</span>");
 		string indicatorMCLP = "green";
 		indicatorMCLP = (have_equipped(MCLP)) ? "<span style='color:green; font-weight:bold;'>YES</span>":"<span style='color:red; font-weight:bold;'>NO</span>";
 		description.listAppend("|*Equipped? "+indicatorMCLP);
 		totalsniffs += (3 - get_property_int("_mcHugeLargeSlashUses"));
 	}
-    
+	//+2 copies to queue
+	//*4w Monkey_Point (+2 copies of monster to zone) (monkey paw with 4 wishes used is equipped)
+	//https://kol.coldfront.net/thekolwiki/index.php/Monkey_Point
+	if	( __iotms_usable[lookupItem("cursed monkey's paw")] && get_property_int("_monkeyPawWishesUsed") == 4 ) {
+		//__iotms_usable[lookupItem("cursed monkey's paw")]  _monkeyPawWishesUsed		monkeyPointMonster		0 MP, reusable, combat
+		
+		description.listAppend("<span style='color:black; font-weight:bold;'>1 Monkey Point skill</span>");
+		description.listAppend("|*<span style='color:purple; font-weight:bold; font-size:80%;'>\tuntil next use? turn-limited? infinite reuse?</span>");
+		description.listAppend("|*<span style='color:blue; font-weight:bold; font-size:75%;'>+2 copies to queue</span>");
+		description.listAppend("|*Currently tracking: "+get_property("monkeyPointMonster"));
+		string indicatorMCLP = "green";
+		indicatorMCLP = (have_equipped(CMPAW)) ? "<span style='color:green; font-weight:bold;'>YES</span>":"<span style='color:red; font-weight:bold;'>NO</span>";
+		description.listAppend("|*Equipped? "+indicatorMCLP);
+		totalsniffs += 1;
+	} else if ( __iotms_usable[lookupItem("cursed monkey's paw")] && get_property_int("_monkeyPawWishesUsed") < 4 ) {
+		int wishes_to_use = 4 - get_property_int("_monkeyPawWishesUsed");
+		description.listAppend("<span style='color:gray; font-weight:bold;'>0 Monkey Point skill</span>");
+		description.listAppend("|*You need to use "+wishes_to_use+" more wishes to unlock Monkey Point (+2 q)");
+	}
+	
     monster [location] location_wanted_monster;
     
     if (__misc_state["in run"])

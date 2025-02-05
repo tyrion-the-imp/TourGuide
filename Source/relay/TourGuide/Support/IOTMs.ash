@@ -210,6 +210,8 @@ void initialiseIOTMsUsable()
         __iotms_usable[lookupItem("McHugeLarge left pole")] = true;
     if (lookupItem("bat wings").available_amount() > 0) //Dec 2023
         __iotms_usable[lookupItem("bat wings")] = true;
+    if (lookupItem("cursed monkey's paw").available_amount() > 0) //Dec 2023
+        __iotms_usable[lookupItem("cursed monkey's paw")] = true;
     
 	
 	//Can't use many things in G-Lover
