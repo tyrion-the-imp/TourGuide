@@ -1,3 +1,9 @@
+int CyberFree = get_property_int("_cyberFreeFights");
+	if (!have_skill($skill[OVERCLOCK(10)])) { CyberFree = 10; }
+int cyberTurns = get_property_int("_cyberZone1Turns") + get_property_int("_cyberZone2Turns") + get_property_int("_cyberZone3Turns");
+int usedNum = max(cyberTurns,CyberFree);
+CyberFree = usedNum;
+
 
 //CyberRealm
 RegisterTaskGenerationFunction("IOTYCyberRealmGenerateTasks");
@@ -5,8 +11,6 @@ void IOTYCyberRealmGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 {
 	if ($item[server room key].available_amount() < 1) return;
 	
-	int CyberFree = get_property_int("_cyberFreeFights");
-		if (!have_skill($skill[OVERCLOCK(10)])) { CyberFree = 10; }
 	int zone1Turns = get_property_int("_cyberZone1Turns");
 	int zone2Turns = get_property_int("_cyberZone2Turns");
 	int zone3Turns = get_property_int("_cyberZone3Turns");
@@ -102,12 +106,14 @@ void IOTYCyberRealmGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 				
 		if (($locations[Cyberzone 1,Cyberzone 2,Cyberzone 3] contains __last_adventure_location) && have_skill($skill[OVERCLOCK(10)]))
 		{
+			description.listAppend(HTMLGenerateSpanFont("Have used " + usedNum + " turns in server room.", "blue"));
 			description.listAppend(HTMLGenerateSpanFont("Have " + (10 - CyberFree) + " free fights left!", "green"));
 			task_entries.listAppend(ChecklistEntryMake(image_name, url, ChecklistSubentryMake(60 - CyberZoneLeft + " CyberRealm adventures!", "", description), -103));
 		}
 		else
 		{
 			if (cyberfree < 10 && have_skill($skill[OVERCLOCK(10)])) {
+				description.listAppend(HTMLGenerateSpanFont("Have used " + usedNum + " turns in server room.", "blue"));
 				description.listAppend(HTMLGenerateSpanFont("Have " + (10 - CyberFree) + " free fights left!", "green"));
 			}
 			else if (!have_skill($skill[OVERCLOCK(10)])) {
@@ -118,4 +124,17 @@ void IOTYCyberRealmGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 			}
 			optional_task_entries.listAppend(ChecklistEntryMake(image_name, url, ChecklistSubentryMake(60 - CyberZoneLeft + " CyberRealm adventures!", "", description), -11));
 		}
+}
+
+
+RegisterResourceGenerationFunction("IOTMCyberRealmBetaGenerateResource");
+void IOTMCyberRealmBetaGenerateResource(ChecklistEntry [int] resource_entries) {
+	string [int] description;
+	string url = "place.php?whichplace=CyberRealm";
+	string image_name = "__skill stats+++";
+	if (!have_skill($skill[OVERCLOCK(10)])) { CyberFree = 10; }
+	if (cyberfree < 10 && have_skill($skill[OVERCLOCK(10)])) {
+		description.listAppend(HTMLGenerateSpanFont("Have " + (10 - CyberFree) + " free Cyberzone fights left!", "green"));
+		resource_entries.listAppend(ChecklistEntryMake(image_name, url, ChecklistSubentryMake((10 - CyberFree) + " CyberRealm free adventures!", "", description), -11).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("Cyber realm free fights"));
+	}
 }

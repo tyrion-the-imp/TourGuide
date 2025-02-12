@@ -242,7 +242,7 @@ void IOTMPatrioticEagleGenerateResourceTEMP(ChecklistEntry [int] resource_entrie
 	int fights_left = clampi(get_property_int("rwbMonsterCount"), 0, 2);
     if (fights_left == 0 && have_effect(rwb) == 0) {
         description.listAppend(HTMLGenerateSpanOfClass("<hr style='background-color:red; width:85%; height:5px;'>Fire a Red, White and Blue Blast", "r_bold"));
-        description.listAppend("Can banish all monsters in zone except the one the skill is used on.  After, 2 (3?) appearances of the monster, all other monsters will return. (Effectively, 2 or 3? immediate copies.)");
+        description.listAppend("Can banish all monsters in zone except the one the skill is used on.  After, 2 (3?) appearances of the monster, all other monsters will return. (Effectively, 2 or 3? immediate copies.) Only works at snarfblat of monster ie Doesn't work on copied monsters but will still consume a use.");
     } else if (fights_left > 0) {
 		description.listAppend(HTMLGenerateSpanOfClass("<hr style='background-color:red; width:85%; height:5px;'>Red, White and Blue Blast active on "+RWB_monster+" for "+fights_left+" more fight(s)", "r_bold"));
 	} else if (have_effect(rwb) > 0) {

@@ -244,6 +244,9 @@ string generateRandomMessage()
     if (__misc_state["In valhalla"])
         return "rebirth";
     
+	//additions
+	random_messages.listAppend(__misc_state_int["free rests remaining"]+" free naps!");
+	
     if (__misc_state["in run"])
     {
         if (my_turncount() > 1000 && !in_bad_moon())

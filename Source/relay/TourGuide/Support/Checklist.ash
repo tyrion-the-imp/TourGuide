@@ -630,6 +630,8 @@ buffer ChecklistGenerate(Checklist cl, boolean output_borders) {
 			//print(entry.url);
 			//this rank doesn't determine the order listed...only the order of which one is listed FIRST..and therefore which URL is clickable
 			//in the tile (and which image is used)
+			//cyber realm overclocked
+			if	( entry.url.index_of("CyberRealm") > -1 ) { entry.importance_level -= 10; }
 			//oliver's brawl
 			if	( entry.url.index_of("speakeasy") > -1 ) { entry.importance_level -= 9; }
 			//science tent tentacle
@@ -644,7 +646,8 @@ buffer ChecklistGenerate(Checklist cl, boolean output_borders) {
 			if	( entry.url.index_of("11169") > -1 ) { entry.importance_level -= 4; }
 			//burning leaves
 			if	( entry.url.index_of("leaves") > -1 ) { entry.importance_level -= 3; }
-			//print(entry.url+" = "+entry.importance_level);
+			//assert your authority, free kill a monster, meat drops only
+			if	( entry.url.index_of("sheriff") > -1 ) { entry.importance_level -= 2; }
 		}
 		
         if (!(combination_tag_entries contains entry.tags.combination)) {

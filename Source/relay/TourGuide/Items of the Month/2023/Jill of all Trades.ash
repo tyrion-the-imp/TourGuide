@@ -55,6 +55,7 @@ RegisterResourceGenerationFunction("IOTMJOATGenerateResource");
 void IOTMJOATGenerateResource(ChecklistEntry [int] resource_entries)
 {
     string [int] description;
+	description.listAppend("tgg hmap (_aaa_halloweenMapCompleted)");
 	description.listAppend("_mapToACandyRichBlockUsed = "+get_property("_mapToACandyRichBlockUsed"));
 	description.listAppend("_trickOrTreatBlock = "+get_property("_trickOrTreatBlock"));
     //can only use the first one each day, though more of them can drop, and _mapToACandyRichBlockUsed is never set true until you try
@@ -69,6 +70,9 @@ void IOTMJOATGenerateResource(ChecklistEntry [int] resource_entries)
     else if (get_property_boolean("_mapToACandyRichBlockUsed") == true) {
         description.listAppend("Trick-or-Treat!");
     //resource_entries.listAppend(ChecklistEntryMake("__familiar Jill-of-All-Trades", "place.php?whichplace=town&action=town_trickortreat", ChecklistSubentryMake("Candy-rich block available", description),-60).ChecklistEntrySetCombinationTag("JOAT resources").ChecklistEntrySetIDTag("JOAT"));
-    resource_entries.listAppend(ChecklistEntryMake("__familiar Jill-of-All-Trades", "place.php?whichplace=town&action=town_trickortreat", ChecklistSubentryMake("Candy-rich block available <a href='place.php?whichplace=town&action=town_trickortreat' target='mainpane'><span style='color:blue; font-size:100%; font-weight:normal;'>Go!</span></a>", description),-60).ChecklistEntrySetCombinationTag("daily free fight"));
+	
+		if	( !get_property_boolean("_aaa_halloweenMapCompleted") ) {
+			resource_entries.listAppend(ChecklistEntryMake("__familiar Jill-of-All-Trades", "place.php?whichplace=town&action=town_trickortreat", ChecklistSubentryMake("Candy-rich block available <a href='place.php?whichplace=town&action=town_trickortreat' target='mainpane'><span style='color:blue; font-size:100%; font-weight:normal;'>Go!</span></a>", description),-60).ChecklistEntrySetCombinationTag("daily free fight"));
+		}
     }
 }
