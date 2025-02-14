@@ -65,7 +65,7 @@ void IOTMCursedMonkeysPawGenerateResource(ChecklistEntry [int] resource_entries)
     string url;
     string [int] description;
     url = "main.php?action=cmonk&pwd=" + my_hash() + "";
-    description.listAppend("Return to monke. Wish for items or effects:");
+    description.listAppend("Wish for items or effects:");
 
     MonkeyWish [int] inRunWishes = {
         new MonkeyWish(

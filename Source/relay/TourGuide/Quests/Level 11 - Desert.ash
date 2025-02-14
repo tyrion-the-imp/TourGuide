@@ -227,17 +227,20 @@ void QLevel11DesertGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 			}
 			appendGearLineToSubentries(line,true,line_extra,url);
 			line = "";
+			line_extra = "";
 		}
 		if ($item[uv-resistant compass].available_amount() > 0 && $item[uv-resistant compass].equipped_amount() == 0) {
 			line = "Equip the UV-resistant compass.";
 			url = "inventory.php?ftext=uv-resistant+compass";
 			appendGearLineToSubentries(line,true,line_extra,url);
 			line = "";
+			line_extra = "";
 		}
 		if ($item[uv-resistant compass].available_amount() > 0 && $item[uv-resistant compass].equipped_amount() > 0) {
 			line = "UV-resistant compass is equipped.";
 			appendGearLineToSubentries(line,false,line_extra,url);
 			line = "";
+			line_extra = "";
 		}
         if (canCamel && !haveCamel) {
             if (line == "")
@@ -247,6 +250,7 @@ void QLevel11DesertGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 			url = "familiar.php";
 			appendGearLineToSubentries(line,true,line_extra,url);
 			line = "";
+			line_extra = "";
         }
 		if ($item[survival knife].have() && ($item[survival knife].equipped_amount() == 0)) {
 			url = "inventory.php?ftext=survival+knife";
@@ -256,6 +260,7 @@ void QLevel11DesertGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
                 line_extra += "|<font color='red'>Equip your survival knife (only effective while Ultrahydrated)</font>";
 			appendGearLineToSubentries(line,true,line_extra,url);
 			line = "";
+			line_extra = "";
 		}
 		if ( $item[survival knife].equipped_amount() > 0 ) {
 			if (line == "")
@@ -264,7 +269,17 @@ void QLevel11DesertGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
                 line_extra += "|Survival knife is equipped. Gives +2% exploration (while Ultrahydrated)";
 			appendGearLineToSubentries(line,false,line_extra,url);
 			line = "";
+			line_extra = "";
 		}
-    }
+		boolean ok_april = ( $item[Apriling band helmet].available_amount() > 0 && is_unrestricted($item[Apriling band helmet]) ) ? true:false;
+		if ( ok_april && ( get_property_int("_aprilBandInstruments") < 2 || $item[Apriling band quad tom].available_amount() > 0 ) && get_property_int("_aprilBandTomUses") < 3 ) {
+			line += "<span style='color:green;'>Apriling band quad tom can be used in place of a drum machine (+30% exploration)</span>";
+			url = "inventory.php?ftext=apriling";
+			
+			appendGearLineToSubentries(line,false,line_extra,url);
+			line = "";
+			line_extra = "";
+		}
+	}
     task_entries.listAppend(ChecklistEntryMake(base_quest_state.image_name, url, subentry, $locations[the arid\, extra-dry desert,the oasis]).ChecklistEntrySetIDTag("Council L11 quest desert exploration"));
 }

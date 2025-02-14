@@ -421,6 +421,7 @@ void SneakActiveTask(ChecklistEntry [int] task_entries, ChecklistEntry [int] opt
 {
     // Use the new preference to tell if there's an NC forcer active
     if (!get_property_boolean("noncombatForcerActive")) return;
+	if ( turns_until_forced_noncombat(my_location()) < 0 ) { return; }
     
     // If you are forcing an NC, build the reminder
     ChecklistEntry entry;
