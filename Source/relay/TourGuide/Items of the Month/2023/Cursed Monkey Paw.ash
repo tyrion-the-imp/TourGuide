@@ -369,15 +369,20 @@ void IOTMCursedMonkeysPawGenerateResource(ChecklistEntry [int] resource_entries)
     }
 
     // Banish combination tag for the monkey slap, if you've got it.
-    if (monkeyWishesLeft == 5) {
+    //if (monkeyWishesLeft == 5) {
+    if ($item[cursed monkey's paw].available_amount() > 0) {
         string [int] description;
         string url;
         url = "main.php";
-        description.listAppend("Turn-taking repeat-use banish. Lasts until you use it again!");
-        if ($item[cursed monkey's paw].equipped_amount() == 0) {
-            description.listAppend("Equip your cursed monkey paw first.");
-            url = "inventory.php?ftext=cursed+monkey";
-        }
-        resource_entries.listAppend(ChecklistEntryMake("__skill monkey slap", "", ChecklistSubentryMake("Monkey Slap usable", "", description), 0).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Cursed monkey paw banish"));
+		if (monkeyWishesLeft != 5) {
+			description.listAppend("<span style='color:red; font-size:80%; font-weight:bold;'>There must be 5 monkey wishes left & you have "+monkeyWishesLeft+"</span>");
+		} else {
+			description.listAppend("Turn-taking repeat-use banish. Lasts until you use it again!");
+			if ($item[cursed monkey's paw].equipped_amount() == 0) {
+				description.listAppend("<span style='color:red; font-size:100%; font-weight:bold;'>Equip your cursed monkey paw first.</span>");
+				url = "inventory.php?ftext=cursed+monkey";
+			}
+		}
+        resource_entries.listAppend(ChecklistEntryMake("__skill monkey slap", "", ChecklistSubentryMake("Monkey Slap ~ cursed monkey's paw", "", description), 0).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Cursed monkey paw banish"));
     }
 }

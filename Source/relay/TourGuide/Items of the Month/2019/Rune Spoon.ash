@@ -83,6 +83,6 @@ void IOTMRuneSpoonGenerateResource(ChecklistEntry [int] resource_entries)
         string url = "inv_use.php?whichitem=" + activeSpoonID + "&pwd=" + my_hash();
         if (!__iotms_usable[lookupItem("hewn moon-rune spoon")] && spoon.closet_amount() > 0)
         	url = "closet.php?which=2";
-		resource_entries.listAppend(ChecklistEntryMake("__item " + spoon, url, ChecklistSubentryMake("Moon sign tunable", "", description), 10).ChecklistEntrySetIDTag("Roon spoon moon boon toon moon"));
+		resource_entries.listAppend(ChecklistEntryMake("__item " + spoon, url, ChecklistSubentryMake("Moon sign tunable", "", description), -40).ChecklistEntrySetIDTag("Roon spoon moon boon toon moon"));
 	}
 }

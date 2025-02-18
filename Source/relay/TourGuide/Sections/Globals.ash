@@ -1,5 +1,6 @@
 //Runtime variables:
 location __last_adventure_location;
+location __next_adventure_location;
 
 
 //Runtime call functions:

@@ -72,6 +72,7 @@ void setUpState()
 {
     __misc_state.listClear();
 	__last_adventure_location = get_property_location("lastAdventure");
+	__next_adventure_location = get_property_location("nextAdventure");
     if (__misc_state["Example mode"])
     {
         int wanted_index = random_safe($locations[].count());
