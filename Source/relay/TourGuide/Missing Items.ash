@@ -179,9 +179,8 @@ void generateMissingItems(Checklist [int] checklists)
         string [int] relevant_elements;
         foreach s in $strings[nsChallenge3,nsChallenge4,nsChallenge5] {
             element e = get_property_element(s);
-            if (e == $element[none]) continue;
-            if (numeric_modifier(e + " resistance") >= 7)
-                continue;
+            if (e == $element[none]) { continue; }
+            if (numeric_modifier(e + " resistance") >= 7) { continue; }
             string type_class = "r_element_" + e;
             string type_class_desaturated = "r_element_" + e + "_desaturated";
             relevant_elements.listAppend(HTMLGenerateSpanOfClass("+" + e, type_class) + " resistance");

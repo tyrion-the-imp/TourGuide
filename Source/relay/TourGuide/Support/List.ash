@@ -15,7 +15,7 @@ void listAppend(string [int] list, string entry)
 	int position = list.count();
 	while (list contains position)
 		position += 1;
-	list[position] = entry;
+	list[position - 1] = entry;
 }
 
 void listAppendList(string [int] list, string [int] entries)
