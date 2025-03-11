@@ -40,6 +40,7 @@ void IOTMCosmicBowlingBallGenerateResource(ChecklistEntry [int] resource_entries
 	if (!get_property_boolean("hasCosmicBowlingBall") == true)
 		return;
 	if (my_path() == $path[Legacy of Loathing]) return;
+	if	( !__iotms_usable[lookupItem("cosmic bowling ball")] ) { return; }
 	if (my_path().id == PATH_G_LOVER) return; // not generating tiles when nothing works right
 
 	// Entries

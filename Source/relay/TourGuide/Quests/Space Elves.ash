@@ -18,8 +18,9 @@ void QSpaceElvesInit()
 void QSpaceElvesGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
 	QuestState base_quest_state = __quest_state["Space Elves"];
-	if (base_quest_state.finished)
+	if (base_quest_state.finished) {
 		return;
+	}
     
     string url = "place.php?whichplace=spaaace";
     
@@ -117,6 +118,11 @@ void QSpaceElvesGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry 
             url = "mall.php";
 	}
 	
-	
-	optional_task_entries.listAppend(ChecklistEntryMake(base_quest_state.image_name, url, subentry, $locations[domed city of ronaldus, domed city of grimacia,hamburglaris shield generator]).ChecklistEntrySetIDTag("Space elves generator quest"));
+	int importancespace = -5;
+	if (($locations[domed city of ronaldus, domed city of grimacia,hamburglaris shield generator] contains __next_adventure_location) ) {
+		importancespace = -100;
+		task_entries.listAppend(ChecklistEntryMake(base_quest_state.image_name, url, subentry, importancespace, $locations[domed city of ronaldus, domed city of grimacia,hamburglaris shield generator]).ChecklistEntrySetIDTag("Space elves generator quest"));
+	} else {
+		optional_task_entries.listAppend(ChecklistEntryMake(base_quest_state.image_name, url, subentry, importancespace, $locations[domed city of ronaldus, domed city of grimacia,hamburglaris shield generator]).ChecklistEntrySetIDTag("Space elves generator quest"));
+	}
 }

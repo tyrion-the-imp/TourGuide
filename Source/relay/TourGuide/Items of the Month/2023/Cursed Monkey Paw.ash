@@ -365,7 +365,7 @@ void IOTMCursedMonkeysPawGenerateResource(ChecklistEntry [int] resource_entries)
     }
 
     if (monkeyWishesLeft > 0) {
-        resource_entries.listAppend(ChecklistEntryMake(imageName, url, ChecklistSubentryMake(pluralise(monkeyWishesLeft, "monkey's paw wish", `monkey's paw wishes`), "", description),-10).ChecklistEntrySetIDTag("Monkey wishes"));
+        resource_entries.listAppend(ChecklistEntryMake(imageName, url, ChecklistSubentryMake(pluralise(monkeyWishesLeft, "monkey's paw wish", `monkey's paw wishes`), "", description),-40).ChecklistEntrySetIDTag("Monkey wishes"));
     }
 
     // Banish combination tag for the monkey slap, if you've got it.
@@ -375,7 +375,8 @@ void IOTMCursedMonkeysPawGenerateResource(ChecklistEntry [int] resource_entries)
         string url;
         url = "main.php";
 		if (monkeyWishesLeft != 5) {
-			description.listAppend("<span style='color:red; font-size:80%; font-weight:bold;'>There must be 5 monkey wishes left & you have "+monkeyWishesLeft+"</span>");
+			return;
+			//description.listAppend("<span style='color:red; font-size:80%; font-weight:bold;'>There must be 5 monkey wishes left & you have "+monkeyWishesLeft+"</span>");
 		} else {
 			description.listAppend("Turn-taking repeat-use banish. Lasts until you use it again!");
 			if ($item[cursed monkey's paw].equipped_amount() == 0) {
@@ -383,6 +384,6 @@ void IOTMCursedMonkeysPawGenerateResource(ChecklistEntry [int] resource_entries)
 				url = "inventory.php?ftext=cursed+monkey";
 			}
 		}
-        resource_entries.listAppend(ChecklistEntryMake("__skill monkey slap", "", ChecklistSubentryMake("Monkey Slap ~ cursed monkey's paw", "", description), 0).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Cursed monkey paw banish"));
+        resource_entries.listAppend(ChecklistEntryMake("__skill monkey slap", "", ChecklistSubentryMake("Monkey Slap ~ cursed monkey's paw", "", description), -5).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Cursed monkey paw banish"));
     }
 }
