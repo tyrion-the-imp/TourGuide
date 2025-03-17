@@ -31,9 +31,11 @@ void IOTMChestMimicGenerateResourceBETA(ChecklistEntry [int] resource_entries)
     int famExperienceGain = numeric_modifier("familiar experience") +1;
 	int chestExperience = ($familiar[chest mimic].experience);
 	int chestCopiesAvailable = (chestExperience.to_float() / 50.0).to_int();
+	int chestFaxesAvailable = (chestExperience.to_float() / 100.0).to_int();
 	int famExpNeededForNextEgg = (50 - (chestExperience % 50));
 	int mimicEggsLeft = clampi(11 - get_property_int("_mimicEggsObtained"), 0, 11);
 	chestCopiesAvailable = min(chestCopiesAvailable, mimicEggsLeft);
+	chestFaxesAvailable = min(chestFaxesAvailable, mimicEggsLeft);
 	string fightsForNextEgg = pluralise(ceil(to_float(famExpNeededForNextEgg) / famExperienceGain), "fight", "fights");
 	string [int] description;
 	//DNA Bank: place.php?whichplace=town_right&action=townright_dna
@@ -41,10 +43,16 @@ void IOTMChestMimicGenerateResourceBETA(ChecklistEntry [int] resource_entries)
 	{
 		description.listAppend("Currently have " + HTMLGenerateSpanOfClass(chestExperience, "r_bold") + " experience, currently gain " + HTMLGenerateSpanOfClass(famExperienceGain, "r_bold") + " fam exp per fight.");
 		description.listAppend("Can currently add <span style='color:red; font-weight:bold;'>"+chestCopiesAvailable+"</span> copies to the egg.");
+		description.listAppend("Can currently fight <span style='color:red; font-weight:bold;'>"+chestFaxesAvailable+"</span> chest mimic monster faxes.");
 		description.listAppend("Need " + HTMLGenerateSpanOfClass(famExpNeededForNextEgg, "r_bold") + " more famxp for next egg. (" + fightsForNextEgg + " fight(s))");
 		description.listAppend("Can lay " + HTMLGenerateSpanOfClass(mimicEggsLeft, "r_bold") + " more eggs today.");
 		resource_entries.listAppend(ChecklistEntryMake("__familiar chest mimic", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Chest mimic fxp (beta)", "black"), "", description), -50));
 	}
+	
+	if	( chestCopiesAvailable > 0 || chestFaxesAvailable > 0 ) {
+		
+	}
+	
 	//mafia doesn't currently recognize when the egg disappears after fighting the last monster in it
 	//this should probably be in Copied Monsters.ash, or duplicated there
 	/*

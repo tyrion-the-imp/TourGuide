@@ -88,6 +88,10 @@ void IOTYCyberRealmGenerateTasksBeta(ChecklistEntry [int] task_entries, Checklis
 	
 	if	( __iotms_usable[lookupItem("bat wings")] && batWingRestsLeft > 0 ) {
 		description.listAppend("Bat Wings heal|*Rest +1000 HP/MP|*" + (HTMLGenerateSpanOfClass(batWingRestsLeft, "r_bold")) + " use(s) left.");
+		if	( !have_equipped($item[bat wings]) ) {
+			description.listAppend("<span style='color:red; font-size:100%; font-weight:bold;'>Equip the Bat Wings first.</span>");
+			url = "inventory.php?ftext=bat+wings";
+		}
 		optional_task_entries.listAppend(ChecklistEntryMake(image_name, url, ChecklistSubentryMake(rud, "", description), -201));
 	}
 

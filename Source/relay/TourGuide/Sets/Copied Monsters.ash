@@ -631,12 +631,23 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__item cargo cultist shorts";
     }
-	//chest mimic / mimic egg
+	//chest mimic / mimic egg copies
 	if	( $familiar[chest mimic].familiar_is_usable() && $familiar[chest mimic].experience > 50 ) {
 		int chestCopiesAvailable = ($familiar[chest mimic].experience.to_float() / 50.0).to_int();
 		int chestCopiesLimit = 11 - get_property_int("_mimicEggsObtained");
 		chestCopiesAvailable = min(chestCopiesAvailable, chestCopiesLimit);
 		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(chestCopiesAvailable, "chest mimic copy is possible", "chest mimic copies are possible") + "", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__familiar chest mimic";
+            //copy_source_entry.image_lookup_name = "__skill %fn, lay an egg";
+	}
+	//chest mimic / mimic egg faxes
+	if	( $familiar[chest mimic].familiar_is_usable() && $familiar[chest mimic].experience > 99 ) {
+		int chestFaxesAvailable = ($familiar[chest mimic].experience.to_float() / 100.0).to_int();
+		int chestFaxesLimit = 11 - get_property_int("_mimicEggsObtained");
+		chestFaxesAvailable = min(chestFaxesAvailable, chestFaxesLimit);
+		string linkToTownMimicDNABank = "(<a href='place.php?whichplace=town_right&action=townright_dna' target='mainpane'><span style='color:red; font-size:100%; font-weight:normal;'>chest mimic</span></a>)";
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(chestFaxesAvailable, linkToTownMimicDNABank+" monster fax is possible", linkToTownMimicDNABank+" monster faxes are possible") + "", "", ""));
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__familiar chest mimic";
             //copy_source_entry.image_lookup_name = "__skill %fn, lay an egg";

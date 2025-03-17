@@ -610,9 +610,10 @@ buffer ChecklistGenerate(Checklist cl, boolean output_borders) {
         entry.importance_level -= 1; //combined entries gain a hack; a level above everything else
 		
 		//entry.tags.combination == "free instakill"
-		if	( entry.tags.combination == "free instakill" ) {
-			entry.importance_level = -59;
-		}
+		//if	( entry.tags.combination == "free instakill" ) {
+		//	entry.importance_level = -59;
+		//}
+		
 		if ( entry.tags.combination == "banish" ) {
 			entry.importance_level = -68;
 		}

@@ -48,7 +48,29 @@ void IOTMRomanCandelabraGenerateTasksTEMP(ChecklistEntry [int] task_entries, Che
 		
 		}
     }
-	
+
+    // Extra runaway nag for spring shoes unhavers
+	// && $item[spring shoes].available_amount() == 0
+    if ($effect[Everything Looks Yellow].have_effect() == 0)
+    {
+        string [int] description;
+        //description.listAppend(HTMLGenerateSpanFont("Green candle runaway!", "green"));
+        description.listAppend(HTMLGenerateSpanFont("Blow the Yellow Candle!, yellow ray", "orange"));
+        if (lookupItem("Roman Candelabra").equipped_amount() == 0) {
+            description.listAppend(HTMLGenerateSpanFont("Equip the Roman Candelabra first.", "red"));
+        }
+        else {
+            description.listAppend(HTMLGenerateSpanFont("Candelbra equipped", "green"));
+        }
+		
+		if (get_property_boolean("kingLiberated")) {
+			optional_task_entries.listAppend(ChecklistEntryMake("__item Roman Candelabra", url, ChecklistSubentryMake("Roman Candelabra yellow ray available!", "", description), -11));
+		} else {
+			task_entries.listAppend(ChecklistEntryMake("__item Roman Candelabra", url, ChecklistSubentryMake("Roman Candelabra yellow ray available!", "", description), -10));
+		}
+    }
+
+
     {
         string [int] description;
 		//Yellow Ray

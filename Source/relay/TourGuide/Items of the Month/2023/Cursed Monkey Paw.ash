@@ -236,7 +236,7 @@ void IOTMCursedMonkeysPawGenerateResource(ChecklistEntry [int] resource_entries)
         new MonkeyWish(
             $item[none],
             $effect[Frosty],
-            "+100% init/item +200% meat +25 ML",
+            "+100% init/item +200% meat +25 ML<br><span style='color:blue; font-weight:bold;'>Skill: 7198, Throw Frostball, 90-110 c.dmg</span>",
             true,
             true
         ),

@@ -122,9 +122,16 @@ void SocialDistanceGenerator(ChecklistEntry [int] resource_entries)
 		
 		int tubosLeft = clampi(3 - get_property_int("_aprilBandTubaUses"), 0, 3);
 
-        final.sneakCondition = $item[Apriling band tuba].available_amount() > 0 && get_property_int("_aprilBandTubaUses") < 3;
+        final.sneakCondition = is_unrestricted($item[Apriling band tuba])
+								&&	(
+										( get_property_int("_aprilBandInstruments") < 2 && $item[Apriling band tuba].available_amount() == 0 )
+										|| $item[Apriling band tuba].available_amount()> 0
+									)
+								&& get_property_int("_aprilBandTubaUses") < 3;
         final.sneakCount = tubosLeft; 
-        final.tileDescription = `<b>{final.sneakCount}x tuba plays</b> left`;
+		string invTuba = "";
+		if	( $item[Apriling band tuba].available_amount() == 0 ) { invTuba = "<br><span style='color:red; font-size:90%; font-weight:bold;'>Obtain Tuba from Apriling Band Helmet</span>"; }
+        final.tileDescription = `<b>{final.sneakCount}x tuba plays</b> left{invTuba}`;
 
         return final;
     }

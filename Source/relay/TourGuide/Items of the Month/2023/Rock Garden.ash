@@ -85,7 +85,7 @@ void IOTMRockGardenGenerateResource(ChecklistEntry [int] resource_entries) {
         description.listAppend(gravelMessage(availableGravels));
         description2.listAppend(gravelMessage2(availableGravels));
 		if	( count(description2) > 0 ) {
-			resource_entries.listAppend(ChecklistEntryMake("__item rock garden guide", url, ChecklistSubentryMake(availableGravels+" groveling gravel", "", description2)).ChecklistEntrySetCombinationTag("free instakill").ChecklistEntrySetIDTag("rock garden free kill"));
+			resource_entries.listAppend(ChecklistEntryMake("__item rock garden guide", url, ChecklistSubentryMake(availableGravels+" groveling gravel", "", description2)).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("rock garden free instakill"));
 		}
     }
 
