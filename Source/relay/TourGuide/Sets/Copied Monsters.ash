@@ -498,7 +498,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
             copy_source_entry.image_lookup_name = copy_source_list[0];
 	}
 	if (__misc_state["fax available"] && $item[photocopied monster].available_amount() == 0) {
-        copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(1, "fax machine fight", "fax machine fights") + " available", "", ""));
+        copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(1, " <font color='red' size='1'>(fax)</font> machine fight", " <font color='red' size='1'>(fax)</font> machine fights") + " available", "", ""));
 	}
     if (!get_property_boolean("_cameraUsed") && $item[4-d camera].available_amount() > 0)
     {
@@ -577,7 +577,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
     {
         int maps_taken = get_property_int("_monstersMapped");
 		int maps_left = 3 - maps_taken;
-		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(maps_left, "cast of Map the Monsters", "casts of Map the Monsters") + "", "", ""));
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(maps_left, "cast of Map the Monsters <font color='red' size='1'>(choose)</font>", "casts of Map the Monsters <font color='red' size='1'>(choose)</font>") + "", "", ""));
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__skill Map the Monsters";
     }
@@ -588,7 +588,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
 	int usesRemaining = 3 - monstersReminisced;
     if (__iotms_usable[lookupItem("combat lover's locket")] && usesRemaining > 0)
     {
-		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(usesRemaining, "combat lover's locket fight", "combat lover's locket fights") + "", "", ""));
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(usesRemaining, "combat lover's locket fight <font color='red' size='1'>(fax)</font>", "combat lover's locket fights <font color='red' size='1'>(faxes)</font>") + "", "", ""));
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__item combat lover's locket";
     }
@@ -601,7 +601,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
 		if	( !get_property_boolean("kingLiberated") ) {
 			gf = min(gf,pw);
 		}
-		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(gf, "genie/wish fight", "genie/wish fights") + " <span style='color:gray; font-size:75%; font-weight:bold;'>("+pw+" pocket wishes)</span>", "", ""));
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(gf, "genie/wish fight <font color='red' size='1'>(fax)</font>", "genie/wish fights <font color='red' size='1'>(faxes)</font>") + " <span style='color:gray; font-size:75%; font-weight:bold;'>("+pw+" pocket wishes)</span>", "", ""));
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__item pocket wish";
     }
@@ -669,7 +669,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
 	
 	//waffle, replace monster (eg power glove ~ replace enemy, macrometeor)
 	if	( is_unrestricted($item[waffle]) && $item[waffle].available_amount() > 0 ) {
-		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise($item[waffle].available_amount(), "waffle replacement monster", "waffle replacement monsters") + "", "", ""));
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise($item[waffle].available_amount(), "waffle <font color='red'>replacement</font> monster", "waffle <font color='red'>replacement</font> monsters") + "", "", ""));
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__item waffle";
 	}
