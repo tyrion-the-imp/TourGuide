@@ -357,7 +357,8 @@ void generatePullList(Checklist [int] checklists)
     }
 
     // As with machete, these are just flat-out great pulls, quest relevant or not
-    if (!__quest_state["Level 8"].state_boolean["Mountain climbed"] && !have_outfit_components("eXtreme Cold-Weather Gear"))
+	//quest items as of Jan. 2025
+    if (false && !__quest_state["Level 8"].state_boolean["Mountain climbed"] && !have_outfit_components("eXtreme Cold-Weather Gear"))
     {
         item [int] missing_ninja_components = items_missing($items[loose ninja carabiner, dull ninja crampons, frayed ninja rope]);
         if (missing_ninja_components.count() > 0)
