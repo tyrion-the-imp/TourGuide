@@ -149,6 +149,8 @@ import "relay/TourGuide/Items of the Month/2023/A Guide to Burning Leaves.ash";
 import "relay/TourGuide/Items of the Month/2023/candy cane sword cane beta.ash";
 //import "relay/TourGuide/Items of the Month/2023/Candy Cane Sword Cane.ash";
 
+
+
 // 2024
 //import "relay/TourGuide/Items of the Month/2024/Chest Mimic.ash";
 import "relay/TourGuide/Items of the Month/2024/Chest Mimic beta.ash";
@@ -186,11 +188,21 @@ import "relay/TourGuide/Items of the Month/2024/VIP Photobooth beta.ash";
 //2024.11
 import "relay/TourGuide/Items of the Month/2024/Peace Turkey beta.ash";
 
-//2024.12			TakerSpace		shed					https://kol.coldfront.net/thekolwiki/index.php/TakerSpace#Items  hep
+//2024.12			TakerSpace		shed					https://kol.coldfront.net/thekolwiki/index.php/TakerSpace#Items
 import "relay/TourGuide/Items of the Month/2024/TakerSpaceBeta.ash";
 
+
+
+//2025
 //2025 IotY		Server Room							https://kol.coldfront.net/thekolwiki/index.php/Server_Room		CyberRealmBeta
 import "relay/TourGuide/Items of the Month/2025/CyberRealmBeta.ash";
 
 //2025.01 IotM	McHugeLarge duffel bag	i#11783	https://kol.coldfront.net/thekolwiki/index.php/McHugeLarge_duffel_bag#Notes
 import "relay/TourGuide/Items of the Month/2025/McHugeLarge Ski Set beta.ash";
+
+//2025.02 - toy Cupid bow	https://kol.coldfront.net/thekolwiki/index.php/Toy_Cupid_bow#Notes
+
+//2025.03 - Leprecondo	https://kol.coldfront.net/thekolwiki/index.php/Leprechaun%27s_Condo#Notes
+import "relay/TourGuide/Items of the Month/2025/Leprecondo alpha.ash";
+
+//2025.04 - April Shower Thoughts shield	i#11884	
