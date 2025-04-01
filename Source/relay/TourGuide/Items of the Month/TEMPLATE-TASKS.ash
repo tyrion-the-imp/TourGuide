@@ -64,76 +64,10 @@ void IOTMLeprecondoGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 //void IOTMSugarGenerateResource(ChecklistEntry [int] resource_entries)
 
 
-Leprecondo, usable, Mar 2025, 2025.03
-
-> ppp condo
-
-user:
-_leprecondoFurniture
-0
-_leprecondoRearrangements
-0
-leprecondoCurrentNeed
-food
-leprecondoDiscovered
-1,2,3,4,5,6,13,20,21,23
-leprecondoInstalled
-21,1,23,20
-leprecondoLastNeedChange
-31
-leprecondoNeedOrder
-food,mental stimulation,exercise,sleep,dumb entertainment,booze
-Loading "inventory.php?which=f3".
-
-[All props backed up.] |||since rollover: hrs 19 | mins 1168 |||12-hr: hrs 5 | mins 58
-after msgs only
-
-Preference leprecondoInstalled changed from 21,1,23,20 to 20,23,1,21
-Preference _leprecondoRearrangements changed from 0 to 1
-after msgs only
-
-> ppp lepre
-
-user:
-_leprecondoFurniture
-0
-_leprecondoRearrangements
-0
-leprecondoCurrentNeed
-food
-leprecondoDiscovered
-1,2,3,4,5,6,12,13,20,21,23
-leprecondoInstalled
-0,0,0,0
-leprecondoLastNeedChange
-236
-leprecondoNeedOrder
-sleep,mental stimulation,exercise,booze,food,dumb entertainment
-Preference leprecondoInstalled changed from 0,0,0,0 to 21,23,1,5
-after msgs only
-
-> help lepr
-
-leprecondo blank | furnish [a,b,c,d] | available | missing - deal with your Leprecondo
-(also 'condo' user-script)
-
-> leprecondo available
-
-(this is a nice table in the cli)
-FurnitureNeed 1Need 2buckets of concreteexercisethrift store oil paintingmental stimulationboxes of old comic booksdumb entertainmentsecond-hand hot platefoodbeer coolerboozefree mattresssleepinternet-connected laptopdumb entertainmentmental stimulationsous vide laboratorymental stimulationfoodfine upholstered dining table setfoodsleepwhiskeybedboozesleepcomplete classics librarymental stimulation
-
-ch#1556
-	.1	Lock in your Interior Decoration		(only choice)		can walk away
-	4X <select> for furniture items 	need to capture a link with all params
-
-use leprecondo (to choice 1556)
-inv_use.php?pwd=cced219382855f26674146eeaee0fd30&which=f3&whichitem=11861
-
-
 */
 
-RegisterTaskGenerationFunction("IOTMLeprecondoGenerateTasks");
-void IOTMLeprecondoGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
+RegisterTaskGenerationFunction("IOTMtemplatetasksGenerateTasks");
+void IOTMtemplatetasksGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
 /*
 //ChecklistEntry
@@ -156,38 +90,22 @@ string [int] modifiers;
 string [int] entries;
 */
 
-#11861 Leprecondo
-
-item this_item = $item[Leprecondo];
+item this_item = $item[none];
 string url = "inventory.php?ftext=Leprecondo";
 string [int] these_modifiers;
 string[int] these_entries;
 int implev = -10;
-if	( !get_property_boolean("kingLiberated") ) { implev = -10; }
-if	( !is_unrestricted(this_item) ) { return; }
+#if	( !get_property_boolean("kingLiberated") ) { implev = -10; }
+#if	( !is_unrestricted(this_item) ) { return; }
 
 
-//these_modifiers.listAppend("hosebag");
-
-foreach s in $strings[
-_leprecondoFurniture,
-_leprecondoRearrangements,
-leprecondoCurrentNeed,
-leprecondoDiscovered,
-leprecondoInstalled,
-leprecondoLastNeedChange,
-leprecondoNeedOrder,
-] {
-	these_entries.listAppend("<b>"+s+"</b> = "+get_property(s));
-}
-
-string url_for_use = "inv_use.php?pwd="+my_hash()+"&whichitem=11861";
-these_entries.listAppend("<span style='color:blue; font-weight:bold;'>use leprecondo (to choice 1556)</span>: <a href='"+url_for_use+"' target='mainpane'><span style='color:red; font-size:100%; font-weight:normal;'>use item</span></a>");
+these_modifiers.listAppend("hosebag");
+these_entries.listAppend("testing");
 
 //resource_entries.listAppend(ChecklistEntryMake(entry.image_lookup_name, entry.url, ChecklistSubentryMake(pluralise(free_fights_remaining, "free elf fight", "free elf fights"), modifiers, description), importance_level).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("Machine elf free fights"));
 
 //task_entries.listAppend(ChecklistEntryMake("Leprecondo", url, ChecklistSubentryMake("boogey down", "", these_entries), -11).ChecklistEntrySetIDTag("Council L12 quest exploathing path"));
-task_entries.listAppend(ChecklistEntryMake("Leprecondo", url, ChecklistSubentryMake("Leprecondo[2025.03]", these_modifiers, these_entries), implev).ChecklistEntrySetIDTag("Leprecondo tasks tile"));
+task_entries.listAppend(ChecklistEntryMake("Leprecondo", url, ChecklistSubentryMake("boogey down", these_modifiers, these_entries), 25).ChecklistEntrySetIDTag("Leprecondo tasks tile"));
 
 //	optional_task_entries.listAppend(ChecklistEntryMake("__item inflatable duck", "", ChecklistSubentryMake("The Old Man's Bathtime Adventure", modifiers, description),$locations[The Old Man's Bathtime Adventures]).ChecklistEntrySetIDTag("Psychoanalytic jar old man"));
 

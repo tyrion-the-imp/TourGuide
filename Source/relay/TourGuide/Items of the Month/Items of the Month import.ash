@@ -193,9 +193,15 @@ import "relay/TourGuide/Items of the Month/2024/TakerSpaceBeta.ash";
 
 
 
+
+
+
 //2025
+//import "relay/TourGuide/Items of the Month/TEMPLATE-TASKS.ash";
+
 //2025 IotY		Server Room							https://kol.coldfront.net/thekolwiki/index.php/Server_Room		CyberRealmBeta
 import "relay/TourGuide/Items of the Month/2025/CyberRealmBeta.ash";
+
 
 //2025.01 IotM	McHugeLarge duffel bag	i#11783	https://kol.coldfront.net/thekolwiki/index.php/McHugeLarge_duffel_bag#Notes
 import "relay/TourGuide/Items of the Month/2025/McHugeLarge Ski Set beta.ash";

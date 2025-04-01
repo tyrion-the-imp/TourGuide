@@ -63,7 +63,8 @@ void runMain(string relay_filename)
 	
     string guide_title = "TourGuide";
     if (isAprilFools()) {
-        guide_title = "Glup Shitto Stole Rogue V's Targeting Computer";
+        //guide_title = "Glup Shitto Stole Rogue V's Targeting Computer";
+        guide_title = "Wassup with that?";
     }
     if (limit_mode() == "batman")
         guide_title = "Bat-Guide";

@@ -63,6 +63,8 @@ void finaliseSetUpFloristState()
 	//Keeping it the same as get_florist_plants makes it mentally easier to track, I guess.
 	
 	
+	__plant_properties["<font color=red>Friar Shit</font>"] = PlantMake("<font color=red>Friar Shit</font>", "Plant some shit", "", false);
+	
 	__plant_properties["Rabid Dogwood"] = PlantMake("Rabid Dogwood", "+30 ML", "outdoor", true);
 	__plant_properties["Rutabeggar"] = PlantMake("Rutabeggar", "+25% item", "outdoor", true);
 	__plant_properties["Rad-ish Radish"] = PlantMake("Rad-ish Radish", "+5 moxie stats/fight", "outdoor", true);
@@ -77,7 +79,7 @@ void finaliseSetUpFloristState()
 	__plant_properties["Shuffle Truffle"] = PlantMake("Shuffle Truffle", "+25% init", "underground", false);
 	
 	
-	__plant_output_order = split_string("Rabid Dogwood,Rutabeggar,Rad-ish Radish,Artichoker,Smoke-ra,Skunk Cabbage,Deadly Cinnamon,Celery Stalker,Lettuce Spray,Seltzer Watercress,War Lily,Stealing Magnolia,Canned Spinach,Impatiens,Spider Plant,Red Fern,BamBOO!,Arctic Moss,Aloe Guv'nor,Pitcher Plant,Blustery Puffball,Horn of Plenty,Wizard's Wig,Shuffle Truffle,Dis Lichen,Loose Morels,Foul Toadstool,Chillterelle,Portlybella,Max Headshroom,Spankton,Kelptomaniac,Crookweed,Electric Eelgrass,Duckweed,Orca Orchid,Sargassum,Sub-Sea Rose,Snori,Up Sea Daisy", ",");
+	__plant_output_order = split_string("Friar,Rabid Dogwood,Rutabeggar,Rad-ish Radish,Artichoker,Smoke-ra,Skunk Cabbage,Deadly Cinnamon,Celery Stalker,Lettuce Spray,Seltzer Watercress,War Lily,Stealing Magnolia,Canned Spinach,Impatiens,Spider Plant,Red Fern,BamBOO!,Arctic Moss,Aloe Guv'nor,Pitcher Plant,Blustery Puffball,Horn of Plenty,Wizard's Wig,Shuffle Truffle,Dis Lichen,Loose Morels,Foul Toadstool,Chillterelle,Portlybella,Max Headshroom,Spankton,Kelptomaniac,Crookweed,Electric Eelgrass,Duckweed,Orca Orchid,Sargassum,Sub-Sea Rose,Snori,Up Sea Daisy", ",");
     
 	//Go through all potentials:
 	boolean [string] plants_used;
@@ -176,6 +178,17 @@ void finaliseSetUpFloristState()
 	if (!__quest_state["Level 11 Desert"].state_boolean["Desert Explored"] && __misc_state["need to level"]) //you spend a lot of turns in the desert
 		__plants_suggested_locations.listAppend(PlantSuggestionMake($location[the arid, extra-dry desert], "Rabid Dogwood", ""));
 	
+	//if	( true ) {
+		//__plants_suggested_locations.listAppend(PlantSuggestionMake(my_location(), "<font color=red>Friar Shit</font>", "Maybe plant some plants here?"));
+	//}
+	
+	
+	__plants_suggested_locations.listAppend(PlantSuggestionMake(my_location(), "<font color=red>Friar Shit</font>", ""));
+	
+	
+	
+	
+	
 	//Now, go through results, and remove all plants that are already in that location:
 	
 	string [location][int] current_plants = get_florist_plants();
@@ -193,6 +206,7 @@ void finaliseSetUpFloristState()
 	foreach key in __plants_suggested_locations
 	{
 		PlantSuggestion suggestion = __plants_suggested_locations[key];
+		if	( "<font color=red>Friar Shit</font>" == suggestion.plant_name ) { continue; }
         
         boolean should_remove = false;
 		if (current_plants_used[suggestion.loc][suggestion.plant_name] || plants_used[suggestion.plant_name])
@@ -243,20 +257,30 @@ void generateFloristFriar(Checklist [int] checklists)
 {
 	if (!__iotms_usable[$item[Order of the Green Thumb Order Form]])
 		return;
-    if (!__misc_state["in run"]) //currently, these suggestions are in-run only
-        return;
+	//currently, these suggestions are in-run only 
+    //if (!__misc_state["in run"]) { return; }
+	
 	ChecklistEntry [int] florist_entries;
 	
     ChecklistSubentry [int] subentries;
 	foreach key in __plant_output_order
 	{
 		string plant_name = __plant_output_order[key];
+		//print("booger "+plant_name);
 		if (!(__plant_properties contains plant_name))
 			continue;
 		Plant plant = __plant_properties[plant_name];
+		//print("booger2 "+plant.name);
 		
 		ChecklistSubentry subentry;
-		subentry.header = plant_name + ", " + plant.terrain;
+		//print("booger2 "+plant.name+" = "+plant.terrain);
+		if	( plant.terrain != "" ) {
+			//print("booger "+plant.name);
+			subentry.header = plant_name + ", " + plant.terrain;
+		} else {
+			subentry.header = plant_name;
+		}
+		//if	( plant_name != "<font color=red>Friar Shit</font>" ) { subentry.modifiers.listAppend(plant.zone_effect); }
 		subentry.modifiers.listAppend(plant.zone_effect);
 		
 		//See if we suggested this plant anywhere:

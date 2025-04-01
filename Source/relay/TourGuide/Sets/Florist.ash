@@ -3,18 +3,31 @@ import "relay/TourGuide/Plants.ash";
 RegisterTaskGenerationFunction("SFloristGenerateTasks");
 void SFloristGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
-    //Friar:
-	if (__iotms_usable[$item[Order of the Green Thumb Order Form]])
+    /*
+	_aaa_RCdisabledNoticesFlorist
+	| The Stately Pleasure Dome | The Oasis
+	_floristPlantsUsed
+	Rutabeggar,Seltzer Watercress,Smoke-ra
+	floristFriarAvailable
+	true
+	floristFriarChecked
+	true
+	ownsFloristFriar
+	true
+	*/
+	
+	//Friar:
+	if (get_property_boolean("floristFriarAvailable"))
 	{
         string image_name = "sunflower face";
 		ChecklistSubentry subentry;
-		subentry.header = "Plant florist plants in " + __last_adventure_location;
+		subentry.header = "Plant florist plants in " + __next_adventure_location;
         
         PlantSuggestion [int] area_relevant_suggestions;
 		foreach key, suggestion in __plants_suggested_locations
 		{
 			
-			if (suggestion.loc != __last_adventure_location)
+			if (suggestion.loc != __next_adventure_location)
 				continue;
             
             area_relevant_suggestions.listAppend(suggestion);
@@ -27,7 +40,7 @@ void SFloristGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [in
 			PlantSuggestion suggestion = area_relevant_suggestions[0];
 			string plant_name = suggestion.plant_name.capitaliseFirstLetter();
         
-            subentry.header = "Plant " + plant_name + " in " + __last_adventure_location;
+            subentry.header = "Plant " + plant_name + " in " + __next_adventure_location;
         }
 		
 		foreach key, suggestion in area_relevant_suggestions
@@ -39,7 +52,11 @@ void SFloristGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [in
             
             if (single_mode_only)
             {
-                line = plant.zone_effect + ", " + plant.terrain;
+                if	( plant.terrain != "" ) {
+					line = plant.zone_effect + ", " + plant.terrain;
+				} else {
+					line = plant.zone_effect;
+				}
                 if (plant.territorial)
                     line = line + ", territorial";
                 
@@ -61,7 +78,7 @@ void SFloristGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [in
             {
                 if (monster_level_adjustment() + 30 > 150)
                 {
-                    //subentry.header = "Optionally plant florist plants in " + __last_adventure_location;
+                    //subentry.header = "Optionally plant florist plants in " + __next_adventure_location;
                     image_name = "__item pirate fledges";
                     
                     subentry.header += "?";
