@@ -1,4 +1,4 @@
-//Leprecondo alpha.ash
+//Leprecondo alpha.ash		2025.04.01
 /* 
 https://github.com/loathers/yorick/blob/231403626c3d60cf4faad072559efc0a6665ab0c/src/sections/resources/2025/Leprecondo.tsx
 
@@ -57,7 +57,7 @@ Record ChecklistCollection
 
 */
 
-RegisterTaskGenerationFunction("IOTMLeprecondoTasks");
+RegisterTaskGenerationFunction("IOTMLeprecondoGenerateTasks");
 void IOTMLeprecondoGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
 
