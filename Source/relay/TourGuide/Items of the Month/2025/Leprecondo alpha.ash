@@ -160,6 +160,7 @@ string [int] entries;
 
 item this_item = $item[Leprecondo];
 string url = "inventory.php?ftext=Leprecondo";
+string info_url = "https://kol.coldfront.net/thekolwiki/index.php/Leprechaun%27s_Condo#Notes";
 string [int] these_modifiers;
 string[int] these_entries;
 int implev = -10;
@@ -183,6 +184,9 @@ leprecondoNeedOrder,
 
 string url_for_use = "inv_use.php?pwd="+my_hash()+"&whichitem=11861";
 these_entries.listAppend("<span style='color:blue; font-weight:bold;'>use leprecondo (to choice 1556)</span>: <a href='"+url_for_use+"' target='mainpane'><span style='color:red; font-size:100%; font-weight:normal;'>use item</span></a>");
+these_entries.listAppend("<span style='color:blue; font-weight:bold;'>leprecondo</span>: <a href='"+info_url+"' target='_blank'><span style='color:red; font-size:100%; font-weight:normal;'>info</span></a>");
+
+//https://kol.coldfront.net/thekolwiki/index.php/Leprechaun%27s_Condo#Notes
 
 //resource_entries.listAppend(ChecklistEntryMake(entry.image_lookup_name, entry.url, ChecklistSubentryMake(pluralise(free_fights_remaining, "free elf fight", "free elf fights"), modifiers, description), importance_level).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("Machine elf free fights"));
 
