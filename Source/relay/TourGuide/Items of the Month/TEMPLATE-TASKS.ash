@@ -64,6 +64,23 @@ void IOTMLeprecondoGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 //void IOTMSugarGenerateResource(ChecklistEntry [int] resource_entries)
 
 
+
+TourGuide Resources Tiles - Use importance level for sorting by types
+Importance Level			Tile type
+-999						Lucky!
+-100						Grimace Maps
+-79							copies
+-70							sneaks
+-69							banish(es|ers)
+-65							free fights & instakills
+-60							yellow rays
+-55							runaways
+-50							familiars
+-46							combat items
+-41							familiar gear
+-40							gear
+-30							misc things to use....skills, items, weird, whatever
+
 */
 
 RegisterTaskGenerationFunction("IOTMtemplatetasksGenerateTasks");

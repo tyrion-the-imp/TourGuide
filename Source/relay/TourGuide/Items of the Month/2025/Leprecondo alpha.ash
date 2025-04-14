@@ -166,6 +166,7 @@ string[int] these_entries;
 int implev = -10;
 if	( !get_property_boolean("kingLiberated") ) { implev = -10; }
 if	( !is_unrestricted(this_item) ) { return; }
+if	( get_property_int("_leprecondoRearrangements") >= 3 ) { implev = 10; }
 
 
 //these_modifiers.listAppend("hosebag");
@@ -180,6 +181,10 @@ leprecondoLastNeedChange,
 leprecondoNeedOrder,
 ] {
 	these_entries.listAppend("<b>"+s+"</b> = "+get_property(s));
+	if	( s == "leprecondoLastNeedChange" ) {
+		these_entries.listAppend("<span style='color:red;'><b>Current Turn</b> = "+turns_played()+"</span>");
+		these_entries.listAppend("<span style='color:orange;'><b>Next Change</b> = "+(get_property_int("leprecondoLastNeedChange") +5 )+"</span>");
+	}
 }
 
 string url_for_use = "inv_use.php?pwd="+my_hash()+"&whichitem=11861";

@@ -113,5 +113,5 @@ void IOTMBookofFactsGenerateResource(ChecklistEntry [int] resource_entries)
 			BOFAdropsDescription.listAppend("" + BOFAtatters + " BOFA tatters available.");
 		}
 	}
-	resource_entries.listAppend(ChecklistEntryMake("__item book of facts", "", ChecklistSubentryMake(("Miscellaneous valuable BOFA drops"), "", BOFAdropsDescription), -30).ChecklistEntrySetIDTag("bofa tatters"));
+	resource_entries.listAppend(ChecklistEntryMake("__item book of facts", "", ChecklistSubentryMake(("Valuable BOFA drops"), "Book of Facts", BOFAdropsDescription), -30).ChecklistEntrySetIDTag("bofa tatters"));
 }
