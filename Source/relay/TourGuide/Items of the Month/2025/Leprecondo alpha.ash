@@ -183,7 +183,7 @@ leprecondoNeedOrder,
 	these_entries.listAppend("<b>"+s+"</b> = "+get_property(s));
 	if	( s == "leprecondoLastNeedChange" ) {
 		these_entries.listAppend("<span style='color:red;'><b>Current Turn</b> = "+turns_played()+"</span>");
-		these_entries.listAppend("<span style='color:orange;'><b>Next Change</b> = "+(get_property_int("leprecondoLastNeedChange") +5 )+"</span>");
+		these_entries.listAppend("<span style='color:orange;'><b>Next Change</b> = "+(get_property_int("leprecondoLastNeedChange") + 6 )+"</span>");
 	}
 }
 

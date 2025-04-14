@@ -7,6 +7,13 @@ _mcHugeLargeSkiPlowUses
 _mcHugeLargeSlashUses
 0
 
+_mcHugeLargeAvalancheUses
+0
+_mcHugeLargeSkiPlowUses
+0
+_mcHugeLargeSlashUses
+3
+
 TourGuide Resources Tiles - Use importance level for sorting by types
 Importance Level			Tile type
 -999						Lucky!
@@ -36,17 +43,17 @@ void IOTMSkiSetGenerateResourceBeta(ChecklistEntry [int] resource_entries)
 	int skiAvalanchesLeft = clampi(3 - get_property_int("_mcHugeLargeAvalancheUses"), 0, 3);			//left ski: sneak (force non-com)
 	int skiSlashesLeft = clampi(3 - get_property_int("_mcHugeLargeSlashUses"), 0, 3);					//left pole: olfact
 	int skiPlowsLeft = clampi(3 - get_property_int("_mcHugeLargeSkiPlowUses"), 0, 11);				//right ski: delevel ~ 50
-	//int skiSlashesLeft = clampi(3 - get_property_int("_mcHugeLargeSlashUses"), 0, 3);					//left ski: once per fight
+	//int skiSlashesLeft = clampi(3 - get_property_int("_mcHugeLargeSlashUses"), 0, 3);		//left ski: once per fight
 	string [int] description;
 	string url = "inventory.php?ftext=McHugeLarge";
 	boolean[item] McHugeLargeSkiGear() {
-		return $items[McHugeLarge duffel bag,McHugeLarge left pole,McHugeLarge right pole,McHugeLarge left ski,McHugeLarge right ski,];
+		return $items[McHugeLarge duffel bag,McHugeLarge left pole,McHugeLarge right pole,McHugeLarge left ski,McHugeLarge right ski];
 	}
 
 	
 	if (skiAvalanchesLeft > 0)
 	{
-		description.listAppend(HTMLGenerateSpanOfClass(skiSlashesLeft + " avalanches", "r_bold") + " left. Sneak!");
+		description.listAppend(HTMLGenerateSpanOfClass(skiAvalanchesLeft + " avalanches", "r_bold") + " left. Sneak!");
     //fixme: currently not supported by sneako tile
 		if (lookupItem("McHugeLarge left ski").equipped_amount() == 1)
 		{
