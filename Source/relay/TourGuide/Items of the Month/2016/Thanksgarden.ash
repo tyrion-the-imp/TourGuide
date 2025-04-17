@@ -1,8 +1,8 @@
 RegisterResourceGenerationFunction("IOTMThanksgardenGenerateResource");
 void IOTMThanksgardenGenerateResource(ChecklistEntry [int] resource_entries)
 {
-    if (!__misc_state["in run"])
-        return;
+    //if (!__misc_state["in run"])
+        //return;
     
     item turkey_blaster = $item[turkey blaster];
     item stuffing_fluffer = $item[stuffing fluffer];
@@ -16,8 +16,8 @@ void IOTMThanksgardenGenerateResource(ChecklistEntry [int] resource_entries)
     tags.id = "Campground thanksgarden cornucopia resource";
     
     
-    
-    if (cornucopia.available_amount() > 0 && in_ronin())
+    //&& in_ronin()
+    if (cornucopia.available_amount() > 0 )
     {
         string [int] description;
         description.listAppend("Open for thanksgarden food.");
@@ -28,7 +28,8 @@ void IOTMThanksgardenGenerateResource(ChecklistEntry [int] resource_entries)
         subentries.listAppend(ChecklistSubentryMake(pluralise(cornucopia), "", description));
     }
     int cashew_amount = cashew.available_amount();
-    if (cashew_amount > 0 && in_ronin())
+	//&& in_ronin()
+    if (cashew_amount > 0 )
     {
         string [int] description;
         string [int] options;

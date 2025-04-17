@@ -57,11 +57,11 @@ void IOTMSkiSetGenerateResourceBeta(ChecklistEntry [int] resource_entries)
     //fixme: currently not supported by sneako tile
 		if (lookupItem("McHugeLarge left ski").equipped_amount() == 1)
 		{
-			description.listAppend(HTMLGenerateSpanFont("LEFT SKI equipped! (accy, sneak/forced noncom)", "blue"));
+			description.listAppend(HTMLGenerateSpanFont("LEFT SKI equipped!<br>(accy, sneak/forced noncom)", "green"));
 		}
 		else if (lookupItem("McHugeLarge left ski").equipped_amount() == 0)
 		{
-			description.listAppend(HTMLGenerateSpanFont("Equip the LEFT SKI first. (accy, sneak/forced noncom)", "red"));
+			description.listAppend(HTMLGenerateSpanFont("Equip the LEFT SKI first.<br>(accy, sneak/forced noncom)", "red"));
 		}
 	}
 	
@@ -71,11 +71,11 @@ void IOTMSkiSetGenerateResourceBeta(ChecklistEntry [int] resource_entries)
 		description.listAppend(HTMLGenerateSpanOfClass(skiSlashesLeft + " slashes", "r_bold") + " left. Track a monster.");
 		if (lookupItem("McHugeLarge left pole").equipped_amount() == 1)
 		{
-			description.listAppend(HTMLGenerateSpanFont("LEFT POLE equipped! (offhand, slash = olfact)", "blue"));
+			description.listAppend(HTMLGenerateSpanFont("LEFT POLE equipped!<br>(offhand, slash = olfact)", "green"));
 		}
 		else if (lookupItem("McHugeLarge left pole").equipped_amount() == 0)
 		{
-			description.listAppend(HTMLGenerateSpanFont("Equip the LEFT POLE first. (offhand, slash = olfact)", "red"));
+			description.listAppend(HTMLGenerateSpanFont("Equip the LEFT POLE first.<br>(offhand, slash = olfact)", "red"));
 		}
 	}
 	
@@ -84,11 +84,11 @@ void IOTMSkiSetGenerateResourceBeta(ChecklistEntry [int] resource_entries)
 		description.listAppend(HTMLGenerateSpanOfClass(skiPlowsLeft + " plows", "r_bold") + " left. Delevel a monster ~ 50?");
 		if (lookupItem("McHugeLarge right ski").equipped_amount() == 1)
 		{
-			description.listAppend(HTMLGenerateSpanFont("RIGHT SKI equipped! (accy, plow = delevel)", "blue"));
+			description.listAppend(HTMLGenerateSpanFont("RIGHT SKI equipped!<br>(accy, plow = delevel)", "green"));
 		}
 		else if (lookupItem("McHugeLarge right ski").equipped_amount() == 0)
 		{
-			description.listAppend(HTMLGenerateSpanFont("Equip the RIGHT SKI first. (accy, plow = delevel)", "red"));
+			description.listAppend(HTMLGenerateSpanFont("Equip the RIGHT SKI first.<br>(accy, plow = delevel)", "red"));
 		}
 	}
 	
@@ -96,22 +96,22 @@ void IOTMSkiSetGenerateResourceBeta(ChecklistEntry [int] resource_entries)
 	description.listAppend(HTMLGenerateSpanOfClass("1x / fight. ~50 slz.dmg + ~50 ohys.dmg", "r_bold") + "");
 	if (lookupItem("McHugeLarge right pole").equipped_amount() == 1)
 	{
-		description.listAppend(HTMLGenerateSpanFont("RIGHT POLE equipped! (weap, stab = phys/slz dmg)", "blue"));
+		description.listAppend(HTMLGenerateSpanFont("RIGHT POLE equipped!<br>(weap, stab = phys/slz dmg)", "green"));
 	}
 	else if (lookupItem("McHugeLarge right pole").equipped_amount() == 0)
 	{
-		description.listAppend(HTMLGenerateSpanFont("Equip the RIGHT POLE first. (weap, stab = phys/slz dmg)", "red"));
+		description.listAppend(HTMLGenerateSpanFont("Equip the RIGHT POLE first.<br>(weap, stab = phys/slz dmg)", "red"));
 	}
 	
 	//https://kol.coldfront.net/thekolwiki/index.php/McHugeLarge_duffel_bag
-	description.listAppend(HTMLGenerateSpanOfClass("DUFFEL BAG: ", "r_bold") + "|*<span style='color:coral;'>+15%it, MaxHP +20, c.res (+X)</span>|*<span style='color:coral;'>+5X h.dmg, +10X%init</span>|*<span style='color:coral;'>Lets you hit the slopes when equipped with all your McHugeLarge ski gear</span>|*<span style='color:coral;'>(X=1 to 5=# of ski set items equipped?)</span>");
+	description.listAppend(HTMLGenerateSpanOfClass("DUFFEL BAG: ", "r_bold") + "|*<span style='color:blue;'>+15%it, MaxHP +20, c.res (+X)</span>|*<span style='color:blue;'>+5X h.dmg, +10X%init</span>|*<span style='color:blue;'>equipped with all = <span style='color:red; font-size:100%; font-weight:bold;'>eXtreme!</span></span>|*<span style='color:blue;'>(X=1 to 5=# of ski set items equipped?)</span>");
 	if (lookupItem("McHugeLarge duffel bag").equipped_amount() == 1)
 	{
-		description.listAppend(HTMLGenerateSpanFont("DUFFEL BAG equipped! (back)", "blue"));
+		description.listAppend(HTMLGenerateSpanFont("DUFFEL BAG equipped!<br>(back)", "green"));
 	}
 	else if (lookupItem("McHugeLarge duffel bag").equipped_amount() == 0)
 	{
-		description.listAppend(HTMLGenerateSpanFont("Equip the DUFFEL BAG first. (back)", "red"));
+		description.listAppend(HTMLGenerateSpanFont("Equip the DUFFEL BAG first.<br>(back)", "red"));
 	}
 	
 	int importance_num = -42;

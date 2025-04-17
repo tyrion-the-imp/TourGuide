@@ -34,13 +34,15 @@ void QLevel10Init()
 
 void QLevel10GenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
-	if (!__quest_state["Level 10"].in_progress)
+	item ROCKET = $item[steam-powered model rocketship];
+	if (!__quest_state["Level 10"].in_progress && ROCKET.available_amount() > 0)
 		return;
 	QuestState base_quest_state = __quest_state["Level 10"];
 	ChecklistSubentry subentry;
 	subentry.header = base_quest_state.quest_name;
 	string image_name = base_quest_state.image_name;
     string url = "place.php?whichplace=beanstalk";
+	
 	
     boolean add_as_future_task = false;
 	if ($item[s.o.c.k.].available_amount() == 0 && my_path().id != PATH_EXPLOSION)
@@ -199,8 +201,13 @@ void QLevel10GenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [in
         url = "place.php?whichplace=giantcastle";
         if (base_quest_state.mafia_internal_step >= 11) //(get_property("lastEncounter") == "Keep On Turnin' the Wheel in the Sky")
         {
-            url = "place.php?whichplace=town";
-            subentry.entries.listAppend("Talk to the council to finish quest.");
+            if	( ROCKET.available_amount() > 0 ) {
+				url = "place.php?whichplace=town";
+				subentry.entries.listAppend("Talk to the council to finish quest.");
+			} else {
+				url = "place.php?whichplace=giantcastle";
+				subentry.entries.listAppend("Find the <span style='color:red;'>"+ROCKET+"</span> in the top floor.");
+			}
         }
 		else if ($location[The Castle in the Clouds in the Sky (Top floor)].locationAvailable())
 		{

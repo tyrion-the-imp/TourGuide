@@ -317,7 +317,7 @@ void SCopiedMonstersGenerateResourceForCopyType(ChecklistEntry [int] resource_en
     string image_name = "__item " + shaking_object;
 	string additional_info = "";
 	if	( monster_name_property_name == "dummymonster" ) {
-		additional_info = " monster(s) trapped!&nbsp;<a href='http://127.0.0.1:60080/inv_use.php?pwd=8b7c2b113492cdfdd636b7cb4548d5bf&which=99&whichitem=11542' target='mainpane'><span style='color:blue; font-size:100%; font-weight:normal;'>Here</span></a>";
+		additional_info = " monster(s) trapped!&nbsp;<a href='http://127.0.0.1:60080/inv_use.php?pwd="+my_hash()+"&which=99&whichitem=11542' target='mainpane'><span style='color:blue; font-size:100%; font-weight:normal;'>Here</span></a>";
 	}
 	if	( monster_name_property_name == "dummy2monster" ) {
 		additional_info = " (chained copy)";
