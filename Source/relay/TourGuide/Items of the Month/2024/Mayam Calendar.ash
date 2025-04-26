@@ -24,9 +24,21 @@ void IOTMMayamCalendarGenerateResource(ChecklistEntry [int] resource_entries)
     // Adding this prior to the check if the user has stinkbombs.
     if ($item[stuffed yam stinkbomb].available_amount() > 0 )
     {
-        resource_entries.listAppend(ChecklistEntryMake("__item stuffed yam stinkbomb", "", ChecklistSubentryMake(pluralise($item[stuffed yam stinkbomb]), "", "Free run/banish."), 0).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Haunted doghouse banish"));
+        resource_entries.listAppend(ChecklistEntryMake("__item stuffed yam stinkbomb", "", ChecklistSubentryMake(pluralise($item[stuffed yam stinkbomb]), "", "Free run/banish."), 0).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("stuffed yam stinkbomb banish"));
     }
-
+	
+	
+	int createbanish = $item[stuffed yam stinkbomb].creatable_amount();
+	
+    if (createbanish > 0 )
+    {
+        string cr_url = "inv_use.php?pwd="+my_hash()+"&which=f1&whichitem=11572";
+		//add to banish tile
+		resource_entries.listAppend(ChecklistEntryMake("__item stuffed yam stinkbomb", cr_url, ChecklistSubentryMake(pluralise($item[stuffed yam stinkbomb]), "", "Free run/banish|*("+createbanish+") stuffed yam stinkbomb are <span style='color:red; font-size:100%; font-weight:bold;'>creatable</span>.|*<span style='color:red; font-size:100%; font-weight:bold;'>Vessel, Yam, Cheese, Explosion</span>"), 0).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("yam creatable banish"));
+		//individual high-importance tile to urge creation
+		resource_entries.listAppend(ChecklistEntryMake("__item stuffed yam stinkbomb", cr_url, ChecklistSubentryMake(pluralise($item[stuffed yam stinkbomb]), "", "Free run/banish|*("+createbanish+") stuffed yam stinkbomb are <span style='color:red; font-size:100%; font-weight:bold;'>creatable</span>.|*<span style='color:red; font-size:100%; font-weight:bold;'>Vessel, Yam, Cheese, Explosion</span>"), -5000).ChecklistEntrySetIDTag("yam creatable banish loose tile"));
+    }
+	
     if (available_amount($item[mayam calendar]) < 1)
         return;
 

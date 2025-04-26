@@ -93,7 +93,7 @@ void IOTMSkiSetGenerateResourceBeta(ChecklistEntry [int] resource_entries)
 	}
 	
 	
-	description.listAppend(HTMLGenerateSpanOfClass("1x / fight. ~50 slz.dmg + ~50 ohys.dmg", "r_bold") + "");
+	description.listAppend(HTMLGenerateSpanOfClass("<b>Stab:</b> 1x / fight ~50 sl.dmg + ~50 p.dmg", "r_bold") + "");
 	if (lookupItem("McHugeLarge right pole").equipped_amount() == 1)
 	{
 		description.listAppend(HTMLGenerateSpanFont("RIGHT POLE equipped!<br>(weap, stab = phys/slz dmg)", "green"));
@@ -114,14 +114,15 @@ void IOTMSkiSetGenerateResourceBeta(ChecklistEntry [int] resource_entries)
 		description.listAppend(HTMLGenerateSpanFont("Equip the DUFFEL BAG first.<br>(back)", "red"));
 	}
 	
-	int importance_num = -42;
+	int importance_num = -40;
 	boolean wearing_gear() {
 		foreach i in McHugeLargeSkiGear() {
 			if	( have_equipped(i) ) { return true; }
 		}
 		return false;
 	}
-	if	( wearing_gear() ) { importance_num = -542; }
+	//if	( wearing_gear() ) { importance_num = -542; }
+	//if	( skiAvalanchesLeft > 0 || skiSlashesLeft > 0 ) { importance_num = -542; }
 	
 	resource_entries.listAppend(ChecklistEntryMake("__item McHugeLarge duffel bag", url, ChecklistSubentryMake("McHugeLarge ski set skills BETA", description), importance_num));
 }

@@ -2,7 +2,7 @@
 RegisterTaskGenerationFunction("IOTMBoomBoxGenerateTasks");
 void IOTMBoomBoxGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
-	int importance = (get_property_boolean("kingLiberated")) ? 11:-11;
+	int importance = (get_property_boolean("kingLiberated") || in_casual() ) ? 11:-11;
 	
 	if (lookupItem("SongBoom&trade; BoomBox").available_amount() == 0) return;
  

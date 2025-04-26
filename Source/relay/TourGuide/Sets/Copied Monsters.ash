@@ -647,11 +647,20 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
 		int chestFaxesLimit = 11 - get_property_int("_mimicEggsObtained");
 		chestFaxesAvailable = min(chestFaxesAvailable, chestFaxesLimit);
 		string linkToTownMimicDNABank = "(<a href='place.php?whichplace=town_right&action=townright_dna' target='mainpane'><span style='color:red; font-size:100%; font-weight:normal;'>chest mimic</span></a>)";
-		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(chestFaxesAvailable, linkToTownMimicDNABank+" monster fax is possible", linkToTownMimicDNABank+" monster faxes are possible") + "", "", ""));
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(chestFaxesAvailable, linkToTownMimicDNABank+" monster <span style='color:red; font-size:100%; font-weight:bold;'>fax</span> is possible", linkToTownMimicDNABank+" monster <span style='color:red; font-size:100%; font-weight:bold;'>faxes</span> are possible") + "", "", ""));
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__familiar chest mimic";
             //copy_source_entry.image_lookup_name = "__skill %fn, lay an egg";
 	}
+	//chest mimic main limit [_mimicEggsObtained = "+get_property("_mimicEggsObtained")+" / 11]
+	if	( $familiar[chest mimic].familiar_is_usable() && get_property_int("_mimicEggsObtained") > 10 ) {
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake("<span style='color:red; font-size:100%; font-weight:bold;'>_mimicEggsObtained = "+get_property("_mimicEggsObtained")+" / 11</span>", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__familiar chest mimic";
+            //copy_source_entry.image_lookup_name = "__skill %fn, lay an egg";
+	}
+	
+	
 	//patriotic eagle
 	if	( $familiar[patriotic eagle].familiar_is_usable() && have_effect($effect[Everything Looks Red, White and Blue]) == 0 ) {
 		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(1, "red, white & blue blast&nbsp;&nbsp;(2 immediate copies)", "") + "", "", ""));

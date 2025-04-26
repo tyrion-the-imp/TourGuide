@@ -15,7 +15,7 @@ void IOTMProtonicAcceleratorPackGenerateTasks(ChecklistEntry [int] task_entries,
 			description.listAppend(HTMLGenerateSpanFont("Who you gonna call? You!", "blue"));
 			if (!lookupItem("protonic accelerator pack").equipped())
 				description.listAppend(HTMLGenerateSpanFont("Equip the protopack first", "red"));
-			task_entries.listAppend(ChecklistEntryMake("__item protonic accelerator pack", url, ChecklistSubentryMake("It's ghost bustin' time!", "", description), -11));
+			task_entries.listAppend(ChecklistEntryMake("__item protonic accelerator pack", url, ChecklistSubentryMake("It's ghost bustin' time!", "", description), -10));
 		}	
 		else
 			description.listAppend(nextGhostTimer + " adventures until your next protonic ghost.");

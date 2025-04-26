@@ -358,6 +358,8 @@ void QSeaGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] o
 {
     QuestState temple_quest_state = __quest_state["Sea Temple"];
     QuestState monkees_quest_state = __quest_state["Sea Monkees"];
+	int importance = 0;
+	if	( my_location().environment == "underwater" ) { importance = -2500; }
 
     if (!__misc_state["in aftercore"] && !monkees_quest_state.started || temple_quest_state.quest_name == "")
         return;
@@ -389,7 +391,7 @@ void QSeaGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] o
             if (sand_dollars < 50)
                 description.listAppend("Have " + sand_dollars.pluralise("sand dollar", "sand dollars") + " on hand.");
         }
-        optional_task_entries.listAppend(ChecklistEntryMake("__item damp old boot", url, ChecklistSubentryMake(title, modifiers, description)).ChecklistEntrySetIDTag("Sea old man boot quest"));
+        optional_task_entries.listAppend(ChecklistEntryMake("__item damp old boot", url, ChecklistSubentryMake(title, modifiers, description),importance).ChecklistEntrySetIDTag("Sea old man boot quest"));
     }
 
 
@@ -583,7 +585,7 @@ void QSeaGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] o
         temple_subentry.modifiers.listAppend("-combat");
 
     if (should_output_temple_questline)
-        optional_task_entries.listAppend(ChecklistEntryMake(image_name, url, temple_subentry, $locations[the brinier deepers, an octopus's garden,the wreck of the edgar fitzsimmons, the mer-kin outpost, madness reef,the marinara trench, the dive bar,anemone mine, the coral corral, mer-kin elementary school,mer-kin library,mer-kin gymnasium,mer-kin colosseum,the caliginous abyss]).ChecklistEntrySetIDTag("Sea mer-kin main quest"));
+        optional_task_entries.listAppend(ChecklistEntryMake(image_name, url, temple_subentry, importance, $locations[the brinier deepers, an octopus's garden,the wreck of the edgar fitzsimmons, the mer-kin outpost, madness reef,the marinara trench, the dive bar,anemone mine, the coral corral, mer-kin elementary school,mer-kin library,mer-kin gymnasium,mer-kin colosseum,the caliginous abyss]).ChecklistEntrySetIDTag("Sea mer-kin main quest"));
 
 
     //Tile 3
@@ -655,7 +657,7 @@ void QSeaGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] o
         sea_monkey_subentry.modifiers.listAppend("-combat");
 
     if (should_output_sea_monkey_questline)
-        optional_task_entries.listAppend(ChecklistEntryMake(monkees_quest_state.image_name, url, sea_monkey_subentry, relevant_locations).ChecklistEntrySetIDTag("Sea monkey branch quest"));
+        optional_task_entries.listAppend(ChecklistEntryMake(monkees_quest_state.image_name, url, sea_monkey_subentry, importance, relevant_locations).ChecklistEntrySetIDTag("Sea monkey branch quest"));
 
 
     //Tile 4
@@ -719,6 +721,6 @@ void QSeaGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] o
         if (factions_at_highest_progress.count() > 0)
             skate_park_subentry.entries.listAppend("At " + highest_progress_seen + "/3 NCs with " + factions_at_highest_progress.listJoinComponents(", ", "and") + (factions_at_highest_progress.count() > 1 ? " (will have to make a decision)" : "") + ".");
 
-        optional_task_entries.listAppend(ChecklistEntryMake("Skate Park", "sea_skatepark.php", skate_park_subentry, $locations[The Skate Park]).ChecklistEntrySetIDTag("Sea skate park war quest"));
+        optional_task_entries.listAppend(ChecklistEntryMake("Skate Park", "sea_skatepark.php", skate_park_subentry, importance, $locations[The Skate Park]).ChecklistEntrySetIDTag("Sea skate park war quest"));
     }
 }

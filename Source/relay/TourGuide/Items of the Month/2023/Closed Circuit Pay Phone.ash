@@ -139,13 +139,13 @@ void IOTMClosedCircuitPayPhoneGenerateTasks(ChecklistEntry [int] task_entries, C
         // We've fulfilled the quest objective but still need to call Rufus
         rufusQuestDescription.listAppend(HTMLGenerateSpanFont("Call Rufus and get a lodestone", "black"));
         rufusQuestTitle = "Rufus quest done";
-        rufusQuestPriority = -11;
+        rufusQuestPriority = -10;
         whereToAddRufusQuestTile = task_entries;
     }
     else if (state.started && riftAdvsUntilNC == 0) {
         rufusQuestDescription.listAppend(HTMLGenerateSpanFont("Fight a boss or get an artifact", "black"));
         rufusQuestTitle = "Shadow Rift NC up next";
-        rufusQuestPriority = -11;
+        rufusQuestPriority = -10;
         rufusImage = "__item shadow bucket";
         whereToAddRufusQuestTile = task_entries;
     }
@@ -163,7 +163,7 @@ void IOTMClosedCircuitPayPhoneGenerateTasks(ChecklistEntry [int] task_entries, C
         rufusQuestPriority = 11;
         whereToAddRufusQuestTile = optional_task_entries;
 		if	( !calledRufusToday && my_daycount() == 1 ) {
-			rufusQuestPriority = -11;
+			rufusQuestPriority = -10;
 			whereToAddRufusQuestTile = task_entries;
 		}
     }
@@ -181,7 +181,7 @@ void IOTMClosedCircuitPayPhoneGenerateTasks(ChecklistEntry [int] task_entries, C
         affinityDescription.listAppend(HTMLGenerateSpanFont(riftAdvsUntilNC + " encounters until NC/boss.", "black"));
         affinityDescription.listAppend(HTMLGenerateSpanFont("(don't use other free kills in there)", "black"));
         affinityDescription.listAppend(getShadowBrickLocationTooltip());
-        task_entries.listAppend(ChecklistEntryMake("__effect Shadow Affinity", url, ChecklistSubentryMake(shadowRiftFightsDoableRightNow + " Shadow Rift free fights", "", affinityDescription), -11));
+        task_entries.listAppend(ChecklistEntryMake("__effect Shadow Affinity", url, ChecklistSubentryMake(shadowRiftFightsDoableRightNow + " Shadow Rift free fights", "", affinityDescription), -10));
     }
 }
 
@@ -219,12 +219,12 @@ void IOTMClosedCircuitPayPhoneGenerateResource(ChecklistEntry [int] resource_ent
         string [int] lodestoneDescription;
         lodestoneDescription.listAppend("30 advs of +100% init, +100% item, +200% meat, -10% combat.");
         lodestoneDescription.listAppend("Triggers on next visit to any Shadow Rift.");
-        resource_entries.listAppend(ChecklistEntryMake("__item Rufus's shadow lodestone", url, ChecklistSubentryMake(shadowLodestones + " Rufus's shadow lodestones", lodestoneDescription), 5));
+        resource_entries.listAppend(ChecklistEntryMake("__item Rufus's shadow lodestone", url, ChecklistSubentryMake(shadowLodestones + " Rufus's shadow lodestones", lodestoneDescription), -30));
     }
 
     if (!get_property_boolean("_shadowAffinityToday")) {
         string [int] affinityDescription;
         affinityDescription.listAppend("Call Rufus to get 11+ free Shadow Rift combats.");
-        resource_entries.listAppend(ChecklistEntryMake("__effect Shadow Affinity", url, ChecklistSubentryMake("Shadow Affinity free fights", "", affinityDescription), 5).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("Shadow affinity free fights"));
+        resource_entries.listAppend(ChecklistEntryMake("__effect Shadow Affinity", url, ChecklistSubentryMake("Shadow Affinity free fights", "", affinityDescription), -30).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("Shadow affinity free fights"));
     }
 }

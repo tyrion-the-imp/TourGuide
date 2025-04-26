@@ -62,6 +62,8 @@ void SOlfactionGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [
 		description.listAppend("|*You need to use "+wishes_to_use+" more wishes to unlock Monkey Point (+2 q)");
 	}
 	
+	description.listAppend("<b>_aaa_RhinoOlfactTarg =</b> <span style='color:red; font-weight:bold;'>"+get_property("_aaa_RhinoOlfactTarg")+"</span>");
+	
     monster [location] location_wanted_monster;
     
     if (__misc_state["in run"])
@@ -165,7 +167,7 @@ void SOlfactionGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [
         //   as a "top" recommendation thing, with the relevant idea from your most recent zone and a few other ideas
         //   alongside the # of olfactions remaining. 
 
-        task_entries.listAppend(ChecklistEntryMake("__item " + $item[soft green echo eyedrop antidote], "inventory.php?ftext=soft+green+echo+eyedrop+antidote", ChecklistSubentryMake(totalsniffs+" total Sniffs available.", "", description), -10).ChecklistEntrySetIDTag("Olfaction better suggestion")); //TODO could differentiate by suggestion
+        task_entries.listAppend(ChecklistEntryMake("__item " + $item[soft green echo eyedrop antidote], "inventory.php?ftext=soft+green+echo+eyedrop+antidote", ChecklistSubentryMake(totalsniffs+" total Sniffs available.", "", description), 10).ChecklistEntrySetIDTag("Olfaction better suggestion")); //TODO could differentiate by suggestion
         
         break;
     }

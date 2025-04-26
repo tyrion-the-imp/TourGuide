@@ -16,6 +16,22 @@ void IOTMSeptemberCenserGenerateResourceBeta(ChecklistEntry [int] resource_entri
 	int hunkCount = $item[embering hunk].available_amount();
 	boolean hulkFought = get_property_boolean("_emberingHulkFought"); 
 	boolean structureUsed = get_property_boolean("_structuralEmberUsed"); 
+	int visibility = -30;
+	
+	if	( creatable_amount($item[throwin' ember]) > 0 ) {
+		description.listAppend(""+creatable_amount($item[throwin' ember])+" "+$item[throwin' ember]+" are creatable. (sepcen, banisher)");
+		//visibility = -6000;
+	}
+	int creatableember = $item[throwin' ember].creatable_amount();
+   if (creatableember > 0 )
+    {
+        //shop.php?whichshop=september
+		//add to banish tile
+		string cr_url = "shop.php?whichshop=september";
+		resource_entries.listAppend(ChecklistEntryMake("__item throwin' ember", cr_url, ChecklistSubentryMake(pluralise($item[throwin' ember]), "", "Non-free run/banish|*("+creatableember+") throwin' ember are <span style='color:red; font-size:100%; font-weight:bold;'>creatable</span>.|*Must kill the monster?"), 0).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("throwin' ember creatable banish"));
+		//individual high-importance tile to urge creation
+		resource_entries.listAppend(ChecklistEntryMake("__item throwin' ember", cr_url, ChecklistSubentryMake(pluralise($item[throwin' ember]), "", "Non-free banish|*("+creatableember+") throwin' ember are <span style='color:red; font-size:100%; font-weight:bold;'>creatable</span>.|*Must kill the monster?"), -5000).ChecklistEntrySetIDTag("throwin' ember creatable banish loose tile"));
+    }
 	
 	description.listAppend("Have " + (HTMLGenerateSpanFont(SeptEmbers, "red")) + " Sept-Embers to make stuff with!");
 	description.listAppend("1 embers: +5 cold res accessory. (You have " + (HTMLGenerateSpanFont(bembershootCount, "red")) + " of this)");
@@ -33,7 +49,8 @@ void IOTMSeptemberCenserGenerateResourceBeta(ChecklistEntry [int] resource_entri
 	else {
 		description.listAppend("6 embers: embering hulk (1/day)");
 	}
+	
 	description.listAppend("(You have " + (HTMLGenerateSpanFont(hunkCount, "red")) + " hunks)");
 
-	resource_entries.listAppend(ChecklistEntryMake("__item sept-ember censer", url, ChecklistSubentryMake(title, "", description), -30));
+	resource_entries.listAppend(ChecklistEntryMake("__item sept-ember censer", url, ChecklistSubentryMake(title, "", description), visibility));
 }

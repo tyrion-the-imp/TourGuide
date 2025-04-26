@@ -164,7 +164,7 @@ string info_url = "https://kol.coldfront.net/thekolwiki/index.php/Leprechaun%27s
 string [int] these_modifiers;
 string[int] these_entries;
 int implev = -10;
-if	( !get_property_boolean("kingLiberated") ) { implev = -10; }
+if	( !get_property_boolean("kingLiberated") ) { implev = 10; }
 if	( !is_unrestricted(this_item) ) { return; }
 if	( get_property_int("_leprecondoRearrangements") >= 3 ) { implev = 10; }
 

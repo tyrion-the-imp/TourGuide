@@ -652,6 +652,8 @@ buffer ChecklistGenerate(Checklist cl, boolean output_borders) {
 			if	( entry.url.index_of("sheriff") > -1 ) { entry.importance_level -= 20; }
 			//trick or treat
 			if	( entry.url.index_of("candy-rich") > -1 ) { entry.importance_level -= 10; }
+			
+			if	( my_level() > 10 ) { entry.importance_level = -65; }
 		}
 		
         if (!(combination_tag_entries contains entry.tags.combination)) {

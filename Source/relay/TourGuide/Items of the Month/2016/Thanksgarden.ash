@@ -137,6 +137,6 @@ void IOTMThanksgardenGenerateTasks(ChecklistEntry [int] task_entries, ChecklistE
         if ($locations[the penultimate fantasy airship,the hidden office building,the hidden apartment building] contains last_location)
             allow = false;
         if (allow)
-            task_entries.listAppend(ChecklistEntryMake("__item turkey blaster", url, ChecklistSubentryMake("Chew turkey blaster", "", description), -11).ChecklistEntrySetIDTag("Campground thanksgarden turkey blaster resource"));
+            task_entries.listAppend(ChecklistEntryMake("__item turkey blaster", url, ChecklistSubentryMake("Chew turkey blaster", "", description), -10).ChecklistEntrySetIDTag("Campground thanksgarden turkey blaster resource"));
     }
 }
