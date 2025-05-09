@@ -64,6 +64,10 @@ void SOlfactionGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [
 	
 	description.listAppend("<b>_aaa_RhinoOlfactTarg =</b> <span style='color:red; font-weight:bold;'>"+get_property("_aaa_RhinoOlfactTarg")+"</span>");
 	
+	string ctxt = "<span style='color:red; font-weight:bold;'>aaa_RhinoOlfactDisable (DISABLED)</span>";
+	if	( !get_property_boolean("aaa_RhinoOlfactDisable") ) { ctxt = "<span style='color:green; font-weight:bold;'>aaa_RhinoOlfactDisable (OK)</span>"; }
+	description.listAppend(ctxt);
+	
     monster [location] location_wanted_monster;
     
     if (__misc_state["in run"])

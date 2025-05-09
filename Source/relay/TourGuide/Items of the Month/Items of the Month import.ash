@@ -200,15 +200,20 @@ import "relay/TourGuide/Items of the Month/2024/TakerSpaceBeta.ash";
 //import "relay/TourGuide/Items of the Month/TEMPLATE-TASKS.ash";
 
 //2025 IotY		Server Room							https://kol.coldfront.net/thekolwiki/index.php/Server_Room		CyberRealmBeta
-import "relay/TourGuide/Items of the Month/2025/CyberRealmBeta.ash";
+import "relay/TourGuide/Items of the Month/2025/0 CyberRealmBeta.ash";
 
 
 //2025.01 IotM	McHugeLarge duffel bag	i#11783	https://kol.coldfront.net/thekolwiki/index.php/McHugeLarge_duffel_bag#Notes
-import "relay/TourGuide/Items of the Month/2025/McHugeLarge Ski Set beta.ash";
+import "relay/TourGuide/Items of the Month/2025/1 McHugeLarge Ski Set beta.ash";
 
 //2025.02 - toy Cupid bow	https://kol.coldfront.net/thekolwiki/index.php/Toy_Cupid_bow#Notes
+//2 Toy Cupid bow alpha.ash
 
 //2025.03 - Leprecondo	https://kol.coldfront.net/thekolwiki/index.php/Leprechaun%27s_Condo#Notes
-import "relay/TourGuide/Items of the Month/2025/Leprecondo alpha.ash";
+import "relay/TourGuide/Items of the Month/2025/3 Leprecondo alpha.ash";
 
 //2025.04 - April Shower Thoughts shield	i#11884	
+//4 April Shower Thoughts shield alpha.ash
+
+//2025.05 - Peridot of Peril
+//5 Peridot of Peril alpha.ash

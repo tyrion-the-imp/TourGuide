@@ -93,7 +93,9 @@ void SFloristGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [in
             
 			subentry.entries.listAppend(line);
 		}
+		int importanceflorist = -11;
+		if	( in_casual() ) { importanceflorist = -10; }
 		if (subentry.entries.count() > 0)
-			task_entries.listAppend(ChecklistEntryMake(image_name, "place.php?whichplace=forestvillage&amp;action=fv_friar", subentry, -11).ChecklistEntrySetIDTag("Florist friar plant suggestions"));
+			task_entries.listAppend(ChecklistEntryMake(image_name, "place.php?whichplace=forestvillage&amp;action=fv_friar", subentry, importanceflorist).ChecklistEntrySetIDTag("Florist friar plant suggestions"));
 	}
 }

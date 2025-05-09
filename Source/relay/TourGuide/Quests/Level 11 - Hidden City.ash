@@ -407,6 +407,7 @@ void QLevel11HiddenCityGenerateTasks(ChecklistEntry [int] task_entries, Checklis
 
             subentry.header = "Hidden Bowling Alley";
             subentry.modifiers.listAppend("+150% item, olfact bowler");
+            subentry.modifiers.listAppend("<span style='color:red; font-weight:bold;'>bowling balls = "+available_amount($item[bowling ball])+"</span>");
 
             if (bowling_progress == 7 || $item[scorched stone sphere].available_amount() > 0) {
                 subentry.entries.listAppend("Place scorched stone sphere in shrine.");

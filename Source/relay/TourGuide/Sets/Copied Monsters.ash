@@ -81,7 +81,7 @@ void CopiedMonstersGenerateDescriptionForMonster(string monster_name, string [in
 		string line;
 		boolean requirements_met = false;
 		if ( available_amount($item[mimic egg]) > 0 && get_property("mimicEggMonsters") != "" ) {
-			line += "<a href='inv_use.php?pwd="+my_hash()+"&which=99&whichitem=11542' target='mainpane'><span style='color:blue; font-size:100%; font-weight:normal;'>Click here:</span></a> to view the list of monsters the egg contains.";
+			line += "<a href='inv_use.php?pwd="+my_hash()+"&which=99&whichitem=11542' target='mainpane'><span style='color:blue; font-size:100%; font-weight:normal;'>Click here:</span></a> to view the list of monsters the egg contains. <a href='inv_use.php?pwd="+my_hash()+"&which=99&whichitem=11542' target='mainpane'><span style='color:blue; font-size:100%; font-weight:normal;'>Click here:</span></a> to visit the mimic fax bank. (Mimic must be active)";
 			requirements_met = true;
 		}
 		else
@@ -660,6 +660,16 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
             //copy_source_entry.image_lookup_name = "__skill %fn, lay an egg";
 	}
 	
+		/* ChecklistEntry entry;
+		entry.image_lookup_name = "__familiar pocket professor";
+		entry.tags.id = "Pocket professor familiar resource";
+		entry.importance_level = -79; */
+	if	( $familiar[pocket professor].familiar_is_usable() && get_property_int("_tourguide_AvailablePocketProfessorLectures") != -1 ) {
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(get_property("_tourguide_AvailablePocketProfessorLectures") +" Professor Lectures <span style='color:red; font-size:85%; font-weight:bold;'>(immediately refight monster)</span>", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__familiar pocket professor";
+	}
+
 	
 	//patriotic eagle
 	if	( $familiar[patriotic eagle].familiar_is_usable() && have_effect($effect[Everything Looks Red, White and Blue]) == 0 ) {
@@ -678,10 +688,27 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
 	
 	//waffle, replace monster (eg power glove ~ replace enemy, macrometeor)
 	if	( is_unrestricted($item[waffle]) && $item[waffle].available_amount() > 0 ) {
-		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise($item[waffle].available_amount(), "waffle <font color='red'>replacement</font> monster", "waffle <font color='red'>replacement</font> monsters") + "", "", ""));
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise($item[waffle].available_amount(), "waffle <font color='red'>replacement</font> monster", "waffle <font color='blue'>replacement</font> monsters") + "", "throw in combat", ""));
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__item waffle";
 	}
+	
+	if	( have_skill($skill[Meteor Lore]) && is_unrestricted($skill[Meteor Lore]) && get_property_int("_macrometeoriteUses") < 10 ) {
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise((10 - get_property_int("_macrometeoriteUses")), "macrometorite <font color='red'>replacement</font> monster", "macrometorite <font color='blue'>replacement</font> monsters") + "", "cast in combat", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__skill macrometeor";
+	}
+	
+	//phosphor traces
+	if	( is_unrestricted($item[phosphor traces]) && $item[phosphor traces].available_amount() > 0 ) {
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise($item[phosphor traces].available_amount(), "phosphor traces", "phosphor traces") + "", "", ""));
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color='black'>fight one immediate copy for 3 spleen</font>", "", ""));
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(gives <span style='color:green; font-weight:bold;'>Create an Afterimage</span> combat skill)", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__item phosphor traces";
+	}
+	
+	
 	
 	if	( have_effect($effect[Everything Looks Purple]) < 1 && __iotms_usable[$item[Roman candelabra]]) {
 		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise($item[roman candelabra].available_amount(), "chained candelabra purple ray copy", "chained candelabra purple ray copies") + "", "", ""));

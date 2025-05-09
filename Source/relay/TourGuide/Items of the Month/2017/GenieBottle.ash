@@ -30,6 +30,9 @@ void IOTMGenieBottleGenerateResource(ChecklistEntry [int] resource_entries)
         string potential_monsters = SFaxGeneratePotentialFaxes(true, invalid_monsters).listJoinComponents("|<hr>");
         if (potential_monsters != "")
 	        description.listAppend("Could fight a monster:<br>" + potential_monsters);
-        resource_entries.listAppend(ChecklistEntryMake("__item genie bottle", url, ChecklistSubentryMake(pluralise(wishes_left, "wish", "wishes"), "", description), -50).ChecklistEntrySetIDTag("Genie bottle resource"));
+		description.listAppend("pocket wishes = "+available_amount($item[pocket wish])+"");
+		description.listAppend("_genieFightsUsed = "+get_property("_genieFightsUsed")+" / 3");
+        resource_entries.listAppend(ChecklistEntryMake("__item genie bottle", url, ChecklistSubentryMake(pluralise(wishes_left, "wish", "wishes"), "", description), -79).ChecklistEntrySetIDTag("Genie bottle resource"));
+		//-50 level is copyings stuff
     }
 }

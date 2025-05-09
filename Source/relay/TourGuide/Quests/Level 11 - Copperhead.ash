@@ -17,7 +17,9 @@ void QLevel11CopperheadInit()
         if (state.state_int["protestors remaining"] <= 1)
             state.state_boolean["need protestor speed tricks"] = false;
         
-        state.state_boolean["should output"] = state.in_progress && __quest_state["Level 11"].state_boolean["have diary"] && (__misc_state["in run"] || $location[the red zeppelin].turns_spent > 0 || __last_adventure_location == $location[a mob of zeppelin protesters]);
+        state.state_boolean["should output"] = $item[Talisman o' Namsilat].available_amount() + $item[Copperhead Charm (rampant)].available_amount() < 1;
+        //state.state_boolean["should output"] = state.in_progress && __quest_state["Level 11"].state_boolean["have diary"] && (__misc_state["in run"] || $location[the red zeppelin].turns_spent > 0 || __last_adventure_location == $location[a mob of zeppelin protesters]);
+		//i#7186	Copperhead Charm (rampant)		Ron
         
         __quest_state["Level 11 Ron"] = state;
     }
@@ -28,7 +30,9 @@ void QLevel11CopperheadInit()
         state.quest_name = "Copperhead Club Quest"; //"Of Mice and Shen";
         state.image_name = "__item copperhead charm"; //"__effect Ancient Annoying Serpent Poison";
         
-        state.state_boolean["should output"] = state.in_progress && __quest_state["Level 11"].state_boolean["have diary"] && (__misc_state["in run"] || $location[the copperhead club].turns_spent > 0);
+        state.state_boolean["should output"] = $item[Talisman o' Namsilat].available_amount() + $item[Copperhead Charm].available_amount() < 1;
+        //state.state_boolean["should output"] = state.in_progress && __quest_state["Level 11"].state_boolean["have diary"] && (__misc_state["in run"] || $location[the copperhead club].turns_spent > 0);
+		//i#7178	Copperhead Charm		Shen
         
         
         //other than in exploathing, if mafia_internal_step == 1, we haven't "locked" which items are going to be asked

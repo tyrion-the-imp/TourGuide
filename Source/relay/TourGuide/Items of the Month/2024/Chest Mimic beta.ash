@@ -8,7 +8,7 @@ void IOTMChestMimicGenerateTasksBETA(ChecklistEntry [int] task_entries, Checklis
 		string [int] description;
 		string url = "inventory.php?ftext=mimic";
 		if ( available_amount($item[mimic egg]) > 0 ) {
-			line += "<a href='inv_use.php?pwd="+my_hash()+"&which=99&whichitem=11542' target='mainpane'><span style='color:blue; font-size:100%; font-weight:normal;'>Click here:</span></a> to view the list of monsters the egg contains.";
+			line += "<a href='inv_use.php?pwd="+my_hash()+"&which=99&whichitem=11542' target='mainpane'><span style='color:blue; font-size:100%; font-weight:normal;'>Click here:</span></a> to view the list of monsters the egg contains. <a href='inv_use.php?pwd="+my_hash()+"&which=99&whichitem=11542' target='mainpane'><span style='color:blue; font-size:100%; font-weight:normal;'>Click here:</span></a> to visit the mimic fax bank. (Mimic must be active)";
 			requirements_met = true;
 		}
 		else

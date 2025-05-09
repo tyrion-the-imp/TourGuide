@@ -40,5 +40,5 @@ void IOTMSpringShoesGenerateResourceTEMP(ChecklistEntry [int] resource_entries)
 	{
 		banishDescription.listAppend(HTMLGenerateSpanFont("Equip the spring shoes first.", "red"));
 	}
-	resource_entries.listAppend(ChecklistEntryMake("__skill spring shoes", "", ChecklistSubentryMake("Spring Kick", "", banishDescription)).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Spring shoes spring kick banish"));
+	resource_entries.listAppend(ChecklistEntryMake("__skill spring shoes", "", ChecklistSubentryMake("Spring Kick (non-free)", "", banishDescription)).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Spring shoes spring kick banish"));
 }

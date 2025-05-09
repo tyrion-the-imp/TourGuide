@@ -17,6 +17,7 @@ void IOTMPocketProfessorResource(ChecklistEntry [int] resource_entries)
         int nextLectureWeightChip = (lecturesUsed - 2) ** 2 + 1;
 
         string main_title = (availableLectures > 0 ? pluralise(availableLectures, "lecture", "lectures") : "No lectures") + " available, " + lecturesUsed + " lectures used";
+		set_property("_tourguide_AvailablePocketProfessorLectures",availableLectures);
 
         // Subtitle
         string subtitle = "";

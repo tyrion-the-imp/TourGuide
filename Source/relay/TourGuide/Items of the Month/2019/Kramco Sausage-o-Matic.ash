@@ -24,7 +24,7 @@ void IOTMKramcoSausageOMaticGenerateTasks(ChecklistEntry [int] task_entries, Che
             if (url == "")
                 url = possible_locations[0].getClickableURLForLocation();
         }
-        task_entries.listAppend(ChecklistEntryMake("__item Kramco Sausage-o-Matic&trade;", url, ChecklistSubentryMake(title, "", description), -11).ChecklistEntrySetIDTag("Kramco sausage grinder goblin fight reminder"));
+        task_entries.listAppend(ChecklistEntryMake("__item Kramco Sausage-o-Matic&trade;", url, ChecklistSubentryMake(title, "", description), -10).ChecklistEntrySetIDTag("Kramco sausage grinder goblin fight reminder"));
     }
 }
 
