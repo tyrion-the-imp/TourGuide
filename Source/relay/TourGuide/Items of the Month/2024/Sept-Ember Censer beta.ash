@@ -8,6 +8,7 @@ void IOTMSeptemberCenserGenerateResourceBeta(ChecklistEntry [int] resource_entri
 	string [int] description;
 	float cold_resistance = numeric_modifier("cold resistance");
 	int mainstat_gain = (7 * (cold_resistance) ** 1.7) * (1.0 + numeric_modifier(my_primestat().to_string() + " Experience Percent") / 100.0);
+	item BOOM = $item[throwin' ember];
 	string url = "shop.php?whichshop=september";
 	string title = "Sept-Ember Censer";
 	int bembershootCount = $item[bembershoot].available_amount();
@@ -18,24 +19,38 @@ void IOTMSeptemberCenserGenerateResourceBeta(ChecklistEntry [int] resource_entri
 	boolean structureUsed = get_property_boolean("_structuralEmberUsed"); 
 	int visibility = -30;
 	
-	if	( creatable_amount($item[throwin' ember]) > 0 ) {
-		description.listAppend(""+creatable_amount($item[throwin' ember])+" "+$item[throwin' ember]+" are creatable. (sepcen, banisher)");
+	if	( creatable_amount(BOOM) > 0 ) {
+		//description.listAppend(""+creatable_amount(BOOM)+" "+BOOM+" are creatable. (sepcen, banish 30a)");
 		//visibility = -6000;
 	}
-	int creatableember = $item[throwin' ember].creatable_amount();
-   if (creatableember > 0 )
+	int creatableember = BOOM.creatable_amount();
+	int onhandember = BOOM.item_amount();
+	int avember = BOOM.available_amount();
+	string boomnums = " <span style='color:red; font-size:100%; font-weight:bold;'>CR: "+creatableember+"</span> INV: "+item_amount(BOOM)+" AV: "+BOOM.available_amount()+"";
+	string boominf = " ban 30a, use turn, alias sepcen";
+	
+   if (creatableember > 0 || avember > 0 )
     {
         //shop.php?whichshop=september
 		//add to banish tile
 		string cr_url = "shop.php?whichshop=september";
-		resource_entries.listAppend(ChecklistEntryMake("__item throwin' ember", cr_url, ChecklistSubentryMake(pluralise($item[throwin' ember]), "", "Non-free run/banish|*("+creatableember+") throwin' ember are <span style='color:red; font-size:100%; font-weight:bold;'>creatable</span>.|*Must kill the monster?"), 0).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("throwin' ember creatable banish"));
-		//individual high-importance tile to urge creation
-		resource_entries.listAppend(ChecklistEntryMake("__item throwin' ember", cr_url, ChecklistSubentryMake(pluralise($item[throwin' ember]), "", "Non-free banish|*("+creatableember+") throwin' ember are <span style='color:red; font-size:100%; font-weight:bold;'>creatable</span>.|*Must kill the monster?"), -5000).ChecklistEntrySetIDTag("throwin' ember creatable banish loose tile"));
+		resource_entries.listAppend(ChecklistEntryMake("__item throwin' ember", cr_url, ChecklistSubentryMake(pluralise(BOOM), boomnums+" [+turn, 30a, sepcen]", ""), visibility).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("throwin' ember creatable banish"));
+		
+		if	( creatableember > 0 ) {
+			//individual high-importance tile to urge creation
+			resource_entries.listAppend(ChecklistEntryMake("__item throwin' ember", cr_url, ChecklistSubentryMake(pluralise(BOOM), boomnums+" [+turn, 30a, sepcen]", ""), -5000).ChecklistEntrySetIDTag("throwin' ember creatable banish loose tile"));
+		}
     }
 	
-	description.listAppend("Have " + (HTMLGenerateSpanFont(SeptEmbers, "red")) + " Sept-Embers to make stuff with!");
-	description.listAppend("1 embers: +5 cold res accessory. (You have " + (HTMLGenerateSpanFont(bembershootCount, "red")) + " of this)");
-	description.listAppend("2 embers: mmm-brr! mouthwash for " + (HTMLGenerateSpanFont(mainstat_gain, "blue")) + " mainstat. (You have " + (HTMLGenerateSpanFont(mouthwashCount, "red")) + " of this)");
+	
+	
+	description.listAppend("<b>Have (" + (HTMLGenerateSpanFont(SeptEmbers, "red")) + ") Sept-Embers to make stuff with!</b>");
+	description.listAppend("1 embers: +5 cold res accessory. ("+HTMLGenerateSpanFont(bembershootCount, "red")+")"+clrindent+" bembershoot (melts)");
+	description.listAppend("2 embers: mmm-brr! mouthwash ("+HTMLGenerateSpanFont(mouthwashCount, "red")+") " +clrindent+ HTMLGenerateSpanFont(mainstat_gain, "blue") + " mainstat/ea");
+	description.listAppend("2 embers: throwin' ember ("+HTMLGenerateSpanFont(avember, "red")+")");
+	
+	description.listAppend(clrindent2+boomnums);
+	description.listAppend(clrindent2+boominf);
 	
 	if (structureUsed) {
 		description.listAppend((HTMLGenerateSpanFont("Already used structural ember today", "red")));
@@ -50,7 +65,7 @@ void IOTMSeptemberCenserGenerateResourceBeta(ChecklistEntry [int] resource_entri
 		description.listAppend("6 embers: embering hulk (1/day)");
 	}
 	
-	description.listAppend("(You have " + (HTMLGenerateSpanFont(hunkCount, "red")) + " hunks)");
+	description.listAppend(clrindent2+$item[embering hunk]+" (" + (HTMLGenerateSpanFont(hunkCount, "red")) + ")");
 
 	resource_entries.listAppend(ChecklistEntryMake("__item sept-ember censer", url, ChecklistSubentryMake(title, "", description), visibility));
 }

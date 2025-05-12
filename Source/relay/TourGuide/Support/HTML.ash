@@ -6,6 +6,10 @@ string __setting_indention_width = __setting_indention_width_in_em + "em";
 
 string __html_right_arrow_character = "&#9658;";
 
+string clrindent = "<span style='color:red;'><br>&raquo;&raquo;</span> ";
+string clrindent2 = "<span style='color:red;'>&raquo;&raquo;</span> ";
+
+
 buffer HTMLGenerateTagPrefix(string tag, string [string] attributes)
 {
 	buffer result;

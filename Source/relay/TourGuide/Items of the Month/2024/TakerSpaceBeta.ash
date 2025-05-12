@@ -45,10 +45,10 @@ void IOTMTakerspaceGenerateResource(ChecklistEntry [int] resource_entries)
 		string url = "campground.php?action=workshed";
 		{
 			//individual high-importance tile to urge creation
-			description2.listAppend(""+creatable_amount(ANCHBAN)+" "+ANCHBAN+" are <span style='color:red; font-size:100%; font-weight:bold;'>creatable</span> (banisher, free)");
-			resource_entries.listAppend(ChecklistEntryMake("__item anchor bomb", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Anchor Bomb(s) are creatable.", "black"), "FREE", description2), curr_importance).ChecklistEntrySetIDTag("anchor bomb banish tile"));
+			description2.listAppend(""+creatable_amount(ANCHBAN)+" "+ANCHBAN+" are <span style='color:red; font-size:100%; font-weight:bold;'>creatable</span> (banish 30a, free)");
+			resource_entries.listAppend(ChecklistEntryMake("__item anchor bomb", url, ChecklistSubentryMake(HTMLGenerateSpanFont(""+creatable_amount(ANCHBAN)+"Anchor Bomb(s) are creatable.", "black"), "FREE", description2), curr_importance).ChecklistEntrySetIDTag("anchor bomb banish tile"));
 			//also added to banish combo tile
-			resource_entries.listAppend(ChecklistEntryMake("__item anchor bomb", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Anchor Bomb(s) are creatable.", "black"), "FREE", description2), 0).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("anchor bomb banish loose tile"));
+			resource_entries.listAppend(ChecklistEntryMake("__item anchor bomb", url, ChecklistSubentryMake(HTMLGenerateSpanFont(""+creatable_amount(ANCHBAN)+"Anchor Bomb(s) are creatable.", "black"), "FREE", description2), 0).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("anchor bomb banish loose tile"));
 		}
 	}
 	

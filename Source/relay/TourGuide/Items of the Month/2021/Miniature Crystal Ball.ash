@@ -35,9 +35,9 @@ void IOTMCrystalBallGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEn
 			}
 			else 
 			{				
-				description.listAppend("Equip the miniature crystal ball to predict a monster!");
+				description.listAppend("<span style='color:red; font-size:100%; font-weight:bold;'>Equip the miniature crystal ball to predict a monster!</span>");
 				url = invSearch("miniature crystal ball");
-				optional_task_entries.listAppend(ChecklistEntryMake("__item quantum of familiar", url, ChecklistSubentryMake(title, description)));
+				optional_task_entries.listAppend(ChecklistEntryMake("__item quantum of familiar", url, ChecklistSubentryMake(title, description),-201));
 			}
 		}
 		else //when mcb is equipped

@@ -14,7 +14,7 @@ void IOTYCyberRealmGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 	int zone1Turns = get_property_int("_cyberZone1Turns");
 	int zone2Turns = get_property_int("_cyberZone2Turns");
 	int zone3Turns = get_property_int("_cyberZone3Turns");
-	int CyberZoneLeft = zone1turns + zone2turns + zone3turns;
+	int CyberZoneUsed = zone1turns + zone2turns + zone3turns;
 	string [int] description;
 	string url = "place.php?whichplace=CyberRealm";
 	string image_name = "__skill stats+++";
@@ -104,10 +104,10 @@ void IOTYCyberRealmGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 		}
 	}
 	
-	if (($locations[Cyberzone 1,Cyberzone 2,Cyberzone 3] contains __next_adventure_location) && have_skill($skill[OVERCLOCK(10)])) {
+	if (($locations[Cyberzone 1,Cyberzone 2,Cyberzone 3] contains __next_adventure_location) && have_skill($skill[OVERCLOCK(10)]) && CyberZoneUsed < 60 ) {
 		description.listAppend(HTMLGenerateSpanFont("Have used " + usedNum + " turns in server room.", "blue"));
 		description.listAppend(HTMLGenerateSpanFont("Have " + max(10 - CyberFree,0) + " free fights left!", "green"));
-		task_entries.listAppend(ChecklistEntryMake(image_name, url, ChecklistSubentryMake(60 - CyberZoneLeft + " CyberRealm adventures!", "", description), -103));
+		task_entries.listAppend(ChecklistEntryMake(image_name, url, ChecklistSubentryMake(60 - CyberZoneUsed + " CyberRealm adventures!", "", description), -103));
 	}
 	else {
 		if ( have_skill($skill[OVERCLOCK(10)]) ) {
@@ -120,7 +120,14 @@ void IOTYCyberRealmGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 		else	{
 			description.listAppend(HTMLGenerateSpanFont("No free fights left", "red"));
 		}
-		optional_task_entries.listAppend(ChecklistEntryMake(image_name, url, ChecklistSubentryMake(60 - CyberZoneLeft + " CyberRealm adventures!", "", description), -101));
+		
+		if	( CyberZoneUsed == 60 ) {
+			clear(description);
+			//description[0] = "Try again tomorrow.";
+			optional_task_entries.listAppend(ChecklistEntryMake(image_name, url, ChecklistSubentryMake(60 - CyberZoneUsed + " CyberRealm adventures!", "Try again tomorrow.", description), -101));
+		} else {
+			optional_task_entries.listAppend(ChecklistEntryMake(image_name, url, ChecklistSubentryMake(60 - CyberZoneUsed + " CyberRealm adventures!", "", description), -101));
+		}
 	}
 }
 

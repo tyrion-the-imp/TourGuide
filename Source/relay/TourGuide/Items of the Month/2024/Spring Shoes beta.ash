@@ -9,13 +9,17 @@ void IOTMSpringShoesGenerateTasksBETA(ChecklistEntry [int] task_entries, Checkli
 			string [int] description;
 			string url = "inventory.php?ftext=spring+shoes";
 			int importance = -10;
-			if	( get_property_boolean("kingLiberated") ) { importance = -1; }
+			if	( get_property_boolean("kingLiberated") ) { importance = 3; }
 			description.listAppend(HTMLGenerateSpanFont("Run away from your problems! (+30 ELG)", "green"));
 			if (lookupItem("spring shoes").equipped_amount() == 0)
 			{
 				description.listAppend(HTMLGenerateSpanFont("Equip the spring shoes first.", "red"));
 			}
+			if	( importance == 3 ) {
+			optional_task_entries.listAppend(ChecklistEntryMake("__item spring shoes", url, ChecklistSubentryMake("Free-run away with <b>Spring Away</b> skill! (TEMP)", "", description), -11));
+			} else {
 			task_entries.listAppend(ChecklistEntryMake("__item spring shoes", url, ChecklistSubentryMake("Free-run away with <b>Spring Away</b> skill! (TEMP)", "", description), importance));
+			}
 		}
 		//if ( $item[spring shoes].available_amount() > 0 && get_property("questL10Garbage").index_of("started") > -1 ) {
 		if ( get_property("questL10Garbage").index_of("started") > -1 ) {

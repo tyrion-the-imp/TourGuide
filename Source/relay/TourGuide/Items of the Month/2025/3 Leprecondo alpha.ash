@@ -163,7 +163,7 @@ string url = "inventory.php?ftext=Leprecondo";
 string info_url = "https://kol.coldfront.net/thekolwiki/index.php/Leprechaun%27s_Condo#Notes";
 string [int] these_modifiers;
 string[int] these_entries;
-int implev = -10;
+int implev = 10;
 if	( !get_property_boolean("kingLiberated") ) { implev = 10; }
 if	( !is_unrestricted(this_item) ) { return; }
 if	( get_property_int("_leprecondoRearrangements") >= 3 ) { implev = 10; }
@@ -180,6 +180,9 @@ leprecondoInstalled,
 leprecondoLastNeedChange,
 leprecondoNeedOrder,
 ] {
+	//_leprecondoFurniture = checks how many furniture pieces found today
+	//all furniture is discovered by AR & MB
+	if	( s == "leprecondoDiscovered" || s == "_leprecondoFurniture" ) { continue; }
 	these_entries.listAppend("<b>"+s+"</b> = "+get_property(s));
 	if	( s == "leprecondoLastNeedChange" ) {
 		these_entries.listAppend("<span style='color:red;'><b>Current Turn</b> = "+turns_played()+"</span>");
@@ -191,16 +194,21 @@ string url_for_use = "inv_use.php?pwd="+my_hash()+"&whichitem=11861";
 these_entries.listAppend("<span style='color:blue; font-weight:bold;'>use leprecondo (to choice 1556)</span>: <a href='"+url_for_use+"' target='mainpane'><span style='color:red; font-size:100%; font-weight:normal;'>use item</span></a>");
 these_entries.listAppend("<span style='color:blue; font-weight:bold;'>leprecondo</span>: <a href='"+info_url+"' target='_blank'><span style='color:red; font-size:100%; font-weight:normal;'>info</span></a>");
 
-//https://kol.coldfront.net/thekolwiki/index.php/Leprechaun%27s_Condo#Notes
+if	( implev == 10 ) {
+	implev = -11;
+	optional_task_entries.listAppend(ChecklistEntryMake("Leprecondo", url, ChecklistSubentryMake("Leprecondo[2025.03]", these_modifiers, these_entries), implev).ChecklistEntrySetIDTag("Leprecondo tasks tile"));
+} else {
+	//https://kol.coldfront.net/thekolwiki/index.php/Leprechaun%27s_Condo#Notes
 
-//resource_entries.listAppend(ChecklistEntryMake(entry.image_lookup_name, entry.url, ChecklistSubentryMake(pluralise(free_fights_remaining, "free elf fight", "free elf fights"), modifiers, description), importance_level).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("Machine elf free fights"));
+	//resource_entries.listAppend(ChecklistEntryMake(entry.image_lookup_name, entry.url, ChecklistSubentryMake(pluralise(free_fights_remaining, "free elf fight", "free elf fights"), modifiers, description), importance_level).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("Machine elf free fights"));
 
-//task_entries.listAppend(ChecklistEntryMake("Leprecondo", url, ChecklistSubentryMake("boogey down", "", these_entries), -11).ChecklistEntrySetIDTag("Council L12 quest exploathing path"));
-task_entries.listAppend(ChecklistEntryMake("Leprecondo", url, ChecklistSubentryMake("Leprecondo[2025.03]", these_modifiers, these_entries), implev).ChecklistEntrySetIDTag("Leprecondo tasks tile"));
+	//task_entries.listAppend(ChecklistEntryMake("Leprecondo", url, ChecklistSubentryMake("boogey down", "", these_entries), -11).ChecklistEntrySetIDTag("Council L12 quest exploathing path"));
+	task_entries.listAppend(ChecklistEntryMake("Leprecondo", url, ChecklistSubentryMake("Leprecondo[2025.03]", these_modifiers, these_entries), implev).ChecklistEntrySetIDTag("Leprecondo tasks tile"));
 
-//	optional_task_entries.listAppend(ChecklistEntryMake("__item inflatable duck", "", ChecklistSubentryMake("The Old Man's Bathtime Adventure", modifiers, description),$locations[The Old Man's Bathtime Adventures]).ChecklistEntrySetIDTag("Psychoanalytic jar old man"));
+	//	optional_task_entries.listAppend(ChecklistEntryMake("__item inflatable duck", "", ChecklistSubentryMake("The Old Man's Bathtime Adventure", modifiers, description),$locations[The Old Man's Bathtime Adventures]).ChecklistEntrySetIDTag("Psychoanalytic jar old man"));
 
-//	future_task_entries
+	//	future_task_entries
+}
 
 
 return;
