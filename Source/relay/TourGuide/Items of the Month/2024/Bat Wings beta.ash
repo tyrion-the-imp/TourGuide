@@ -86,7 +86,7 @@ void IOTYCyberRealmGenerateTasksBeta(ChecklistEntry [int] task_entries, Checklis
 	skill rud = $skill[Rest upside down];
 	int batWingRestsLeft = clampi(11 - get_property_int("_batWingsRestUsed"), 0, 11);
 	
-	if	( __iotms_usable[lookupItem("bat wings")] && batWingRestsLeft > 0 ) {
+	if	( __iotms_usable[lookupItem("bat wings")] && batWingRestsLeft > 0 && !get_property_boolean("kingLiberated") ) {
 		description.listAppend("Bat Wings heal|*Rest +1000 HP/MP|*" + (HTMLGenerateSpanOfClass(batWingRestsLeft, "r_bold")) + " use(s) left.");
 		if	( !have_equipped($item[bat wings]) ) {
 			description.listAppend("<span style='color:red; font-size:100%; font-weight:bold;'>Equip the Bat Wings first.</span>");

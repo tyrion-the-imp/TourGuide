@@ -36,7 +36,7 @@ void IOTMSeptemberCenserGenerateResourceBeta(ChecklistEntry [int] resource_entri
 		string cr_url = "shop.php?whichshop=september";
 		resource_entries.listAppend(ChecklistEntryMake("__item throwin' ember", cr_url, ChecklistSubentryMake(pluralise(BOOM), boomnums+" [+turn, 30a, sepcen]", ""), visibility).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("throwin' ember creatable banish"));
 		
-		if	( creatableember > 0 ) {
+		if	( creatableember > 0 && avember < 5 ) {
 			//individual high-importance tile to urge creation
 			resource_entries.listAppend(ChecklistEntryMake("__item throwin' ember", cr_url, ChecklistSubentryMake(pluralise(BOOM), boomnums+" [+turn, 30a, sepcen]", ""), -5000).ChecklistEntrySetIDTag("throwin' ember creatable banish loose tile"));
 		}

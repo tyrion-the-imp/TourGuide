@@ -162,11 +162,12 @@ void IOTMClosedCircuitPayPhoneGenerateTasks(ChecklistEntry [int] task_entries, C
         rufusQuestTitle = "Rufus quest doable now";
         rufusQuestPriority = 11;
         whereToAddRufusQuestTile = optional_task_entries;
-		if	( !calledRufusToday && my_daycount() == 1 ) {
+		if	( !calledRufusToday && my_daycount() < 3 ) {
 			rufusQuestPriority = -10;
 			whereToAddRufusQuestTile = task_entries;
 		}
     }
+	if	( my_location().zone == "Shadow Rift" ) { rufusQuestPriority -= 500; }
 
     rufusQuestDescription.listAppend(getShadowBrickLocationTooltip());
 

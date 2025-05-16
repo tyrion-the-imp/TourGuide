@@ -7,12 +7,12 @@ void IOTMChestMimicGenerateTasksBETA(ChecklistEntry [int] task_entries, Checklis
 		boolean requirements_met = false;
 		string [int] description;
 		string url = "inventory.php?ftext=mimic";
+		//is only in inventory when something is stored in it, else it disappears until the familiar combat skill is used again
 		if ( available_amount($item[mimic egg]) > 0 ) {
-			line += "<a href='inv_use.php?pwd="+my_hash()+"&which=99&whichitem=11542' target='mainpane'><span style='color:blue; font-size:100%; font-weight:normal;'>Click here:</span></a> to view the list of monsters the egg contains. <a href='inv_use.php?pwd="+my_hash()+"&which=99&whichitem=11542' target='mainpane'><span style='color:blue; font-size:100%; font-weight:normal;'>Click here:</span></a> to visit the mimic fax bank. (Mimic must be active)";
+			line += "<a href='inv_use.php?pwd="+my_hash()+"&which=99&whichitem=11542' target='mainpane'><span style='color:blue; font-size:100%; font-weight:normal;'>Click here:</span></a> to view the list of monsters the egg contains.<hr><a href='place.php?whichplace=town_right&action=townright_dna' target='mainpane'><span style='color:blue; font-size:100%; font-weight:normal;'>Click here:</span></a> to visit the mimic fax bank. <span style='color:red; font-size:100%; font-weight:bold;'>(Mimic must be active)</span>";
 			requirements_met = true;
 		}
-		else
-		{
+		else {
 			line += "";
 			requirements_met = false;
 		}
@@ -24,6 +24,7 @@ void IOTMChestMimicGenerateTasksBETA(ChecklistEntry [int] task_entries, Checklis
 			task_entries.listAppend(ChecklistEntryMake("__item mimic egg", url, ChecklistSubentryMake("Mimic Egg (beta)", "", description), -11));
 		}
 }
+
 RegisterResourceGenerationFunction("IOTMChestMimicGenerateResourceBETA");
 void IOTMChestMimicGenerateResourceBETA(ChecklistEntry [int] resource_entries)
 {
