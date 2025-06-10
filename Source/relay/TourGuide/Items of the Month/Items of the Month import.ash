@@ -217,3 +217,6 @@ import "relay/TourGuide/Items of the Month/2025/3 Leprecondo alpha.ash";
 
 //2025.05 - Peridot of Peril
 //5 Peridot of Peril alpha.ash
+
+//2025.06 - prismatic beret
+import "relay\TourGuide\Items of the Month\2025\6 prismatic beret.ash";
