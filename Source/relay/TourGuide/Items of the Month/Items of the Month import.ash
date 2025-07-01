@@ -168,6 +168,7 @@ import "relay/TourGuide/Items of the Month/2024/Apriling Band Helmet beta.ash";
 import "relay/TourGuide/Items of the Month/2024/Mayam Calendar.ash";
 
 import "relay/TourGuide/Items of the Month/2024/Mini Kiwi.ash";
+
 //no beta
 
 //2024.07 import "relay/TourGuide/Items of the Month/2024/Roman Candelabra.ash";
@@ -220,3 +221,15 @@ import "relay/TourGuide/Items of the Month/2025/3 Leprecondo alpha.ash";
 
 //2025.06 - prismatic beret
 import "relay\TourGuide\Items of the Month\2025\6 prismatic beret.ash";
+
+/* import "relay/TourGuide/Items of the Month/2024/Tearaway Pants.ash";
+import "relay/TourGuide/Items of the Month/2024/Sept-Ember Censer.ash";
+import "relay/TourGuide/Items of the Month/2024/bat wings.ash";
+import "relay/TourGuide/Items of the Month/2024/VIP Photobooth.ash";
+import "relay/TourGuide/Items of the Month/2024/Peace Turkey.ash";
+import "relay/TourGuide/Items of the Month/2024/TakerSpace.ash";
+
+// 2024
+import "relay/TourGuide/Items of the Month/2025/CyberRealm.ash";
+import "relay/TourGuide/Items of the Month/2025/McHugeLarge Ski Set.ash"; */
+
