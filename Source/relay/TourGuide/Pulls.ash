@@ -1129,6 +1129,7 @@ void generatePullList(Checklist [int] checklists)
 	
 	checklists.listAppend(ChecklistMake("Suggested Pulls", pulls_entries));
 }
+}
 
 void PullsInit()
 {
