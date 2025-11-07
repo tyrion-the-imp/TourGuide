@@ -1,6 +1,6 @@
 //prismatic beret
-RegisterResourceGenerationFunction("IOTMPrismaticBeretGenerateResource");
-void IOTMPrismaticBeretGenerateResource(ChecklistEntry [int] resource_entries)
+//RegisterResourceGenerationFunction("IOTMPrismaticBeretAlphaGenerateResource");
+void IOTMPrismaticBeretAlphaGenerateResource(ChecklistEntry [int] resource_entries)
 {
     if ($item[prismatic beret].available_amount() == 0) return;
     

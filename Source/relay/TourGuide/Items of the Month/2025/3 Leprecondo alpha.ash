@@ -132,8 +132,8 @@ inv_use.php?pwd=cced219382855f26674146eeaee0fd30&which=f3&whichitem=11861
 
 */
 
-RegisterTaskGenerationFunction("IOTMLeprecondoGenerateTasks");
-void IOTMLeprecondoGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
+RegisterTaskGenerationFunction("IOTMLeprecondoAlphaGenerateTasks");
+void IOTMLeprecondoAlphaGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
 /*
 //ChecklistEntry

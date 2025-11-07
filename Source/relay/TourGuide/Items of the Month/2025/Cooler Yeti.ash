@@ -54,5 +54,5 @@ void IOTMCoolerYetiGenerateResource(ChecklistEntry [int] resource_entries)
 		description.listAppend(`Need {HTMLGenerateSpanOfClass(famExpNeededFor400, "r_bold")} more famxp for doublebooze. ({fightsForYeti})`);
 	}
 	
-	resource_entries.listAppend(ChecklistEntryMake("__familiar cooler yeti", url, ChecklistSubentryMake(title, "", description), -1));
+	resource_entries.listAppend(ChecklistEntryMake("__familiar cooler yeti", url, ChecklistSubentryMake(title, "", description), -50));
 }
