@@ -148,8 +148,8 @@ import "relay/TourGuide/Items of the Month/2023/Jill of all Trades.ash";
 import "relay/TourGuide/Items of the Month/2023/A Guide to Burning Leaves.ash";
 import "relay/TourGuide/Items of the Month/2023/candy cane sword cane beta.ash";
 //import "relay/TourGuide/Items of the Month/2023/Candy Cane Sword Cane.ash";
-
-
+import "relay/TourGuide/Items of the Month/2023/Candy Cane Sword Cane.ash";
+import "relay/TourGuide/Items of the Month/2023/Wardrobe-o-Matic.ash";
 
 // 2024
 //import "relay/TourGuide/Items of the Month/2024/Chest Mimic.ash";
@@ -229,7 +229,7 @@ import "relay/TourGuide/Items of the Month/2024/VIP Photobooth.ash";
 import "relay/TourGuide/Items of the Month/2024/Peace Turkey.ash";
 import "relay/TourGuide/Items of the Month/2024/TakerSpace.ash";
 
-// 2024
+// 2025
 import "relay/TourGuide/Items of the Month/2025/CyberRealm.ash";
 import "relay/TourGuide/Items of the Month/2025/McHugeLarge Ski Set.ash"; */
 
@@ -241,4 +241,4 @@ import "relay/TourGuide/Items of the Month/2025/Prismatic Beret.ash";
 import "relay/TourGuide/Items of the Month/2025/Cooler Yeti.ash";
 import "relay/TourGuide/Items of the Month/2025/Allied Radio Backpack.ash";
 import "relay/TourGuide/Items of the Month/2025/Mobius Ring.ash";
-
+import "relay/TourGuide/Items of the Month/2025/Blood Cubic Zirconia.ash";

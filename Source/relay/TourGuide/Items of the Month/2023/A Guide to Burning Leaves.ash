@@ -305,3 +305,26 @@ void IOTMBurningLeavesGenerateResource(ChecklistEntry [int] resource_entries)
         resource_entries.listAppend(ChecklistEntryMake("__item tied-up flaming leaflet", url, subentries, tags, 0));
     }
 }
+
+RegisterTaskGenerationFunction("BurningLeavesRakeReminder");
+void BurningLeavesRakeReminder(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
+{
+    // Don't generate this tile if they cannot actually use their leaves
+    if (!__iotms_usable[$item[A Guide to Burning Leaves]]) return;
+
+    string url = "campground.php?preaction=burningleaves";
+    // Use the new preference to tell if there's an NC forcer active
+    if ($item[rake].available_amount() > 0) return;
+    
+    // If they don't have a rake, remind them to get one
+    ChecklistEntry entry;
+    
+	entry.url = "campground.php?preaction=leaves";
+	entry.image_lookup_name = "__item Inflammable leaf";
+    entry.tags.id = "Rake and Tiny Rake reminder";
+    entry.importance_level = 7;
+
+    entry.subentries.listAppend(ChecklistSubentryMake("It's mulch madness -- go get your rakes","","Visit your pile of burning leaves for rakes... for more leaves!")); 
+
+    optional_task_entries.listAppend(entry);
+}

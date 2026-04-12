@@ -46,7 +46,6 @@ void initialiseIOTMsUsable()
             __iotms_usable[lookupItem("cold medicine cabinet")] = true;
         if (__campground[lookupItem("model train set")] > 0)
             __iotms_usable[lookupItem("model train set")] = true;
-		
 		//Workshed installer available but not in place
 		if	( available_amount($item[cold medicine cabinet]) > 0 )
 			__iotms_usable[lookupItem("cold medicine cabinet")] = true;
@@ -59,6 +58,9 @@ void initialiseIOTMsUsable()
 		if ( __campground contains $item[packet of rock seeds] )
             __iotms_usable[lookupItem("packet of rock seeds")] = true;
 		
+        if (__campground[lookupItem("TakerSpace letter of Marque")] > 0)
+            __iotms_usable[lookupItem("TakerSpace letter of Marque")] = true;
+
         // This didn't appear in my LoL test run; I am making this more explicit and hopefully this works.
         if (__campground[lookupItem("Little Geneticist DNA-Splicing Lab")] > 0)
             __iotms_usable[lookupItem("Little Geneticist DNA-Splicing Lab")] = true;
@@ -205,16 +207,45 @@ void initialiseIOTMsUsable()
         
     if (lookupItem("tearaway pants").available_amount() > 0) //Aug 2024
         __iotms_usable[lookupItem("tearaway pants")] = true;
-	
     if (lookupItem("McHugeLarge left pole").available_amount() > 0) //Jan 2025
         __iotms_usable[lookupItem("McHugeLarge left pole")] = true;
-    if (lookupItem("bat wings").available_amount() > 0) //Dec 2023
+    if (lookupItem("bat wings").available_amount() > 0) //Oct 2024
         __iotms_usable[lookupItem("bat wings")] = true;
     if (lookupItem("cursed monkey's paw").available_amount() > 0) //Dec 2023
         __iotms_usable[lookupItem("cursed monkey's paw")] = true;
+    if (lookupItem("sept-ember censer").available_amount() > 0) //Sep 2024
+        __iotms_usable[lookupItem("sept-ember censer")] = true;
     
-	
-	//Can't use many things in G-Lover
+    // Nov 2024 -- peace turkey, unneedded
+    // Dec 2024 -- takerspace, in campground above 
+    
+    if (lookupItem("McHugeLarge duffel bag").available_amount() > 0) //Jan 2025
+        __iotms_usable[lookupItem("McHugeLarge duffel bag")] = true;
+        
+    if (lookupItem("toy Cupid bow").available_amount() > 0) //Feb 2025
+        __iotms_usable[lookupItem("toy Cupid bow")] = true;
+        
+    if (lookupItem("Leprecondo").available_amount() > 0) //Mar 2025
+        __iotms_usable[lookupItem("Leprecondo")] = true;
+
+    if (lookupItem("April Shower Thoughts shield").available_amount() > 0) //Apr 2024
+        __iotms_usable[lookupItem("April Shower Thoughts shield")] = true;
+
+    if (lookupItem("Peridot of Peril").available_amount() > 0) //May 2024
+        __iotms_usable[lookupItem("Peridot of Peril")] = true;
+
+    if (lookupItem("prismatic beret").available_amount() > 0) //Jun 2024
+        __iotms_usable[lookupItem("prismatic beret")] = true;
+    
+    // july 2025 -- yeti, familiar, unneeded
+
+    if (lookupItem("M&ouml;bius ring").available_amount() > 0) //Aug 2024
+        __iotms_usable[lookupItem("M&ouml;bius ring")] = true;
+        
+    if (lookupItem("allied radio backpack").available_amount() > 0) //Aug 2024
+        __iotms_usable[lookupItem("allied radio backpack")] = true;
+        
+    //Can't use many things in G-Lover
     if (my_path().id == PATH_G_LOVER) //Path 33
     {
         __iotms_usable[lookupItem("Bird-a-Day calendar")] = false;
