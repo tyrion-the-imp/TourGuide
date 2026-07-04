@@ -3,6 +3,14 @@ RegisterTaskGenerationFunction("IOTMBloodCubicZirconiaGenerateTasks");
 void IOTMBloodCubicZirconiaGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries)
 {
     if ($item[blood cubic zirconia].available_amount() == 0) return;
+    // TODO: reorganize/update tile; obvious changes include:
+    //   - maybe update the cost matrix structure, seems a lil silly
+    //   - add refract recommendation system
+    //   - shorten resource tile by switching the less-useful uses into a hoverover
+    //   - small wording tweaks 
+
+
+	if (!__iotms_usable[lookupItem("blood cubic zirconia")]) return;
 	string url = "inventory.php?ftext=blood+cubic+zirconia";
 	string [int] description;
 	int bczRefracts = get_property_int("_bczRefractedGazeCasts");
@@ -18,13 +26,23 @@ void IOTMBloodCubicZirconiaGenerateTasks(ChecklistEntry [int] task_entries, Chec
 	int bulletCost = bloodCast[min(bczBullets, 15)];
 	int equityCost = bloodCast[min(bczEquitys, 15)];
 	
-	if (lookupItem("blood cubic zirconia").equipped_amount() > 0)
+	//if (lookupItem("blood cubic zirconia").equipped_amount() > 0)
+	if (gemstoneInCodpiece(lookupItem("blood cubic zirconia"))) description.listAppend("Currently in <b>Eternity Codpiece</b>");
+	//if (gemstoneEquipped(lookupItem("blood cubic zirconia")))
 	{
 		if (bczRefracts < 13) {
 			description.listAppend("Next Refract costs " + HTMLGenerateSpanFont(refractCost + "", "red") + " mys");
 		}
 		else if (bczRefracts >= 13) {
 			description.listAppend(HTMLGenerateSpanFont("Next Refract costs " + refractCost + " mys. EXPENSIVE!", "red") + "");
+		}
+		if (lookupItem("monodent of the sea").equipped_amount() == 0)
+		{
+			description.listAppend(HTMLGenerateSpanFont("Seadent not equipped", "red"));		
+		}
+		else if (lookupItem("monodent of the sea").equipped_amount() > 0)
+		{
+			description.listAppend(HTMLGenerateSpanFont("Seadent FLEESH ok!", "blue"));		
 		}
 		if (bczBullets < 13) {
 			description.listAppend("Next Bullet costs " + HTMLGenerateSpanFont(bulletCost + "", "red") + " mox");
@@ -38,14 +56,16 @@ void IOTMBloodCubicZirconiaGenerateTasks(ChecklistEntry [int] task_entries, Chec
 		else if (bczEquitys >= 13) {
 			description.listAppend(HTMLGenerateSpanFont("Next Equity costs " + equityCost + " mox. EXPENSIVE!", "red") + "");
 		}	
-		task_entries.listAppend(ChecklistEntryMake("__item blood cubic zirconia", url, ChecklistSubentryMake(HTMLGenerateSpanFont("BCZ: Blood Cubic Zirconia skills", "brown"), description), -11).ChecklistEntrySetIDTag("bcz important skills"));
-	}
+		task_entries.listAppend(ChecklistEntryMake("__item blood cubic zirconia", url, ChecklistSubentryMake(HTMLGenerateSpanFont("BCZ: Blood Cubic Zirconia skills", "brown"), description), -11).ChecklistEntrySetIDTag("bcz important skills"));	}
+		// This was originally a supernag but I simply will not let this be -always- on my screen.	
+		//task_entries.listAppend(ChecklistEntryMake("__item blood cubic zirconia", url, ChecklistSubentryMake(HTMLGenerateSpanFont("BCZ: Blood Cubic Zirconia skills", "brown"), description), 11).ChecklistEntrySetIDTag("bcz important skills"));
 }
 
 RegisterResourceGenerationFunction("IOTMBloodCubicZirconiaGenerateResource");
 void IOTMBloodCubicZirconiaGenerateResource(ChecklistEntry [int] resource_entries)
 {
     if ($item[blood cubic zirconia].available_amount() == 0) return;
+    if (!__iotms_usable[lookupItem("blood cubic zirconia")]) return;
 	string url = "inventory.php?ftext=blood+cubic+zirconia";
 	string [int] description;
 	int bczBaths = get_property_int("_bczBloodBathCasts");
@@ -73,6 +93,8 @@ void IOTMBloodCubicZirconiaGenerateResource(ChecklistEntry [int] resource_entrie
 	int bulletCost = bloodCast[min(bczBullets, 15)];
 	int equityCost = bloodCast[min(bczEquitys, 15)];
 	
+	if (gemstoneInCodpiece(lookupItem("blood cubic zirconia"))) description.listAppend("Currently in <b>Eternity Codpiece</b>");
+	
 	description.listAppend("Next Refract costs " + HTMLGenerateSpanFont(refractCost + "", "red") + " mys");
 	description.listAppend("Next Bullet costs " + HTMLGenerateSpanFont(bulletCost + "", "red") + " mox");
 	description.listAppend("Next Equity costs " + HTMLGenerateSpanFont(equityCost + "", "red") + " mox");
@@ -85,4 +107,39 @@ void IOTMBloodCubicZirconiaGenerateResource(ChecklistEntry [int] resource_entrie
 	description.listAppend("Next Pheromone costs " + HTMLGenerateSpanFont(pheromoneCost + "", "brown") + " mox");
 		
 	resource_entries.listAppend(ChecklistEntryMake("__item blood cubic zirconia", url, ChecklistSubentryMake(HTMLGenerateSpanFont("BCZ: Blood Cubic Zirconia skills", "brown"), description), 11).ChecklistEntrySetIDTag("bcz important skills"));
+	
+	int pheromoneBlasts = get_property_int("markYourTerritoryCharges");
+	if (pheromoneBlasts > 0)
+    {
+		resource_entries.listAppend(ChecklistEntryMake("__skill mark your territory", "", ChecklistSubentryMake(pluralise(pheromoneBlasts, "cast of Mark Your Territory", "casts of Mark Your Territory"), "drink pheromone cocktails for more charges!", "Turn-taking item-destroying kill, all-day banish."), 0).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("BCZ pheromone banish"));
+    }
+
+	// Freekill combination tile entry.
+	string header = "BCZ: Sweat Bullets";
+	string subtitle;
+	string [int] bulletDesc;
+
+	if (bczBullets > 0) subtitle= "have used "+pluralise(bczBullets,"bullet","bullets")+" today";
+
+	bulletDesc.listAppend("Win a fight without taking a turn.");
+	bulletDesc.listAppend("Next bullet costs "+bulletCost+" moxie substats");
+	if (!gemstoneEquipped(lookupItem("blood cubic zirconia"))) 
+		bulletDesc.listAppend(HTMLGenerateSpanFont("Equip the Blood Cubic Zirconia first", "red"));
+
+	resource_entries.listAppend(ChecklistEntryMake("__item blood cubic zirconia", url, ChecklistSubentryMake(header,subtitle,bulletDesc)).ChecklistEntrySetCombinationTag("free instakill"));
+
+	// void showShadowBrickFreeKills(ChecklistEntry [int] resource_entries) {
+	// 	int shadowBricks = available_amount($item[shadow brick]);
+	// 	int shadowBrickUsesLeft = clampi(13 - get_property_int("_shadowBricksUsed"), 0, 13);
+	// 	if ($item[shadow brick].available_amount() > 0) {
+	// 		string header = $item[shadow brick].pluralise().capitaliseFirstLetter();
+	// 		if (shadowBrickUsesLeft < shadowBricks) {
+	// 			if (shadowBrickUsesLeft == 0)
+	// 				header += " (not usable today)";
+	// 			else
+	// 				header += " (" + shadowBrickUsesLeft + " usable today)";
+	// 		}
+	// 	resource_entries.listAppend(ChecklistEntryMake("__item shadow brick", "", ChecklistSubentryMake(header, "", "Win a fight without taking a turn.")).ChecklistEntrySetCombinationTag("free instakill"));
+    // 	}
+	// }
 }

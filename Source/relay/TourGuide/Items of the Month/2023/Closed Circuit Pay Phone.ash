@@ -210,11 +210,26 @@ void showShadowBrickFreeKills(ChecklistEntry [int] resource_entries) {
         resource_entries.listAppend(ChecklistEntryMake("__item shadow brick", "", ChecklistSubentryMake(header, "", "Win a fight without taking a turn.")).ChecklistEntrySetCombinationTag("daily free fight"));
     }
 }
+// void showShadowBrickFreeKills(ChecklistEntry [int] resource_entries) {
+//     int shadowBricks = available_amount($item[shadow brick]);
+//     int shadowBrickUsesLeft = clampi(13 - get_property_int("_shadowBricksUsed"), 0, 13);
+//     if ($item[shadow brick].available_amount() > 0) {
+//         string header = $item[shadow brick].pluralise().capitaliseFirstLetter();
+//         if (shadowBrickUsesLeft < shadowBricks) {
+//             if (shadowBrickUsesLeft == 0)
+//                 header += " (not usable today)";
+//             else
+//                 header += " (" + shadowBrickUsesLeft + " usable today)";
+//         }
+//         resource_entries.listAppend(ChecklistEntryMake("__item shadow brick", "", ChecklistSubentryMake(header, "", "Win a fight without taking a turn.")).ChecklistEntrySetCombinationTag("free instakill"));
+//     }
+// }
+
 
 RegisterResourceGenerationFunction("IOTMClosedCircuitPayPhoneGenerateResource");
 void IOTMClosedCircuitPayPhoneGenerateResource(ChecklistEntry [int] resource_entries) {
     // Shadow bricks don't depend on having the IOTM
-    showShadowBrickFreeKills(resource_entries);
+    // showShadowBrickFreeKills(resource_entries);
 
     if (!lookupItem("closed-circuit pay phone").have())
         return;

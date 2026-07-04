@@ -66,7 +66,7 @@ void IOTMFireExtinguisherGenerateResource(ChecklistEntry [int] resource_entries)
 	int extinguisher_charge = get_property_int("_fireExtinguisherCharge");
 	int extinguisher_importance = CHECKLIST_DEFAULT_IMPORTANCE;
 	boolean extinguisher_refill = get_property_boolean("_fireExtinguisherRefilled");
-	boolean is_on_fire = my_path().id == 43; // Path 43 is Wildfire.
+	boolean is_on_fire = my_path().id == PATH_WILDFIRE; // Path 43 is Wildfire.
 
 	string url = "inventory.php?ftext=industrial+fire+extinguisher";
 	description.listAppend("Extinguish the fires in your life!");

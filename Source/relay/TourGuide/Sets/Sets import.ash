@@ -35,3 +35,4 @@ import "relay/TourGuide/Sets/Monorail.ash";
 import "relay/TourGuide/Sets/Sneaks.ash";
 import "relay/TourGuide/Sets/Active Banishes.ash";
 import "relay/TourGuide/Sets/lucky megatile beta.ash";
+import "relay/TourGuide/Sets/Familiar Drops.ash";
