@@ -66,7 +66,7 @@ void IOTMMayamCalendarGenerateResource(ChecklistEntry [int] resource_entries)
     string [int] description, hoverDescription;
 
     //int templeResetAscension = get_property_int("lastTempleAdventures");
-	int TempleResetAscension = get_property_int("lastTempleUnlock");
+	//int TempleResetAscension = get_property_int("lastTempleUnlock");
     int templeResetAscension = get_property_int("lastTempleAdventures");
     string mayamSymbolsUsed = get_property("_mayamSymbolsUsed");
     addToBothDescriptions(description, hoverDescription, "Happy Mayam New Year!");
