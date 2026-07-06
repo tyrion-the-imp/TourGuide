@@ -24,11 +24,6 @@ void IOTMSeptemberCenserGenerateResource(ChecklistEntry [int] resource_entries)
     int hunkCount = $item[embering hunk].available_amount();
     boolean hulkFought = get_property_boolean("_emberingHulkFought");
     boolean structureUsed = get_property_boolean("_structuralEmberUsed");
-    boolean canUseMouthwash = true;
-
-    if (my_path().id == PATH_GREY_YOU) canUseMouthwash = false;
-    if (my_path().id == PATH_ZOOTOMIST) canUseMouthwash = false;
-    if (my_path().id == PATH_MEAT) canUseMouthwash = false;
 
     if (septEmbers > 0)
     {
@@ -36,8 +31,7 @@ void IOTMSeptemberCenserGenerateResource(ChecklistEntry [int] resource_entries)
     }
 
     description.listAppend(`|*1 embers: +5 cold res accessory (You have {HTMLGenerateSpanFont(bembershootCount, "red")})`);
-    if (canUseMouthwash)
-        description.listAppend(`|*2 embers: mmm-brr! mouthwash for {HTMLGenerateSpanFont(mainstatGain, "blue")} mainstat. (You have {HTMLGenerateSpanFont(mouthwashCount, "red")})`);
+    description.listAppend(`|*2 embers: mmm-brr! mouthwash for {HTMLGenerateSpanFont(mainstatGain, "blue")} mainstat. (You have {HTMLGenerateSpanFont(mouthwashCount, "red")})`);
 
     if (structureUsed) {
         description.listAppend((HTMLGenerateSpanFont("|*Already used structural ember today", "blue")));
@@ -68,10 +62,6 @@ void MmmBrrMouthwashGenerateTask(ChecklistEntry [int] task_entries, ChecklistEnt
     // Check a few things. Don't need this tile over level 11.
     int mouthwashCount = $item[Mmm-brr! brand mouthwash].available_amount();
     boolean doNotNeedToLevel = my_level() > 11;
-
-    if (my_path().id == PATH_GREY_YOU) return;
-    if (my_path().id == PATH_ZOOTOMIST) return;
-    if (my_path().id == PATH_MEAT) return;
 
     if (mouthwashCount == 0 || doNotNeedToLevel) return;
 

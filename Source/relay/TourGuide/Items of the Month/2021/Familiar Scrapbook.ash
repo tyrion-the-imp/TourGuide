@@ -4,7 +4,6 @@ void IOTMFamiliarScrapbookGenerateResource(ChecklistEntry [int] resource_entries
 {
 	// Title
 	string main_title = "Familiar scraps";
-	string subtitle;
 	string [int] description;
 
 	// Entries
@@ -13,19 +12,18 @@ void IOTMFamiliarScrapbookGenerateResource(ChecklistEntry [int] resource_entries
 	
 	if (available_amount($item[familiar scrapbook]) > 0) {
 		if (familiar_scraps < 100) {
-			subtitle = familiar_scraps + " /100 scraps until next banish";
+			description.listAppend(familiar_scraps + " /100 scraps until a banish is available.");
 		}
 		else
 		{
-			description.listAppend("Free run, 100-turn banish for 100 scraps.");
-			if (!have_equipped($item[familiar scrapbook]))
-				description.listAppend(HTMLGenerateSpanFont("Equip the familiar scrapbook first", "red"));
-
+			description.listAppend("Free run, 100-turn banish for 100 scraps.|"+familiar_scraps + " scraps collected.");
 		}
 
-		// description.listAppend("Charge up your familiar scrapbook by letting familiars act in combat.");
+		description.listAppend("Charge up your familiar scrapbook by letting familiars act in combat.");
+		if (!have_equipped($item[familiar scrapbook]))
+			description.listAppend(HTMLGenerateSpanFont("Equip the familiar scrapbook first", "red"));
 		
 		string url = invSearch("familiar scrapbook");
-		resource_entries.listAppend(ChecklistEntryMake("__item familiar scrapbook", url, ChecklistSubentryMake(familiar_scraps / 100 + " scrapbook banishes available", subtitle, description), 0).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Familiar scrapbook boring pictures banish"));
+		resource_entries.listAppend(ChecklistEntryMake("__item familiar scrapbook", url, ChecklistSubentryMake(familiar_scraps / 100 + " scrapbook banishes available", "", description), 0).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Familiar scrapbook boring pictures banish"));
 	}
 }

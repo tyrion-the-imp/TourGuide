@@ -1029,10 +1029,8 @@ void QStenchAirportGiveMeFuelGenerateTasks(ChecklistEntry [int] task_entries)
 
 void QStenchAirportGarbageGenerateTasks(ChecklistEntry [int] task_entries)
 {
-    // Do not need this task in-run
-    if (get_property_boolean("_dinseyGarbageDisposed")) return;
-    if (__misc_state["in run"]) return;
-
+    if (get_property_boolean("_dinseyGarbageDisposed"))
+        return;
     ChecklistSubentry subentry;
     subentry.header = "Turn in garbage";
     subentry.entries.listAppend("Maintenance Tunnels Access" + __html_right_arrow_character + "Waste Disposal.");

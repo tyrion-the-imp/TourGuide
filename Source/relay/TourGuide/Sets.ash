@@ -12,7 +12,6 @@ void SetsInit()
 void SetsGenerateResources(ChecklistEntry [int] resource_entries)
 {
 	SFamiliarsGenerateResource(resource_entries);
-	SFamiliarDropsGenerateResource(resource_entries);
 	SSkillsGenerateResource(resource_entries);
 	SMiscItemsGenerateResource(resource_entries);
 	SCopiedMonstersGenerateResource(resource_entries);

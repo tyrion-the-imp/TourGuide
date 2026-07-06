@@ -236,12 +236,7 @@ void SDailyDungeonGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntr
             if (avoid_using_skeleton_key && $item[skeleton key].available_amount() > 0)
                 description.listAppend(HTMLGenerateSpanOfClass("Avoid using your skeleton key, you don't have many left.", "r_bold"));
 			
-			if (rooms_left == 1) {
-				description.listAppend(HTMLGenerateSpanOfClass("Last room; claim your loot token!","r_element_hot"));
-				task_entries.listAppend(ChecklistEntryMake("daily dungeon", url, ChecklistSubentryMake("Daily Dungeon", "", description), -11).ChecklistEntrySetIDTag("Daily dungeon last-room supernag"));
-			} else {
-				optional_task_entries.listAppend(ChecklistEntryMake("daily dungeon", url, ChecklistSubentryMake("Daily Dungeon", "", description), $locations[the daily dungeon]).ChecklistEntrySetIDTag("Daily dungeon today"));
-			}
+			optional_task_entries.listAppend(ChecklistEntryMake("daily dungeon", url, ChecklistSubentryMake("Daily Dungeon", "", description), $locations[the daily dungeon]).ChecklistEntrySetIDTag("Daily dungeon today"));
 		}
 	}
 

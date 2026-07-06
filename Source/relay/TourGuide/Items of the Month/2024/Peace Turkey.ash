@@ -5,8 +5,7 @@ void IOTMPeaceTurkeyGenerateResource(ChecklistEntry [int] resource_entries)
 
 	// Purkey Title
     int turkeyProc = 24;
-	float turkeyWeight = max(0.0, effective_familiar_weight($familiar[peace turkey]) + weight_adjustment());
-	turkeyProc = 24 + square_root(turkeyWeight);
+	turkeyProc = 24 + square_root(effective_familiar_weight($familiar[peace turkey]) + weight_adjustment());
 	
 	int PeasCount = available_amount($item[whirled peas]);
 	int PeaSoupCount = available_amount($item[handful of split pea soup]);
@@ -19,6 +18,6 @@ void IOTMPeaceTurkeyGenerateResource(ChecklistEntry [int] resource_entries)
 	}
 	if ($item[handful of split pea soup].available_amount() > 0 )
     {
-        resource_entries.listAppend(ChecklistEntryMake("__item handful of split pea soup", "", ChecklistSubentryMake(pluralise($item[handful of split pea soup]), "also, have " + PeasCount + " peas", "Free run, 30-turn banish. "), 0).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Purkey banish"));
+        resource_entries.listAppend(ChecklistEntryMake("__item handful of split pea soup", "", ChecklistSubentryMake(pluralise($item[handful of split pea soup]), "", "Free run/banish. Also have " + PeasCount + " peas."), 0).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Purkey banish"));
     }
 }

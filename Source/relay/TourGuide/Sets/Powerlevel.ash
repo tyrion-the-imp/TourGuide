@@ -115,8 +115,6 @@ void SPowerlevelGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry 
         
         
         string image_name = "player character";
-
-        if (my_path().id == PATH_MEAT) image_name = "Meat Class";
         
         if (false)
         {

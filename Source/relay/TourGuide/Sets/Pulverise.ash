@@ -195,7 +195,6 @@ void SPulveriseGenerateResource(ChecklistEntry [int] resource_entries)
     pulveriseAppendOutputListForProducts(details, "handful of smithereens", $items[handful of smithereens], blacklist);
     
     //Elemental powder, for +1 resistances?
-    pulveriseAppendOutputListForProducts(details, "cold powder", $items[cold powder], blacklist);
     //Elemental nuggets, for +3 tower test? (very marginal)
     
     if (details.count() > 0)

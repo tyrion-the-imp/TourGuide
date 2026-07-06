@@ -38,13 +38,9 @@ void QLevel9Init()
             fasteners_have += 15;
             lumber_have += 15;
         }
-
-        // If user has bat wings, they can cross @ 25 
-        int totalNeeded = 30;
-        if (available_amount($item[bat wings]) > 0) totalNeeded = 25;
 		
-		int fasteners_needed = MAX(0, totalNeeded - fasteners_have);
-		int lumber_needed = MAX(0, totalNeeded - lumber_have);
+		int fasteners_needed = MAX(0, 30 - fasteners_have);
+		int lumber_needed = MAX(0, 30 - lumber_have);
 		
 		state.state_int["bridge fasteners needed"] = fasteners_needed;
 		state.state_int["bridge lumber needed"] = lumber_needed;
@@ -657,12 +653,10 @@ void QLevel9GenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int
             
         if (lumber_needed + fasteners_needed == 0)
         {
-            //finished; adding bat wing reminder
-            string extraDesc = "";
-            if (available_amount($item[bat wings]) > 0) extraDesc = " (Or, hop across with your <b>bat wings</b> & talk to Black Angus.)";
+            //finished
             subentry.modifiers.listClear();
             subentry.entries.listClear();
-            subentry.entries.listAppend("Build a bridge!"+extraDesc);
+            subentry.entries.listAppend("Build a bridge!");
         }
 		if ($item[smut orc keepsake box].available_amount() > 0)
 			subentry.entries.listAppend("Open " + pluralise($item[smut orc keepsake box]) + ".");
