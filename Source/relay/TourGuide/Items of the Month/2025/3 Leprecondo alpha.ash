@@ -165,7 +165,7 @@ string [int] these_modifiers;
 string[int] these_entries;
 int implev = 10;
 if	( !get_property_boolean("kingLiberated") ) { implev = 10; }
-if	( !is_unrestricted(this_item) ) { return; }
+if	( !is_unrestricted(this_item) || available_amount(this_item) == 0 ) { return; }
 if	( get_property_int("_leprecondoRearrangements") >= 3 ) { implev = 10; }
 
 

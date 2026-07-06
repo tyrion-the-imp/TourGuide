@@ -523,7 +523,7 @@ void SMiscItemsGenerateResource(ChecklistEntry [int] resource_entries)
     //     description.listAppend("Chew for clovers.");
     //     resource_entries.listAppend(ChecklistEntryMake("__item lucky pill", "inventory.php?ftext=lucky+pill", ChecklistSubentryMake(pluralise($item[lucky pill]), "", description), importance_level_unimportant_item).ChecklistEntrySetCombinationTag("clovers").ChecklistEntrySetIDTag("Lucky pill resource"));
     // }
-    if (true) {
+    //if (true) {
     
     if (in_run) {
 
@@ -918,7 +918,7 @@ void SMiscItemsGenerateResource(ChecklistEntry [int] resource_entries)
     
     if ($item[smoke grenade].available_amount() > 0) {
         string description = "Turn-costing banish. (lasts 20 turns, no stats, no items, no meat)";
-        string description = "Turn-taking run, 20-turn banish.";
+        //string description = "Turn-taking run, 20-turn banish.";
         resource_entries.listAppend(ChecklistEntryMake("__item smoke grenade", "", ChecklistSubentryMake(pluralise($item[Smoke grenade]), "", description), 0).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Smoke grenade banish"));
     }
     
@@ -1391,14 +1391,15 @@ void SMiscItemsGenerateResource(ChecklistEntry [int] resource_entries)
 
     string subtitle = shadowBricksUsed > 0 ? "have used "+pluralise(shadowBricksUsed, "brick", "bricks") : "";
     
-    if ($item[shadow brick].item_amount() > 0) {
-        string header = pluralise(shadowBricks, "shadow brick", "shadow bricks");
-        if (shadowBrickUsesLeft < shadowBricks) {
-            if (shadowBrickUsesLeft == 0)
-                header += " (not usable today)";
-            else
-                header += " (" + shadowBrickUsesLeft + " usable today)";
-        }
-        resource_entries.listAppend(ChecklistEntryMake("__item shadow brick", "", ChecklistSubentryMake(header, subtitle, "Win a fight without taking a turn.")).ChecklistEntrySetCombinationTag("free instakill"));
-    }
+		if ($item[shadow brick].item_amount() > 0) {
+			string header = pluralise(shadowBricks, "shadow brick", "shadow bricks");
+			if (shadowBrickUsesLeft < shadowBricks) {
+				if (shadowBrickUsesLeft == 0)
+					header += " (not usable today)";
+				else
+					header += " (" + shadowBrickUsesLeft + " usable today)";
+			}
+			resource_entries.listAppend(ChecklistEntryMake("__item shadow brick", "", ChecklistSubentryMake(header, subtitle, "Win a fight without taking a turn.")).ChecklistEntrySetCombinationTag("free instakill"));
+		}
+	}
 }
