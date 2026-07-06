@@ -1,4 +1,3 @@
-//shadow phone
 QuestState parseRufusQuestState() {
     /*
     Below description from Veracity's PR introducing Rufus quest tracking:
@@ -70,22 +69,17 @@ void IOTMClosedCircuitPayPhoneGenerateTasks(ChecklistEntry [int] task_entries, C
     ChecklistEntry [int] whereToAddRufusQuestTile;
     string rufusImage = "__item closed-circuit pay phone";
     string rufusQuestTitle;
-	string rufusQuestTarget = get_property("rufusQuestTarget");
     string [int] rufusQuestDescription;
     int rufusQuestPriority;
-    int shadowRiftFightsDoableRightNow = $effect[Shadow Affinity].have_effect();
-	
+    
     int shadowLodestones = available_amount($item[Rufus's shadow lodestone]);
     if (shadowLodestones > 0) {
         rufusQuestDescription.listAppend(HTMLGenerateSpanFont("Have " + pluralise($item[Rufus's shadow lodestone]) + ".", "purple"));
     }
 
     int riftAdvsUntilNC = get_property_int("encountersUntilSRChoice");
-    if (shadowRiftFightsDoableRightNow > 0) {
-		rufusQuestDescription.listAppend(HTMLGenerateSpanFont("" + shadowRiftFightsDoableRightNow + " Shadow Rift free fights", "purple"));
-	}
-	rufusQuestDescription.listAppend(HTMLGenerateSpanFont(riftAdvsUntilNC + " encounters until NC/boss.", "black"));
-	
+    rufusQuestDescription.listAppend(HTMLGenerateSpanFont(riftAdvsUntilNC + " encounters until NC/boss.", "black"));
+
     if (state.state_boolean["quest objective fulfilled"]) {
         // We've fulfilled the quest objective but still need to call Rufus
         rufusQuestDescription.listAppend(HTMLGenerateSpanFont("Call Rufus and get a lodestone", "black"));
@@ -94,7 +88,7 @@ void IOTMClosedCircuitPayPhoneGenerateTasks(ChecklistEntry [int] task_entries, C
         whereToAddRufusQuestTile = task_entries;
     }
     else if (state.started && riftAdvsUntilNC == 0) {
-        rufusQuestDescription.listAppend("Looking for " + HTMLGenerateSpanFont(rufusQuestTarget, "blue"));
+        rufusQuestDescription.listAppend(HTMLGenerateSpanFont("Fight a boss or get an artifact", "black"));
         rufusQuestTitle = "Shadow Rift NC up next";
         rufusQuestPriority = -11;
         rufusImage = "__item shadow bucket";
@@ -102,7 +96,7 @@ void IOTMClosedCircuitPayPhoneGenerateTasks(ChecklistEntry [int] task_entries, C
     }
     else if (state.started) {
         rufusQuestTitle = "Rufus quest in progress";
-        rufusQuestPriority = 999;
+        rufusQuestPriority = 11;
         whereToAddRufusQuestTile = optional_task_entries;
     }
     else if (!state.started) {
@@ -111,7 +105,7 @@ void IOTMClosedCircuitPayPhoneGenerateTasks(ChecklistEntry [int] task_entries, C
         string callRufusMessage = calledRufusToday ? "Optionally call Rufus again for another (turn-taking) quest." : "Haven't called Rufus yet today.";
         rufusQuestDescription.listAppend(HTMLGenerateSpanFont(callRufusMessage, textColor));
         rufusQuestTitle = "Rufus quest doable now";
-        rufusQuestPriority = 999;
+        rufusQuestPriority = 11;
         whereToAddRufusQuestTile = optional_task_entries;
     }
 
@@ -119,13 +113,11 @@ void IOTMClosedCircuitPayPhoneGenerateTasks(ChecklistEntry [int] task_entries, C
 
     whereToAddRufusQuestTile.listAppend(ChecklistEntryMake(rufusImage, url, ChecklistSubentryMake(rufusQuestTitle, "", rufusQuestDescription), rufusQuestPriority));
 
-    if ($effect[Shadow Affinity].have_effect() > 0 && riftAdvsUntilNC != 0 && !state.state_boolean["quest objective fulfilled"]) {
+    if ($effect[Shadow Affinity].have_effect() > 0) {
+        int shadowRiftFightsDoableRightNow = $effect[Shadow Affinity].have_effect();
         int riftAdvsUntilNC = get_property_int("encountersUntilSRChoice");
         string [int] affinityDescription;
-        if (shadowLodestones > 0) {
-			affinityDescription.listAppend(HTMLGenerateSpanFont("Have " + pluralise($item[Rufus's shadow lodestone]) + ".", "purple"));
-		}
-		affinityDescription.listAppend(HTMLGenerateSpanFont("Shadow Rift fights are free!", "purple"));
+        affinityDescription.listAppend(HTMLGenerateSpanFont("Shadow Rift fights are free!", "purple"));
         affinityDescription.listAppend(HTMLGenerateSpanFont(riftAdvsUntilNC + " encounters until NC/boss.", "black"));
         affinityDescription.listAppend(HTMLGenerateSpanFont("(don't use other free kills in there)", "black"));
         task_entries.listAppend(ChecklistEntryMake("__effect Shadow Affinity", url, ChecklistSubentryMake(shadowRiftFightsDoableRightNow + " Shadow Rift free fights", "", affinityDescription), -11));
