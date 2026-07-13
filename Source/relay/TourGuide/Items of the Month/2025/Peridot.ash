@@ -77,6 +77,9 @@ void IOTMPeridotGenerateResource(ChecklistEntry [int] resource_entries) {
     PeriFight [int] periFolks;
 	string [int] peridotPicks;
 	string pp = HTMLGenerateSpanFont("❖ ","green");
+	int importancenum = -40;
+	if	( !get_property_boolean("kingLiberated") ) { importancenum = -888; }
+
 
 	// Populate periFolks, level by level...
 	// Level 5 (none for 2, 3, 4...)
@@ -123,6 +126,6 @@ void IOTMPeridotGenerateResource(ChecklistEntry [int] resource_entries) {
 	if (!peridotEquipped) description.listAppend(HTMLGenerateSpanFont("Equip your Peridot of Peril","red"));
 	description.listAppend("<hr>|*"+pp+peridotPicks.listJoinComponents("<hr>|*"+pp));
 
-	resource_entries.listAppend(ChecklistEntryMake("__item Peridot of Peril", url, ChecklistSubentryMake(title, subtitle, description), -40).ChecklistEntrySetIDTag("peridot picking helper"));
+	resource_entries.listAppend(ChecklistEntryMake("__item Peridot of Peril", url, ChecklistSubentryMake(title, subtitle, description), importancenum).ChecklistEntrySetIDTag("peridot picking helper"));
 
 }

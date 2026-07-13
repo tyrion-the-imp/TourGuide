@@ -40,6 +40,9 @@ void IOTMAprilShowerThoughtsGenerateResource(ChecklistEntry [int] resource_entri
 	{
 		description.listAppend("Craft your shower thoughts, with your "+pluralise(globCount,"glob","globs")+"!");
 	}
+	int importancenum = -40;
+	if	( !get_property_boolean("kingLiberated") ) { importancenum = -888; }
+
 	if (description.count() > 0)
-		resource_entries.listAppend(ChecklistEntryMake("__item april shower thoughts shield", url, ChecklistSubentryMake(main_title, description), -45).ChecklistEntrySetIDTag("april shower thoughts calendar resource"));
+		resource_entries.listAppend(ChecklistEntryMake("__item april shower thoughts shield", url, ChecklistSubentryMake(main_title, description), -importancenum).ChecklistEntrySetIDTag("april shower thoughts calendar resource"));
 }

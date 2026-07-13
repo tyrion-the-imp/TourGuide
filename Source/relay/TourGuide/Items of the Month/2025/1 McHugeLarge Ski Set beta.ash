@@ -130,7 +130,8 @@ void IOTMSkiSetGenerateResourceBeta(ChecklistEntry [int] resource_entries)
 		description.listAppend(HTMLGenerateSpanFont("Equip the DUFFEL BAG first.<br>(back)", "red"));
 	}
 	
-	int importance_num = -40;
+	int importancenum = -40;
+	if	( !get_property_boolean("kingLiberated") ) { importancenum = -888; }
 	boolean wearing_gear() {
 		foreach i in McHugeLargeSkiGear() {
 			if	( have_equipped(i) ) { return true; }
@@ -140,5 +141,5 @@ void IOTMSkiSetGenerateResourceBeta(ChecklistEntry [int] resource_entries)
 	//if	( wearing_gear() ) { importance_num = -542; }
 	//if	( skiAvalanchesLeft > 0 || skiSlashesLeft > 0 ) { importance_num = -542; }
 	
-	resource_entries.listAppend(ChecklistEntryMake("__item McHugeLarge duffel bag", url, ChecklistSubentryMake("McHugeLarge ski set skills BETA", description), importance_num));
+	resource_entries.listAppend(ChecklistEntryMake("__item McHugeLarge duffel bag", url, ChecklistSubentryMake("McHugeLarge ski set skills BETA", description), importancenum));
 }

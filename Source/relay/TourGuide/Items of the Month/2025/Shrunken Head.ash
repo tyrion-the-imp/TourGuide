@@ -161,6 +161,9 @@ void IOTMShrunkenHeadGenerateResource(ChecklistEntry [int] resource_entries)
     string title = "Shrunken Head targets";
 	string url = "inventory.php?ftext=shrunken+head";
     string [int] description;
+	int importancenum = -40;
+	if	( !get_property_boolean("kingLiberated") ) { importancenum = -888; }
+
 
     description.listAppend("Consider reanimating these monsters for their items:");
     description.listAppend("|*dairy goat"+HTMLGenerateSpanFont(" (40%)", "gray", "0.8em"));
@@ -173,9 +176,5 @@ void IOTMShrunkenHeadGenerateResource(ChecklistEntry [int] resource_entries)
     description.listAppend("|*Any ol' Smut Orc"+HTMLGenerateSpanFont(" (10%)", "gray", "0.8em"));
     
     //equip tiles
-	resource_entries.listAppend(ChecklistEntryMake("__item shrunken head", url, ChecklistSubentryMake(title, "", description), -40).ChecklistEntrySetIDTag("Shrunken Head Targets"));
-	if	( !get_property_boolean("kingLiberated") ) {
-		//copies tiles too
-		resource_entries.listAppend(ChecklistEntryMake("__item shrunken head", url, ChecklistSubentryMake(title, "", description), -70).ChecklistEntrySetIDTag("Shrunken Head Targets"));
-	}
+	resource_entries.listAppend(ChecklistEntryMake("__item shrunken head", url, ChecklistSubentryMake(title, "", description), importancenum).ChecklistEntrySetIDTag("Shrunken Head Targets"));
 }

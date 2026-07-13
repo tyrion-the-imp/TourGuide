@@ -87,6 +87,9 @@ void IOTMLegendaryClubGenerateResource(ChecklistEntry [int] resource_entries)
 	string url = "inventory.php?ftext=legendary+seal-clubbing+club";
 	string [int] description;
 	string title;
+	int importancenum = -40;
+	if	( !get_property_boolean("kingLiberated") ) { importancenum = -888; }
+
 	
 		int clubBattlefieldsLeft = clampi(5 - get_property_int("_clubEmBattlefieldUsed"), 0, 5);
 		int clubNextWeeksLeft = clampi(5 - get_property_int("_clubEmNextWeekUsed"), 0, 5);
@@ -108,17 +111,15 @@ void IOTMLegendaryClubGenerateResource(ChecklistEntry [int] resource_entries)
 			description.listAppend(clubBackwardsLeft + " Backwards Clubs. Free kill NO ITEMS.");
 		}
 	
-	resource_entries.listAppend(ChecklistEntryMake("__item legendary seal-clubbing club", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Legendary seal-clubbing club skills", "orange"), description), -65).ChecklistEntrySetIDTag("LSSC skills"));
+	resource_entries.listAppend(ChecklistEntryMake("__item legendary seal-clubbing club", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Legendary seal-clubbing club skills", "orange"), description), importancenum).ChecklistEntrySetIDTag("LSSC skills"));
 
 	// Adding a free fight combo tile.
     if (clubBackwardsLeft > 0) {
         string header = pluralise(clubBackwardsLeft, "club 'em back in time","club 'em back in times");
-		int imprt = -65;
-		resource_entries.listAppend(ChecklistEntryMake("__item legendary seal-clubbing club", "", ChecklistSubentryMake(header, "", "Free kill, no items. Can make bosses free!"), imprt).ChecklistEntrySetCombinationTag("free instakill"));
+		resource_entries.listAppend(ChecklistEntryMake("__item legendary seal-clubbing club", "", ChecklistSubentryMake(header, "", "Free kill, no items. Can make bosses free!"), importancenum).ChecklistEntrySetCombinationTag("free instakill"));
     }
     if (clubNextWeeksLeft > 0) {
         string header = pluralise(clubNextWeeksLeft, "club into next week","club into next week uses");
-		int imprt = -79;
-		resource_entries.listAppend(ChecklistEntryMake("__item legendary seal-clubbing club", "", ChecklistSubentryMake(header, "", "7 turn wandering copy via legendary seal-clubbing club"), imprt).ChecklistEntrySetCombinationTag("free instakill"));
+		resource_entries.listAppend(ChecklistEntryMake("__item legendary seal-clubbing club", "", ChecklistSubentryMake(header, "", "7 turn wandering copy via legendary seal-clubbing club"), importancenum).ChecklistEntrySetCombinationTag("free instakill"));
     }
 }

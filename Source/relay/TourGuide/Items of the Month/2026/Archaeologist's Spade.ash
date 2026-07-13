@@ -11,12 +11,15 @@ void IOTMArchaeologistSpadeGenerateResource(ChecklistEntry [int] resource_entrie
     string title;
     string url;
     string [int] description;
+	int importancenum = -40;
+	if	( !get_property_boolean("kingLiberated") ) { importancenum = -888; }
+
 
     url = "inv_use.php?pwd=" + my_hash() + "&whichitem=12184";
     title = pluralise(digsLeft, "Archaeologist's Spade dig","Archaeologist's Spade digs");
 
     // freekill combination tag for skelly digs
-    resource_entries.listAppend(ChecklistEntryMake("__item Archaeologist's Spade", url, ChecklistSubentryMake(title, "", "Free kill a skeleton"), -40).ChecklistEntrySetCombinationTag("free instakill").ChecklistEntrySetIDTag("Archaeologist's Spade free kill"));
+    resource_entries.listAppend(ChecklistEntryMake("__item Archaeologist's Spade", url, ChecklistSubentryMake(title, "", "Free kill a skeleton"), importancenum).ChecklistEntrySetCombinationTag("free instakill").ChecklistEntrySetIDTag("Archaeologist's Spade free kill"));
 
     // general resource tile, near end of the line probably
     description.listAppend("Excavate free skeletons!");
@@ -40,6 +43,6 @@ void IOTMArchaeologistSpadeGenerateResource(ChecklistEntry [int] resource_entrie
         }
     }
     
-    resource_entries.listAppend(ChecklistEntryMake("__item Archaeologist's Spade", url, ChecklistSubentryMake(title, "", description), -40).ChecklistEntrySetIDTag("Archaeologist Spade skellies"));
+    resource_entries.listAppend(ChecklistEntryMake("__item Archaeologist's Spade", url, ChecklistSubentryMake(title, "", description), importancenum).ChecklistEntrySetIDTag("Archaeologist Spade skellies"));
             
 }

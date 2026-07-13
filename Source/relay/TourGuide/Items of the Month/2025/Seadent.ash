@@ -24,6 +24,8 @@ void IOTMMonodentGenerateResource(ChecklistEntry [int] resource_entries)
 	string [int] description;
 	string title = "Seaworthy "+monodentShortName+" powers!";
 	boolean monodentIsEquipped = lookupItem("monodent of the sea").equipped_amount() > 0;
+	int equipimplvl = -40;
+	if	( !get_property_boolean("kingLiberated") ) { equipimplvl = -540; }
 	
 	if (!monodentWaveUsed) {
 		description.listAppend(HTMLGenerateSpanFont("Flood a zone for +30% item/meat", "blue"));		
@@ -46,20 +48,22 @@ void IOTMMonodentGenerateResource(ChecklistEntry [int] resource_entries)
     }
 	if (!monodentIsEquipped)
     {
-		description.listAppend(HTMLGenerateSpanFont("Equip the "+monodentShortName+" first", "red"));		
+		description.listAppend(HTMLGenerateSpanFont("Equip the "+monodentShortName+" first", "red"));
 	}
 	if (monodentIsEquipped)
 	{
-		description.listAppend(HTMLGenerateSpanFont(monodentShortName+" lightning ready!", "blue"));		
+		description.listAppend(HTMLGenerateSpanFont(monodentShortName+" is equipped", "green"));
 	}
-	resource_entries.listAppend(ChecklistEntryMake("__item monodent of the sea", url, ChecklistSubentryMake(title, "who lives in a monodent under the sea", description), -40));
+	resource_entries.listAppend(ChecklistEntryMake("__item monodent of the sea", url, ChecklistSubentryMake(title, "who lives in a monodent under the sea", description), equipimplvl));
 
 	// Banish combination tile
 	if (monodentLightningsLeft > 0)
     {
         string [int] banishDesc;
+		
+		
 		banishDesc.listAppend("Turn-taking kill, all-day banish.");
 		if (!monodentIsEquipped) banishDesc.listAppend(HTMLGenerateSpanFont("Equip the "+monodentName+" first", "red"));
-		resource_entries.listAppend(ChecklistEntryMake("__item monodent of the sea", "", ChecklistSubentryMake(pluralise(monodentLightningsLeft, "lightning strike", "lightning strikes"), "", banishDesc), -40).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("seadent killbanish"));
+		resource_entries.listAppend(ChecklistEntryMake("__item monodent of the sea", "", ChecklistSubentryMake(pluralise(monodentLightningsLeft, "lightning strike", "lightning strikes"), "", banishDesc), equipimplvl).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("seadent killbanish"));
     }
 }

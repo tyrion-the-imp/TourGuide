@@ -10,7 +10,8 @@ void IOTMAprilingBandHelmetGenerateResourceBETA(ChecklistEntry [int] resource_en
     //battle of the bands
     int aprilingBandConductorTimer = get_property_int("nextAprilBandTurn");
     string url = "inventory.php?pwd=" + my_hash() + "&action=apriling";
-	int resrc_importance = -40;
+	int importancenum = -40;
+	if	( !get_property_boolean("kingLiberated") ) { importancenum = -888; }
 
     foreach e in $effects[Apriling Band Patrol Beat,Apriling Band Battle Cadence,Apriling Band Celebration Bop,] {
 		if	( have_effect(e) > 0 ) {
@@ -45,7 +46,7 @@ void IOTMAprilingBandHelmetGenerateResourceBETA(ChecklistEntry [int] resource_en
     else {
         description.listAppend((aprilingBandConductorTimer - total_turns_played()) + " adventures until you can change your tune.");
     }
-    resource_entries.listAppend(ChecklistEntryMake("__item apriling band helmet", url, ChecklistSubentryMake("Apriling band helmet buff", "", description), resrc_importance));
+    resource_entries.listAppend(ChecklistEntryMake("__item apriling band helmet", url, ChecklistSubentryMake("Apriling band helmet buff", "", description), importancenum));
 
     int aprilingBandSaxUsesLeft = clampi(3 - get_property_int("_aprilBandSaxophoneUses"), 0, 3);
     int aprilingBandQuadTomUsesLeft = clampi(3 - get_property_int("_aprilBandTomUses"), 0, 3);
@@ -104,6 +105,6 @@ void IOTMAprilingBandHelmetGenerateResourceBETA(ChecklistEntry [int] resource_en
 		}
 		instrumentDescription.listAppend("You have used "+instrumentUses+" of 6 possible instrument uses.");
 		
-        resource_entries.listAppend(ChecklistEntryMake("__item apriling band helmet", url, ChecklistSubentryMake("Apriling band instruments", "", instrumentDescription), resrc_importance));
+        resource_entries.listAppend(ChecklistEntryMake("__item apriling band helmet", url, ChecklistSubentryMake("Apriling band instruments", "", instrumentDescription), importancenum));
     }
 }

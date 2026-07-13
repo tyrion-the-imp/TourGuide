@@ -52,6 +52,9 @@ void IOTMPrismaticBeretGenerateResource(ChecklistEntry [int] resource_entries)
     string url = "inventory.php?ftext=prismatic+beret";
 	int busksLeft = clampi(5 - get_property_int("_beretBuskingUses"), 0, 5);
 	string title = HTMLGenerateSpanFont(busksLeft + " Prismatic Beret busks!", "purple");
+	int importancenum = -40;
+	if	( !get_property_boolean("kingLiberated") ) { importancenum = -888; }
+
 
 	int [effect] currentBusks = beret_busking_effects();
     boolean canHatrack = lookupFamiliar("mad hatrack").familiar_is_usable() && $item[sane hatrack].is_unrestricted();
@@ -97,6 +100,6 @@ void IOTMPrismaticBeretGenerateResource(ChecklistEntry [int] resource_entries)
         if (canHatrack && !hatrackEquipped && lookupItem("prismatic beret").equipped_amount() > 0) {
             description.listAppend("|*Consider equipping to your hatrack for more options.");
         }
-		resource_entries.listAppend(ChecklistEntryMake("__item prismatic beret", url, ChecklistSubentryMake(title, "", description), -100000));
+		resource_entries.listAppend(ChecklistEntryMake("__item prismatic beret", url, ChecklistSubentryMake(title, "", description), importancenum));
 	}
 }

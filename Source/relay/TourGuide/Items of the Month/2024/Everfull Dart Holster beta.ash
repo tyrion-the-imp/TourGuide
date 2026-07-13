@@ -41,6 +41,9 @@ void IOTMEverfullDartsGenerateResourceBeta(ChecklistEntry [int] resource_entries
             
         int dartSkill = get_property_int("dartsThrown");
         int dartsNeededForNextPerk = (floor(sqrt(dartSkill)+1) **2 - dartSkill);
+		int importancenum = -40;
+		if	( !get_property_boolean("kingLiberated") ) { importancenum = -888; }
+
         description.listAppend("Current dart skill: " + dartSkill);
         description.listAppend(HTMLGenerateSpanFont(dartsNeededForNextPerk, "blue") + " darts needed for next Perk");
     
@@ -50,6 +53,6 @@ void IOTMEverfullDartsGenerateResourceBeta(ChecklistEntry [int] resource_entries
         }
         else description.listAppend(HTMLGenerateSpanFont("dart holster equipped", "blue"));
 		
-		resource_entries.listAppend(ChecklistEntryMake("__item everfull dart holster", url, ChecklistSubentryMake("Everfull Dart Holster charging", "", description), -40));
+		resource_entries.listAppend(ChecklistEntryMake("__item everfull dart holster", url, ChecklistSubentryMake("Everfull Dart Holster charging", "", description), importancenum));
     }
 }

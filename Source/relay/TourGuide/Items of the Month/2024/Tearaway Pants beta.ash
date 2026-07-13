@@ -19,12 +19,14 @@ void IOTMTearawayPantsGenerateTaskBeta(ChecklistEntry [int] resource_entries)
 
     // If equipped, send user to the guild. If not, send them to the inventory.
 	string url = havePantsEquipped ? "guild.php" : "inventory.php?ftext=tearaway+pants";
-	string header = "Tear away your tearaway pants! BETA";
+	string header = "Tear away your tearaway pants! ß";
 
 	if	( my_primestat() == $stat[Moxie] ) {
 		if (havePantsEquipped) description.listAppend(`Visit the Department of Shadowy Arts and Crafts to unlock the guild!`);
 		if (!havePantsEquipped) description.listAppend(`Visit the Department of Shadowy Arts and Crafts with your pants equipped to unlock the guild!`);
 	}
+		int importancenum = -40;
+	if	( !get_property_boolean("kingLiberated") ) { importancenum = -888; }
 
 	buffer tooltip;
 	tooltip.append("Beasts, Bugs, Penguins = 3-round stun.");
@@ -37,7 +39,7 @@ void IOTMTearawayPantsGenerateTaskBeta(ChecklistEntry [int] resource_entries)
 	string tooltipEnumerated = HTMLGenerateSpanOfClass(HTMLGenerateSpanOfClass(tooltip, "r_tooltip_inner_class r_tooltip_inner_class_margin") + "Hover for Tear Awaay pants skill info", "r_tooltip_outer_class");
 	description.listAppend(tooltipEnumerated);
 
-	resource_entries.listAppend(ChecklistEntryMake("__item tearaway pants", url, ChecklistSubentryMake(header, "", description), -40));
+	resource_entries.listAppend(ChecklistEntryMake("__item tearaway pants", url, ChecklistSubentryMake(header, "", description), importancenum));
 
 }
 

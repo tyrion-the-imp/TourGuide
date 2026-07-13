@@ -21,6 +21,9 @@ void IOTMSkiSetGenerateResource(ChecklistEntry [int] resource_entries)
 	int skiSlashesLeft = clampi(3 - get_property_int("_mcHugeLargeSlashUses"), 0, 3);
 	string [int] description;
 	string url = "inventory.php?ftext=McHugeLarge";
+	int importancenum = -40;
+	if	( !get_property_boolean("kingLiberated") ) { importancenum = -888; }
+
 	
 	if (skiAvalanchesLeft > 0)
 	{
@@ -47,5 +50,5 @@ void IOTMSkiSetGenerateResource(ChecklistEntry [int] resource_entries)
 			description.listAppend("|*Equip the "+HTMLGenerateSpanFont("LEFT POLE", "red")+" first.");
 		}
 	}
-	resource_entries.listAppend(ChecklistEntryMake("__item McHugeLarge duffel bag", url, ChecklistSubentryMake("McHugeLarge ski set skills", description), -41));
+	resource_entries.listAppend(ChecklistEntryMake("__item McHugeLarge duffel bag", url, ChecklistSubentryMake("McHugeLarge ski set skills", description), importancenum));
 }

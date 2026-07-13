@@ -138,13 +138,15 @@ void IOTMHeartstoneGenerateResource(ChecklistEntry [int] resource_entries)
     int usesBUDS = get_property_int("_heartstonePalsUsed");
     int usesBUFF = get_property_int("_heartstoneBuffUsed");
     int usesLUCK = get_property_boolean("_heartstoneLuckUsed").to_int();
+	int importancenum = -40;
+	if	( !get_property_boolean("kingLiberated") ) { importancenum = -888; }
 
     // Banish combination tag for GONE.
     if (accessGONE && usesGONE < 5) {
         string [int] banishDesc;
         banishDesc.listAppend("Turn-taking item-destroying kill, 50-turn banish.");
         if (!heartstoneEquipped) banishDesc.listAppend(HTMLGenerateSpanFont("Equip your Heartstone!","red"));
-        resource_entries.listAppend(ChecklistEntryMake("__item Heartstone", url, ChecklistSubentryMake(pluralise(5-usesGONE,"cast","casts")+" of Heartstone: GONE", "", banishDesc), -40).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Heartstone banish"));
+        resource_entries.listAppend(ChecklistEntryMake("__item Heartstone", url, ChecklistSubentryMake(pluralise(5-usesGONE,"cast","casts")+" of Heartstone: GONE", "", banishDesc), importancenum).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("Heartstone banish"));
     }
 
     description.listAppend("Steal Monster Hearts for useful items.");
@@ -171,7 +173,7 @@ void IOTMHeartstoneGenerateResource(ChecklistEntry [int] resource_entries)
     if (!heartstoneEquipped) description.listAppend(HTMLGenerateSpanFont("Equip your Heartstone!","red"));
 	if (gemstoneInCodpiece(lookupItem("heartstone"))) description.listAppend("Currently in <b>Eternity Codpiece</b>");
     
-    resource_entries.listAppend(ChecklistEntryMake("__item Heartstone", url, ChecklistSubentryMake(title, "", description), -40).ChecklistEntrySetIDTag("Heartstone skills"));
+    resource_entries.listAppend(ChecklistEntryMake("__item Heartstone", url, ChecklistSubentryMake(title, "", description), importancenum).ChecklistEntrySetIDTag("Heartstone skills"));
             
 
     }
