@@ -74,8 +74,8 @@ void IOTMBatWingsGenerateResourceBeta(ChecklistEntry [int] resource_entries)
 }
 
 
-RegisterTaskGenerationFunction("IOTYCyberRealmGenerateTasksBeta");
-void IOTYCyberRealmGenerateTasksBeta(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries) {
+RegisterTaskGenerationFunction("IOTYBatWingsGenerateTasksBeta");
+void IOTYBatWingsGenerateTasksBeta(ChecklistEntry [int] task_entries, ChecklistEntry [int] optional_task_entries, ChecklistEntry [int] future_task_entries) { ()
 	if (!__iotms_usable[lookupItem("bat wings")]) { return; } 
 	string [int] description;
 	//string url = "inventory.php?ftext=bat+wings";

@@ -151,104 +151,82 @@ import "relay/TourGuide/Items of the Month/2023/candy cane sword cane beta.ash";
 import "relay/TourGuide/Items of the Month/2023/Candy Cane Sword Cane.ash";
 import "relay/TourGuide/Items of the Month/2023/Wardrobe-o-Matic.ash";
 
-// 2024
-//import "relay/TourGuide/Items of the Month/2024/Chest Mimic.ash";
+
+
+
+//2024
 import "relay/TourGuide/Items of the Month/2024/Chest Mimic beta.ash";
-
-//import "relay/TourGuide/Items of the Month/2024/Spring Shoes.ash";
 import "relay/TourGuide/Items of the Month/2024/Spring Shoes beta.ash";
-
-//import "relay/TourGuide/Items of the Month/2024/Everfull Dart Holster.ash";
 import "relay/TourGuide/Items of the Month/2024/Everfull Dart Holster beta.ash";
-
-//import "relay/TourGuide/Items of the Month/2024/Apriling Band Helmet.ash";
 import "relay/TourGuide/Items of the Month/2024/Apriling Band Helmet beta.ash";
-
-//import "relay/TourGuide/Items of the Month/2024/Mayam Calendar beta.ash";
 import "relay/TourGuide/Items of the Month/2024/Mayam Calendar.ash";
-
 import "relay/TourGuide/Items of the Month/2024/Mini Kiwi.ash";
-
-//no beta
-
-//2024.07 import "relay/TourGuide/Items of the Month/2024/Roman Candelabra.ash";
 import "relay/TourGuide/Items of the Month/2024/Roman Candelabra beta.ash";
-
-//2024.08 import "relay/TourGuide/Items of the Month/2024/Tearaway Pants.ash";
 import "relay/TourGuide/Items of the Month/2024/Tearaway Pants beta.ash";
 //import "relay/TourGuide/Items of the Month/2024/Tearaway Pants.ash";
-
-//2024.09
 import "relay/TourGuide/Items of the Month/2024/Sept-Ember Censer beta.ash";
-//import "relay/TourGuide/Items of the Month/2024/Sept-Ember Censer.ash";
-
-//2024.10
-import "relay/TourGuide/Items of the Month/2024/Bat Wings beta.ash";
-import "relay/TourGuide/Items of the Month/2024/VIP Photobooth beta.ash";
-
-//2024.11
 import "relay/TourGuide/Items of the Month/2024/Peace Turkey beta.ash";
-
-//2024.12			TakerSpace		shed					https://kol.coldfront.net/thekolwiki/index.php/TakerSpace#Items
 import "relay/TourGuide/Items of the Month/2024/TakerSpaceBeta.ash";
-
-
-
-
-
-
-//2025
-//import "relay/TourGuide/Items of the Month/TEMPLATE-TASKS.ash";
-
-//2025 IotY		Server Room							https://kol.coldfront.net/thekolwiki/index.php/Server_Room		CyberRealmBeta
-import "relay/TourGuide/Items of the Month/2025/0 CyberRealmBeta.ash";
-
-
-//2025.01 IotM	McHugeLarge duffel bag	i#11783	https://kol.coldfront.net/thekolwiki/index.php/McHugeLarge_duffel_bag#Notes
-import "relay/TourGuide/Items of the Month/2025/1 McHugeLarge Ski Set beta.ash";
-
-//2025.02 - toy Cupid bow	https://kol.coldfront.net/thekolwiki/index.php/Toy_Cupid_bow#Notes
-//2 Toy Cupid bow alpha.ash
-
-//2025.03 - Leprecondo	https://kol.coldfront.net/thekolwiki/index.php/Leprechaun%27s_Condo#Notes
-import "relay/TourGuide/Items of the Month/2025/3 Leprecondo alpha.ash";
-
-//2025.04 - April Shower Thoughts shield	i#11884	
-//4 April Shower Thoughts shield alpha.ash
-
-//2025.05 - Peridot of Peril
-//5 Peridot of Peril alpha.ash
-
-//2025.06 - prismatic beret
-import "relay\TourGuide\Items of the Month\2025\6 prismatic beret.ash";
-
-/* import "relay/TourGuide/Items of the Month/2024/Tearaway Pants.ash";
 import "relay/TourGuide/Items of the Month/2024/Sept-Ember Censer.ash";
 import "relay/TourGuide/Items of the Month/2024/bat wings.ash";
-import "relay/TourGuide/Items of the Month/2024/VIP Photobooth.ash";
+import "relay/TourGuide/Items of the Month/2024/VIP Photobooth beta.ash";
+//import "relay/TourGuide/Items of the Month/2024/VIP Photobooth.ash";
 import "relay/TourGuide/Items of the Month/2024/Peace Turkey.ash";
 import "relay/TourGuide/Items of the Month/2024/TakerSpace.ash";
 
-// 2025
-import "relay/TourGuide/Items of the Month/2025/CyberRealm.ash";
-import "relay/TourGuide/Items of the Month/2025/McHugeLarge Ski Set.ash"; */
 
-import "relay/TourGuide/Items of the Month/2025/McHugeLarge Ski Set.ash";
+
+
+// 2025
+//ioty
+import "relay/TourGuide/Items of the Month/2025/0 CyberRealmBeta.ash";
+//import "relay/TourGuide/Items of the Month/2025/CyberRealm.ash";
+
+//1
+import "relay/TourGuide/Items of the Month/2025/1 McHugeLarge Ski Set beta.ash";
+//import "relay/TourGuide/Items of the Month/2025/McHugeLarge Ski Set.ash";
+
+//2 toy cupid bow (famgear)
+
+//3
+//import "relay/TourGuide/Items of the Month/2025/3 Leprecondo alpha.ash";
 import "relay/TourGuide/Items of the Month/2025/Leprecondo.ash";
+//4
 import "relay/TourGuide/Items of the Month/2025/April Shower Thoughts Calendar.ash";
+//5
 import "relay/TourGuide/Items of the Month/2025/Peridot.ash";
+//6
+//import "relay/TourGuide/Items of the Month/2025/6 prismatic beret.ash";
 import "relay/TourGuide/Items of the Month/2025/Prismatic Beret.ash";
+//7
 import "relay/TourGuide/Items of the Month/2025/Cooler Yeti.ash";
+//twitch
 import "relay/TourGuide/Items of the Month/2025/Allied Radio Backpack.ash";
+//8
 import "relay/TourGuide/Items of the Month/2025/Mobius Ring.ash";
+//9
 import "relay/TourGuide/Items of the Month/2025/Seadent.ash";
+//10
 import "relay/TourGuide/Items of the Month/2025/Blood Cubic Zirconia.ash";
+//11
 import "relay/TourGuide/Items of the Month/2025/Shrunken Head.ash";
+//12
 import "relay/TourGuide/Items of the Month/2025/Skeleton of Crimbo Past.ash";
 
+
+
 // 2026
+//ioty
 import "relay/TourGuide/Items of the Month/2026/Eternity Codpiece.ash";
+//1
 import "relay/TourGuide/Items of the Month/2026/Legendary Seal-Clubbing Club.ash";
+//2
 import "relay/TourGuide/Items of the Month/2026/Heartstone.ash";
+//3
 import "relay/TourGuide/Items of the Month/2026/Archaeologist's Spade.ash";
+//4
 import "relay/TourGuide/Items of the Month/2026/Baseball Diamond.ash";
+
+//5		Legendary pasta wand
+//6		Sword of S Words (famil)
+//7		Cup of 13s	(off-hand)

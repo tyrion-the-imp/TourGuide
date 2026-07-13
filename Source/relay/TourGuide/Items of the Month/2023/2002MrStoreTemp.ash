@@ -2,7 +2,7 @@
 RegisterResourceGenerationFunction("IOTM2002MrStoreGenerateResourceTemp");
 void IOTM2002MrStoreGenerateResourceTemp(ChecklistEntry [int] resource_entries)
 {
-    #if (!lookupItem("2002 Mr. Store Catalog").have()) return;
+    if (!lookupItem("2002 Mr. Store Catalog").have()) return;
 	
 	int Mr2002Credits = get_property_int("availableMrStore2002Credits");
 	string main_title = (Mr2002Credits + " 2002 Mr. Store credits (TEMP)");

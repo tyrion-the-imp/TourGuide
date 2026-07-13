@@ -58,6 +58,9 @@ void QGenerateDelayRemainingTasks(ChecklistEntry [int] task_entries, ChecklistEn
     entry.image_lookup_name = "__monster rushing bum"; // TODO: pick better image lol
     entry.tags.id = "Total delay remaining task";
     entry.importance_level = 10;
+	if	( !get_property_boolean("kingLiberated") ) {
+		entry.importance_level = -10;
+	}
 
     int totalDelay = 0;
     int totalDelayRemaining = 0;

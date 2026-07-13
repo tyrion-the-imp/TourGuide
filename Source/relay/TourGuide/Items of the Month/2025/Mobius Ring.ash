@@ -43,7 +43,7 @@ void IOTMMobiusRingGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 	if (mobEquipped) {
 		if (!copsNoLongerFree) {
             copDescription.listAppend(HTMLGenerateSpanFont("Ring equipped, it's Möbing time!", "blue"));
-            optional_task_entries.listAppend(ChecklistEntryMake("__monster time cop", "", ChecklistSubentryMake(copTitle, copSubtitle, copDescription), priority).ChecklistEntrySetIDTag("morb ring cop task"));
+            optional_task_entries.listAppend(ChecklistEntryMake("__monster time cop", "", ChecklistSubentryMake(copTitle, copSubtitle, copDescription), -500).ChecklistEntrySetIDTag("morb ring cop task"));
         }
 		if (copsNoLongerFree) 
 		{
@@ -109,5 +109,7 @@ void IOTMMobiusRingGenerateResource(ChecklistEntry [int] resource_entries)
 	description.listAppend("" + countTimeCops +"/11 free time cops today. (currently @ "+currentTimeCopRate+"% rate)");
 	    if(countTimeCops >= 11) description.listAppend(HTMLGenerateSpanFont("No free time cops remain; be careful wearing your ring!", "red"));
     if(my_paradoxicity() < 13) description.listAppend("Boost to 13 Paradoxicity for +100% item & +50% booze drop!");
-	resource_entries.listAppend(ChecklistEntryMake("__item M&ouml;bius ring", url, ChecklistSubentryMake(title, "", description), 0));
+	if	( !get_property_boolean("kingLiberated") ) {
+		resource_entries.listAppend(ChecklistEntryMake("__item M&ouml;bius ring", url, ChecklistSubentryMake(title, "", description), -400));
+	} else { resource_entries.listAppend(ChecklistEntryMake("__item M&ouml;bius ring", url, ChecklistSubentryMake(title, "", description), -40)); }
 }

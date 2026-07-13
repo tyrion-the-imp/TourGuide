@@ -35,7 +35,8 @@ void SOlfactionGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [
 	//$item[McHugeLarge left pole];
 	//Preference trackedMonsters changed from writing desk:Transcendent Olfaction:46 to writing desk:Transcendent Olfaction:46:dirty old lihc:McHugeLarge Slash:87
 	if	( __iotms_usable[lookupItem(MCLP)] ) {
-		description.listAppend("<span style='color:red; font-weight:bold;'>"+(3 - get_property_int("_mcHugeLargeSlashUses")).to_string()+"</span> MHL left pole slash uses available.");
+		description.listAppend("<span style='color:red; font-weight:bold;'>"+(3 - get_property_int("_mcHugeLargeSlashUses")).to_string()+"</span> "+MCLP+" (off-hand)"+
+		"<br>McHugeLarge Slash uses available.");
 		description.listAppend("|*<span style='color:blue; font-weight:bold; font-size:75%;'>+3 copies to queue</span>");
 		string indicatorMCLP = "green";
 		indicatorMCLP = (have_equipped(MCLP)) ? "<span style='color:green; font-weight:bold;'>YES</span>":"<span style='color:red; font-weight:bold;'>NO</span>";
@@ -171,7 +172,7 @@ void SOlfactionGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [
         //   as a "top" recommendation thing, with the relevant idea from your most recent zone and a few other ideas
         //   alongside the # of olfactions remaining. 
 
-        task_entries.listAppend(ChecklistEntryMake("__item " + $item[soft green echo eyedrop antidote], "inventory.php?ftext=soft+green+echo+eyedrop+antidote", ChecklistSubentryMake(totalsniffs+" total Sniffs available.", "", description), 10).ChecklistEntrySetIDTag("Olfaction better suggestion")); //TODO could differentiate by suggestion
+        task_entries.listAppend(ChecklistEntryMake("__item " + $item[soft green echo eyedrop antidote], "inventory.php?ftext=soft+green+echo+eyedrop+antidote", ChecklistSubentryMake(totalsniffs+" total Sniffs available.", "", description), -10).ChecklistEntrySetIDTag("Olfaction better suggestion")); //TODO could differentiate by suggestion
         
         break;
     }

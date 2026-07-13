@@ -97,6 +97,6 @@ void IOTMPrismaticBeretGenerateResource(ChecklistEntry [int] resource_entries)
         if (canHatrack && !hatrackEquipped && lookupItem("prismatic beret").equipped_amount() > 0) {
             description.listAppend("|*Consider equipping to your hatrack for more options.");
         }
-		resource_entries.listAppend(ChecklistEntryMake("__item prismatic beret", url, ChecklistSubentryMake(title, "", description)));
+		resource_entries.listAppend(ChecklistEntryMake("__item prismatic beret", url, ChecklistSubentryMake(title, "", description), -100000));
 	}
 }

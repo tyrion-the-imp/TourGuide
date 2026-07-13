@@ -89,7 +89,7 @@ void IOTMBatWingsGenerateResource(ChecklistEntry [int] resource_entries)
 		description.listAppend("Visit the Bat Hole zones to unlock the Beanbat Chamber and get a bean");
 	}
 
-	resource_entries.listAppend(ChecklistEntryMake("__item bat wings", url, ChecklistSubentryMake("Bat Wings functions", "", description), 8));
+	resource_entries.listAppend(ChecklistEntryMake("__item bat wings", url, ChecklistSubentryMake("Bat Wings functions ß", "", description), -40));
 
 	// Adding a free fight combo tile.
     if (batWingFreeFlapsLeft > 0) {

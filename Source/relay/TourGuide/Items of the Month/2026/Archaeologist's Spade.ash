@@ -16,7 +16,7 @@ void IOTMArchaeologistSpadeGenerateResource(ChecklistEntry [int] resource_entrie
     title = pluralise(digsLeft, "Archaeologist's Spade dig","Archaeologist's Spade digs");
 
     // freekill combination tag for skelly digs
-    resource_entries.listAppend(ChecklistEntryMake("__item Archaeologist's Spade", url, ChecklistSubentryMake(title, "", "Free kill a skeleton"), 0).ChecklistEntrySetCombinationTag("free instakill").ChecklistEntrySetIDTag("Archaeologist's Spade free kill"));
+    resource_entries.listAppend(ChecklistEntryMake("__item Archaeologist's Spade", url, ChecklistSubentryMake(title, "", "Free kill a skeleton"), -40).ChecklistEntrySetCombinationTag("free instakill").ChecklistEntrySetIDTag("Archaeologist's Spade free kill"));
 
     // general resource tile, near end of the line probably
     description.listAppend("Excavate free skeletons!");
@@ -40,6 +40,6 @@ void IOTMArchaeologistSpadeGenerateResource(ChecklistEntry [int] resource_entrie
         }
     }
     
-    resource_entries.listAppend(ChecklistEntryMake("__item Archaeologist's Spade", url, ChecklistSubentryMake(title, "", description)).ChecklistEntrySetIDTag("Archaeologist Spade skellies"));
+    resource_entries.listAppend(ChecklistEntryMake("__item Archaeologist's Spade", url, ChecklistSubentryMake(title, "", description), -40).ChecklistEntrySetIDTag("Archaeologist Spade skellies"));
             
 }

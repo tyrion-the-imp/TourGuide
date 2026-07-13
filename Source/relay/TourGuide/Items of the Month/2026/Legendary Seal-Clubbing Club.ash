@@ -48,12 +48,17 @@ void IOTMLegendaryClubGenerateTasks(ChecklistEntry [int] task_entries, Checklist
 		}
 	}	
 	
-	if (lookupItem("legendary seal-clubbing club").equipped_amount() > 0)
+	if (lookupItem("legendary seal-clubbing club").available_amount() > 0)
 	{
 		int clubBattlefieldsLeft = clampi(5 - get_property_int("_clubEmBattlefieldUsed"), 0, 5);
 		int clubNextWeeksLeft = clampi(5 - get_property_int("_clubEmNextWeekUsed"), 0, 5);
 		int clubBackwardsLeft = clampi(5 - get_property_int("_clubEmTimeUsed"), 0, 5);
-	
+		boolean legendclubeq = have_equipped(lookupItem("legendary seal-clubbing club"));
+		if	( !legendclubeq ) { description.listAppend(HTMLGenerateSpanFont("Club is not equipped", "red")); }
+		else { description.listAppend(HTMLGenerateSpanFont("Club is EQUIPPED", "green")); }
+			
+			
+			
 		if (clubBattlefieldsLeft == 0) {
 			description.listAppend(HTMLGenerateSpanFont("No Battlefield Clubs left.", "red"));
 		} else {
@@ -69,7 +74,9 @@ void IOTMLegendaryClubGenerateTasks(ChecklistEntry [int] task_entries, Checklist
 		} else {
 			description.listAppend(clubBackwardsLeft + " Backwards Clubs. Free kill NO ITEMS.");
 		}
-		task_entries.listAppend(ChecklistEntryMake("__item legendary seal-clubbing club", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Legendary seal-clubbing club skills", "orange"), description), -11).ChecklistEntrySetIDTag("LSSC skills"));
+		int imprt = -10;
+		
+		task_entries.listAppend(ChecklistEntryMake("__item legendary seal-clubbing club", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Legendary seal-clubbing club skills", "orange"), description), imprt).ChecklistEntrySetIDTag("LSSC skills"));
 	}
 }
 
@@ -101,11 +108,17 @@ void IOTMLegendaryClubGenerateResource(ChecklistEntry [int] resource_entries)
 			description.listAppend(clubBackwardsLeft + " Backwards Clubs. Free kill NO ITEMS.");
 		}
 	
-	resource_entries.listAppend(ChecklistEntryMake("__item legendary seal-clubbing club", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Legendary seal-clubbing club skills", "orange"), description), -40).ChecklistEntrySetIDTag("LSSC skills"));
+	resource_entries.listAppend(ChecklistEntryMake("__item legendary seal-clubbing club", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Legendary seal-clubbing club skills", "orange"), description), -65).ChecklistEntrySetIDTag("LSSC skills"));
 
 	// Adding a free fight combo tile.
     if (clubBackwardsLeft > 0) {
         string header = pluralise(clubBackwardsLeft, "club 'em back in time","club 'em back in times");
-        resource_entries.listAppend(ChecklistEntryMake("__item legendary seal-clubbing club", "", ChecklistSubentryMake(header, "", "Free kill, no items. Can make bosses free!"), -40).ChecklistEntrySetCombinationTag("free instakill"));
+		int imprt = -65;
+		resource_entries.listAppend(ChecklistEntryMake("__item legendary seal-clubbing club", "", ChecklistSubentryMake(header, "", "Free kill, no items. Can make bosses free!"), imprt).ChecklistEntrySetCombinationTag("free instakill"));
+    }
+    if (clubNextWeeksLeft > 0) {
+        string header = pluralise(clubNextWeeksLeft, "club into next week","club into next week uses");
+		int imprt = -79;
+		resource_entries.listAppend(ChecklistEntryMake("__item legendary seal-clubbing club", "", ChecklistSubentryMake(header, "", "7 turn wandering copy via legendary seal-clubbing club"), imprt).ChecklistEntrySetCombinationTag("free instakill"));
     }
 }

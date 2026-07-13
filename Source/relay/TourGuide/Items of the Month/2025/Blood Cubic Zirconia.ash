@@ -25,38 +25,48 @@ void IOTMBloodCubicZirconiaGenerateTasks(ChecklistEntry [int] task_entries, Chec
     int refractCost = bloodCast[min(bczRefracts, 15)];
 	int bulletCost = bloodCast[min(bczBullets, 15)];
 	int equityCost = bloodCast[min(bczEquitys, 15)];
+	item BCZ = lookupItem("blood cubic zirconia");
+	boolean eqBCZ = have_equipped(BCZ);
+	string eqBCZcolor = "red";
+	if	( eqBCZ ) { eqBCZcolor = "green"; }
 	
 	//if (lookupItem("blood cubic zirconia").equipped_amount() > 0)
 	if (gemstoneInCodpiece(lookupItem("blood cubic zirconia"))) description.listAppend("Currently in <b>Eternity Codpiece</b>");
 	//if (gemstoneEquipped(lookupItem("blood cubic zirconia")))
 	{
+		description.listAppend("" + HTMLGenerateSpanFont("<a href='https://wiki.kingdomofloathing.com/Blood_cubic_zirconia#Notes' target='_blank'><span style='color:purple; font-size:85%;'>click: BCZ</span></a> (<span style='color:green; font-size:75%;'>9 skills</span>)", "red") + "");
+		description.listAppend("<span style='color:blue; font-size:100%; font-weight:bold;'>Equipped?</span> " + HTMLGenerateSpanFont(eqBCZ, eqBCZcolor) + "");
 		if (bczRefracts < 13) {
 			description.listAppend("Next Refract costs " + HTMLGenerateSpanFont(refractCost + "", "red") + " mys");
+			description.listAppend("<span style='color:black; font-size:85%;'>Replaces the monster's drop table with the drop tables of all other monsters in the current zone</span>");
 		}
 		else if (bczRefracts >= 13) {
 			description.listAppend(HTMLGenerateSpanFont("Next Refract costs " + refractCost + " mys. EXPENSIVE!", "red") + "");
 		}
 		if (lookupItem("monodent of the sea").equipped_amount() == 0)
 		{
-			description.listAppend(HTMLGenerateSpanFont("Seadent not equipped", "red"));		
+			description.listAppend(HTMLGenerateSpanFont("<span style='color:red; font-size:85%;'>Seadent not equipped (for fish cleesh)</span>", "red"));
 		}
 		else if (lookupItem("monodent of the sea").equipped_amount() > 0)
 		{
-			description.listAppend(HTMLGenerateSpanFont("Seadent FLEESH ok!", "blue"));		
+			
+			description.listAppend(HTMLGenerateSpanFont("<span style='color:green; font-size:85%;'>Seadent FLEESH ok! (Sea *dent: Talk to Some Fish)</span>", "green"));
 		}
 		if (bczBullets < 13) {
 			description.listAppend("Next Bullet costs " + HTMLGenerateSpanFont(bulletCost + "", "red") + " mox");
+			description.listAppend("<span style='color:black; font-size:85%;'>Free kill.</span>");
 		}
 		else if (bczBullets >= 13) {
 			description.listAppend(HTMLGenerateSpanFont("Next Bullet costs " + bulletCost + " mox. EXPENSIVE!", "red") + "");
 		}
 		if (bczEquitys < 13) {
 			description.listAppend("Next Equity costs " + HTMLGenerateSpanFont(equityCost + "", "red") + " mox");
+			description.listAppend("<span style='color:black; font-size:85%;'>+40% mt, 30a</span>");
 		}
 		else if (bczEquitys >= 13) {
 			description.listAppend(HTMLGenerateSpanFont("Next Equity costs " + equityCost + " mox. EXPENSIVE!", "red") + "");
 		}	
-		task_entries.listAppend(ChecklistEntryMake("__item blood cubic zirconia", url, ChecklistSubentryMake(HTMLGenerateSpanFont("BCZ: Blood Cubic Zirconia skills", "brown"), description), -11).ChecklistEntrySetIDTag("bcz important skills"));	}
+		task_entries.listAppend(ChecklistEntryMake("__item blood cubic zirconia", url, ChecklistSubentryMake( HTMLGenerateSpanFont("BCZ: Blood Cubic Zirconia skills", "brown"), description), -10).ChecklistEntrySetIDTag("bcz important skills"));	}
 		// This was originally a supernag but I simply will not let this be -always- on my screen.	
 		//task_entries.listAppend(ChecklistEntryMake("__item blood cubic zirconia", url, ChecklistSubentryMake(HTMLGenerateSpanFont("BCZ: Blood Cubic Zirconia skills", "brown"), description), 11).ChecklistEntrySetIDTag("bcz important skills"));
 }

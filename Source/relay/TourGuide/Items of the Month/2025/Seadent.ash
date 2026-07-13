@@ -52,7 +52,7 @@ void IOTMMonodentGenerateResource(ChecklistEntry [int] resource_entries)
 	{
 		description.listAppend(HTMLGenerateSpanFont(monodentShortName+" lightning ready!", "blue"));		
 	}
-	resource_entries.listAppend(ChecklistEntryMake("__item monodent of the sea", url, ChecklistSubentryMake(title, "who lives in a monodent under the sea", description)));
+	resource_entries.listAppend(ChecklistEntryMake("__item monodent of the sea", url, ChecklistSubentryMake(title, "who lives in a monodent under the sea", description), -40));
 
 	// Banish combination tile
 	if (monodentLightningsLeft > 0)
@@ -60,6 +60,6 @@ void IOTMMonodentGenerateResource(ChecklistEntry [int] resource_entries)
         string [int] banishDesc;
 		banishDesc.listAppend("Turn-taking kill, all-day banish.");
 		if (!monodentIsEquipped) banishDesc.listAppend(HTMLGenerateSpanFont("Equip the "+monodentName+" first", "red"));
-		resource_entries.listAppend(ChecklistEntryMake("__item monodent of the sea", "", ChecklistSubentryMake(pluralise(monodentLightningsLeft, "lightning strike", "lightning strikes"), "", banishDesc), 0).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("seadent killbanish"));
+		resource_entries.listAppend(ChecklistEntryMake("__item monodent of the sea", "", ChecklistSubentryMake(pluralise(monodentLightningsLeft, "lightning strike", "lightning strikes"), "", banishDesc), -40).ChecklistEntrySetCombinationTag("banish").ChecklistEntrySetIDTag("seadent killbanish"));
     }
 }

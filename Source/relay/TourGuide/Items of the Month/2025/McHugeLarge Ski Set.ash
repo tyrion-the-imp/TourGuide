@@ -47,5 +47,5 @@ void IOTMSkiSetGenerateResource(ChecklistEntry [int] resource_entries)
 			description.listAppend("|*Equip the "+HTMLGenerateSpanFont("LEFT POLE", "red")+" first.");
 		}
 	}
-	resource_entries.listAppend(ChecklistEntryMake("__item McHugeLarge duffel bag", url, ChecklistSubentryMake("McHugeLarge ski set skills", description), 1));
+	resource_entries.listAppend(ChecklistEntryMake("__item McHugeLarge duffel bag", url, ChecklistSubentryMake("McHugeLarge ski set skills", description), -41));
 }

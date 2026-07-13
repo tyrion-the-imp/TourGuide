@@ -17,7 +17,11 @@ void IOTMShrunkenHeadGenerateTasks(ChecklistEntry [int] task_entries, ChecklistE
 	if (lookupItem("shrunken head").equipped_amount() > 0)
 	{
 		supernagDescription.listAppend("Throw it at a monster for a zombified friend!");
-		task_entries.listAppend(ChecklistEntryMake("__item shrunken head", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Shrunken Head equipped", "blue"), supernagDescription), -11).ChecklistEntrySetIDTag("shrunken head"));
+		task_entries.listAppend(ChecklistEntryMake("__item shrunken head", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Shrunken Head equipped", "green"), supernagDescription), -10).ChecklistEntrySetIDTag("shrunken head"));
+	} else {
+		supernagDescription.listAppend("Shrunken head copies available.");
+		task_entries.listAppend(ChecklistEntryMake("__item shrunken head", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Equip the Shrunken Head (off-hand)", "red"), supernagDescription), -10).ChecklistEntrySetIDTag("shrunken head"));
+		
 	}
 
     string [int] description;
@@ -139,7 +143,8 @@ void IOTMShrunkenHeadGenerateTasks(ChecklistEntry [int] task_entries, ChecklistE
 	        description.listAppend("<hr>|*"+itemList.listJoinComponents("<hr>|*"));
         }
 
-        optional_task_entries.listAppend(ChecklistEntryMake("__item shrunken head", url, ChecklistSubentryMake(title, subtitle, description), 9).ChecklistEntrySetIDTag("Shrunken Head zombie"));
+        //optional_task_entries.listAppend(ChecklistEntryMake("__item shrunken head", url, ChecklistSubentryMake(title, subtitle, description), 9).ChecklistEntrySetIDTag("Shrunken Head zombie"));
+        task_entries.listAppend(ChecklistEntryMake("__item shrunken head", url, ChecklistSubentryMake(title, subtitle, description), -10).ChecklistEntrySetIDTag("Shrunken Head zombie"));
 
     }
 }
@@ -167,5 +172,10 @@ void IOTMShrunkenHeadGenerateResource(ChecklistEntry [int] resource_entries)
     description.listAppend("|*mountain man"+HTMLGenerateSpanFont(" (10%)", "gray", "0.8em"));
     description.listAppend("|*Any ol' Smut Orc"+HTMLGenerateSpanFont(" (10%)", "gray", "0.8em"));
     
-    resource_entries.listAppend(ChecklistEntryMake("__item shrunken head", url, ChecklistSubentryMake(title, "", description), 9).ChecklistEntrySetIDTag("Shrunken Head Targets"));
+    //equip tiles
+	resource_entries.listAppend(ChecklistEntryMake("__item shrunken head", url, ChecklistSubentryMake(title, "", description), -40).ChecklistEntrySetIDTag("Shrunken Head Targets"));
+	if	( !get_property_boolean("kingLiberated") ) {
+		//copies tiles too
+		resource_entries.listAppend(ChecklistEntryMake("__item shrunken head", url, ChecklistSubentryMake(title, "", description), -70).ChecklistEntrySetIDTag("Shrunken Head Targets"));
+	}
 }

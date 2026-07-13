@@ -20,7 +20,7 @@ void IOTMMayDayContractGenerateResource(ChecklistEntry [int] resource_entries)
 {
     //if ($item[MayDay&trade; supply package].available_amount() > 0) #&& in_ronin() && $item[MayDay&trade; supply package].item_is_usable())
 	string subnotesSizePercent = "75";
-    if ( get_property_boolean("hasMaydayContract") )
+    if ( get_property_boolean("hasMaydayContract") && is_unrestricted($item[MayDay&trade; supply package]) )
     {
         string [int] description;
 		if ($item[MayDay&trade; supply package].available_amount() > 0) {

@@ -1,6 +1,6 @@
 //Takerspace
-RegisterResourceGenerationFunction("IOTMTakerspaceGenerateResource");
-void IOTMTakerspaceGenerateResource(ChecklistEntry [int] resource_entries)
+RegisterResourceGenerationFunction("IOTMTakerspaceGenerateResourceBETA");
+void IOTMTakerspaceGenerateResourceBETA(ChecklistEntry [int] resource_entries)
 {
 	if (__iotms_usable[lookupItem("TakerSpace letter of Marque")]) return;
 	

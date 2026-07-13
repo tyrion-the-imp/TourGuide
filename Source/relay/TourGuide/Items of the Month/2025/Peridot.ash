@@ -123,6 +123,6 @@ void IOTMPeridotGenerateResource(ChecklistEntry [int] resource_entries) {
 	if (!peridotEquipped) description.listAppend(HTMLGenerateSpanFont("Equip your Peridot of Peril","red"));
 	description.listAppend("<hr>|*"+pp+peridotPicks.listJoinComponents("<hr>|*"+pp));
 
-	resource_entries.listAppend(ChecklistEntryMake("__item Peridot of Peril", url, ChecklistSubentryMake(title, subtitle, description), 14).ChecklistEntrySetIDTag("peridot picking helper"));
+	resource_entries.listAppend(ChecklistEntryMake("__item Peridot of Peril", url, ChecklistSubentryMake(title, subtitle, description), -40).ChecklistEntrySetIDTag("peridot picking helper"));
 
 }
