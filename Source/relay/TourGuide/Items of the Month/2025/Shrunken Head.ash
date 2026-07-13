@@ -17,10 +17,10 @@ void IOTMShrunkenHeadGenerateTasks(ChecklistEntry [int] task_entries, ChecklistE
 	if (lookupItem("shrunken head").equipped_amount() > 0)
 	{
 		supernagDescription.listAppend("Throw it at a monster for a zombified friend!");
-		task_entries.listAppend(ChecklistEntryMake("__item shrunken head", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Shrunken Head equipped", "green"), supernagDescription), -10).ChecklistEntrySetIDTag("shrunken head"));
+		optional_task_entries.listAppend(ChecklistEntryMake("__item shrunken head", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Shrunken Head equipped", "green"), supernagDescription), -10).ChecklistEntrySetIDTag("shrunken head"));
 	} else {
 		supernagDescription.listAppend("Shrunken head copies available.");
-		task_entries.listAppend(ChecklistEntryMake("__item shrunken head", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Equip the Shrunken Head (off-hand)", "red"), supernagDescription), -10).ChecklistEntrySetIDTag("shrunken head"));
+		optional_task_entries.listAppend(ChecklistEntryMake("__item shrunken head", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Equip the Shrunken Head (off-hand)", "red"), supernagDescription), -10).ChecklistEntrySetIDTag("shrunken head"));
 		
 	}
 
@@ -144,7 +144,7 @@ void IOTMShrunkenHeadGenerateTasks(ChecklistEntry [int] task_entries, ChecklistE
         }
 
         //optional_task_entries.listAppend(ChecklistEntryMake("__item shrunken head", url, ChecklistSubentryMake(title, subtitle, description), 9).ChecklistEntrySetIDTag("Shrunken Head zombie"));
-        task_entries.listAppend(ChecklistEntryMake("__item shrunken head", url, ChecklistSubentryMake(title, subtitle, description), -10).ChecklistEntrySetIDTag("Shrunken Head zombie"));
+        optional_task_entries.listAppend(ChecklistEntryMake("__item shrunken head", url, ChecklistSubentryMake(title, subtitle, description), -10).ChecklistEntrySetIDTag("Shrunken Head zombie"));
 
     }
 }

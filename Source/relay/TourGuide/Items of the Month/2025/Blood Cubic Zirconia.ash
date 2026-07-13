@@ -66,9 +66,9 @@ void IOTMBloodCubicZirconiaGenerateTasks(ChecklistEntry [int] task_entries, Chec
 		else if (bczEquitys >= 13) {
 			description.listAppend(HTMLGenerateSpanFont("Next Equity costs " + equityCost + " mox. EXPENSIVE!", "red") + "");
 		}	
-		task_entries.listAppend(ChecklistEntryMake("__item blood cubic zirconia", url, ChecklistSubentryMake( HTMLGenerateSpanFont("BCZ: Blood Cubic Zirconia skills", "brown"), description), -10).ChecklistEntrySetIDTag("bcz important skills"));	}
+		optional_task_entries.listAppend(ChecklistEntryMake("__item blood cubic zirconia", url, ChecklistSubentryMake( HTMLGenerateSpanFont("BCZ: Blood Cubic Zirconia skills", "brown"), description), -10).ChecklistEntrySetIDTag("bcz important skills"));	}
 		// This was originally a supernag but I simply will not let this be -always- on my screen.	
-		//task_entries.listAppend(ChecklistEntryMake("__item blood cubic zirconia", url, ChecklistSubentryMake(HTMLGenerateSpanFont("BCZ: Blood Cubic Zirconia skills", "brown"), description), 11).ChecklistEntrySetIDTag("bcz important skills"));
+		//optional_task_entries.listAppend(ChecklistEntryMake("__item blood cubic zirconia", url, ChecklistSubentryMake(HTMLGenerateSpanFont("BCZ: Blood Cubic Zirconia skills", "brown"), description), 11).ChecklistEntrySetIDTag("bcz important skills"));
 }
 
 RegisterResourceGenerationFunction("IOTMBloodCubicZirconiaGenerateResource");

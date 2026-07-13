@@ -673,7 +673,7 @@ void QLevel9GenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [int
 		if ($item[smut orc keepsake box].available_amount() > 0)
 			subentry.entries.listAppend("Open " + pluralise($item[smut orc keepsake box]) + ".");
 		if (line.count() > 0) {
-			subentry.entries.listAppend("Need " + line.listJoinComponents(" ", "and") + ".");
+			subentry.entries.listAppend("<span style='color:red; font-size:120%; font-weight:bold;'>Need " + line.listJoinComponents(" ", "and") + ".</span>");
             
             if (__quest_state["Level 11 Shen"].state_int.getFutureShenAssignments().listInvert() contains $location[The Smut Orc Logging Camp])
                 subentry.entries.listAppend("Could wait before going there? Shen will send you here later.");

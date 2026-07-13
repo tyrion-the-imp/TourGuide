@@ -18,7 +18,7 @@ void IOTMSpringShoesGenerateTasksBETA(ChecklistEntry [int] task_entries, Checkli
 			if	( importance == 3 ) {
 			optional_task_entries.listAppend(ChecklistEntryMake("__item spring shoes", url, ChecklistSubentryMake("Free-run away with <b>Spring Away</b> skill! (TEMP)", "", description), -11));
 			} else {
-			task_entries.listAppend(ChecklistEntryMake("__item spring shoes", url, ChecklistSubentryMake("Free-run away with <b>Spring Away</b> skill! (TEMP)", "", description), importance));
+			optional_task_entries.listAppend(ChecklistEntryMake("__item spring shoes", url, ChecklistSubentryMake("Free-run away with <b>Spring Away</b> skill! (TEMP)", "", description), importance));
 			}
 		}
 		//if ( $item[spring shoes].available_amount() > 0 && get_property("questL10Garbage").index_of("started") > -1 ) {

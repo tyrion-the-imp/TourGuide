@@ -163,15 +163,11 @@ import "relay/TourGuide/Items of the Month/2024/Mayam Calendar.ash";
 import "relay/TourGuide/Items of the Month/2024/Mini Kiwi.ash";
 import "relay/TourGuide/Items of the Month/2024/Roman Candelabra beta.ash";
 import "relay/TourGuide/Items of the Month/2024/Tearaway Pants beta.ash";
-//import "relay/TourGuide/Items of the Month/2024/Tearaway Pants.ash";
 import "relay/TourGuide/Items of the Month/2024/Sept-Ember Censer beta.ash";
 import "relay/TourGuide/Items of the Month/2024/Peace Turkey beta.ash";
 import "relay/TourGuide/Items of the Month/2024/TakerSpaceBeta.ash";
-import "relay/TourGuide/Items of the Month/2024/Sept-Ember Censer.ash";
 import "relay/TourGuide/Items of the Month/2024/bat wings.ash";
 import "relay/TourGuide/Items of the Month/2024/VIP Photobooth beta.ash";
-//import "relay/TourGuide/Items of the Month/2024/VIP Photobooth.ash";
-import "relay/TourGuide/Items of the Month/2024/Peace Turkey.ash";
 import "relay/TourGuide/Items of the Month/2024/TakerSpace.ash";
 
 

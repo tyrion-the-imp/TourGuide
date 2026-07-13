@@ -63,7 +63,7 @@ void IOTMMobiusRingGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
     if (mobEquipped) ncDescription.listAppend("Keep your Möbius ring equipped for an NC");
     if (!mobEquipped) ncDescription.listAppend(HTMLGenerateSpanFont("Equip your Möbius ring for a shot at a Paradoxicity NC!", "red"));
 	
-    if(turnsUntilNextNC == 0) task_entries.listAppend(ChecklistEntryMake("__item M&ouml;bius ring", "", ChecklistSubentryMake(ncTitle, ncSubtitle, ncDescription), ncPriority).ChecklistEntrySetIDTag("morb ring nc task"));
+    if(turnsUntilNextNC == 0) optional_task_entries.listAppend(ChecklistEntryMake("__item M&ouml;bius ring", "", ChecklistSubentryMake(ncTitle, ncSubtitle, ncDescription), ncPriority).ChecklistEntrySetIDTag("morb ring nc task"));
 
 }
 

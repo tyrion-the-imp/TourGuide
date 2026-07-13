@@ -101,7 +101,7 @@ void IOTMHeartstoneGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
     description.listAppend("<hr>|*"+monsterList.listJoinComponents("<hr>|*"));
     if (!heartstoneEquipped) description.listAppend(HTMLGenerateSpanFont("Equip your Heartstone!","red"));
 
-    optional_task_entries.listAppend(ChecklistEntryMake("__item heartstone", url, ChecklistSubentryMake(title, subtitle, description)).ChecklistEntrySetIDTag("Heartstone spell TAPE"));
+    optional_task_entries.listAppend(ChecklistEntryMake("__item heartstone", url, ChecklistSubentryMake(title, subtitle, description), -10).ChecklistEntrySetIDTag("Heartstone spell TAPE"));
 
 }
 

@@ -144,5 +144,5 @@ void QGenerateDelayRemainingTasks(ChecklistEntry [int] task_entries, ChecklistEn
     entry.subentries.listAppend(ChecklistSubentryMake(delayTitle, "", delayEntries));
 
 
-    task_entries.listAppend(entry);
+    optional_task_entries.listAppend(entry);
 }

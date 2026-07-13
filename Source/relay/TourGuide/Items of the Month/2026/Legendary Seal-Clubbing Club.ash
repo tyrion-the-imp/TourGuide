@@ -34,12 +34,12 @@ void IOTMLegendaryClubGenerateTasks(ChecklistEntry [int] task_entries, Checklist
 			foreach i, warning in warnings {
 				description.listAppend(HTMLGenerateSpanFont("|* ➾ "+warning, "red"));
 			}
-			task_entries.listAppend(ChecklistEntryMake("__monster " + image_name, "", ChecklistSubentryMake("Legendary club: " + get_property("clubEmNextWeekMonster") + HTMLGenerateSpanFont(" now", "red"), "", description), -11));
+			optional_task_entries.listAppend(ChecklistEntryMake("__monster " + image_name, "", ChecklistSubentryMake("Legendary club: " + get_property("clubEmNextWeekMonster") + HTMLGenerateSpanFont(" now", "red"), "", description), -11));
 		}
 		else if (nextWeekTurn -1 == total_turns_played() && (image_name != ""))
 		{
 			description.listAppend(HTMLGenerateSpanFont("Wandering monster", "orange"));
-			task_entries.listAppend(ChecklistEntryMake("__monster " + image_name, "", ChecklistSubentryMake("Legendary club: " + get_property("clubEmNextWeekMonster") + HTMLGenerateSpanFont(" in 1 more adv", "blue"), "", description), -11));
+			optional_task_entries.listAppend(ChecklistEntryMake("__monster " + image_name, "", ChecklistSubentryMake("Legendary club: " + get_property("clubEmNextWeekMonster") + HTMLGenerateSpanFont(" in 1 more adv", "blue"), "", description), -11));
 		}	
 		else if (image_name != "")
 		{
@@ -76,7 +76,7 @@ void IOTMLegendaryClubGenerateTasks(ChecklistEntry [int] task_entries, Checklist
 		}
 		int imprt = -10;
 		
-		task_entries.listAppend(ChecklistEntryMake("__item legendary seal-clubbing club", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Legendary seal-clubbing club skills", "orange"), description), imprt).ChecklistEntrySetIDTag("LSSC skills"));
+		optional_task_entries.listAppend(ChecklistEntryMake("__item legendary seal-clubbing club", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Legendary seal-clubbing club skills", "orange"), description), imprt).ChecklistEntrySetIDTag("LSSC skills"));
 	}
 }
 

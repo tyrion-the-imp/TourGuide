@@ -2,7 +2,9 @@
 
 void QLevel11CopperheadInit()
 {
-    if (true) {
+    if	( !qprop("questL11Black") ) { return; }
+	
+	if (true) {
         QuestState state;
         QuestStateParseMafiaQuestProperty(state, "questL11Ron");
             
