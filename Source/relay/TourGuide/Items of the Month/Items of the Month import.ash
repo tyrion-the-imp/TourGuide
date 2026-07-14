@@ -168,7 +168,6 @@ import "relay/TourGuide/Items of the Month/2024/Peace Turkey beta.ash";
 import "relay/TourGuide/Items of the Month/2024/TakerSpaceBeta.ash";
 import "relay/TourGuide/Items of the Month/2024/bat wings.ash";
 import "relay/TourGuide/Items of the Month/2024/VIP Photobooth beta.ash";
-import "relay/TourGuide/Items of the Month/2024/TakerSpace.ash";
 
 
 

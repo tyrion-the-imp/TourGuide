@@ -5,7 +5,10 @@ void IOTMAprilShowerThoughtsGenerateTasks(ChecklistEntry [int] task_entries, Che
     if ($item[April Shower Thoughts shield].available_amount() == 0) return;
 	string url = "inventory.php?action=shower&pwd=" + my_hash();
 	string [int] description;
-	
+	item iref1 = $item[April Shower Thoughts shield];
+	string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
+	string iref1clr = (have_equipped(iref1)) ? "green":"red";
+	description.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");	
 	boolean showerGlobs = get_property_boolean("_aprilShowerGlobsCollected"); 
 	if (showerGlobs == false) {
 		description.listAppend("Collect globs");
@@ -29,20 +32,22 @@ void IOTMAprilShowerThoughtsGenerateResource(ChecklistEntry [int] resource_entri
 	if ($item[April Shower Thoughts shield].available_amount() == 0) return;
 	string url = "shop.php?whichshop=showerthoughts";
 	string [int] description;
-	
+	item iref1 = $item[April Shower Thoughts shield];
+	string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
+	string iref1clr = (have_equipped(iref1)) ? "green":"red";
+	description.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");	
+	int importancenum = ( get_property_boolean("kingLiberated") ) ? -40:-888;
 	string main_title = HTMLGenerateSpanFont("April Shower Powers", "black");
 	boolean showerNEYR = get_property_boolean("_aprilShowerNorthernExplosion"); 
 		if (!lookupSkill("Northern Explosion").have_skill()) showerNEYR = true;
 	if (showerNEYR == false) {
-		description.listAppend(HTMLGenerateSpanFont("Northern Explosion YR available", "blue"));		
+		description.listAppend(HTMLGenerateSpanFont("Northern Explosion YR available", "blue"));
 	}
 	int globCount = available_amount($item[glob of wet paper]);
 	{
 		description.listAppend("Craft your shower thoughts, with your "+pluralise(globCount,"glob","globs")+"!");
 	}
-	int importancenum = -40;
-	if	( !get_property_boolean("kingLiberated") ) { importancenum = -888; }
-
+	
 	if (description.count() > 0)
-		resource_entries.listAppend(ChecklistEntryMake("__item april shower thoughts shield", url, ChecklistSubentryMake(main_title, description), -importancenum).ChecklistEntrySetIDTag("april shower thoughts calendar resource"));
+		resource_entries.listAppend(ChecklistEntryMake("__item april shower thoughts shield", url, ChecklistSubentryMake(main_title, description), importancenum).ChecklistEntrySetIDTag("april shower thoughts calendar resource"));
 }

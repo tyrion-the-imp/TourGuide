@@ -96,6 +96,10 @@ void IOTMHeartstoneGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
     // If unequipped, go to heartstone in inventory. Else, no URL.
     if (!heartstoneEquipped) url = invSearch("heartstone");
 
+	item iref1 = $item[Heartstone];
+	string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
+	string iref1clr = (have_equipped(iref1)) ? "green":"red";
+	description.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
     // Generate tile description
     description.listAppend("You need "+nextLetter+"; look for these monsters:|*");
     description.listAppend("<hr>|*"+monsterList.listJoinComponents("<hr>|*"));
@@ -118,6 +122,10 @@ void IOTMHeartstoneGenerateResource(ChecklistEntry [int] resource_entries)
     string url = heartstoneEquipped ? "" : invSearch("heartstone");
     string [int] description;
     string title = heartLetters != "" ? "Heartstone ("+heartLetters.to_upper_case()+")" : "Heartstone (no letters!)";
+	item iref1 = $item[Heartstone];
+	string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
+	string iref1clr = (have_equipped(iref1)) ? "green":"red";
+	description.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
 
     // resource should include
     //   - better VHS tape tile; banishes will be in banish zone, but VHS tapes should get its own tile outside of 2002 now

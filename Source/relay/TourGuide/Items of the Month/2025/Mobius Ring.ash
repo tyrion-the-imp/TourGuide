@@ -39,15 +39,17 @@ void IOTMMobiusRingGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 	string copTitle = HTMLGenerateSpanFont(pluralise(min(countTimeCops, 11), "free Time Cops fought today", "free Time Cops fought today"), "black");
     boolean copsNoLongerFree = countTimeCops > 11;
     int priority = 10;
+	item iref1 = $item[M&ouml;bius ring]; //Mobius ring
+	string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
+	string iref1clr = (have_equipped(iref1)) ? "green":"red";
+	copDescription.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
 
 	if (mobEquipped) {
 		if (!copsNoLongerFree) {
-            copDescription.listAppend(HTMLGenerateSpanFont("Ring equipped, it's Möbing time!", "blue"));
             optional_task_entries.listAppend(ChecklistEntryMake("__monster time cop", "", ChecklistSubentryMake(copTitle, copSubtitle, copDescription), -500).ChecklistEntrySetIDTag("morb ring cop task"));
         }
 		if (copsNoLongerFree) 
 		{
-			copDescription.listAppend(HTMLGenerateSpanFont("Möbius ring equipped, danger!", "red"));
             priority = -11;
             task_entries.listAppend(ChecklistEntryMake("__monster time cop", "", ChecklistSubentryMake(copTitle, copSubtitle, copDescription), priority).ChecklistEntrySetIDTag("morb ring cop task"));
 		}
@@ -59,9 +61,9 @@ void IOTMMobiusRingGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
     string ncTitle = "Möbius non-combat available!";
     string ncSubtitle = "Currently @ " + my_paradoxicity() + " paradoxicity";
     int ncPriority = copsNoLongerFree ? 0 : -11;
-
-    if (mobEquipped) ncDescription.listAppend("Keep your Möbius ring equipped for an NC");
-    if (!mobEquipped) ncDescription.listAppend(HTMLGenerateSpanFont("Equip your Möbius ring for a shot at a Paradoxicity NC!", "red"));
+	ncDescription.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
+    //if (mobEquipped) ncDescription.listAppend("Keep your Möbius ring equipped for an NC");
+    //if (!mobEquipped) ncDescription.listAppend(HTMLGenerateSpanFont("Equip your Möbius ring for a shot at a Paradoxicity NC!", "red"));
 	
     if(turnsUntilNextNC == 0) optional_task_entries.listAppend(ChecklistEntryMake("__item M&ouml;bius ring", "", ChecklistSubentryMake(ncTitle, ncSubtitle, ncDescription), ncPriority).ChecklistEntrySetIDTag("morb ring nc task"));
 
@@ -98,10 +100,15 @@ void IOTMMobiusRingGenerateResource(ChecklistEntry [int] resource_entries)
         15:16, 16:16, 17:16, 18:16, 19:19,
         20:32};
     int currentTimeCopRate = timeCopRate[min(my_paradoxicity(), 20)];
+	int importancenum = ( get_property_boolean("kingLiberated") ) ? -40:-888;
 	
 	string [int] description;
     string url = "inventory.php?ftext=bius+ring";
 	string title = HTMLGenerateSpanFont(pluralise(turnsUntilNextNC, " turn", " turns") + " to your next Möbius NC", "black");
+	item iref1 = $item[M&ouml;bius ring]; //Mobius ring
+	string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
+	string iref1clr = (have_equipped(iref1)) ? "green":"red";
+	description.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
 	 
     if (turnsUntilNextNC == 0) description.listAppend(HTMLGenerateSpanFont("You can encounter NC #" + (countMobiusNCs+1) +" right now!", "blue"));
     if (turnsUntilNextNC > 0) description.listAppend("You have "+pluralise(turnsUntilNextNC, " turn", " turns")+" turns to NC #" +(countMobiusNCs+1)+ ".");
@@ -110,6 +117,6 @@ void IOTMMobiusRingGenerateResource(ChecklistEntry [int] resource_entries)
 	    if(countTimeCops >= 11) description.listAppend(HTMLGenerateSpanFont("No free time cops remain; be careful wearing your ring!", "red"));
     if(my_paradoxicity() < 13) description.listAppend("Boost to 13 Paradoxicity for +100% item & +50% booze drop!");
 	if	( !get_property_boolean("kingLiberated") ) {
-		resource_entries.listAppend(ChecklistEntryMake("__item M&ouml;bius ring", url, ChecklistSubentryMake(title, "", description), -400));
-	} else { resource_entries.listAppend(ChecklistEntryMake("__item M&ouml;bius ring", url, ChecklistSubentryMake(title, "", description), -40)); }
+		resource_entries.listAppend(ChecklistEntryMake("__item M&ouml;bius ring", url, ChecklistSubentryMake(title, "", description), importancenum));
+	} else { resource_entries.listAppend(ChecklistEntryMake("__item M&ouml;bius ring", url, ChecklistSubentryMake(title, "", description), importancenum)); }
 }

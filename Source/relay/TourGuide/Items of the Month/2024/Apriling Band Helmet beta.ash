@@ -6,6 +6,10 @@ void IOTMAprilingBandHelmetGenerateResourceBETA(ChecklistEntry [int] resource_en
         return;
 
     string [int] description;
+	item iref1 = $item[apriling band helmet];
+	string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
+	string iref1clr = (have_equipped(iref1)) ? "green":"red";
+	description.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
 
     //battle of the bands
     int aprilingBandConductorTimer = get_property_int("nextAprilBandTurn");
@@ -60,7 +64,7 @@ void IOTMAprilingBandHelmetGenerateResourceBETA(ChecklistEntry [int] resource_en
         get_property_int("_aprilBandPiccoloUses");
 
     string [int] instrumentDescription;
-
+	instrumentDescription.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
     int aprilingBandInstrumentsAvailable = clampi(2 - get_property_int("_aprilBandInstruments"), 0, 2);
     if (aprilingBandInstrumentsAvailable > 0) {
         instrumentDescription.listAppend(HTMLGenerateSpanFont("Can pick " + aprilingBandInstrumentsAvailable + " more instruments!", "green"));

@@ -7,19 +7,18 @@ void IOTMArchaeologistSpadeGenerateResource(ChecklistEntry [int] resource_entrie
     // end if no digs left
     int digsLeft = clampi(11 - get_property_int("_archSpadeDigs"), 0, 11);
     if (digsLeft == 0) return;
-
     string title;
     string url;
     string [int] description;
-	int importancenum = -40;
-	if	( !get_property_boolean("kingLiberated") ) { importancenum = -888; }
-
-
+	int importancenum = ( get_property_boolean("kingLiberated") ) ? -30:-30;
     url = "inv_use.php?pwd=" + my_hash() + "&whichitem=12184";
     title = pluralise(digsLeft, "Archaeologist's Spade dig","Archaeologist's Spade digs");
+	description.listAppend("<span style='color:blue; font-size:85%; font-weight:bold;'>Usable from inventory</span>");
 
     // freekill combination tag for skelly digs
     resource_entries.listAppend(ChecklistEntryMake("__item Archaeologist's Spade", url, ChecklistSubentryMake(title, "", "Free kill a skeleton"), importancenum).ChecklistEntrySetCombinationTag("free instakill").ChecklistEntrySetIDTag("Archaeologist's Spade free kill"));
+    // "daily freee fight"
+	resource_entries.listAppend(ChecklistEntryMake("__item Archaeologist's Spade", url, ChecklistSubentryMake(title, "", "Free kill a skeleton"), importancenum).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("Archaeologist's Spade free kill"));
 
     // general resource tile, near end of the line probably
     description.listAppend("Excavate free skeletons!");

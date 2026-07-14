@@ -163,6 +163,11 @@ void IOTMShrunkenHeadGenerateResource(ChecklistEntry [int] resource_entries)
     string [int] description;
 	int importancenum = -40;
 	if	( !get_property_boolean("kingLiberated") ) { importancenum = -888; }
+	item iref1 = $item[shrunken head];
+	string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped.":"Equip the "+iref1+" ("+iref1.to_slot()+")";
+	string iref1clr = (have_equipped(iref1)) ? "green":"red";
+	description.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
+	
 
 
     description.listAppend("Consider reanimating these monsters for their items:");

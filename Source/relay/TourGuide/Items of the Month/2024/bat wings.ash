@@ -6,6 +6,10 @@ void IOTMRomanBatWingsTasks(ChecklistEntry [int] task_entries, ChecklistEntry [i
 
     string [int] description;
 	string url;
+	item iref1 = $item[bat wings];
+	string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
+	string iref1clr = (have_equipped(iref1)) ? "green":"red";
+	description.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
     // 25 bridge parts
     int bridgeProg = get_property_int("chasmBridgeProgress");
     {
@@ -32,6 +36,10 @@ void IOTMBatWingsGenerateResource(ChecklistEntry [int] resource_entries)
 
     string [int] description;
 	string url = "inventory.php?ftext=bat+wings";
+	item iref1 = $item[bat wings];
+	string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
+	string iref1clr = (have_equipped(iref1)) ? "green":"red";
+	description.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
 	
     //save the city of gotpork, battyman!
     int batWingSwoopsLeft = clampi(11 - get_property_int("_batWingsSwoopUsed"), 0, 11);
@@ -40,14 +48,7 @@ void IOTMBatWingsGenerateResource(ChecklistEntry [int] resource_entries)
 	int batWingFreeFlapsLeft = clampi(5 - get_property_int("_batWingsFreeFights"), 0, 5);
 	int bridge = get_property_int("chasmBridgeProgress");
 	
-	if (lookupItem("bat wings").equipped_amount() == 0)
-	{
-		description.listAppend(HTMLGenerateSpanFont("Equip your bat wings.", "red"));
-	}
-	else
-	{
-		description.listAppend(HTMLGenerateSpanFont("Nanananananananana Battyman!", "purple"));
-	}
+	
 	if (!$location[The Castle in the Clouds in the Sky (Basement)].locationAvailable()) {
         description.listAppend(HTMLGenerateSpanFont("This saves turns in the Airshit!", "blue"));
 	}
@@ -100,9 +101,6 @@ void IOTMBatWingsGenerateResource(ChecklistEntry [int] resource_entries)
 		string [int] description;
 		float procRate = 100/(2+get_property_int("_batWingsFreeFights"));
 		description.listAppend("Will (unpredictably!) turn fights free. Currently "+to_string(round(procRate,1))+"% chance for a flap.");
-		if (lookupItem("bat wings").equipped_amount() == 0) {
-			description.listAppend(HTMLGenerateSpanFont("Equip your Bat Wings to flap","red"));
-		}
         resource_entries.listAppend(ChecklistEntryMake("__item bat wings", "", ChecklistSubentryMake(header, "", description)).ChecklistEntrySetCombinationTag("free instakill"));
     }
 

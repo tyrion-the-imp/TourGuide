@@ -6,12 +6,18 @@ Importance Level			Tile type
 -100						Grimace Maps
 -79							copies
 -70							sneaks
--69							banish(es|ers)
--65							free fights & instakills
+-69							banish(es|ers)					"banish" combo tag
+-65							free fights & instakills		"daily free fight" combo tag
+-62							mixture from someone else?		"free instakill" combo tag
 -60							yellow rays
 -55							runaways
 -50							familiars
 -46							combat items
 -41							familiar gear
 -40							gear
--30							misc things to use....skills, items, weird, whatever
+-30							misc things to use....skills, items, usable, weird, whatever
+
+
+-8888		In run, high import
+-5000		In run, interesting combat items, or combat skills, high import
+-999		lucky tile

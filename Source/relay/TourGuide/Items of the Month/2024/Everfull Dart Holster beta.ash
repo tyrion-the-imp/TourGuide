@@ -6,6 +6,10 @@ void IOTMEverfullDartsGenerateTasksBeta(ChecklistEntry [int] task_entries, Check
     {
         string [int] description;
         string url = "inventory.php?ftext=everfull+dart_holster";
+		item iref1 = $item[Everfull dart holster];
+		string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
+		string iref1clr = (have_equipped(iref1)) ? "green":"red";
+		description.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
             
             if ($effect[everything looks red].have_effect() == 0) 
         {
@@ -17,16 +21,7 @@ void IOTMEverfullDartsGenerateTasksBeta(ChecklistEntry [int] task_entries, Check
                 dartCooldown -= 10;
             }
             description.listAppend(HTMLGenerateSpanFont("Shoot a bullseye! (" + dartCooldown + " ELR)", "red"));
-            if (lookupItem("everfull dart holster").equipped_amount() == 0)
-            {
-                description.listAppend(HTMLGenerateSpanFont("Equip the dart holster first.", "red"));
-            }
-            else description.listAppend(HTMLGenerateSpanFont("dart holster equipped", "blue"));
-			if (!get_property_boolean("kingLiberated")) {
-				optional_task_entries.listAppend(ChecklistEntryMake("__item everfull dart holster", url, ChecklistSubentryMake("Everfull Darts free kill available!", "", description), -10));
-			} else {
-				optional_task_entries.listAppend(ChecklistEntryMake("__item everfull dart holster", url, ChecklistSubentryMake("Everfull Darts free kill available!", "", description), -11));
-			}
+			optional_task_entries.listAppend(ChecklistEntryMake("__item everfull dart holster", url, ChecklistSubentryMake("Everfull Darts free kill available!", "", description), -11));
         }
     }
 }
@@ -38,20 +33,19 @@ void IOTMEverfullDartsGenerateResourceBeta(ChecklistEntry [int] resource_entries
     {
         string [int] description;
         string url = "inventory.php?ftext=everfull+dart_holster";
+		item iref1 = $item[Everfull dart holster];
+		string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
+		string iref1clr = (have_equipped(iref1)) ? "green":"red";
+		description.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
+
             
         int dartSkill = get_property_int("dartsThrown");
         int dartsNeededForNextPerk = (floor(sqrt(dartSkill)+1) **2 - dartSkill);
-		int importancenum = -40;
-		if	( !get_property_boolean("kingLiberated") ) { importancenum = -888; }
+		int importancenum = ( get_property_boolean("kingLiberated") ) ? -40:-888;
 
         description.listAppend("Current dart skill: " + dartSkill);
         description.listAppend(HTMLGenerateSpanFont(dartsNeededForNextPerk, "blue") + " darts needed for next Perk");
     
-        if (lookupItem("everfull dart holster").equipped_amount() == 0)
-        {
-            description.listAppend(HTMLGenerateSpanFont("Equip the dart holster first.", "red"));
-        }
-        else description.listAppend(HTMLGenerateSpanFont("dart holster equipped", "blue"));
 		
 		resource_entries.listAppend(ChecklistEntryMake("__item everfull dart holster", url, ChecklistSubentryMake("Everfull Dart Holster charging", "", description), importancenum));
     }

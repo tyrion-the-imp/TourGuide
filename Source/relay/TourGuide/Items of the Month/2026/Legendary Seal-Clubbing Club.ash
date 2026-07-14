@@ -54,8 +54,12 @@ void IOTMLegendaryClubGenerateTasks(ChecklistEntry [int] task_entries, Checklist
 		int clubNextWeeksLeft = clampi(5 - get_property_int("_clubEmNextWeekUsed"), 0, 5);
 		int clubBackwardsLeft = clampi(5 - get_property_int("_clubEmTimeUsed"), 0, 5);
 		boolean legendclubeq = have_equipped(lookupItem("legendary seal-clubbing club"));
-		if	( !legendclubeq ) { description.listAppend(HTMLGenerateSpanFont("Club is not equipped", "red")); }
-		else { description.listAppend(HTMLGenerateSpanFont("Club is EQUIPPED", "green")); }
+		item iref1 = $item[legendary seal-clubbing club];
+		string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
+		string iref1clr = (have_equipped(iref1)) ? "green":"red";
+		description.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
+		//if	( !legendclubeq ) { description.listAppend(HTMLGenerateSpanFont("Club is not equipped", "red")); }
+		//else { description.listAppend(HTMLGenerateSpanFont("Club is EQUIPPED", "green")); }
 			
 			
 			
@@ -89,7 +93,10 @@ void IOTMLegendaryClubGenerateResource(ChecklistEntry [int] resource_entries)
 	string title;
 	int importancenum = -40;
 	if	( !get_property_boolean("kingLiberated") ) { importancenum = -888; }
-
+	item iref1 = $item[legendary seal-clubbing club];
+	string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
+	string iref1clr = (have_equipped(iref1)) ? "green":"red";
+	description.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
 	
 		int clubBattlefieldsLeft = clampi(5 - get_property_int("_clubEmBattlefieldUsed"), 0, 5);
 		int clubNextWeeksLeft = clampi(5 - get_property_int("_clubEmNextWeekUsed"), 0, 5);

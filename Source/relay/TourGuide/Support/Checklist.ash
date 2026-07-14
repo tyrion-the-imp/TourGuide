@@ -516,7 +516,48 @@ buffer ChecklistEntryGenerateContentHTML(ChecklistEntry entry, ChecklistSubentry
         
         if (first)
         {
-            string subheader = HTMLGenerateSpanOfClass(subentry.header+" <span style='color:blue; font-size:75%;'>"+entry.importance_level+"</span>", "r_cl_subheader");
+            string tile_notes = "";
+			
+			//actual combo tags (receive a -=1 to importance in the combo tag func)
+			if	( entry.importance_level == -62 ) {
+				tile_notes = " <br>--- (<span style='color:red; background-color:yellow; font-weight:bold;'>'free instakill'</span>) tag tile";
+			}
+			if	( entry.importance_level == -65 ) {
+				tile_notes = " <br>--- (<span style='color:red; background-color:yellow; font-weight:bold;'>'daily free fight'</span>) tag tile";
+			}
+			if	( entry.importance_level == -68 ) {
+				tile_notes = " <br>--- (<span style='color:red; background-color:yellow; font-weight:bold;'>'banish'</span>) tag tile";
+			}
+			
+			//custom additions
+			if	( entry.importance_level == -999 ) {
+				tile_notes = " <br>--- [<span style='color:red; font-weight:bold; font-size:85%;'><span style='color:green;'>Lucky!</span> tile</span>]";
+			}
+			if	( entry.importance_level == -79 ) {
+				tile_notes = " <br>--- [<span style='color:red; font-weight:bold; font-size:85%;'>Copies tile</span>]";
+			}
+			if	( entry.importance_level == -70 ) {
+				tile_notes = " <br>--- [<span style='color:red; font-weight:bold; font-size:85%;'>Sneaks tile</span>]";
+			}
+			if	( entry.importance_level == -50 ) {
+				tile_notes = " [<span style='color:red; font-weight:bold; font-size:85%;'>famil</span>]";
+			}
+			if	( entry.importance_level == -30 || entry.importance_level == -31 ) {
+				tile_notes = " [<span style='color:red; font-weight:bold; font-size:85%;'>use/misc.</span>]";
+			}
+			if	( entry.importance_level == -40 || entry.importance_level == -888 ) {
+				tile_notes = " [<span style='color:red; font-weight:bold; font-size:85%;'>equip</span>]";
+			}
+			if	( entry.importance_level == 11 ) {
+				tile_notes = " [<span style='color:red; font-weight:bold; font-size:85%;'>info</span>]";
+			}
+			if	( entry.importance_level == 12 ) {
+				tile_notes = " [<span style='color:red; font-weight:bold; font-size:85%;'>misc low</span>]";
+			}
+
+
+
+			string subheader = HTMLGenerateSpanOfClass(subentry.header+" <span style='color:blue; font-size:75%;'>"+entry.importance_level+"</span> "+tile_notes, "r_cl_subheader");
             subheader += HTMLGenerateSpanOfClass(entry_id, "r_cl_entry_id");
             
             buffer first_subheader;
@@ -610,9 +651,9 @@ buffer ChecklistGenerate(Checklist cl, boolean output_borders) {
         entry.importance_level -= 1; //combined entries gain a hack; a level above everything else
 		
 		//entry.tags.combination == "free instakill"
-		//if	( entry.tags.combination == "free instakill" ) {
-		//	entry.importance_level = -59;
-		//}
+		if	( entry.tags.combination == "free instakill" ) {
+			entry.importance_level = -62;
+		}
 		
 		if ( entry.tags.combination == "banish" ) {
 			entry.importance_level = -68;

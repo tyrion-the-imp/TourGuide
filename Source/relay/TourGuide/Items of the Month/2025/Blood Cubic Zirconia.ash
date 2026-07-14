@@ -25,17 +25,16 @@ void IOTMBloodCubicZirconiaGenerateTasks(ChecklistEntry [int] task_entries, Chec
     int refractCost = bloodCast[min(bczRefracts, 15)];
 	int bulletCost = bloodCast[min(bczBullets, 15)];
 	int equityCost = bloodCast[min(bczEquitys, 15)];
-	item BCZ = lookupItem("blood cubic zirconia");
-	boolean eqBCZ = have_equipped(BCZ);
-	string eqBCZcolor = "red";
-	if	( eqBCZ ) { eqBCZcolor = "green"; }
-	
+	int importancenum = -40;
+	if	( !get_property_boolean("kingLiberated") ) { importancenum = -888; }
+	item iref1 = $item[blood cubic zirconia];
+	string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
+	string iref1clr = (have_equipped(iref1)) ? "green":"red";
+	description.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
 	//if (lookupItem("blood cubic zirconia").equipped_amount() > 0)
 	if (gemstoneInCodpiece(lookupItem("blood cubic zirconia"))) description.listAppend("Currently in <b>Eternity Codpiece</b>");
 	//if (gemstoneEquipped(lookupItem("blood cubic zirconia")))
 	{
-		description.listAppend("" + HTMLGenerateSpanFont("<a href='https://wiki.kingdomofloathing.com/Blood_cubic_zirconia#Notes' target='_blank'><span style='color:purple; font-size:85%;'>click: BCZ</span></a> (<span style='color:green; font-size:75%;'>9 skills</span>)", "red") + "");
-		description.listAppend("<span style='color:blue; font-size:100%; font-weight:bold;'>Equipped?</span> " + HTMLGenerateSpanFont(eqBCZ, eqBCZcolor) + "");
 		if (bczRefracts < 13) {
 			description.listAppend("Next Refract costs " + HTMLGenerateSpanFont(refractCost + "", "red") + " mys");
 			description.listAppend("<span style='color:black; font-size:85%;'>Replaces the monster's drop table with the drop tables of all other monsters in the current zone</span>");
@@ -87,6 +86,10 @@ void IOTMBloodCubicZirconiaGenerateResource(ChecklistEntry [int] resource_entrie
 	int bczRefracts = get_property_int("_bczRefractedGazeCasts");
 	int bczBullets = get_property_int("_bczSweatBulletsCasts");
 	int bczEquitys = get_property_int("_bczSweatEquityCasts");
+	item iref1 = $item[blood cubic zirconia];
+	string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
+	string iref1clr = (have_equipped(iref1)) ? "green":"red";
+	description.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
 
 	int [int] bloodCast = {
         0:11, 1:23, 2:37, 3:110, 4:230, 

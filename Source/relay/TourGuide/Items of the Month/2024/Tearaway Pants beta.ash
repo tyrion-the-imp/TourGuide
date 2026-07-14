@@ -1,6 +1,6 @@
 // Tearaway Pants
-RegisterResourceGenerationFunction("IOTMTearawayPantsGenerateTaskBeta");
-void IOTMTearawayPantsGenerateTaskBeta(ChecklistEntry [int] resource_entries)
+RegisterResourceGenerationFunction("IOTMTearawayPantsGenerateResourceBeta");
+void IOTMTearawayPantsGenerateResourceBeta(ChecklistEntry [int] resource_entries)
 {
     // Don't show the tile if you don't have the pants.
 	if (!__iotms_usable[lookupItem("tearaway pants")]) return;
@@ -16,7 +16,10 @@ void IOTMTearawayPantsGenerateTaskBeta(ChecklistEntry [int] resource_entries)
     boolean havePantsEquipped = $slot[pants].equipped_item() == $item[tearaway pants];
 
 	string [int] description;
-
+	item iref1 = $item[tearaway pants];
+	string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
+	string iref1clr = (have_equipped(iref1)) ? "green":"red";
+	description.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
     // If equipped, send user to the guild. If not, send them to the inventory.
 	string url = havePantsEquipped ? "guild.php" : "inventory.php?ftext=tearaway+pants";
 	string header = "Tear away your tearaway pants! ß";

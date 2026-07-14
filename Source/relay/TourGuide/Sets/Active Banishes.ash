@@ -195,11 +195,11 @@ void ActiveBanishesList(ChecklistEntry [int] resource_entries)
 
 	}
 	
-	if (subentries.count() > 0) {
+	if (subentries.count() > -1) {
 
         // Want this atop resources for testing. Also, maybe just want it there period?
-        int priority = -69; 
-        ChecklistEntry entry = ChecklistEntryMake(monsterIcon, "", subentries, priority);
+        int importancenum = ( get_property_boolean("kingLiberated") ) ? -69:-8888;
+        ChecklistEntry entry = ChecklistEntryMake(monsterIcon, "", subentries, importancenum);
 		entry.tags.id = "Active banishes";
         resource_entries.listAppend(entry);
 	}
