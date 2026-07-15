@@ -18,6 +18,6 @@ Importance Level			Tile type
 -30							misc things to use....skills, items, usable, weird, whatever
 
 
--8888		In run, high import
--5000		In run, interesting combat items, or combat skills, high import
+-8888		In run, high import + any tile under construction for easy findability
+-5000		In run, interesting combat items, or combat skills, ...stuff to use up, high import
 -999		lucky tile

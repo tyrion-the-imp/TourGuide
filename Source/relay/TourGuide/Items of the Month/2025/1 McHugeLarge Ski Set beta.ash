@@ -119,7 +119,7 @@ void IOTMSkiSetGenerateResourceBeta(ChecklistEntry [int] resource_entries)
 		description.listAppend(HTMLGenerateSpanFont("Equip the RIGHT POLE first.<br>(weap, stab = phys/slz dmg)", "red"));
 	}
 	
-	//https://kol.coldfront.net/thekolwiki/index.php/McHugeLarge_duffel_bag
+	//https://wiki.kingdomofloathing.com/McHugeLarge_duffel_bag
 	description.listAppend(HTMLGenerateSpanOfClass("DUFFEL BAG: ", "r_bold") + "|*<span style='color:blue;'>+15%it, MaxHP +20, c.res (+X)</span>|*<span style='color:blue;'>+5X h.dmg, +10X%init</span>|*<span style='color:blue;'>equipped with all = <span style='color:red; font-size:100%; font-weight:bold;'>eXtreme!</span></span>|*<span style='color:blue;'>(X=1 to 5=# of ski set items equipped?)</span>");
 	if (lookupItem("McHugeLarge duffel bag").equipped_amount() == 1)
 	{

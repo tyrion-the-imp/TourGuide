@@ -146,8 +146,7 @@ void IOTMHeartstoneGenerateResource(ChecklistEntry [int] resource_entries)
     int usesBUDS = get_property_int("_heartstonePalsUsed");
     int usesBUFF = get_property_int("_heartstoneBuffUsed");
     int usesLUCK = get_property_boolean("_heartstoneLuckUsed").to_int();
-	int importancenum = -40;
-	if	( !get_property_boolean("kingLiberated") ) { importancenum = -888; }
+	int importancenum = ( get_property_boolean("kingLiberated") ) ? -40:-8888;
 
     // Banish combination tag for GONE.
     if (accessGONE && usesGONE < 5) {

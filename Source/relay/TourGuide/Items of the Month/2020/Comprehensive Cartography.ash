@@ -110,7 +110,7 @@ void IOTMComprehensiveCartographyGenerateTasks(ChecklistEntry [int] task_entries
 	if ($locations[The Haunted Billiards Room, Guano Junction, The Dark Neck of the Woods, The Defiled Nook, A-boo Peak, The Castle in the Clouds in the Sky (Top Floor), A Mob of Zeppelin Protesters, The Orcish Frat House, Wartime Frat House (Hippy Disguise), Wartime Hippy Camp (Frat Disguise)] contains my_location() || my_location().zone == "BatHole" || my_location().zone == "Manor1" || my_location().zone == "Highlands" )
 	{
 	    string[int] special_adv_locations;
-		special_adv_locations.listAppend("<span style='color:gray; font-size:80%;'>Adds special non-combats to several zones, which seem to appear as your first non-combat per ascension in that zone (or first adventure, if the zone has no non-combats)<br><a href='https://kol.coldfront.net/thekolwiki/index.php/Comprehensive_Cartography#Notes' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Table of Special Advs</span></a></span>");
+		special_adv_locations.listAppend("<span style='color:gray; font-size:80%;'>Adds special non-combats to several zones, which seem to appear as your first non-combat per ascension in that zone (or first adventure, if the zone has no non-combats)<br><a href='https://wiki.kingdomofloathing.com/Comprehensive_Cartography#Notes' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Table of Special Advs</span></a></span>");
 		
 		if ( my_location() == $location[Guano Junction] && qprop("questL04Bat < 3") && $location[Guano Junction].turns_spent < 2 ) {
 			special_adv_locations.listAppend("Choice: The Hidden Junction<br>At Guano Junction (Will be first adv.)<br><span style='color:red; font-size:110%;'>Fight a screambat<br>or...300-400 meat for no adv cost.</span>");
@@ -173,7 +173,7 @@ void IOTMComprehensiveCartographyGenerateResource(ChecklistEntry [int] resource_
 		 description.listAppend("Cast Map the Monsters, for anything on the olfaction list. |<span style='color:red; font-size:100%; font-weight:bold;'>Excluded: </span> smut orc pervert, elegant nightstand.");
     }
 	description.listAppend("Adds special non-combats to several zones, which seem to appear as your first non-combat per ascension in that zone (or first adventure, if the zone has no non-combats)");
-	description.listAppend("<a href='https://kol.coldfront.net/thekolwiki/index.php/Comprehensive_Cartography#Notes' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Table of Special Advs</span></a>");
+	description.listAppend("<a href='https://wiki.kingdomofloathing.com/Comprehensive_Cartography#Notes' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Table of Special Advs</span></a>");
 	description.listAppendList(location_list);
 	
 	resource_entries.listAppend(ChecklistEntryMake("__skill Map the Monsters", url, ChecklistSubentryMake(casts_remaining.pluralise(" monster mapping", " monster mappings") + " remaining", "", description), -79).ChecklistEntrySetIDTag("Cartography skill map resource"));

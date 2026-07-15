@@ -45,7 +45,7 @@ void SOlfactionGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEntry [
 	}
 	//+2 copies to queue
 	//*4w Monkey_Point (+2 copies of monster to zone) (monkey paw with 4 wishes used is equipped)
-	//https://kol.coldfront.net/thekolwiki/index.php/Monkey_Point
+	//https://wiki.kingdomofloathing.com/Monkey_Point
 	if	( __iotms_usable[lookupItem("cursed monkey's paw")] && get_property_int("_monkeyPawWishesUsed") == 4 ) {
 		//__iotms_usable[lookupItem("cursed monkey's paw")]  _monkeyPawWishesUsed		monkeyPointMonster		0 MP, reusable, combat
 		

@@ -52,8 +52,7 @@ void IOTMPrismaticBeretGenerateResource(ChecklistEntry [int] resource_entries)
     string url = "inventory.php?ftext=prismatic+beret";
 	int busksLeft = clampi(5 - get_property_int("_beretBuskingUses"), 0, 5);
 	string title = HTMLGenerateSpanFont(busksLeft + " Prismatic Beret busks!", "purple");
-	int importancenum = -40;
-	if	( !get_property_boolean("kingLiberated") ) { importancenum = -888; }
+	int importancenum = ( get_property_boolean("kingLiberated") ) ? -40:-8888;
 
 
 	int [effect] currentBusks = beret_busking_effects();
@@ -86,6 +85,15 @@ void IOTMPrismaticBeretGenerateResource(ChecklistEntry [int] resource_entries)
 	
 	if (__iotms_usable[lookupItem("prismatic beret")] || busksLeft > 0) 
 	{
+		item iref1 = $item[prismatic beret];
+		string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
+		string iref1clr = (have_equipped(iref1)) ? "green":"red";
+		description.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
+		//_beretBlastUses
+		//_beretBoastUses
+		//_beretBuskingUses
+		
+		
         string hatrackText = canHatrack ? "(Can equip on hatrack)" : "";
         boolean hatrackEquipped = equipped_item($slot[familiar]) == lookupItem("prismatic beret");
         if (hatrackEquipped) hatrackText = "";
@@ -93,6 +101,7 @@ void IOTMPrismaticBeretGenerateResource(ChecklistEntry [int] resource_entries)
 		if (lookupSkill("tao of the terrapin").have_skill()) total += hatpower*2 + pantspower*2;
         if ($effect[Hammertime].have_effect() > 0) total += pantspower*3;
 		description.listAppend("Currently " + (HTMLGenerateSpanFont(shartpower+total, "blue")) + " total hat/shirt/pants power. ");
+		description.listAppend((HTMLGenerateSpanFont("2 MORE SKILLS TO ADD???", "red")));
 		
 		if (lookupItem("prismatic beret").equipped_amount() == 0) {
 			description.listAppend(HTMLGenerateSpanFont("Equip the beret to busk! ", "red")+hatrackText);
@@ -100,10 +109,6 @@ void IOTMPrismaticBeretGenerateResource(ChecklistEntry [int] resource_entries)
         if (canHatrack && !hatrackEquipped && lookupItem("prismatic beret").equipped_amount() > 0) {
             description.listAppend("|*Consider equipping to your hatrack for more options.");
         }
-		item iref1 = $item[prismatic beret];
-		string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
-		string iref1clr = (have_equipped(iref1)) ? "green":"red";
-		description.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
 		
 		resource_entries.listAppend(ChecklistEntryMake("__item prismatic beret", url, ChecklistSubentryMake(title, "", description), importancenum));
 	}

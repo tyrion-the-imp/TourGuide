@@ -25,7 +25,7 @@ void IOTMMonodentGenerateResource(ChecklistEntry [int] resource_entries)
 	string title = "Seaworthy "+monodentShortName+" powers!";
 	boolean monodentIsEquipped = lookupItem("monodent of the sea").equipped_amount() > 0;
 	int equipimplvl = -40;
-	if	( !get_property_boolean("kingLiberated") ) { equipimplvl = -888; }
+	if	( !get_property_boolean("kingLiberated") ) { equipimplvl = -8888; }
 	item iref1 = $item[Monodent of the Sea];
 	string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
 	string iref1clr = (have_equipped(iref1)) ? "green":"red";

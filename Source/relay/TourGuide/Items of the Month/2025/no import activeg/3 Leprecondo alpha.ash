@@ -160,7 +160,7 @@ string [int] entries;
 
 item this_item = $item[Leprecondo];
 string url = "inventory.php?ftext=Leprecondo";
-string info_url = "https://kol.coldfront.net/thekolwiki/index.php/Leprechaun%27s_Condo#Notes";
+string info_url = "https://wiki.kingdomofloathing.com/Leprechaun%27s_Condo#Notes";
 string [int] these_modifiers;
 string[int] these_entries;
 int implev = 10;
@@ -198,7 +198,7 @@ if	( implev == 10 ) {
 	implev = -11;
 	optional_task_entries.listAppend(ChecklistEntryMake("Leprecondo", url, ChecklistSubentryMake("Leprecondo[2025.03]", these_modifiers, these_entries), implev).ChecklistEntrySetIDTag("Leprecondo tasks tile"));
 } else {
-	//https://kol.coldfront.net/thekolwiki/index.php/Leprechaun%27s_Condo#Notes
+	//https://wiki.kingdomofloathing.com/Leprechaun%27s_Condo#Notes
 
 	//resource_entries.listAppend(ChecklistEntryMake(entry.image_lookup_name, entry.url, ChecklistSubentryMake(pluralise(free_fights_remaining, "free elf fight", "free elf fights"), modifiers, description), importance_level).ChecklistEntrySetCombinationTag("daily free fight").ChecklistEntrySetIDTag("Machine elf free fights"));
 

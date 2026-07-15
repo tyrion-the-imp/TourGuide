@@ -16,7 +16,7 @@ void IOTMCandyCaneSwordGenerateTasksBETA(ChecklistEntry [int] task_entries, Chec
 			description2.listAppend(HTMLGenerateSpanFont("Candy cane sword cane is equipped", "green"));
 		}
 		
-		description2.listAppend("<a href='https://kol.coldfront.net/thekolwiki/index.php/Candy_cane_sword_cane#Notes' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Table of Noncoms</span></a>");
+		description2.listAppend("<a href='https://wiki.kingdomofloathing.com/Candy_cane_sword_cane#Notes' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Table of Noncoms</span></a>");
 		return;
 	}
 	if (__misc_state["in run"] && my_path().id != PATH_COMMUNITY_SERVICE)
@@ -175,7 +175,7 @@ void IOTMCandyCaneSwordGenerateTasksBETA(ChecklistEntry [int] task_entries, Chec
 		
 		if (options.count() > 0) {
 			description.listAppend("Candy cane sword noncoms:" + options.listJoinComponents("<hr>").HTMLGenerateIndentedText());
-			description.listAppend("<a href='https://kol.coldfront.net/thekolwiki/index.php/Candy_cane_sword_cane#Notes' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Table of Noncoms</span></a>");
+			description.listAppend("<a href='https://wiki.kingdomofloathing.com/Candy_cane_sword_cane#Notes' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Table of Noncoms</span></a>");
 		}
 		
 		int importanceLvl = 0;

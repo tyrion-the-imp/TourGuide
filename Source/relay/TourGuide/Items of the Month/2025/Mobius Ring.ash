@@ -43,6 +43,7 @@ void IOTMMobiusRingGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
 	string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
 	string iref1clr = (have_equipped(iref1)) ? "green":"red";
 	copDescription.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
+	copDescription.listAppend("Paradoxicity = <span style='color:blue; font-size:120%;'>"+my_paradoxicity()+"</span>");
 
 	if (mobEquipped) {
 		if (!copsNoLongerFree) {
@@ -62,6 +63,7 @@ void IOTMMobiusRingGenerateTasks(ChecklistEntry [int] task_entries, ChecklistEnt
     string ncSubtitle = "Currently @ " + my_paradoxicity() + " paradoxicity";
     int ncPriority = copsNoLongerFree ? 0 : -11;
 	ncDescription.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
+	ncDescription.listAppend("Paradoxicity = <span style='color:blue; font-size:120%;'>"+my_paradoxicity()+"</span>");
     //if (mobEquipped) ncDescription.listAppend("Keep your Möbius ring equipped for an NC");
     //if (!mobEquipped) ncDescription.listAppend(HTMLGenerateSpanFont("Equip your Möbius ring for a shot at a Paradoxicity NC!", "red"));
 	
@@ -109,6 +111,7 @@ void IOTMMobiusRingGenerateResource(ChecklistEntry [int] resource_entries)
 	string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
 	string iref1clr = (have_equipped(iref1)) ? "green":"red";
 	description.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
+	description.listAppend("Paradoxicity = <span style='color:blue; font-size:120%;'>"+my_paradoxicity()+"</span>");
 	 
     if (turnsUntilNextNC == 0) description.listAppend(HTMLGenerateSpanFont("You can encounter NC #" + (countMobiusNCs+1) +" right now!", "blue"));
     if (turnsUntilNextNC > 0) description.listAppend("You have "+pluralise(turnsUntilNextNC, " turn", " turns")+" turns to NC #" +(countMobiusNCs+1)+ ".");

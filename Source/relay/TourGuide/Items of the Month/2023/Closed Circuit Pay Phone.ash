@@ -183,7 +183,7 @@ void IOTMClosedCircuitPayPhoneGenerateTasks(ChecklistEntry [int] task_entries, C
         int riftAdvsUntilNC = get_property_int("encountersUntilSRChoice");
         string [int] affinityDescription;
         affinityDescription.listAppend(HTMLGenerateSpanFont("Shadow Rift fights are free!", "purple"));
-        affinityDescription.listAppend("<a href='https://kol.coldfront.net/thekolwiki/index.php/Shadow_Rifts#Loot' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Rifts Loot Table</span></a>");
+        affinityDescription.listAppend("<a href='https://wiki.kingdomofloathing.com/Shadow_Rifts#Loot' target='_blank'><span style='color:blue; font-size:100%; font-weight:normal;'>Rifts Loot Table</span></a>");
         if (shadowLodestones > 0) {
 			affinityDescription.listAppend(HTMLGenerateSpanFont("Have " + pluralise($item[Rufus's shadow lodestone]) + ".", "purple"));
 		}

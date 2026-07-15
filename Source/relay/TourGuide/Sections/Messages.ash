@@ -556,7 +556,7 @@ string generateRandomMessage()
     
     string lowercase_player_name = my_name().to_lower_case().HTMLEscapeString();
         
-    random_messages.listAppend(HTMLGenerateTagWrap("a", "check the wiki", mapMake("class", "r_a_undecorated", "href", "http://kol.coldfront.net/thekolwiki/index.php/Main_Page", "target", "_blank")));
+    random_messages.listAppend(HTMLGenerateTagWrap("a", "check the wiki", mapMake("class", "r_a_undecorated", "href", "https://wiki.kingdomofloathing.com/", "target", "_blank")));
     random_messages.listAppend("the RNG is only trying to " + ((random(100) == 0) ? "hurt" : "help"));
     if (__misc_state["in run"])
     {
