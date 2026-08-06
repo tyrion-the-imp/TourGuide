@@ -34,21 +34,21 @@ void IOTMLegendaryClubGenerateTasks(ChecklistEntry [int] task_entries, Checklist
 			foreach i, warning in warnings {
 				description.listAppend(HTMLGenerateSpanFont("|* ➾ "+warning, "red"));
 			}
-			optional_task_entries.listAppend(ChecklistEntryMake("__monster " + image_name, "", ChecklistSubentryMake("Legendary club: " + get_property("clubEmNextWeekMonster") + HTMLGenerateSpanFont(" now", "red"), "", description), -11));
+			task_entries.listAppend(ChecklistEntryMake("__monster " + image_name, "", ChecklistSubentryMake("Legendary club: " + get_property("clubEmNextWeekMonster") + HTMLGenerateSpanFont(" now", "red"), "", description), -111));
 		}
 		else if (nextWeekTurn -1 == total_turns_played() && (image_name != ""))
 		{
 			description.listAppend(HTMLGenerateSpanFont("Wandering monster", "orange"));
-			optional_task_entries.listAppend(ChecklistEntryMake("__monster " + image_name, "", ChecklistSubentryMake("Legendary club: " + get_property("clubEmNextWeekMonster") + HTMLGenerateSpanFont(" in 1 more adv", "blue"), "", description), -11));
+			task_entries.listAppend(ChecklistEntryMake("__monster " + image_name, "", ChecklistSubentryMake("Legendary club: " + get_property("clubEmNextWeekMonster") + HTMLGenerateSpanFont(" in 1 more adv", "blue"), "", description), -111));
 		}	
 		else if (image_name != "")
 		{
 			description.listAppend(nextWeekTimer + " advs until Next Week fight.");
-			optional_task_entries.listAppend(ChecklistEntryMake("__monster " + image_name, "", ChecklistSubentryMake("Legendary club: " + get_property("clubEmNextWeekMonster") + "", "", description), 10));
+			optional_task_entries.listAppend(ChecklistEntryMake("__monster " + image_name, "", ChecklistSubentryMake("Legendary club: " + get_property("clubEmNextWeekMonster") + "", "", description), -900));
 		}
-	}	
+	}
 	
-	if (lookupItem("legendary seal-clubbing club").available_amount() > 0)
+	if (false && lookupItem("legendary seal-clubbing club").available_amount() > 0)
 	{
 		int clubBattlefieldsLeft = clampi(5 - get_property_int("_clubEmBattlefieldUsed"), 0, 5);
 		int clubNextWeeksLeft = clampi(5 - get_property_int("_clubEmNextWeekUsed"), 0, 5);
@@ -66,7 +66,7 @@ void IOTMLegendaryClubGenerateTasks(ChecklistEntry [int] task_entries, Checklist
 		if (clubBattlefieldsLeft == 0) {
 			description.listAppend(HTMLGenerateSpanFont("No Battlefield Clubs left.", "red"));
 		} else {
-			description.listAppend(clubBattlefieldsLeft + " Battlefield Clubs. Weird Saber Force.");
+			description.listAppend(clubBattlefieldsLeft + " Battlefield Clubs. Replace Monster.");
 		}
 		if (clubNextWeeksLeft == 0) {
 			description.listAppend(HTMLGenerateSpanFont("No Next Week Clubs left.", "red"));
@@ -105,12 +105,12 @@ void IOTMLegendaryClubGenerateResource(ChecklistEntry [int] resource_entries)
 		if (clubBattlefieldsLeft == 0) {
 			description.listAppend(HTMLGenerateSpanFont("No Battlefield Clubs left.", "red"));
 		} else {
-			description.listAppend(clubBattlefieldsLeft + " Battlefield Clubs. Weird Saber Force.");
+			description.listAppend(clubBattlefieldsLeft + " Battlefield Clubs. Replace monster.");
 		}
 		if (clubNextWeeksLeft == 0) {
 			description.listAppend(HTMLGenerateSpanFont("No Next Week Clubs left.", "red"));
 		} else {
-			description.listAppend(clubNextWeeksLeft + " Next Week Clubs. 7-turn Wanderer.");
+			description.listAppend(clubNextWeeksLeft + " Next Week Clubs. 7-turn Wanderer copy.");
 		}		
 		if (clubBackwardsLeft == 0) {
 			description.listAppend(HTMLGenerateSpanFont("No Backwards Clubs left.", "red"));
@@ -118,7 +118,7 @@ void IOTMLegendaryClubGenerateResource(ChecklistEntry [int] resource_entries)
 			description.listAppend(clubBackwardsLeft + " Backwards Clubs. Free kill NO ITEMS.");
 		}
 	
-	resource_entries.listAppend(ChecklistEntryMake("__item legendary seal-clubbing club", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Legendary seal-clubbing club skills", "orange"), description), importancenum).ChecklistEntrySetIDTag("LSSC skills"));
+	resource_entries.listAppend(ChecklistEntryMake("__item legendary seal-clubbing club", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Legendary seal-clubbing club LSCC", "orange"), description), importancenum).ChecklistEntrySetIDTag("LSSC skills"));
 
 	// Adding a free fight combo tile.
     if (clubBackwardsLeft > 0) {
@@ -127,6 +127,6 @@ void IOTMLegendaryClubGenerateResource(ChecklistEntry [int] resource_entries)
     }
     if (clubNextWeeksLeft > 0) {
         string header = pluralise(clubNextWeeksLeft, "club into next week","club into next week uses");
-		resource_entries.listAppend(ChecklistEntryMake("__item legendary seal-clubbing club", "", ChecklistSubentryMake(header, "", "7 turn wandering copy via legendary seal-clubbing club"), importancenum).ChecklistEntrySetCombinationTag("free instakill"));
+		//resource_entries.listAppend(ChecklistEntryMake("__item legendary seal-clubbing club", "", ChecklistSubentryMake(header, "", "7 turn wandering copy via legendary seal-clubbing club"), importancenum));
     }
 }

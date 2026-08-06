@@ -26,7 +26,7 @@ void IOTMVIPPhotoBoothGenerateResource(ChecklistEntry [int] resource_entries)
     boolean you_are_the_sheriff = (lookupItem("sheriff badge").available_amount() > 0 && lookupItem("sheriff moustache").available_amount() > 0 && lookupItem("sheriff pistol").available_amount() > 0);
     boolean instakills_usable = my_path().id != PATH_G_LOVER && my_path().id != PATH_POCKET_FAMILIARS && my_path().id != 52; // avant guard
 
-    if (sheriffings_left > 0 && instakills_usable && you_are_the_sheriff)
+    if (sheriffings_left > 0 && instakills_usable)		 //&& you_are_the_sheriff
     {
         string [int] authorityDescription;
         authorityDescription.listAppend("Assert Your Authority for a no-drop freekill.");

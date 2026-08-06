@@ -310,6 +310,9 @@ void SCopiedMonstersGenerateResourceForCopyType(ChecklistEntry [int] resource_en
 	if (shaking_shorthand_name == "spooky vhs wanderer") {
 		line += " <span style='color:black; background-color:yellow; font-size:90%; font-weight:bold;'>(free kill & YR), burn delay?</span>";
 	}
+	if (shaking_shorthand_name == "spooky vhs wanderer") {
+		line += " <span style='color:black; background-color:yellow; font-size:90%; font-weight:bold;'>(free kill & YR), burn delay?</span>";
+	}
 	
     if (monster_description.count() > 0)
         line += "<hr>" + monster_description.listJoinComponents("|");
@@ -329,11 +332,16 @@ void SCopiedMonstersGenerateResourceForCopyType(ChecklistEntry [int] resource_en
     }
     if (shaking_shorthand_name == "spooky vhs wanderer")
     {
-        //image_name = "__item fancy oil painting";
+        image_name = "__item spooky vhs tape";
         url = "";
 		additional_info = " in "+((get_property_int("spookyVHSTapeMonsterTurn") + 8) - total_turns_played())+" turns";
     }
-	
+    if (shaking_shorthand_name == "LSCC next week wanderer")
+    {
+        image_name = "__item legendary seal-clubbing club";
+        url = "";
+		additional_info = " in "+((get_property_int("clubEmNextWeekMonsterTurn") + 8) - total_turns_played())+" turns";
+    }
 	if (shaking_shorthand_name != "") {
 		resource_entries.listAppend(ChecklistEntryMake(image_name, url, ChecklistSubentryMake(shaking_shorthand_name.capitaliseFirstLetter() + additional_info, "", line),-79).ChecklistEntrySetIDTag("Copy item " + shaking_shorthand_name));
 	}
@@ -577,9 +585,16 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
     {
         int maps_taken = get_property_int("_monstersMapped");
 		int maps_left = 3 - maps_taken;
-		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(maps_left, "cast of Map the Monsters <font color='red' size='1'>(choose)</font>", "casts of Map the Monsters <font color='red' size='1'>(choose)</font>") + "", "", ""));
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(maps_left, "cast of Map the Monsters <font color='green' size='1'>(choose)</font>", "casts of Map the Monsters <font color='green' size='1'>(choose)</font>") + "", "", ""));
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__skill Map the Monsters";
+    }
+	//peridot of peril
+    if (__iotms_usable[lookupItem("peridot of peril")])
+    {
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(1, "Peridot equipped in any location <font color='green' size='1'>(choose)</font>", "Peridot equipped in any location <font color='green' size='1'>(choose)</font>") + "", "", ""));
+        if (copy_source_entry.image_lookup_name == "")
+            copy_source_entry.image_lookup_name = "__item peridot of peril";
     }
     //combat lover's locket		_locketMonstersFought = comma separated list of monster id's
 	string[int] lmf = split_string(get_property("_locketMonstersFought"),",");
@@ -605,6 +620,18 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__item pocket wish";
     }
+	
+	if (__iotms_usable[$item[Time-Spinner]]) {
+		int minutes_left = clampi(10 - get_property_int("_timeSpinnerMinutesUsed"), 0, 10);
+		int amount = minutes_left / 3;
+		copy_source_entry.image_lookup_name = "__item time-spinner";
+		if (minutes_left >= 3) {
+			//Recent fight - 3 minutes - fight something past. Umm... hmm... same as any monster you copy? Though with restrictions. Plus olfaction-lite in NA.
+			copy_source_entry.subentries.listAppend(ChecklistSubentryMake(HTMLGenerateSpanOfClass(pluralise(amount, "Time-Spinner recent fight <font color='red' size='1'>(fax)</font>", "Time-Spinner recent fights <font color='red' size='1'>(fax)</font>"), "r_bold") + "<br>:: Re-fight a monster from this ascension."));
+		}
+	}
+
+	
 	//beGregariousCharges
 	int greg_copies = 3 * get_property_int("beGregariousCharges");
 	if	( get_property_int("beGregariousCharges") > 0 && greg_copies > 0 ) {
@@ -673,7 +700,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
 	
 	//patriotic eagle
 	if	( $familiar[patriotic eagle].familiar_is_usable() && have_effect($effect[Everything Looks Red, White and Blue]) == 0 ) {
-		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(1, "red, white & blue blast&nbsp;&nbsp;(2 immediate copies)", "") + "", "", ""));
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(1, "Eagle red, white & blue blast&nbsp;&nbsp;(2 immediate copies)", "") + "", "", ""));
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__familiar patriotic eagle";
             //copy_source_entry.image_lookup_name = "__skill Recall Facts: Monster Habitats";
@@ -681,7 +708,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
 	//habitat recalls, book of facts, Just the Facts
 	if	(skill_is_usable($skill[Just the Facts]) && get_property_int("_monsterHabitatsRecalled") < 3 ) {
 		int jtfCastsLeft = 3 - get_property_int("_monsterHabitatsRecalled");
-		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(jtfCastsLeft, "cast of habitat recall", "casts of habitat recall") + "&nbsp;&nbsp;(6 wandering copies)", "", ""));
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise(jtfCastsLeft, "BoF cast of habitat recall", "BoF casts of habitat recall") + "&nbsp;&nbsp;(6 wandering copies)", "", ""));
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__item book of facts";
 	}
@@ -694,7 +721,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
 	}
 	
 	if	( have_skill($skill[Meteor Lore]) && is_unrestricted($skill[Meteor Lore]) && get_property_int("_macrometeoriteUses") < 10 ) {
-		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise((10 - get_property_int("_macrometeoriteUses")), "macrometorite <font color='red'>replacement</font> monster", "macrometorite <font color='blue'>replacement</font> monsters") + "", "cast in combat", ""));
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise((10 - get_property_int("_macrometeoriteUses")), "macrometeorite <font color='red'>replacement</font> monster", "macrometeorite <font color='blue'>replacement</font> monsters") + "", "cast in combat", ""));
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__skill macrometeor";
 	}
@@ -710,12 +737,19 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
 	
 	
 	
-	if	( have_effect($effect[Everything Looks Purple]) < 1 && __iotms_usable[$item[Roman candelabra]]) {
+	if	( have_effect($effect[Everything Looks Purple]) < 1 ) {
 		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise($item[roman candelabra].available_amount(), "chained candelabra purple ray copy", "chained candelabra purple ray copies") + "", "", ""));
 		if (copy_source_entry.image_lookup_name == "")
 			copy_source_entry.image_lookup_name = "__item roman candelabra";
 	}
 	
+	item LSCC = $item[legendary seal-clubbing club];
+	if	( LSCC.available_amount() > 0 && is_unrestricted(LSCC) && get_property_int("_clubEmNextWeekUsed") < 5 ) {
+		//_clubEmNextWeekUsed	clubEmNextWeekMonster	clubEmNextWeekMonsterTurn		total_turns_played() - get_property_int("")
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise((5 - get_property_int("_clubEmNextWeekUsed")), "LSCC next week wanderer", "LSCC next week wanderers") + "", "cast in combat", ""));
+		if (copy_source_entry.image_lookup_name == "")
+			copy_source_entry.image_lookup_name = "__item legendary seal-clubbing club";
+	}
 	
 	string[int] dummy;
 	dummy[0] = "dummy entry";
@@ -758,6 +792,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
 		SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[mimic egg], "mimic egg", "dummymonster");
 	}
     SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[Spooky VHS Tape], "spooky vhs wanderer", "spookyVHSTapeMonster");
+    SCopiedMonstersGenerateResourceForCopyType(resource_entries, $item[Legendary seal-clubbing club], "LSCC next week wanderer", "clubEmNextWeekMonster");
 }
 
 

@@ -45,7 +45,7 @@ void IOTMChestMimicGenerateResourceBETA(ChecklistEntry [int] resource_entries)
 		description.listAppend("Currently have " + HTMLGenerateSpanOfClass(chestExperience, "r_bold") + " experience, currently gain " + HTMLGenerateSpanOfClass(famExperienceGain, "r_bold") + " fam exp per fight.");
 		description.listAppend("Can currently add <span style='color:red; font-weight:bold;'>"+chestCopiesAvailable+"</span> copies to the egg.");
 		description.listAppend("Can currently fight <span style='color:red; font-weight:bold;'>"+chestFaxesAvailable+"</span> chest mimic monster faxes.");
-		description.listAppend("Need " + HTMLGenerateSpanOfClass(famExpNeededForNextEgg, "r_bold") + " more famxp for next egg. (" + fightsForNextEgg + " fight(s))");
+		description.listAppend("Need " + HTMLGenerateSpanOfClass(famExpNeededForNextEgg, "r_bold") + " more famxp for next egg. (" + fightsForNextEgg+")");
 		description.listAppend("Can lay " + HTMLGenerateSpanOfClass(mimicEggsLeft, "r_bold") + " more eggs today.");
 		resource_entries.listAppend(ChecklistEntryMake("__familiar chest mimic", url, ChecklistSubentryMake(HTMLGenerateSpanFont("Chest mimic fxp (beta)", "black"), "", description), -50));
 	}

@@ -83,33 +83,34 @@ void IOTMPrismaticBeretGenerateResource(ChecklistEntry [int] resource_entries)
 		pantspower += get_power(thing);
 	}
 	
-	if (__iotms_usable[lookupItem("prismatic beret")] || busksLeft > 0) 
-	{
-		item iref1 = $item[prismatic beret];
-		string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
-		string iref1clr = (have_equipped(iref1)) ? "green":"red";
-		description.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
-		//_beretBlastUses
-		//_beretBoastUses
-		//_beretBuskingUses
-		
-		
-        string hatrackText = canHatrack ? "(Can equip on hatrack)" : "";
-        boolean hatrackEquipped = equipped_item($slot[familiar]) == lookupItem("prismatic beret");
-        if (hatrackEquipped) hatrackText = "";
-		total = hatpower + pantspower;
-		if (lookupSkill("tao of the terrapin").have_skill()) total += hatpower*2 + pantspower*2;
-        if ($effect[Hammertime].have_effect() > 0) total += pantspower*3;
-		description.listAppend("Currently " + (HTMLGenerateSpanFont(shartpower+total, "blue")) + " total hat/shirt/pants power. ");
-		description.listAppend((HTMLGenerateSpanFont("2 MORE SKILLS TO ADD???", "red")));
-		
-		if (lookupItem("prismatic beret").equipped_amount() == 0) {
-			description.listAppend(HTMLGenerateSpanFont("Equip the beret to busk! ", "red")+hatrackText);
-		}
-        if (canHatrack && !hatrackEquipped && lookupItem("prismatic beret").equipped_amount() > 0) {
-            description.listAppend("|*Consider equipping to your hatrack for more options.");
-        }
-		
-		resource_entries.listAppend(ChecklistEntryMake("__item prismatic beret", url, ChecklistSubentryMake(title, "", description), importancenum));
+	item iref1 = $item[prismatic beret];
+	string iref1txt1 = (have_equipped(iref1)) ? iref1+" is equipped ("+iref1.to_slot()+").":"Equip the "+iref1+" ("+iref1.to_slot()+")";
+	string iref1clr = (have_equipped(iref1)) ? "green":"red";
+	description.listAppend("<span style='color:"+iref1clr+";'>"+iref1txt1+"</span>");
+	//_beretBlastUses
+	//_beretBoastUses
+	//_beretBuskingUses
+	
+	
+	string hatrackText = canHatrack ? "(Can equip on hatrack)" : "";
+	boolean hatrackEquipped = equipped_item($slot[familiar]) == lookupItem("prismatic beret");
+	if (hatrackEquipped) hatrackText = "";
+	total = hatpower + pantspower;
+	if (lookupSkill("tao of the terrapin").have_skill()) total += hatpower*2 + pantspower*2;
+	if ($effect[Hammertime].have_effect() > 0) total += pantspower*3;
+	description.listAppend("Currently " + (HTMLGenerateSpanFont(shartpower+total, "blue")) + " total hat/shirt/pants power. ");
+	
+	if (canHatrack && !hatrackEquipped && lookupItem("prismatic beret").equipped_amount() > 0) {
+		description.listAppend("|*Consider equipping to your hatrack for more options.");
 	}
+	//_beretBlastUses		_beretBoastUses		_beretBuskingUses
+
+	if (get_property_int("_beretBlastUses") < 11) {
+		description.listAppend("Beret Blast: prismatic dmg "+get_property_int("_beretBlastUses")+"/11");
+	}
+	if (get_property_int("_beretBoastUses") < 11) {
+		description.listAppend("Beret Boast: delevel "+get_property_int("_beretBoastUses")+"/11");
+	}
+	
+	resource_entries.listAppend(ChecklistEntryMake("__item prismatic beret", url, ChecklistSubentryMake(title, "", description), importancenum));
 }

@@ -73,7 +73,7 @@ void IOTMRockGardenGenerateResource(ChecklistEntry [int] resource_entries) {
     int availableWhetStones = available_amount($item[whet stone]);
 
     // Ascension stuff
-    if (!__misc_state["in run"] ||
+    if (__misc_state["in run"] ||
         my_path().id == PATH_COMMUNITY_SERVICE ||
         availableGravels + availableMilestones + availableWhetstones == 0)
         return;

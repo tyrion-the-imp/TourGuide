@@ -522,7 +522,7 @@ buffer ChecklistEntryGenerateContentHTML(ChecklistEntry entry, ChecklistSubentry
 			if	( entry.importance_level == -62 ) {
 				tile_notes = " <br>--- (<span style='color:red; background-color:yellow; font-weight:bold;'>'free instakill'</span>) tag tile";
 			}
-			if	( entry.importance_level == -65 ) {
+			if	( entry.importance_level == -65 || entry.importance_level == -199 ) {
 				tile_notes = " <br>--- (<span style='color:red; background-color:yellow; font-weight:bold;'>'daily free fight'</span>) tag tile";
 			}
 			if	( entry.importance_level == -68 ) {
@@ -662,39 +662,8 @@ buffer ChecklistGenerate(Checklist cl, boolean output_borders) {
 		//-50 Copied Monsters.ash stuff
 		
 		if ( entry.tags.combination == "daily free fight" ) {
-			entry.importance_level = -64;
-			if	( turns_played() < 11 ) {
-				entry.importance_level = -99;
-			}
-			if	( my_daycount() > 1 ) {
-				//entry.importance_level = -20;
-			}
-			//print(entry.url);
-			//this rank doesn't determine the order listed
-			//...only the order of which one is listed FIRST
-			//..and therefore which URL is clickable
-			//..in the tile (and which image is used)
-			
-			//cyber realm overclocked
-			if	( entry.url.index_of("CyberRealm") > -1 ) { entry.importance_level -= 100; }
-			//oliver's brawl
-			if	( entry.url.index_of("speakeasy") > -1 ) { entry.importance_level -= 90; }
-			//science tent tentacle
-			if ( entry.url.index_of("fv_scientist") > -1 ) { entry.importance_level -= 80; }
-			//evoke eldritch horror tentacle
-			if	( entry.url.index_of("skillz.php") > -1 ) { entry.importance_level -= 70; }
-			//shadow fights
-			if	( entry.url.index_of("11169") > -1 ) { entry.importance_level -= 50; }
-			//cursed magnifying glass
-			if	( entry.url.index_of("magnifying") > -1 ) { entry.importance_level -= 40; }
-			//burning leaves
-			if	( entry.url.index_of("leaves") > -1 ) { entry.importance_level -= 30; }
-			//assert your authority, free kill a monster, meat drops only
-			if	( entry.url.index_of("sheriff") > -1 ) { entry.importance_level -= 20; }
-			//trick or treat
-			if	( entry.url.index_of("candy-rich") > -1 ) { entry.importance_level -= 10; }
-			
-			if	( my_level() > 10 ) { entry.importance_level = -65; }
+			entry.importance_level = -199;
+			if	( my_level() > 8 ) { entry.importance_level = -65; }
 		}
 		
         if (!(combination_tag_entries contains entry.tags.combination)) {

@@ -4,10 +4,10 @@ Importance Level			Tile type
 -5000						stuffed yam stinkbomb banishers available
 -999						Lucky!
 -100						Grimace Maps
--79							copies
--70							sneaks
+-79							copies tile
+-70							sneaks tile
 -69							banish(es|ers)					"banish" combo tag
--65							free fights & instakills		"daily free fight" combo tag
+-65							free fights 					"daily free fight" combo tag			-199 for pre level 8
 -62							mixture from someone else?		"free instakill" combo tag
 -60							yellow rays
 -55							runaways

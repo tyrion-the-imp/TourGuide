@@ -10,7 +10,7 @@ void IOTMArchaeologistSpadeGenerateResource(ChecklistEntry [int] resource_entrie
     string title;
     string url;
     string [int] description;
-	int importancenum = ( get_property_boolean("kingLiberated") ) ? -30:-30;
+	int importancenum = ( get_property_boolean("kingLiberated") ) ? -30:-65;
     url = "inv_use.php?pwd=" + my_hash() + "&whichitem=12184";
     title = pluralise(digsLeft, "Archaeologist's Spade dig","Archaeologist's Spade digs");
 	description.listAppend("<span style='color:blue; font-size:85%; font-weight:bold;'>Usable from inventory</span>");

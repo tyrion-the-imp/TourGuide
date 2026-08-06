@@ -45,7 +45,6 @@ void QLevel9Init()
 		}
         // If user has bat wings, they can cross @ 25 
         int totalNeeded = 30;
-        if (available_amount($item[bat wings]) > 0) totalNeeded = 25;
 		
 		int fasteners_needed = MAX(0, totalNeeded - fasteners_have);
 		int lumber_needed = MAX(0, totalNeeded - lumber_have);
