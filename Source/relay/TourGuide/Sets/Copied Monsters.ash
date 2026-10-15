@@ -731,6 +731,7 @@ void SCopiedMonstersGenerateResource(ChecklistEntry [int] resource_entries)
 		copy_source_entry.subentries.listAppend(ChecklistSubentryMake(pluralise($item[phosphor traces].available_amount(), "phosphor traces", "phosphor traces") + "", "", ""));
 		copy_source_entry.subentries.listAppend(ChecklistSubentryMake("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color='black'>fight one immediate copy for 3 spleen</font>", "", ""));
 		copy_source_entry.subentries.listAppend(ChecklistSubentryMake("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(gives <span style='color:green; font-weight:bold;'>Create an Afterimage</span> combat skill)", "", ""));
+		copy_source_entry.subentries.listAppend(ChecklistSubentryMake("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current <span style='color:gray; font-size:100%; font-weight:bold;'>phosphorTracesUses</span>: <span style='color:red; font-size:100%; font-weight:bold;'>"+get_property_int("phosphorTracesUses")+"</span>", "", ""));
         if (copy_source_entry.image_lookup_name == "")
             copy_source_entry.image_lookup_name = "__item phosphor traces";
 	}
